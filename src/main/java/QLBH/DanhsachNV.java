@@ -23,10 +23,8 @@ public class DanhsachNV extends Application {
 		stage.setTitle("Phan mem quan ly ban hang");
 		stage.show();	
 	}
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);
 	}
-
 }
