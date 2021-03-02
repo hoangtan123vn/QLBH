@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 //thaideptrai
+//thaicute
 public class DanhsachNV extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
