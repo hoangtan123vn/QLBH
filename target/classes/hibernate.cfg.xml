@@ -33,6 +33,7 @@
 		<property name="hbm2ddl.auto">update</property>
 		
 		<!-- Names of the annotated entity class -->
-		<mapping class="QLBH.Nhanvien" />		
+		<mapping class="QLBH.Nhanvien" />	
+		<mapping class="QLBH.Sanpham" />	
 	</session-factory>
 </hibernate-configuration>

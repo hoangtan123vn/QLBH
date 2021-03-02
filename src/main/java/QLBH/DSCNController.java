@@ -29,7 +29,7 @@ import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 
-public class DSNVController implements  Initializable {
+public class DSCNController implements  Initializable {
 
 	@FXML
     private Button idaddNV;
