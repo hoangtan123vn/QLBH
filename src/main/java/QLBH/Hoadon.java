@@ -4,8 +4,8 @@ import javax.persistence.*;
 @Table(name="hoadon")
 public class Hoadon {
 	@Id 
-	private int mahoadon;
-	private int thoigian;
+	private String mahoadon;
+	private String thoigianmua;
 	private int tonggia;
 	private int makh;
 	private int manv;
@@ -16,26 +16,26 @@ public class Hoadon {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Hoadon(int mahoadon, int thoigian, int tonggia, int makh, int manv) {
+	public Hoadon(String mahoadon, String thoigianmua, int tonggia, int makh, int manv) {
 		super();
 		//this.id=id;
 		this.mahoadon=mahoadon;
-		this.thoigian=thoigian;
+		this.thoigianmua=thoigianmua;
 		this.tonggia=tonggia;
 		this.makh=makh;
 		this.manv=manv;
 	}
-	public int getMahoadon() {
+	public String getMahoadon() {
 		return mahoadon;
 	}
-	public void setMahoadon(int mahoadon) {
+	public void setMahoadon(String mahoadon) {
 		this.mahoadon = mahoadon;
 	}
-	public int getThoigian() {
-		return thoigian;
+	public String getThoigianmua() {
+		return thoigianmua;
 	}
-	public void setThoigian(int thoigian) {
-		this.thoigian = thoigian;
+	public void setThoigianmua(String thoigianmua) {
+		this.thoigianmua = thoigianmua;
 	}
 	public int getTonggia() {
 		return tonggia;
