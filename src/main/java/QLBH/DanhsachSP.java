@@ -12,18 +12,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-//thaideptrai
-//thaicute
-public class DanhsachNV extends Application {
+
+public class DanhsachSP extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
-		Parent root = FXMLLoader.load(getClass().getResource("danhsachnhanvien.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("danhsachsanpham.fxml"));
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Phan mem quan ly ban hang");
 		stage.show();	
-	}
+}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args);

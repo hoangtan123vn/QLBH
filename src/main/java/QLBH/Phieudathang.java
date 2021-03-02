@@ -10,13 +10,13 @@ public class Phieudathang {
 	
 	@Id
 	private int madathang;
-	private Integer thoigiandat;
+	private String thoigiandat;
 	private int tongtien;
 	private int mancc;
 	private int manv;
 	
 	
-	public Phieudathang(int madathang, Integer thoigiandat, int tongtien, int mancc, int manv) {
+	public Phieudathang(int madathang, String thoigiandat, int tongtien, int mancc, int manv) {
 		super();
 		this.madathang = madathang;
 		this.thoigiandat = thoigiandat;
@@ -36,12 +36,12 @@ public class Phieudathang {
 	}
 
 
-	public Integer getThoigiandat() {
+	public String getThoigiandat() {
 		return thoigiandat;
 	}
 
 
-	public void setThoigiandat(Integer thoigiandat) {
+	public void setThoigiandat(String thoigiandat) {
 		this.thoigiandat = thoigiandat;
 	}
 
