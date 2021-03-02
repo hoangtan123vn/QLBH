@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Button?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="qlbhh.qlbhh.LoginController">
+    <padding>
+        <Insets bottom="40" left="40" right="40" top="40" />
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints halignment="RIGHT" maxWidth="Infinity" minWidth="100.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="200.0" prefWidth="200.0" />
+    </columnConstraints>
+   <children>
+       <!-- Add Email Label -->
+       <Label prefHeight="17.0" prefWidth="63.0" text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+       <!-- Add Email Text Field -->
+       <TextField fx:id="emailIdField" prefHeight="40" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+       <!-- Add Password Label -->
+       <Label text="Password : " GridPane.columnIndex="1" GridPane.rowIndex="3" />
+       <!-- Add Password Field -->
+       <PasswordField fx:id="passwordField" prefHeight="39.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+       <!-- Add Submit Button -->
+       <Button fx:id="submitButton" contentDisplay="CENTER" defaultButton="true" onAction="#login" prefHeight="40" prefWidth="100" text="LOGIN" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.rowSpan="1">
+           <GridPane.margin>
+               <Insets bottom="20" left="0" right="0" top="20" />
+           </GridPane.margin>
+       </Button>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3" />
+      <ImageView fitHeight="194.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+         <image>
+            <Image url="@..../../../../../Library/Mobile%20Documents/com~apple~CloudDocs/opencv-py/sgu.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="57.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <image>
+            <Image url="@../../../../../../../Library/Mobile%20Documents/com~apple~CloudDocs/opencv-py/icon.png" />
+         </image>
+      </ImageView>
+      <Label prefHeight="42.0" prefWidth="194.0" text=" " GridPane.columnIndex="2" GridPane.rowIndex="1" />
+   </children>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints maxHeight="104.0" minHeight="4.0" prefHeight="104.0" />
+      <RowConstraints maxHeight="175.0" minHeight="44.0" prefHeight="64.0" />
+      <RowConstraints maxHeight="231.0" minHeight="88.0" prefHeight="95.0" />
+      <RowConstraints maxHeight="76.0" minHeight="49.0" prefHeight="57.0" />
+   </rowConstraints>
+</GridPane>
