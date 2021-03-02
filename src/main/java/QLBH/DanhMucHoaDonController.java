@@ -58,12 +58,12 @@ import QLBH.Nhanvien;
 import QLBH.Hoadon;
 import QLBH.Phieudathang;
 
-public class DSNVController implements Initializable {
+public class DanhMucHoaDonController implements Initializable {
 	
 	
 	/*
 	 * 
-	 * ----------------------FXML Danh Sách Nhân Viên------------------------------
+	 * ----------------------FXML Danh SÃ¡ch NhÃ¢n ViÃªn------------------------------
 	 * 
 	 */
 	
@@ -125,7 +125,7 @@ public class DSNVController implements Initializable {
 	
 	/*
 	 * 
-	 * --------------------------FXML Danh Mục Phiếu Hóa Đơn------------------------- 
+	 * --------------------------FXML Danh Má»¥c Phiáº¿u HÃ³a Ä�Æ¡n------------------------- 
 	 * 
 	 */
 	
@@ -202,7 +202,7 @@ public class DSNVController implements Initializable {
 	
     /*
      * 
-     *--------------------- FXML Danh mục phiếu đặt hàng-----------------------------
+     *--------------------- FXML Danh má»¥c phiáº¿u Ä‘áº·t hÃ ng-----------------------------
      * 
      */
     
@@ -245,7 +245,7 @@ public class DSNVController implements Initializable {
     
     /*
      * 
-     *--------------------- FXML Danh mục phiếu nhập hàng-----------------------------
+     *--------------------- FXML Danh má»¥c phiáº¿u nháº­p hÃ ng-----------------------------
      * 
      */
     @FXML
@@ -280,7 +280,7 @@ public class DSNVController implements Initializable {
     
     /*
      * 
-     *--------------------- FXML Danh mục phiếu trả hàng-----------------------------
+     *--------------------- FXML Danh má»¥c phiáº¿u tráº£ hÃ ng-----------------------------
      * 
      */
   
@@ -319,13 +319,13 @@ public class DSNVController implements Initializable {
  
 
 /*
- * ---------------------------Lấy dữ liệu từ CSDL----------------------------------
+ * ---------------------------Láº¥y dá»¯ liá»‡u tá»« CSDL----------------------------------
  */
     
     
 	public void initialize(URL url, ResourceBundle rb) {
 		
-//------------------------------------Nhân viên------------------------------------
+//------------------------------------NhÃ¢n viÃªn------------------------------------
 		// id.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("id"));
 		hovaten.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("hovaten"));
 		ngaysinh.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("ngaysinh"));
@@ -334,7 +334,7 @@ public class DSNVController implements Initializable {
 		cmnd.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("cmnd"));
 		tableNV.setItems(getNhanvien());
 								
-//--------------------------------------Hóa đơn-----------------------------------							
+//--------------------------------------HÃ³a Ä‘Æ¡n-----------------------------------							
 
 		mahoadon.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("mahoadon"));
 		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
@@ -346,7 +346,7 @@ public class DSNVController implements Initializable {
 		
 		
 	
-//---------------------------------------Phiếu đặt hàng------------------------------	
+//---------------------------------------Phiáº¿u Ä‘áº·t hÃ ng------------------------------	
 
 		madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("madathang"));
 		thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("thoigiandat"));
@@ -366,11 +366,11 @@ public class DSNVController implements Initializable {
 
 		/** id.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("idNV"));
 		 * hovaten.setCellValueFactory(new PropertyValueFactory<Nhanvien,
-		 * String>("Há»� vÃ  tÃªn")); ngaysinh.setCellValueFactory(new
-		 * PropertyValueFactvory<Nhanvien, Integer>("NgÃ y sinh"));
+		 * String>("HÃ¡Â»ï¿½ vÃƒÂ  tÃƒÂªn")); ngaysinh.setCellValueFactory(new
+		 * PropertyValueFactvory<Nhanvien, Integer>("NgÃƒÂ y sinh"));
 		 * chucvu.setCellValueFactory(new PropertyValueFactory<Nhanvien,
-		 * String>("Chá»©c vá»¥")); sdt.setCellValueFactory(new
-		 * PropertyValueFactory<Nhanvien, Integer>("Sá»‘ Ä‘iá»‡n thoáº¡i"));
+		 * String>("ChÃ¡Â»Â©c vÃ¡Â»Â¥")); sdt.setCellValueFactory(new
+		 * PropertyValueFactory<Nhanvien, Integer>("SÃ¡Â»â€˜ Ã„â€˜iÃ¡Â»â€¡n thoÃ¡ÂºÂ¡i"));
 		 * cmnd.setCellValueFactory(new PropertyValueFactory<Nhanvien,
 		 * Integer>("CMND")); tableNV.setItems(getNhanvien());
 		 */
@@ -379,11 +379,11 @@ public class DSNVController implements Initializable {
 
 
 /*
- * -------------------------------Đổ dữ liệu lên table view-------------------------- 
+ * -------------------------------Ä�á»• dá»¯ liá»‡u lÃªn table view-------------------------- 
  */
 	
 									 /* 
-									  * Danh sách nhân viên 
+									  * Danh sÃ¡ch nhÃ¢n viÃªn 
 									 */
 	public ObservableList<Nhanvien> getNhanvien() {
 		ObservableList<Nhanvien> TableNV = FXCollections.observableArrayList();
@@ -421,7 +421,7 @@ public class DSNVController implements Initializable {
 	}
 	
 							/*
-									 * Danh mục phiếu hóa đơn
+									 * Danh má»¥c phiáº¿u hÃ³a Ä‘Æ¡n
 									 */
 	public ObservableList <Hoadon> getHoadon() {
 		ObservableList <Hoadon> tableHoadon = FXCollections.observableArrayList();
