@@ -9,7 +9,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -667,6 +671,239 @@ public class DSNVController extends Application implements  Initializable  {
 //////////////////////////////////CHỨC NĂNG : DANH MỤC  ///////////*************************
 ///////////////////
 	    
+	    @FXML
+	    private Label lbTitleStore;
+	 
+	@FXML
+    private Tab tabDanhMuc;
+	
+	@FXML
+    private ImageView logo;
+	
+    @FXML
+    private ImageView avata;
+
+    @FXML
+    private TabPane tabPaneQLDM;
+    
+    @FXML
+    private TabPane tabPaneid;
+	
+	/*
+	 * 
+	 * --------------------------FXML Danh Mục Phiếu Hóa Đơn------------------------- 
+	 * 
+	 */
+	
+    @FXML
+    private Tab sTab_PhieuHoaDon;
+
+
+    @FXML
+    private TableColumn mahoadon;
+
+
+    @FXML
+    private TableColumn thoigianmua;
+
+    @FXML
+    private TableColumn  tonggia;
+
+    @FXML
+    private TableColumn  makh;
+
+    @FXML
+    private TableColumn  manv;
+
+    @FXML
+    private TextField searchPHD;
+
+  
+
+    @FXML
+    private Label lbDanhMucPHD;
+ 
+    @FXML
+    private ScrollBar verticalPHD;
+    
+    
+    @FXML
+    private TableView <Hoadon> tableHoaDon;
+    
+     ObservableList<Hoadon> list;
+    
+    
+    
+    
+    /*
+     * 
+     *--------------------- FXML Danh mục phiếu đặt hàng-----------------------------
+     * 
+     */
+    
+    
+    
+     @FXML
+     private Tab sTab_PhieuDatHang;
+
+     @FXML
+     private Label lbDanhMucPDH;
+
+     @FXML
+     private TextField searchPDH;
+
+     @FXML
+     private Button btnSearchPDH;
+
+     @FXML
+     private TableView<Phieudathang> tablePhieuDatHang;
+
+     @FXML
+     private TableColumn madathang;
+
+     @FXML
+     private TableColumn mancc;
+     
+     @FXML
+     private TableColumn thoigiandat;
+
+     @FXML
+     private TableColumn tongtien;
+
+     @FXML
+     private ScrollBar verticalPDH;
+     
+     @FXML
+     void searchPDH(ActionEvent event) {
+
+     }
+     
+     /*
+      * 
+      *--------------------- FXML Danh mục phiếu nhập hàng-----------------------------
+      * 
+      */
+     @FXML
+     private Tab sTab_PhieuNhapHang;
+
+     @FXML
+     private Label lbDanhMucPNH;
+
+     @FXML
+     private TextField searchPNH;
+
+     @FXML
+     private Button btnSearchPNH;
+
+     @FXML
+     private TableView<Phieunhaphang> tablePhieuNhapHang;
+
+     @FXML
+     private TableColumn manhaphang;
+    
+     @FXML
+     private TableColumn thoigiannhap;
+
+     @FXML
+     private ScrollBar verticalPNH;
+     
+     @FXML
+     void searchPNH(ActionEvent event) {
+
+     }
+     
+     
+     /*
+      * 
+      *--------------------- FXML Danh mục phiếu trả hàng-----------------------------
+      * 
+      */
+   
+     @FXML
+     private Tab sTab_PhieuTraHang;
+
+     @FXML
+     private Button btnSearchPTH;
+
+     @FXML
+     private TableView<Phieutrahang> tablePhieuTraHang;
+
+     @FXML
+     private TableColumn maphieutra;
+
+     @FXML
+     private TableColumn lido;
+     
+     @FXML
+     private TableColumn thoigiantra;
+
+     @FXML
+     private TextField searchPTH;
+
+     @FXML
+     private Label lbDanhMucPTH;
+
+     @FXML
+     private ScrollBar verticalPTH;
+
+     @FXML
+     void searchPTH(ActionEvent event) {
+
+     }
+     
+
+    @FXML
+    private Text txtTitle_store;
+   
+    public ObservableList <Hoadon> getHoadon() {
+		ObservableList <Hoadon> tableHoadon = FXCollections.observableArrayList();
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+
+		CriteriaQuery <Hoadon> hd= session.getCriteriaBuilder().createQuery(Hoadon.class);
+		hd.from(Hoadon.class);
+		List<Hoadon> eList = session.createQuery(hd).getResultList();
+		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+		for (Hoadon ent : eList) {
+			tableHoadon.add(ent);
+		}
+		return tableHoadon;		
+	}
+    
+    void searchPHD() {   
+    	ObservableList<Hoadon> tbHoaDon = FXCollections.observableArrayList(getHoadon());
+    	
+        FilteredList<Hoadon> filteredData = new FilteredList<>(tbHoaDon, b -> true);  
+        searchPHD.textProperty().addListener((observable, oldValue, newValue) -> {
+        filteredData.setPredicate(hoadon -> {
+           if (newValue == null || newValue.isEmpty()) {
+            return true;
+           }    
+           String lowerCaseFilter = newValue.toLowerCase();
+           
+           if (hoadon.getMahoadon().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+            return true; // Filter matches username
+           } 
+           else if (hoadon.getThoigianmua().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+            return true; // Filter matches password
+           }               
+                else  
+                 return false; // Does not match.
+          });
+         });  
+        
+     
+		SortedList<Hoadon> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
+		tableHoaDon.setItems(sortedData);  
+    	        
+    	    }    
+
+	    
 	    
 	    
 /////////////////////////////AUTHOR :LÊ QUANG SANG /////////////////////////************************** 
@@ -720,9 +957,14 @@ public class DSNVController extends Application implements  Initializable  {
         donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
         tableSP.setItems(getSanpham());
 		Timkiem();
-		
-    	
-    	//search();
+		//QL danh mục phiếu hóa đơn //Nhi
+		mahoadon.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("mahoadon"));
+		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
+		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("tonggia"));
+		makh.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("makh"));
+		manv.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("manv"));
+		tableHoaDon.setItems(getHoadon());
+	 	searchPHD();	
     	
     }
 	
