@@ -218,14 +218,13 @@
                                     <TableView fx:id="tableHoaDon" layoutX="21.0" layoutY="113.0" prefHeight="200.0" prefWidth="621.0">
                                        <columns>
                                           <TableColumn fx:id="mahoadon" prefWidth="111.19998741149902" text="Mã hóa đơn " />
-                                          <TableColumn fx:id="thoigian" prefWidth="152.79998779296875" text="Thời gian mua " />
+                                          <TableColumn fx:id="thoigianmua" prefWidth="152.79998779296875" text="Thời gian mua " />
                                           <TableColumn fx:id="tonggia" prefWidth="117.5999755859375" text="Tổng giá " />
                                           <TableColumn fx:id="makh" minWidth="0.0" prefWidth="123.19998168945312" text="Mã khách hàng " />
                                           <TableColumn fx:id="manv" prefWidth="134.4000244140625" text="Mã nhân viên " />
                                        </columns>
                                     </TableView>
                                     <TextField fx:id="searchPHD" layoutX="383.0" layoutY="48.0" promptText="Tìm theo mã hóa đơn" />
-                                    <Button fx:id="btnSearchPHD" layoutX="576.0" layoutY="48.0" mnemonicParsing="false" onAction="#searchPHD" text="Tìm kiếm" />
                                     <Label fx:id="lbDanhMucPHD" layoutX="113.0" layoutY="30.0" text="DANH MỤC PHIẾU HÓA ĐƠN " />
                                     <ScrollBar fx:id="verticalPHD" layoutX="643.0" layoutY="113.0" orientation="VERTICAL" prefHeight="197.0" prefWidth="14.0" />
                                  </children>
