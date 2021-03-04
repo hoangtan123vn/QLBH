@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Phieunhaphang {
 	
 	@Id
-	private int manhaphang;
+	private String manhaphang;
 	private String thoigiannhap;
 	private int tongtien;
 	private int mancc;
@@ -17,7 +17,7 @@ public class Phieunhaphang {
 	
 	
 	
-	public Phieunhaphang(int manhaphang, String thoigiannhap, int tongtien, int mancc, int manv) {
+	public Phieunhaphang(String manhaphang, String thoigiannhap, int tongtien, int mancc, int manv) {
 		super();
 		this.manhaphang = manhaphang;
 		this.thoigiannhap = thoigiannhap;
@@ -26,11 +26,11 @@ public class Phieunhaphang {
 		this.manv = manv;
 	}
 
-	public int getManhaphang() {
+	public String getManhaphang() {
 		return manhaphang;
 	}
 
-	public void setManhaphang(int manhaphang) {
+	public void setManhaphang(String manhaphang) {
 		this.manhaphang = manhaphang;
 	}
 

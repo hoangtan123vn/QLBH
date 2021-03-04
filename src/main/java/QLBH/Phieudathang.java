@@ -9,14 +9,14 @@ import javax.persistence.*;
 public class Phieudathang {
 	
 	@Id
-	private int madathang;
+	private String madathang;
 	private String thoigiandat;
 	private int tongtien;
 	private int mancc;
 	private int manv;
 	
 	
-	public Phieudathang(int madathang, String thoigiandat, int tongtien, int mancc, int manv) {
+	public Phieudathang(String madathang, String thoigiandat, int tongtien, int mancc, int manv) {
 		super();
 		this.madathang = madathang;
 		this.thoigiandat = thoigiandat;
@@ -26,12 +26,12 @@ public class Phieudathang {
 	}
 
 
-	public int getMadathang() {
+	public String getMadathang() {
 		return madathang;
 	}
 
 
-	public void setMadathang(int madathang) {
+	public void setMadathang(String madathang) {
 		this.madathang = madathang;
 	}
 

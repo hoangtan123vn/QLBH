@@ -733,7 +733,7 @@ public class DSNVController extends Application implements  Initializable  {
     @FXML
     private TableView <Hoadon> tableHoaDon;
     
-     ObservableList<Hoadon> list;
+     ObservableList<Hoadon> listPHD;
     
      
      //HÓA ĐƠN
@@ -825,10 +825,38 @@ public class DSNVController extends Application implements  Initializable  {
      @FXML
      private ScrollBar verticalPDH;
      
+     
+     ObservableList<Phieudathang> listPDH;
+     
      @FXML
-     void searchPDH(ActionEvent event) {
-
-     }
+     void searchPDH() {   
+      	ObservableList<Phieudathang> tbPhieuDatHang = FXCollections.observableArrayList(getPhieudathang());
+      	
+          FilteredList<Phieudathang> filteredData = new FilteredList<>(tbPhieuDatHang, b -> true);  
+          searchPDH.textProperty().addListener((observable, oldValue, newValue) -> {
+          filteredData.setPredicate(phieudathang -> {
+             if (newValue == null || newValue.isEmpty()) {
+              return true;
+             }    
+             String lowerCaseFilter = newValue.toLowerCase();
+             
+             if (phieudathang.getMadathang().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+              return true; // Filter matches username
+             } 
+             else if (phieudathang.getThoigiandat().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+              return true; // Filter matches password
+             }               
+                  else  
+                   return false; // Does not match.
+            });
+           });  
+          
+       
+  		SortedList<Phieudathang> sortedData = new SortedList<>(filteredData);
+  		sortedData.comparatorProperty().bind(tablePhieuDatHang.comparatorProperty());
+  		tablePhieuDatHang.setItems(sortedData);  
+      	        
+      	    }    
      
      
      
@@ -882,9 +910,35 @@ public class DSNVController extends Application implements  Initializable  {
      @FXML
      private ScrollBar verticalPNH;
      
+     ObservableList<Phieunhaphang> listPNH;
      @FXML
-     void searchPNH(ActionEvent event) {
-
+     void searchPNH() {   
+      	ObservableList<Phieunhaphang> tbPhieuNhapHang = FXCollections.observableArrayList(getPhieunhaphang());
+      	
+          FilteredList<Phieunhaphang> filteredData = new FilteredList<>(tbPhieuNhapHang, b -> true);  
+          searchPNH.textProperty().addListener((observable, oldValue, newValue) -> {
+          filteredData.setPredicate(phieunhaphang -> {
+             if (newValue == null || newValue.isEmpty()) {
+              return true;
+             }    
+             String lowerCaseFilter = newValue.toLowerCase();
+             
+             if (phieunhaphang.getManhaphang().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+              return true; // Filter matches username
+             } 
+             else if (phieunhaphang.getThoigiannhap().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+              return true; // Filter matches password
+             }               
+                  else  
+                   return false; // Does not match.
+            });
+           });  
+          
+       
+  		SortedList<Phieunhaphang> sortedData = new SortedList<>(filteredData);
+  		sortedData.comparatorProperty().bind(tablePhieuNhapHang.comparatorProperty());
+  		tablePhieuNhapHang.setItems(sortedData);  
+      	        
      }
      
      public ObservableList <Phieunhaphang> getPhieunhaphang() {
@@ -940,12 +994,39 @@ public class DSNVController extends Application implements  Initializable  {
 
      @FXML
      private ScrollBar verticalPTH;
-
-     @FXML
-     void searchPTH(ActionEvent event) {
-
-     }
      
+     ObservableList<Phieutrahang> listPTH;
+
+     
+     @FXML
+     void searchPTH() {   
+       	ObservableList<Phieutrahang> tbPhieuTraHang = FXCollections.observableArrayList(getPhieutrahang());
+       	
+           FilteredList<Phieutrahang> filteredData = new FilteredList<>(tbPhieuTraHang, b -> true);  
+           searchPTH.textProperty().addListener((observable, oldValue, newValue) -> {
+           filteredData.setPredicate(phieutrahang -> {
+              if (newValue == null || newValue.isEmpty()) {
+               return true;
+              }    
+              String lowerCaseFilter = newValue.toLowerCase();
+              
+              if (phieutrahang.getMaphieutra().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+               return true; // Filter matches username
+              } 
+              else if (phieutrahang.getThoigiantra().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+               return true; // Filter matches password
+              }               
+                   else  
+                    return false; // Does not match.
+             });
+            });  
+           
+        
+   		SortedList<Phieutrahang> sortedData = new SortedList<>(filteredData);
+   		sortedData.comparatorProperty().bind(tablePhieuTraHang.comparatorProperty());
+   		tablePhieuTraHang.setItems(sortedData);  
+       	        
+      }
 
     @FXML
     private Text txtTitle_store;
@@ -1035,27 +1116,30 @@ public class DSNVController extends Application implements  Initializable  {
 	 	searchPHD();	
 	 	
 	 	//QL danh mục phiếu đặt hàng //Nhi
-	 	madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("madathang"));
+	 	madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
 	 	thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
 	 	tongtien.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
 	 	mancc.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("mancc"));
 	 	manv.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("manv"));
     	tablePhieuDatHang.setItems(getPhieudathang());
+    	searchPDH();
     	
     	//QL danh mục phiếu nhập hàng // Nhi
-    	manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manhaphang"));
+    	manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("manhaphang"));
 	 	thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigiannhap"));
 	 	tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
 	 	mancc.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("mancc"));
 	 	manv.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manv"));
     	tablePhieuNhapHang.setItems(getPhieunhaphang());
+    	searchPNH();
     	
     	//QL danh mục phiếu trả hàng //Nhi
-    	maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("maphieutra"));
+    	maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
     	thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
     	mancc.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("mancc"));
     	manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("manv"));
     	tablePhieuTraHang.setItems(getPhieutrahang());
+    	searchPTH();
     }
 
 	

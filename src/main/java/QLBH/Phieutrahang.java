@@ -8,14 +8,14 @@ import javax.persistence.*;
 public class Phieutrahang {
 	
 	@Id 
-	private int maphieutra;
+	private String maphieutra;
 	private String thoigiantra;
 	private int mancc;
 	private int manv;
 	
 	
 	
-	public Phieutrahang(int maphieutra, String thoigiantra, int mancc, int manv) {
+	public Phieutrahang(String maphieutra, String thoigiantra, int mancc, int manv) {
 		super();
 		this.maphieutra = maphieutra;
 		this.thoigiantra = thoigiantra;
@@ -23,11 +23,11 @@ public class Phieutrahang {
 		this.manv = manv;
 	}
 
-	public int getMaphieutra() {
+	public String getMaphieutra() {
 		return maphieutra;
 	}
 
-	public void setMaphieutra(int maphieutra) {
+	public void setMaphieutra(String maphieutra) {
 		this.maphieutra = maphieutra;
 	}
 
