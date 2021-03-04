@@ -37,5 +37,9 @@
 		<mapping class="QLBH.Sanpham" />	
 		 <mapping class="QLBH.Nhanvien"/>
   		<mapping class="QLBH.Hoadon" />
+  		<mapping class="QLBH.Phieudathang"/>
+  		<mapping class = "QLBH.Phieunhaphang"/>
+  		<mapping class = "QLBH.Phieutrahang"/>
+  		
 	</session-factory>
 </hibernate-configuration>

@@ -9,13 +9,13 @@ public class Phieutrahang {
 	
 	@Id 
 	private int maphieutra;
-	private Integer thoigiantra;
+	private String thoigiantra;
 	private int mancc;
 	private int manv;
 	
 	
 	
-	public Phieutrahang(int maphieutra, Integer thoigiantra, int mancc, int manv) {
+	public Phieutrahang(int maphieutra, String thoigiantra, int mancc, int manv) {
 		super();
 		this.maphieutra = maphieutra;
 		this.thoigiantra = thoigiantra;
@@ -31,11 +31,11 @@ public class Phieutrahang {
 		this.maphieutra = maphieutra;
 	}
 
-	public Integer getThoigiantra() {
+	public String getThoigiantra() {
 		return thoigiantra;
 	}
 
-	public void setThoigiantra(Integer thoigiantra) {
+	public void setThoigiantra(String thoigiantra) {
 		this.thoigiantra = thoigiantra;
 	}
 

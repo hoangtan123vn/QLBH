@@ -10,14 +10,14 @@ public class Phieunhaphang {
 	
 	@Id
 	private int manhaphang;
-	private Integer thoigiannhap;
+	private String thoigiannhap;
 	private int tongtien;
 	private int mancc;
 	private int manv;
 	
 	
 	
-	public Phieunhaphang(int manhaphang, Integer thoigiannhap, int tongtien, int mancc, int manv) {
+	public Phieunhaphang(int manhaphang, String thoigiannhap, int tongtien, int mancc, int manv) {
 		super();
 		this.manhaphang = manhaphang;
 		this.thoigiannhap = thoigiannhap;
@@ -34,11 +34,11 @@ public class Phieunhaphang {
 		this.manhaphang = manhaphang;
 	}
 
-	public Integer getThoigiannhap() {
+	public String getThoigiannhap() {
 		return thoigiannhap;
 	}
 
-	public void setThoigiannhap(Integer thoigiannhap) {
+	public void setThoigiannhap(String thoigiannhap) {
 		this.thoigiannhap = thoigiannhap;
 	}
 

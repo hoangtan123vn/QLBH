@@ -58,7 +58,10 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
-
+import QLBH.Hoadon;
+import QLBH.Phieudathang;
+import QLBH.Phieunhaphang;
+import QLBH.Phieutrahang;
 
 public class DSNVController extends Application implements  Initializable  {
 	
@@ -732,6 +735,55 @@ public class DSNVController extends Application implements  Initializable  {
     
      ObservableList<Hoadon> list;
     
+     
+     //HÓA ĐƠN
+     public ObservableList <Hoadon> getHoadon() {
+ 		ObservableList <Hoadon> tableHoaDon = FXCollections.observableArrayList();
+ 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+ 				.build();
+ 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+ 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+ 		Session session = sessionFactory.openSession();
+
+ 		CriteriaQuery <Hoadon> hd= session.getCriteriaBuilder().createQuery(Hoadon.class);
+ 		hd.from(Hoadon.class);
+ 		List<Hoadon> eList = session.createQuery(hd).getResultList();
+ 		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+ 		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+ 		for (Hoadon ent : eList) {
+ 			tableHoaDon.add(ent);
+ 		}
+ 		return tableHoaDon;		
+ 	}
+     
+     void searchPHD() {   
+     	ObservableList<Hoadon> tbHoaDon = FXCollections.observableArrayList(getHoadon());
+     	
+         FilteredList<Hoadon> filteredData = new FilteredList<>(tbHoaDon, b -> true);  
+         searchPHD.textProperty().addListener((observable, oldValue, newValue) -> {
+         filteredData.setPredicate(hoadon -> {
+            if (newValue == null || newValue.isEmpty()) {
+             return true;
+            }    
+            String lowerCaseFilter = newValue.toLowerCase();
+            
+            if (hoadon.getMahoadon().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+             return true; // Filter matches username
+            } 
+            else if (hoadon.getThoigianmua().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+             return true; // Filter matches password
+            }               
+                 else  
+                  return false; // Does not match.
+           });
+          });  
+         
+      
+ 		SortedList<Hoadon> sortedData = new SortedList<>(filteredData);
+ 		sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
+ 		tableHoaDon.setItems(sortedData);  
+     	        
+     	    }    
     
     
     
@@ -778,6 +830,29 @@ public class DSNVController extends Application implements  Initializable  {
 
      }
      
+     
+     
+     //PHIẾU ĐẶT HÀNG 
+     public ObservableList <Phieudathang> getPhieudathang() {
+ 		ObservableList <Phieudathang> tablePhieuDatHang = FXCollections.observableArrayList();
+ 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+ 				.build();
+ 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+ 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+ 		Session session = sessionFactory.openSession();
+
+ 		CriteriaQuery <Phieudathang> pdh= session.getCriteriaBuilder().createQuery(Phieudathang.class);
+ 		pdh.from(Phieudathang.class);
+ 		List<Phieudathang> eList = session.createQuery(pdh).getResultList();
+ 		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+ 		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+ 		for (Phieudathang ent : eList) {
+ 			tablePhieuDatHang.add(ent);
+ 		}
+ 		return tablePhieuDatHang;		
+ 	}
+     
+     
      /*
       * 
       *--------------------- FXML Danh mục phiếu nhập hàng-----------------------------
@@ -811,6 +886,26 @@ public class DSNVController extends Application implements  Initializable  {
      void searchPNH(ActionEvent event) {
 
      }
+     
+     public ObservableList <Phieunhaphang> getPhieunhaphang() {
+  		ObservableList <Phieunhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
+  		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+  				.build();
+  		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+  		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+  		Session session = sessionFactory.openSession();
+
+  		CriteriaQuery <Phieunhaphang> pnh= session.getCriteriaBuilder().createQuery(Phieunhaphang.class);
+  		pnh.from(Phieunhaphang.class);
+  		List<Phieunhaphang> eList = session.createQuery(pnh).getResultList();
+  		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+  		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+  		for (Phieunhaphang ent : eList) {
+  			tablePhieuNhapHang.add(ent);
+  		}
+  		return tablePhieuNhapHang;		
+  	}
+ 	
      
      
      /*
@@ -855,53 +950,26 @@ public class DSNVController extends Application implements  Initializable  {
     @FXML
     private Text txtTitle_store;
    
-    public ObservableList <Hoadon> getHoadon() {
-		ObservableList <Hoadon> tableHoadon = FXCollections.observableArrayList();
+    
+  //PHIẾU TRẢ HÀNG
+    public ObservableList <Phieutrahang> getPhieutrahang() {
+		ObservableList <Phieutrahang> tablePhieuTraHang = FXCollections.observableArrayList();
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
 
-		CriteriaQuery <Hoadon> hd= session.getCriteriaBuilder().createQuery(Hoadon.class);
-		hd.from(Hoadon.class);
-		List<Hoadon> eList = session.createQuery(hd).getResultList();
+		CriteriaQuery <Phieutrahang> pth= session.getCriteriaBuilder().createQuery(Phieutrahang.class);
+		pth.from(Phieutrahang.class);
+		List<Phieutrahang> eList = session.createQuery(pth).getResultList();
 		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
 		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
-		for (Hoadon ent : eList) {
-			tableHoadon.add(ent);
+		for (Phieutrahang ent : eList) {
+			tablePhieuTraHang.add(ent);
 		}
-		return tableHoadon;		
+		return tablePhieuTraHang;		
 	}
-    
-    void searchPHD() {   
-    	ObservableList<Hoadon> tbHoaDon = FXCollections.observableArrayList(getHoadon());
-    	
-        FilteredList<Hoadon> filteredData = new FilteredList<>(tbHoaDon, b -> true);  
-        searchPHD.textProperty().addListener((observable, oldValue, newValue) -> {
-        filteredData.setPredicate(hoadon -> {
-           if (newValue == null || newValue.isEmpty()) {
-            return true;
-           }    
-           String lowerCaseFilter = newValue.toLowerCase();
-           
-           if (hoadon.getMahoadon().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-            return true; // Filter matches username
-           } 
-           else if (hoadon.getThoigianmua().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-            return true; // Filter matches password
-           }               
-                else  
-                 return false; // Does not match.
-          });
-         });  
-        
-     
-		SortedList<Hoadon> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
-		tableHoaDon.setItems(sortedData);  
-    	        
-    	    }    
 
 	    
 	    
@@ -965,8 +1033,33 @@ public class DSNVController extends Application implements  Initializable  {
 		manv.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("manv"));
 		tableHoaDon.setItems(getHoadon());
 	 	searchPHD();	
+	 	
+	 	//QL danh mục phiếu đặt hàng //Nhi
+	 	madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("madathang"));
+	 	thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
+	 	tongtien.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
+	 	mancc.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("mancc"));
+	 	manv.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("manv"));
+    	tablePhieuDatHang.setItems(getPhieudathang());
     	
+    	//QL danh mục phiếu nhập hàng // Nhi
+    	manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manhaphang"));
+	 	thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigiannhap"));
+	 	tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
+	 	mancc.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("mancc"));
+	 	manv.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manv"));
+    	tablePhieuNhapHang.setItems(getPhieunhaphang());
+    	
+    	//QL danh mục phiếu trả hàng //Nhi
+    	maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("maphieutra"));
+    	thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
+    	mancc.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("mancc"));
+    	manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("manv"));
+    	tablePhieuTraHang.setItems(getPhieutrahang());
     }
+
+	
+
 	
 	
 	
