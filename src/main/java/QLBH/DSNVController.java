@@ -444,7 +444,82 @@ public class DSNVController extends Application implements  Initializable  {
 /////////////////////////////AUTHOR :LÊ HOÀNG TÂN /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : QL KHÁCH HÀNG  ///////////*************************
 ///////////////////
-	 
+	 @FXML
+	    private TextField searchKH;
+
+	    @FXML
+	    private TableColumn idKH;
+
+	    @FXML
+	    private TableColumn hvtKH;
+
+	    @FXML
+	    private TableColumn sdtKH;
+
+	    @FXML
+	    private TableColumn nsKH;
+
+	    @FXML
+	    private TableColumn gtKH;
+
+	    @FXML
+	    private TableColumn diemtichluy;
+
+	    @FXML
+	    private TableColumn emailKH;
+	    
+	    @FXML
+	    private TableView<KhachHang> tableKH;
+	    
+	    
+	    public ObservableList<KhachHang> getKhachHang() {
+	        ObservableList<KhachHang> TableKH = FXCollections.observableArrayList();
+	        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+					.configure("hibernate.cfg.xml")
+					.build();
+			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+			
+			CriteriaQuery<KhachHang> kh = session.getCriteriaBuilder().createQuery(KhachHang.class);
+			kh.from(KhachHang.class);
+			List<KhachHang> eList = session.createQuery(kh).getResultList();
+		//	List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+	    //    List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+	        for (KhachHang ent : eList) {
+	            TableKH.add(ent);
+	        }
+	        return TableKH;	  
+	        
+	    }
+	    
+	    void searchKH() {
+	    	ObservableList<KhachHang> table = FXCollections.observableArrayList(getKhachHang());
+	    	FilteredList<KhachHang> filterData = new FilteredList<>(table,p -> true);
+	    	searchKH.textProperty().addListener((observable,oldvalue,newvalue) -> {
+	    		filterData.setPredicate(kh -> {
+	    			if(newvalue == null || newvalue.isEmpty()) {
+	    				 return true; 
+	    			}
+	    			String typetext = newvalue.toLowerCase();
+	    			if(kh.getTenkh().toLowerCase().indexOf(typetext) !=-1) {
+	    				return true;
+	    			}
+	    		//	if(kh.getSodienthoai().toLowerCase().indexOf(typetext) !=-1) {
+	    		//		return true;
+	    		//	}
+	    			return false;
+	    			
+	    		});
+	    		SortedList<KhachHang> sortedList = new SortedList<>(filterData);
+	    		sortedList.comparatorProperty().bind(tableKH.comparatorProperty());
+	    		tableKH.setItems(sortedList);
+	    	});
+	    }
+	    
+	   
+	   
+
 	 
 	 
 /////////////////////////////AUTHOR :HỒNG THÁI/////////////////////////************************** 
@@ -1240,6 +1315,18 @@ public class DSNVController extends Application implements  Initializable  {
     	initializeNHANVIEN();
     	setCellValueFromTabletoTexfField();
     	search();
+    	
+    	//QL KHÁCH HÀNG //HOÀNG TÂN
+    	idKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("makh"));
+        hvtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("tenkh"));
+        //loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+        sdtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("sodienthoai"));
+        nsKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("ngaysinh"));
+        gtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("gioitinh"));
+        diemtichluy.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("diemtichluy"));
+        emailKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("email"));
+        tableKH.setItems(getKhachHang());
+        searchKH();
     	
     	//QL KHO//HỒNG THÁI
     	tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
