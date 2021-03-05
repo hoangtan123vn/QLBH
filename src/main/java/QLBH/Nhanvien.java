@@ -87,7 +87,7 @@ public class Nhanvien implements Serializable {
 	public int getManv() {
 		return manv;
 	}
-	public void setManv(int Manv) {
+	public void setManv(int manv) {
 		this.manv = manv;
 	}
 	public String getGioitinh() {
