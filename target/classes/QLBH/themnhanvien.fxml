@@ -60,12 +60,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="219.0" layoutY="62.0" prefHeight="27.0" prefWidth="96.0" text="id">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfid" layoutX="331.0" layoutY="56.0" prefHeight="25.0" prefWidth="232.0" />
       <Label layoutX="219.0" layoutY="231.0" prefHeight="27.0" prefWidth="96.0" text="Giới tính ">
          <font>
             <Font size="18.0" />

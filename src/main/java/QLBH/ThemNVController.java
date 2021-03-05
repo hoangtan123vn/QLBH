@@ -115,7 +115,7 @@ public class ThemNVController extends Application implements Initializable{
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Them nhan vien");
 		 
-    	int id = Integer.parseInt(tfid.getText());
+  //  	int id = Integer.parseInt(tfid.getText());
     	String t1 = tfhovaten.getText();
     	int t2 = Integer.parseInt(tfns.getText());
     	String t3 = tfcv.getValue();
@@ -129,13 +129,12 @@ public class ThemNVController extends Application implements Initializable{
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		
 		DSNVController ds = new DSNVController();
     	try {
     		 FileInputStream fis = new FileInputStream(file);
     		 byte[] bFile = new byte[(int) (file.length())];
     		 fis.read(bFile);
-    		 Nhanvien nv = new Nhanvien(id,t1,t2,t3,t4,t5,t6,t7,bFile);
+    		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile);
     		 session.beginTransaction();
     		 session.save(nv);
     		 session.getTransaction().commit();

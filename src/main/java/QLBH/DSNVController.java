@@ -85,8 +85,6 @@ public class DSNVController extends Application implements  Initializable  {
     @FXML
     private TableView<Nhanvien> tableNV;
     
-    @FXML
-    private TableColumn id;
 
     @FXML
     private TableColumn hovaten;
@@ -251,6 +249,17 @@ public class DSNVController extends Application implements  Initializable  {
 				 session.save(nv2);
 				 alert.setContentText("Cap nhat nhan vien thanh cong !");
 	        	 alert.showAndWait();
+	        	 luucapnhat.setVisible(false);
+	         	 reset.setVisible(false);
+	         	hovaten_nv.setEditable(false);
+	        	ns_nv.setEditable(false);
+	        	cv_nv.setEditable(false);
+	        	gt_nv.setEditable(false);
+	        	cmnd_nv.setEditable(false);
+	        	sdt_nv.setEditable(false);
+	        	diachi_nv.setEditable(false);
+
+	        	 
 			}
 			session.getTransaction().commit();	
 		}catch (RuntimeException error) {

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Access(AccessType.FIELD)
 public class Nhanvien implements Serializable {
 	@Id 
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 //	private Image imgnhanvien;
 	private int manv;
 	private String hovaten;
@@ -46,6 +46,18 @@ public class Nhanvien implements Serializable {
 		this.sdt=sdt;
 		this.cmnd=cmnd;
 		this.diachi=diachi;
+		
+	}
+	public Nhanvien(String hovaten,int ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image) {
+		super();
+		this.hovaten=hovaten;
+		this.ngaysinh=ngaysinh;
+		this.chucvu=chucvu;
+		this.gioitinh=gioitinh;
+		this.sdt=sdt;
+		this.cmnd=cmnd;
+		this.diachi=diachi;
+		this.image = image;
 		
 	}
 	
