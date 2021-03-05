@@ -1051,13 +1051,143 @@ public class DSNVController extends Application implements  Initializable  {
 		}
 		return tablePhieuTraHang;		
 	}
-
+  // NHÀ CUNG CẤP
+    public ObservableList<Nhacungcap> getNhacungcap() {
+        ObservableList<Nhacungcap> TableNhacungcap = FXCollections.observableArrayList();
+        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+				.configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		
+		CriteriaQuery<Nhacungcap> ncc = session.getCriteriaBuilder().createQuery(Nhacungcap.class);
+		ncc.from(Nhacungcap.class);
+		List<Nhacungcap> eList = session.createQuery(ncc).getResultList();
+	//	List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+    //    List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+        for (Nhacungcap ent : eList) {
+            TableNhacungcap.add(ent);
+        }
+        return TableNhacungcap;
+    }
 	    
 	    
 	    
 /////////////////////////////AUTHOR :LÊ QUANG SANG /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : NHÀ CUNG CẤP  ///////////*************************
 ///////////////////
+    @FXML
+    private Button thanhtoancongno;
+
+    @FXML
+    private Button taonhacungcap;
+    
+    @FXML
+    private TableView<Nhacungcap> Nhacungcap;
+
+    @FXML
+    private TableColumn mancc1;
+
+    @FXML
+    private TableColumn tenncc;
+
+    @FXML
+    private TableColumn diachi1;
+
+    @FXML
+    private TableColumn sotienno;
+
+    @FXML
+    private TableColumn email;
+
+    @FXML
+    private TableColumn sodienthoai;
+
+    @FXML
+    private TableColumn thoigianno;
+    
+    @FXML
+    private TextField tfncc;
+
+    @FXML
+    private TextField tftenncc;
+
+    @FXML
+    private TextField tfsdt;
+
+    @FXML
+    private TextField tfdiachi1;
+
+    @FXML
+    private TextField tfemail;
+
+    @FXML
+    private Button idaddncc;
+    
+    @FXML
+    private ComboBox<String> cbb;
+    
+    @FXML
+    void addncc(ActionEvent event) {
+    	ObservableList<Nhacungcap> Tablencc= FXCollections.observableArrayList(getNhacungcap());
+    	 // 	ta.setText("");
+    	 
+    	Integer mancc = Integer.parseInt(tfncc.getText());
+    	String tenncc = tftenncc.getText();
+    	String diachi = tfdiachi1.getText();
+    	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
+    	String email = tfemail.getText();
+    
+    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+				.configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		Nhacungcap ncc = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
+	//	person=session.get(Person.class, t1);
+		try {
+			session.beginTransaction();
+			session.save(ncc);
+			session.getTransaction().commit();	
+	//		ta.appendText("Them Thanh Cong  ! ! !");
+			ReloadSANPHAM();
+		} catch (RuntimeException error) {
+			session.getTransaction().rollback();
+	//		ta.appendText("Khong the thuc hien thao tac ! ");
+		}
+    }
+   
+    @FXML
+    void Taonhacungcap(ActionEvent event)  {
+    	
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("taonhacungcap.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root1));
+			stage.setTitle("Tạo nhà cung cấp");
+			stage.show();	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}		
+    }
+
+    @FXML
+    void Thanhtoancongno(ActionEvent event) {
+    	try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("thanhtoancongno.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root1));
+			stage.setTitle("Thanh Toán Công Nợ");
+			stage.show();	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    }
+    
 
 /////////////////////////////AUTHOR :LÊ QUANG SANG /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : SẢN PHẨM  ///////////*************************
@@ -1140,6 +1270,17 @@ public class DSNVController extends Application implements  Initializable  {
     	manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("manv"));
     	tablePhieuTraHang.setItems(getPhieutrahang());
     	searchPTH();
+    	
+    	
+    	// QL nhà cung cấp //Sang
+    	mancc1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("mancc"));
+        tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
+        diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
+        sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
+       // sotienno.setCellValueFactory(new PropertyValueFactory<Nocong, Integer>("sotienno"));
+       // thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong, Integer>("thoigianno"));
+        email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
+        Nhacungcap.setItems(getNhacungcap());
     }
 
 	
