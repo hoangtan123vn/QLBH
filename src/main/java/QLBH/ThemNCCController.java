@@ -98,7 +98,9 @@ public class ThemNCCController extends Application implements Initializable{
     		 session.beginTransaction();
     		 session.save(nv);
     		 session.getTransaction().commit();
+    		 Nhacungcap ncc = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
     		 Stage stage = (Stage) idsave.getScene().getWindow();
+    		 
         	 stage.close();
         	 alert.setContentText("Them nha cung cap thanh cong !");
         	 alert.showAndWait();    
@@ -111,10 +113,7 @@ public class ThemNCCController extends Application implements Initializable{
     		session.getTransaction().rollback();
     	}
     }
-
-    	
-    
-
+   
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -128,7 +127,7 @@ public class ThemNCCController extends Application implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-
+		
 		
 	}
 

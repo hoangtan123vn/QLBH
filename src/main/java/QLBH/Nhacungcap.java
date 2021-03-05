@@ -10,6 +10,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import antlr.collections.List;
+import javafx.collections.ObservableList;
 
 @Entity
 @Table(name = "nhacungcap")
@@ -76,4 +77,5 @@ public class Nhacungcap {
 		this.email = email;
 	}
 
+	
 }

@@ -659,6 +659,7 @@ public class DSNVController extends Application implements  Initializable  {
 			Timkiem();
 	    }
 	    
+	    
 /////////////////////////////AUTHOR :HỒNG THÁI/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : THỐNG KÊ ///////////*************************
 ///////////////////
@@ -1071,6 +1072,18 @@ public class DSNVController extends Application implements  Initializable  {
         }
         return TableNhacungcap;
     }
+    void ReloadNHACUNGCAP() {
+    	mancc1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("mancc"));
+        tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
+        diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
+        sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
+       // sotienno.setCellValueFactory(new PropertyValueFactory<Nocong, Integer>("sotienno"));
+       // thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong, Integer>("thoigianno"));
+        email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
+        Nhacungcap.setItems(getNhacungcap());
+    	getNhacungcap();
+    
+    }
 	    
 	    
 	    
@@ -1130,33 +1143,33 @@ public class DSNVController extends Application implements  Initializable  {
     
     @FXML
     void addncc(ActionEvent event) {
-    	ObservableList<Nhacungcap> Tablencc= FXCollections.observableArrayList(getNhacungcap());
+    	//ObservableList<Nhacungcap> Tablencc= FXCollections.observableArrayList(getNhacungcap());
     	 // 	ta.setText("");
     	 
-    	Integer mancc = Integer.parseInt(tfncc.getText());
-    	String tenncc = tftenncc.getText();
-    	String diachi = tfdiachi1.getText();
-    	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
-    	String email = tfemail.getText();
+    	//Integer mancc = Integer.parseInt(tfncc.getText());
+    	//String tenncc = tftenncc.getText();
+    	//String diachi = tfdiachi1.getText();
+    	//Integer sodienthoai = Integer.parseInt(tfsdt.getText());
+  //  	String email = tfemail.getText();
     
-    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-				.configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-		Nhacungcap ncc = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
+    //	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+		//		.configure("hibernate.cfg.xml")
+			//	.build();
+	//	Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		//SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		//Session session = sessionFactory.openSession();
+		//Nhacungcap ncc = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
 	//	person=session.get(Person.class, t1);
-		try {
-			session.beginTransaction();
-			session.save(ncc);
-			session.getTransaction().commit();	
+		//try {
+			//session.beginTransaction();
+			//session.save(ncc);
+			//session.getTransaction().commit();	
 	//		ta.appendText("Them Thanh Cong  ! ! !");
-			ReloadSANPHAM();
-		} catch (RuntimeException error) {
-			session.getTransaction().rollback();
+			ReloadNHACUNGCAP();
+	//	} catch (RuntimeException error) {
+		//	session.getTransaction().rollback();
 	//		ta.appendText("Khong the thuc hien thao tac ! ");
-		}
+	//	}
     }
    
     @FXML
@@ -1171,6 +1184,7 @@ public class DSNVController extends Application implements  Initializable  {
 			stage.show();	
 		} catch (Exception e) {
 			// TODO: handle exception
+			
 		}		
     }
 
