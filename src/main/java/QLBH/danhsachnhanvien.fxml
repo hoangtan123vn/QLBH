@@ -189,7 +189,7 @@
                </children>
             </AnchorPane>
          </content></Tab>
-<<<<<<< HEAD
+
       <Tab text="QL KHÁCH HÀNG">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -214,8 +214,7 @@
                </children>
             </AnchorPane>
          </content></Tab>
-=======
->>>>>>> ae7d26906b4ba3428ef91aa4dbd522265e88c3bf
+
       <Tab text="QL KHO">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

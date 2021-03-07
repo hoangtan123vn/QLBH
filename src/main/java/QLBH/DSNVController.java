@@ -1275,7 +1275,7 @@ public class DSNVController extends Application implements  Initializable  {
     void addncc(ActionEvent event) {
     	ObservableList<Nhacungcap> Tablencc= FXCollections.observableArrayList(getNhacungcap());
     	 //	ta.setText("");
-    	 
+    	
     	Integer mancc = Integer.parseInt(tfncc.getText());
     	String tenncc = tftenncc.getText();
     	String diachi = tfdiachi1.getText();
