@@ -435,6 +435,9 @@ public class DSNVController extends Application implements  Initializable  {
 			 diachi_nv.setText(nv.getDiachi());
 			 cmnd_nv.setText(Integer.toString(nv.getCmnd()));
 			 byte[] getImageInBytes = nv.getImage();
+			 
+			 // 
+			 
 			  try{
 		            FileOutputStream fos = new FileOutputStream(new File("photo.jpg")); 
 		            fos.write(getImageInBytes);
@@ -446,10 +449,18 @@ public class DSNVController extends Application implements  Initializable  {
 		        }			 
 		 });
 		 
-		
+		  // Nhà cung cấp
+				 Nhacungcap.setOnMouseClicked(event -> {
+					 //
+					 Nhacungcap ncc = Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
+					 tfncc.setText(Integer.toString(ncc.getMancc()));
+					 tftenncc.setText(ncc.getTenncc());
+					 tfdiachi1.setText(ncc.getDiachi());
+					 tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
+					 tfemail.setText(ncc.getEmail());			 
+				 });						
 	 }
-	 
-	 
+	 	 
 /////////////////////////////AUTHOR :LÊ HOÀNG TÂN /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : QL KHÁCH HÀNG  ///////////*************************
 ///////////////////
@@ -525,12 +536,7 @@ public class DSNVController extends Application implements  Initializable  {
 	    		tableKH.setItems(sortedList);
 	    	});
 	    }
-	    
 	   
-	   
-
-	 
-	 
 /////////////////////////////AUTHOR :HỒNG THÁI/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : QUẢN LÝ KHO ///////////*************************
 				///////////////////
@@ -1222,38 +1228,46 @@ public class DSNVController extends Application implements  Initializable  {
     @FXML
     private Button idaddncc;
     
+    @FXML 
+    private Button idreloadncc;
+    
+    @FXML
+    private Button idupdatencc;
+    
     @FXML
     private ComboBox<String> cbb;
     
+    
+    
     @FXML
     void addncc(ActionEvent event) {
-    	//ObservableList<Nhacungcap> Tablencc= FXCollections.observableArrayList(getNhacungcap());
-    	 // 	ta.setText("");
+    	ObservableList<Nhacungcap> Tablencc= FXCollections.observableArrayList(getNhacungcap());
+    	 //	ta.setText("");
     	 
-    	//Integer mancc = Integer.parseInt(tfncc.getText());
-    	//String tenncc = tftenncc.getText();
-    	//String diachi = tfdiachi1.getText();
-    	//Integer sodienthoai = Integer.parseInt(tfsdt.getText());
-  //  	String email = tfemail.getText();
+    	Integer mancc = Integer.parseInt(tfncc.getText());
+    	String tenncc = tftenncc.getText();
+    	String diachi = tfdiachi1.getText();
+    	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
+    	String email = tfemail.getText();
     
-    //	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-		//		.configure("hibernate.cfg.xml")
-			//	.build();
-	//	Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		//SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		//Session session = sessionFactory.openSession();
-		//Nhacungcap ncc = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
+    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+				.configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		Nhacungcap ncc = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
 	//	person=session.get(Person.class, t1);
-		//try {
-			//session.beginTransaction();
-			//session.save(ncc);
-			//session.getTransaction().commit();	
+		try {
+			session.beginTransaction();
+			session.save(ncc);
+			session.getTransaction().commit();	
 	//		ta.appendText("Them Thanh Cong  ! ! !");
 			ReloadNHACUNGCAP();
-	//	} catch (RuntimeException error) {
-		//	session.getTransaction().rollback();
+		} catch (RuntimeException error) {
+			session.getTransaction().rollback();
 	//		ta.appendText("Khong the thuc hien thao tac ! ");
-	//	}
+		}
     }
    
     @FXML
@@ -1285,6 +1299,80 @@ public class DSNVController extends Application implements  Initializable  {
 			// TODO: handle exception
 		}
     }
+    
+    @FXML
+    void Reloadncc(ActionEvent event) {
+    	ReloadNHACUNGCAP();
+    }
+    
+    @FXML
+    void updatencc (ActionEvent event) {
+    	tfncc.setEditable(true);
+    	tftenncc.setEditable(true);
+    	tfsdt.setEditable(true);
+    	tfdiachi1.setEditable(true);
+    	tfemail.setEditable(true);
+    	idluuncc.setVisible(true);
+    }
+    
+    
+    
+    @FXML
+    private Button idluuncc;
+     
+    @FXML
+    void luuncc (ActionEvent actionEvent) {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Cap nhat thanh cong ");
+		Integer mancc = Integer.parseInt(tfncc.getText());
+    	String tenncc = tftenncc.getText();
+    	String diachi = tfdiachi1.getText();
+    	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
+    	String email = tfemail.getText();
+    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+				.configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			Nhacungcap ncc1 = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
+			ncc1=session.get(Nhacungcap.class, mancc);
+			if (ncc1 != null) {
+			//	nv2.setid(idnv);
+				ncc1.setMancc(mancc);
+				ncc1.setTenncc(tenncc);
+				ncc1.setDiachi(diachi);
+				ncc1.setSodienthoai(sodienthoai);
+				ncc1.setEmail(email);
+				
+				//person2.setAge(t2);
+			///	person2.setAddress(t3);
+				 session.save(ncc1);
+				 alert.setContentText("Cap nhat Nha Cung Cap thanh cong !");
+	        	 alert.showAndWait();
+	        	 idluuncc.setVisible(false);
+	         	 
+	         	tfncc.setEditable(false);
+	        	tftenncc.setEditable(false);
+	        	tfdiachi1.setEditable(false);
+	        	tfsdt.setEditable(false);
+	        	tfemail.setEditable(false);
+	        	
+	        	 
+			}
+			session.getTransaction().commit();	
+		}catch (RuntimeException error) {
+			session.getTransaction().rollback();
+		}
+		
+		ReloadNHACUNGCAP();
+    }
+    
+ 
+    
+    
     
 
 /////////////////////////////AUTHOR :LÊ QUANG SANG /////////////////////////************************** 
@@ -1324,7 +1412,7 @@ public class DSNVController extends Application implements  Initializable  {
     	initializeNHANVIEN();
     	setCellValueFromTabletoTexfField();
     	search();
-    	
+      	  
     	//QL KHÁCH HÀNG //HOÀNG TÂN
     	idKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("makh"));
         hvtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("tenkh"));
@@ -1336,7 +1424,7 @@ public class DSNVController extends Application implements  Initializable  {
         emailKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("email"));
         tableKH.setItems(getKhachHang());
         searchKH();
-    	
+    	 	
     	//QL KHO//HỒNG THÁI
     	tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
         masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
