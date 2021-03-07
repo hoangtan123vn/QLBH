@@ -481,6 +481,26 @@ public class DSNVController extends Application implements  Initializable  {
 	    private TableView<KhachHang> tableKH;
 	    
 	    
+	    //LỊCH SỬ MUA BÁN HÀNG 
+	    @FXML
+	    private TableView tableLSMH;
+
+	    @FXML
+	    private TableColumn idKH1;
+
+	    @FXML
+	    private TableColumn tenKHmua;
+
+	    @FXML
+	    private TableColumn maHoaDon;
+
+	    @FXML
+	    private TableColumn tenNVBanHang;
+
+	    @FXML
+	    private TableColumn ngaymua;
+	    
+	    
 	    public ObservableList<KhachHang> getKhachHang() {
 	        ObservableList<KhachHang> TableKH = FXCollections.observableArrayList();
 	        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()

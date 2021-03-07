@@ -186,30 +186,6 @@
                </children>
             </AnchorPane>
          </content></Tab>
-      <Tab text="QL KHÁCH HÀNG">
-         <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="295.0" layoutY="53.0" prefHeight="48.0" prefWidth="270.0" text="KHÁCH HÀNG ">
-                     <font>
-                        <Font name="System Bold" size="36.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="searchKH" layoutX="60.0" layoutY="136.0" prefHeight="28.0" prefWidth="311.0" promptText="Tìm theo tên khách hàng" />
-                  <TableView fx:id="tableKH" layoutX="27.0" layoutY="181.0" prefHeight="360.0" prefWidth="624.0">
-                    <columns>
-                      <TableColumn fx:id="idKH" prefWidth="75.0" text="Mã KH" />
-                      <TableColumn fx:id="hvtKH" prefWidth="112.0" text="Tên Khách Hàng" />
-                        <TableColumn fx:id="sdtKH" prefWidth="99.0" text="Số điện thoại" />
-                        <TableColumn fx:id="nsKH" prefWidth="75.0" text="Năm sinh " />
-                        <TableColumn fx:id="gtKH" prefWidth="75.0" text="Giới tính" />
-                        <TableColumn fx:id="diemtichluy" prefWidth="99.0" text="Điểm tích lũy" />
-                        <TableColumn fx:id="emailKH" prefWidth="88.0" text="Email" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-         </content></Tab>
       <Tab text="QL KHO">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -269,11 +245,6 @@
         </content>
       </Tab>
       <Tab text="KIỂM TRA HÀNG">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </content>
-      </Tab>
-      <Tab text="QL SẢN PHẨM">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>
@@ -388,5 +359,48 @@
             </AnchorPane>
          </content>
       </Tab>
+      <Tab text="QL SẢN PHẨM">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        </content>
+      </Tab>
+      <Tab text="QL KHÁCH HÀNG">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="295.0" layoutY="53.0" prefHeight="48.0" prefWidth="270.0" text="KHÁCH HÀNG ">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="searchKH" layoutX="60.0" layoutY="136.0" prefHeight="28.0" prefWidth="311.0" promptText="Tìm theo tên khách hàng" />
+                  <TableView fx:id="tableKH" layoutX="27.0" layoutY="181.0" prefHeight="360.0" prefWidth="624.0">
+                    <columns>
+                      <TableColumn fx:id="idKH" prefWidth="75.0" text="Mã KH" />
+                      <TableColumn fx:id="hvtKH" prefWidth="112.0" text="Tên Khách Hàng" />
+                        <TableColumn fx:id="sdtKH" prefWidth="99.0" text="Số điện thoại" />
+                        <TableColumn fx:id="nsKH" prefWidth="75.0" text="Năm sinh " />
+                        <TableColumn fx:id="gtKH" prefWidth="75.0" text="Giới tính" />
+                        <TableColumn fx:id="diemtichluy" prefWidth="99.0" text="Điểm tích lũy" />
+                        <TableColumn fx:id="emailKH" prefWidth="88.0" text="Email" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="819.0" layoutY="61.0" prefHeight="45.0" prefWidth="250.0" text="LỊCH SỬ MUA HÀNG">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tableLSMH" layoutX="732.0" layoutY="181.0" prefHeight="173.0" prefWidth="447.0">
+                    <columns>
+                      <TableColumn fx:id="idKH1" prefWidth="75.0" text="Mã KH" />
+                      <TableColumn fx:id="tenKHmua" prefWidth="110.0" text="Tên Khách Hàng" />
+                        <TableColumn fx:id="maHoaDon" prefWidth="106.0" text="Mã Hóa Đơn" />
+                        <TableColumn fx:id="tenNVBanHang" text="NV Bán Hàng" />
+                        <TableColumn fx:id="ngaymua" prefWidth="75.0" text="Ngày mua" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </content></Tab>
   </tabs>
 </TabPane>
