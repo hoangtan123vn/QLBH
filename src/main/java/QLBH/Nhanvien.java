@@ -1,5 +1,6 @@
 package QLBH;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -10,6 +11,8 @@ import javax.persistence.*;
 public class Nhanvien implements Serializable {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@OneToMany(mappedBy="nhanvien")
+//	private List<Hoadon> hoadon;
 //	private Image imgnhanvien;
 	private int manv;
 	private String hovaten;

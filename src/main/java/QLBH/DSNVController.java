@@ -492,6 +492,26 @@ public class DSNVController extends Application implements  Initializable  {
 	    private TableView<KhachHang> tableKH;
 	    
 	    
+	    //LỊCH SỬ MUA BÁN HÀNG 
+	    @FXML
+	    private TableView tableLSMH;
+
+	    @FXML
+	    private TableColumn idKH1;
+
+	    @FXML
+	    private TableColumn tenKHmua;
+
+	    @FXML
+	    private TableColumn maHoaDon;
+
+	    @FXML
+	    private TableColumn tenNVBanHang;
+
+	    @FXML
+	    private TableColumn ngaymua;
+	    
+	    
 	    public ObservableList<KhachHang> getKhachHang() {
 	        ObservableList<KhachHang> TableKH = FXCollections.observableArrayList();
 	        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
@@ -807,6 +827,10 @@ public class DSNVController extends Application implements  Initializable  {
     private TableColumn  makh;
 
     @FXML
+    private TableColumn  manv1;
+    
+    
+    @FXML
     private TableColumn  manv;
 
     @FXML
@@ -873,8 +897,7 @@ public class DSNVController extends Application implements  Initializable  {
  		SortedList<Hoadon> sortedData = new SortedList<>(filteredData);
  		sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
  		tableHoaDon.setItems(sortedData);  
-     	        
-     	    }    
+     	}    
     
     
     
@@ -994,9 +1017,15 @@ public class DSNVController extends Application implements  Initializable  {
 
      @FXML
      private TableColumn manhaphang;
+     
+     @FXML
+     private TableColumn mancc2;
     
      @FXML
      private TableColumn thoigiannhap;
+     
+     @FXML
+     private TableColumn manv2;
 
      @FXML
      private ScrollBar verticalPNH;
@@ -1076,6 +1105,9 @@ public class DSNVController extends Application implements  Initializable  {
      
      @FXML
      private TableColumn thoigiantra;
+     
+     @FXML
+     private TableColumn mancc3;
 
      @FXML
      private TextField searchPTH;
@@ -1439,7 +1471,7 @@ public class DSNVController extends Application implements  Initializable  {
 		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
 		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("tonggia"));
 		makh.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("makh"));
-		manv.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("manv"));
+		manv1.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("manv"));
 		tableHoaDon.setItems(getHoadon());
 	 	searchPHD();	
 	 	
@@ -1456,15 +1488,15 @@ public class DSNVController extends Application implements  Initializable  {
     	manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("manhaphang"));
 	 	thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigiannhap"));
 	 	tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
-	 	mancc.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("mancc"));
-	 	manv.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manv"));
+	 	mancc2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("mancc"));
+	 	manv2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manv"));
     	tablePhieuNhapHang.setItems(getPhieunhaphang());
     	searchPNH();
     	
     	//QL danh mục phiếu trả hàng //Nhi
     	maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
     	thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
-    	mancc.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("mancc"));
+    	mancc3.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("mancc"));
     	manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("manv"));
     	tablePhieuTraHang.setItems(getPhieutrahang());
     	searchPTH();

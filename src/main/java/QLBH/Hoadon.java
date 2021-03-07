@@ -2,15 +2,20 @@ package QLBH;
 import javax.persistence.*;
 @Entity
 @Table(name="hoadon")
+@Access(AccessType.FIELD)
 public class Hoadon {
 	@Id 
+	//@ManyToOne
+	//@PrimaryKeyJoinColumn(name ="makh")
+	//@PrimaryKeyJoinColumn(name=" manv")
+	//private Nhanvien nv;
+	//private KhachHang kh;
 	private String mahoadon;
 	private String thoigianmua;
 	private int tonggia;
 	private int makh;
 	private int manv;
-	
-	
+		
 	public Hoadon() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -37,6 +42,23 @@ public class Hoadon {
 	public void setThoigianmua(String thoigianmua) {
 		this.thoigianmua = thoigianmua;
 	}
+	
+/*	public Nhanvien getNv() {
+		return nv;
+	}
+
+	public void setNv(Nhanvien nv) {
+		this.nv = nv;
+	}
+
+	public KhachHang getKh() {
+		return kh;
+	}
+
+	public void setKh(KhachHang kh) {
+		this.kh = kh;
+	}
+*/
 	public int getTonggia() {
 		return tonggia;
 	}
