@@ -1194,6 +1194,26 @@ public class DSNVController extends Application implements  Initializable  {
         }
         return TableNhacungcap;
     }
+  // SẢN PHẨM  
+    public ObservableList<Sanpham> getSanPham1() {
+        ObservableList<Sanpham> TableQLSP = FXCollections.observableArrayList();
+        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+				.configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		
+		CriteriaQuery<Sanpham> QLSP = session.getCriteriaBuilder().createQuery(Sanpham.class);
+		QLSP.from(Sanpham.class);
+		List<Sanpham> eList = session.createQuery(QLSP).getResultList();
+	//	List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+    //    List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+        for (Sanpham ent : eList) {
+            TableQLSP.add(ent);
+        }
+        return TableQLSP;
+    }
     void ReloadNHACUNGCAP() {
     	mancc1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("mancc"));
         tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
@@ -1411,6 +1431,29 @@ public class DSNVController extends Application implements  Initializable  {
 //////////////////////////////////CHỨC NĂNG : SẢN PHẨM  ///////////*************************
 ///////////////////
 	
+    @FXML
+    private TableView<Sanpham> tableQLSP;
+
+    @FXML
+    private TableColumn masanpham1;
+
+    @FXML
+    private TableColumn tensanpham1;
+
+    @FXML
+    private TableColumn donvitinh1;
+
+    @FXML
+    private TableColumn loaisanpham1;
+
+    @FXML
+    private TableColumn giatien1;
+
+    @FXML
+    private TableColumn donvi1;
+
+    @FXML
+    private TableColumn imagesp;
     	    
 /////////////////////////////AUTHOR :TỪ CHÍ HUY/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
@@ -1511,6 +1554,15 @@ public class DSNVController extends Application implements  Initializable  {
        // thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong, Integer>("thoigianno"));
         email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
         Nhacungcap.setItems(getNhacungcap());
+        
+        // QL Sản phẩm // Sang
+        masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+        tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+        loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("loaisanpham"));
+        donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvi"));
+        giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+        donvitinh1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+        tableQLSP.setItems(getSanPham1());
     }
 	
 	
