@@ -630,7 +630,7 @@ public class DSNVController extends Application implements Initializable {
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5);
+		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5,null);
 		// person=session.get(Person.class, t1);
 		try {
 			session.beginTransaction();
@@ -658,7 +658,7 @@ public class DSNVController extends Application implements Initializable {
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5);
+		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5,null);
 		sanpham = session.get(Sanpham.class, t1);
 		try {
 			session.beginTransaction();
@@ -1437,12 +1437,12 @@ public class DSNVController extends Application implements Initializable {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Cap nhat thanh cong ");
 		
-		Integer masanpham = Integer.parseInt(tfmsp.getText());
-		String tensanpham = tftensp.getText();
-		String loaisanpham = tfloaihang.getText();
-		String donvi = tfslsp.getText();
-		Integer giatien = Integer.parseInt(tfgia.getText());
-		Integer donvitinh = Integer.parseInt(tfdvt.getText());
+		Integer masanpham1 = Integer.parseInt(tfmsp.getText());
+		String tensanpham1 = tftensp.getText();
+		String loaisanpham1 = tfloaihang.getText();
+		String donvi1 = tfslsp.getText();
+		Integer giatien1 = Integer.parseInt(tfgia.getText());
+		Integer donvitinh1 = Integer.parseInt(tfdvt.getText());
 		
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
@@ -1451,16 +1451,16 @@ public class DSNVController extends Application implements Initializable {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			Sanpham sp = new Sanpham(tensanpham,masanpham,donvi,giatien,donvitinh,loaisanpham);
-			sp = session.get(Sanpham.class, masanpham);
+			Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,giatien1,donvitinh1,loaisanpham1);
+			sp = session.get(Sanpham.class, masanpham1);
 			if (sp != null) {
 				// nv2.setid(idnv);
-				sp.setDonvi(donvi);
-				sp.setDonvitinh(donvitinh);
-				sp.setGiatien(giatien);
-				sp.setLoaisanpham(loaisanpham);
-				sp.setMasanpham(masanpham);
-				sp.setTensanpham(tensanpham);
+				sp.setDonvi(donvi1);
+				sp.setDonvitinh(donvitinh1);
+				sp.setGiatien(giatien1);
+				sp.setLoaisanpham(loaisanpham1);
+				sp.setMasanpham(masanpham1);
+				sp.setTensanpham(tensanpham1);
 
 				// person2.setAge(t2);
 				/// person2.setAddress(t3);
