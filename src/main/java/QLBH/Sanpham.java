@@ -17,7 +17,7 @@ public class Sanpham {
 	public Sanpham() {
 		super();
 	}
-	public Sanpham(String tensanpham,int masanpham,String donvi,int giatien,int donvitinh,String loaispham) {
+	public Sanpham(String tensanpham,int masanpham,String donvi,int giatien,int donvitinh,String loaisanpham) {
 		super();
 		//this.id=id;
 		this.tensanpham=tensanpham;

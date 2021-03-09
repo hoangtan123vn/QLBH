@@ -436,7 +436,16 @@ public class DSNVController extends Application implements Initializable {
 		});
 		
 		// Sản phẩm
-		
+		tableQLSP.setOnMouseClicked(event -> {
+			//
+			Sanpham sp = tableQLSP.getItems().get(tableQLSP.getSelectionModel().getSelectedIndex());
+			tfmsp.setText(Integer.toString(sp.getMasanpham()));
+			tftensp.setText(sp.getTensanpham());
+			tfloaihang.setText(sp.getLoaisanpham());
+			tfslsp.setText(sp.getDonvi());
+			tfgia.setText(Integer.toString(sp.getGiatien()));
+			tfdvt.setText(Integer.toString(sp.getDonvitinh()));
+		});
 	}
 
 /////////////////////////////AUTHOR :LÊ HOÀNG TÂN /////////////////////////************************** 
@@ -621,7 +630,7 @@ public class DSNVController extends Application implements Initializable {
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5);
+		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5,null);
 		// person=session.get(Person.class, t1);
 		try {
 			session.beginTransaction();
@@ -649,7 +658,7 @@ public class DSNVController extends Application implements Initializable {
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5);
+		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5,null);
 		sanpham = session.get(Sanpham.class, t1);
 		try {
 			session.beginTransaction();
@@ -1357,7 +1366,177 @@ public class DSNVController extends Application implements Initializable {
 //////////////////////////////////CHỨC NĂNG : SẢN PHẨM  ///////////*************************
 ///////////////////
 
+	void ReloadSANPHAM1() {
+		masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+		tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+		loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("loaisanpham"));
+		donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvi"));
+		giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+		donvitinh1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+		tableQLSP.setItems(getSanPham1());
+		getSanPham1();
+
+	}
 	
+	@FXML
+	private TableView<Sanpham> tableQLSP;
+
+	@FXML
+	private TableColumn masanpham1;
+
+	@FXML
+	private TableColumn tensanpham1;
+
+	@FXML
+	private TableColumn donvitinh1;
+
+	@FXML
+	private TableColumn loaisanpham1;
+
+	@FXML
+	private TableColumn giatien1;
+
+	@FXML
+	private TableColumn donvi1;
+
+	@FXML
+	private TableColumn imagesp;
+
+	@FXML
+	private Button idaddsp;
+
+	@FXML
+	private TextField tfmsp;
+
+	@FXML
+	private TextField tftensp;
+
+	@FXML
+	private TextField tfdvt;
+
+	@FXML
+	private TextField tfloaihang;
+
+	@FXML
+	private TextField tfgia;
+
+	@FXML
+	private TextField tfslsp;
+
+	@FXML
+	private Button idreloadsp;
+
+	@FXML
+	private Button idupdatesp;
+	
+	@FXML
+	private Button idluusp;
+	
+	@FXML
+	void savesp(ActionEvent event) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Cap nhat thanh cong ");
+		
+		Integer masanpham1 = Integer.parseInt(tfmsp.getText());
+		String tensanpham1 = tftensp.getText();
+		String loaisanpham1 = tfloaihang.getText();
+		String donvi1 = tfslsp.getText();
+		Integer giatien1 = Integer.parseInt(tfgia.getText());
+		Integer donvitinh1 = Integer.parseInt(tfdvt.getText());
+		
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,giatien1,donvitinh1,loaisanpham1);
+			sp = session.get(Sanpham.class, masanpham1);
+			if (sp != null) {
+				// nv2.setid(idnv);
+				sp.setDonvi(donvi1);
+				sp.setDonvitinh(donvitinh1);
+				sp.setGiatien(giatien1);
+				sp.setLoaisanpham(loaisanpham1);
+				sp.setMasanpham(masanpham1);
+				sp.setTensanpham(tensanpham1);
+
+				// person2.setAge(t2);
+				/// person2.setAddress(t3);
+				session.save(sp);
+				alert.setContentText("Cap nhat san pham thanh cong !");
+				alert.showAndWait();
+				
+
+				tfmsp.setEditable(false);
+				tftensp.setEditable(false);
+				tfdvt.setEditable(false);
+				tfloaihang.setEditable(false);
+				tfgia.setEditable(false);
+				tfslsp.setVisible(false);
+				idluusp.setVisible(false);
+
+			}
+			session.getTransaction().commit();
+		} catch (RuntimeException error) {
+			session.getTransaction().rollback();
+		}
+
+		ReloadSANPHAM1();
+		
+	}
+	
+	@FXML
+	void updatesp(ActionEvent event) {
+		
+			tfmsp.setEditable(true);
+			tftensp.setEditable(true);
+			tfdvt.setEditable(true);
+			tfloaihang.setEditable(true);
+			tfgia.setEditable(true);
+			tfslsp.setVisible(true);
+			idluusp.setVisible(true);
+			
+		
+	}
+	
+	@FXML
+	void ReloadSP(ActionEvent event) {
+		ReloadSANPHAM1();
+	}
+	
+	@FXML
+	void addsp(ActionEvent event) {
+		ObservableList<Sanpham> TableQLSP = FXCollections.observableArrayList(getSanPham1());
+		// ta.setText("");
+
+		Integer masanpham1 = Integer.parseInt(tfmsp.getText());
+		String tensanpham1 = tftensp.getText();
+		String loaisanpham1 = tfloaihang.getText();
+		String donvi1 = tfslsp.getText();
+		Integer giatien1 = Integer.parseInt(tfgia.getText());
+		Integer donvitinh1 = Integer.parseInt(tfdvt.getText());
+		
+		
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,giatien1,donvitinh1,loaisanpham1);
+		// person=session.get(Person.class, t1);
+		try {
+			session.beginTransaction();
+			session.save(sp);
+			session.getTransaction().commit();
+			// ta.appendText("Them Thanh Cong ! ! !");
+			ReloadSANPHAM1();
+		} catch (RuntimeException error) {
+			session.getTransaction().rollback();
+			// ta.appendText("Khong the thuc hien thao tac ! ");
+		}
+	}
 
 /////////////////////////////AUTHOR :TỪ CHÍ HUY/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
@@ -1447,7 +1626,13 @@ public class DSNVController extends Application implements Initializable {
 		Nhacungcap.setItems(getNhacungcap());
 
 		// QL Sản phẩm // Sang
-		
+		masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+		tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+		loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("loaisanpham"));
+		donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvi"));
+		giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+		donvitinh1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+		tableQLSP.setItems(getSanPham1());
 	}
 
 }
