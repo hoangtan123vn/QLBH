@@ -62,6 +62,7 @@ import QLBH.Hoadon;
 import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
+import QLBH.KhachHang;
 
 public class DSNVController extends Application implements  Initializable  {
 	
@@ -493,24 +494,7 @@ public class DSNVController extends Application implements  Initializable  {
 	    
 	    
 	    //LỊCH SỬ MUA BÁN HÀNG 
-	    @FXML
-	    private TableView tableLSMH;
-
-	    @FXML
-	    private TableColumn idKH1;
-
-	    @FXML
-	    private TableColumn tenKHmua;
-
-	    @FXML
-	    private TableColumn maHoaDon;
-
-	    @FXML
-	    private TableColumn tenNVBanHang;
-
-	    @FXML
-	    private TableColumn ngaymua;
-	    
+	 
 	    
 	    public ObservableList<KhachHang> getKhachHang() {
 	        ObservableList<KhachHang> TableKH = FXCollections.observableArrayList();
@@ -533,7 +517,7 @@ public class DSNVController extends Application implements  Initializable  {
 	        
 	    }
 	    
-	    void searchKH() {
+	/*    void searchKH() {
 	    	ObservableList<KhachHang> table = FXCollections.observableArrayList(getKhachHang());
 	    	FilteredList<KhachHang> filterData = new FilteredList<>(table,p -> true);
 	    	searchKH.textProperty().addListener((observable,oldvalue,newvalue) -> {
@@ -555,7 +539,7 @@ public class DSNVController extends Application implements  Initializable  {
 	    		sortedList.comparatorProperty().bind(tableKH.comparatorProperty());
 	    		tableKH.setItems(sortedList);
 	    	});
-	    }
+	    }*/
 	   
 /////////////////////////////AUTHOR :HỒNG THÁI/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : QUẢN LÝ KHO ///////////*************************
@@ -1461,14 +1445,7 @@ public class DSNVController extends Application implements  Initializable  {
 
 
 	    
-	    
-	 
-	 
-	 
-	 
-	
-	 
-
+	   
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
@@ -1498,7 +1475,7 @@ public class DSNVController extends Application implements  Initializable  {
         diemtichluy.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("diemtichluy"));
         emailKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("email"));
         tableKH.setItems(getKhachHang());
-        searchKH();
+      // searchKH();
     	 	
     	//QL KHO//HỒNG THÁI
     	tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
