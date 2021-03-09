@@ -363,45 +363,6 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab text="QL SẢN PHẨM">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="tableQLSP" layoutX="131.0" layoutY="194.0" prefHeight="362.0" prefWidth="707.0">
-                    <columns>
-                      <TableColumn fx:id="masanpham1" prefWidth="100.7999849319458" text="Mã Sản Phẩm" />
-                      <TableColumn fx:id="tensanpham1" prefWidth="96.0" text="Tên Sản Phẩm" />
-                        <TableColumn fx:id="donvitinh1" prefWidth="92.00001525878906" text="Đơn vị tính" />
-                        <TableColumn fx:id="loaisanpham1" prefWidth="84.0" text="Loại hàng" />
-                        <TableColumn fx:id="giatien1" prefWidth="72.79998779296875" text="Giá" />
-                        <TableColumn fx:id="donvi1" prefWidth="102.39996337890625" text="Số lượng" />
-                        <TableColumn fx:id="imagesp" prefWidth="160.0" text="Hình ảnh" />
-                    </columns>
-                  </TableView>
-                  <Label alignment="CENTER" layoutX="268.0" layoutY="53.0" prefHeight="88.0" prefWidth="468.0" text="Quản Lý Sản Phẩm">
-                     <font>
-                        <Font name="System Bold Italic" size="48.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="idaddsp" layoutX="920.0" layoutY="194.0" mnemonicParsing="false" onAction="#addsp" text="Tạo danh mục sản phẩm" />
-                  <Label layoutX="885.0" layoutY="252.0" text="Mã sản phẩm" />
-                  <Label layoutX="885.0" layoutY="316.0" text="Tên sản phẩm" />
-                  <Label layoutX="882.0" layoutY="375.0" text="Đơn vị tính" />
-                  <Label layoutX="1143.0" layoutY="252.0" text="Loại hàng" />
-                  <Label layoutX="1142.0" layoutY="316.0" text="Giá" />
-                  <Label layoutX="1143.0" layoutY="375.0" text="Số lượng " />
-                  <TextField fx:id="tfmsp" layoutX="972.0" layoutY="248.0" />
-                  <TextField fx:id="tftensp" layoutX="972.0" layoutY="312.0" />
-                  <TextField fx:id="tfdvt" layoutX="972.0" layoutY="371.0" />
-                  <TextField fx:id="tfloaihang" layoutX="1203.0" layoutY="248.0" />
-                  <TextField fx:id="tfgia" layoutX="1203.0" layoutY="312.0" />
-                  <TextField fx:id="tfslsp" layoutX="1203.0" layoutY="371.0" />
-                  <Button fx:id="idreloadsp" layoutX="786.0" layoutY="169.0" mnemonicParsing="false" onAction="#ReloadSP" text="Reload" />
-                  <Button fx:id="idupdatesp" layoutX="1195.0" layoutY="194.0" mnemonicParsing="false" onAction="#updatesp" text="Cập nhật danh mục sản phẩm" />
-                  <Button fx:id="idluusp" layoutX="1108.0" layoutY="455.0" mnemonicParsing="false" onAction="#savesp" text="Lưu" visible="false" />
-               </children></AnchorPane>
-        </content>
-      </Tab>
       <Tab text="QL KHÁCH HÀNG">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
