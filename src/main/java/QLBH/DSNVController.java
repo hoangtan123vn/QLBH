@@ -62,6 +62,7 @@ import QLBH.Hoadon;
 import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
+import QuanLyBanHang.QL.Sanpham;
 
 public class DSNVController extends Application implements  Initializable  {
 	
@@ -669,68 +670,126 @@ public class DSNVController extends Application implements  Initializable  {
 	    }
 	    @FXML
 	    void XoaSP(ActionEvent event) {
-	//    	ta.setText("");
-	    	String t1 = tf1.getText();
-	    	int t2 = Integer.parseInt(tf2.getText());
-	    	String t3 = tf3.getText();
-	    	int t5 = Integer.parseInt(tf5.getText());
-	    	int t4 = Integer.parseInt(tf4.getText());
-	    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
-			Sanpham sanpham = new Sanpham(t1,t2,t3,t4,t5);
-			sanpham=session.get(Sanpham.class, t1);
-			try {
-				session.beginTransaction();
-				
-				if(sanpham != null) {
-					session.delete(sanpham);
-				}		
-				session.getTransaction().commit();	
-		//		ta.appendText("Xoa Thanh Cong  ! ! !");
-			} catch (RuntimeException error) {
-				session.getTransaction().rollback();
-		//		ta.appendText("Khong the thuc hien thao tac ! ");
-			}
+	    	 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			 alert.setTitle("Xoa San Pham");
+			 alert.setContentText("Save?");
+			 ButtonType okButton = new ButtonType("Yes");
+			 ButtonType noButton = new ButtonType("NO");
+			 alert.getButtonTypes().setAll(okButton, noButton);
+			 alert.showAndWait().ifPresent(type -> {
+			         if (type == okButton) {
+			        	int masanpham = (Integer.parseInt(tf2.getText()));
+			         	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+			     				.configure("hibernate.cfg.xml")
+			     				.build();
+			     		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			     		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			     		Session session = sessionFactory.openSession();
+			     		Sanpham sp = new Sanpham(null, masanpham, null, masanpham, masanpham);
+			     		sp=session.get(Sanpham.class, masanpham);
+			     		try {
+			     			session.beginTransaction();
+			     			
+			     			if(sp != null) {
+			     				session.delete(sp);
+			     				
+			     			}		
+			     			session.getTransaction().commit();	
+			     		} catch (RuntimeException error) {
+			     			session.getTransaction().rollback();
+			     			
+			     		}
+			     		ReloadSANPHAM();
+			     		tf1.setText("");
+			     		tf2.setText("");
+			     		tf3.setText("");
+			     		tf4.setText("");
+			     		tf5.setText("");
+			     		
+			         } else if (type == ButtonType.NO) {
+			        	 alert.close();
+			         }
+			         ObservableList<Sanpham> table = FXCollections.observableArrayList(getSanpham());
+			 });
 	    }
 
 	    @FXML
-	    void SuaSP(ActionEvent event) {
-	//    	ta.setText("");
-	    	String t1 = tf1.getText();	
-	    	int t2 = Integer.parseInt(tf2.getText());
-	    	String t3 = tf3.getText();
-	    	int t5 = Integer.parseInt(tf5.getText());
-	    	int t4 = Integer.parseInt(tf4.getText());
+	    void SuaSP (ActionEvent event) {
+	    	tf1.setEditable(true);
+	    	tf2.setEditable(true);
+	    	tf3.setEditable(true);
+	    	tf4.setEditable(true);
+	    	tf5.setEditable(true);
+	    	idluusp.setVisible(true);
+	    }
+	    
+	    
+	    
+	    @FXML
+	    private Button idluusp;
+	     
+	    @FXML
+	    void luusp (ActionEvent actionEvent) {
+	    	Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Cap nhat thanh cong ");
+			Integer masanpham = Integer.parseInt(tf2.getText());
+	    	String tensanpham = tf1.getText();
+	    	String donvi = tf3.getText();
+	    	Integer donvitinh = Integer.parseInt(tf5.getText());
+	    	Integer giatien = Integer.parseInt(tf4.getText());
 	    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
 					.build();
 			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 			Session session = sessionFactory.openSession();
-			Sanpham sanpham = new Sanpham(t1,t2,t3,t4,t5);
-			sanpham=session.get(Sanpham.class, t1);
 			try {
 				session.beginTransaction();
-				if (sanpham != null) {
-					sanpham.setTensanpham(t1);
-					sanpham.setMasanpham(t2);
-					sanpham.setDonvi(t3);
-					sanpham.setDonvitinh(t4);
-					sanpham.setGiatien(t5);
-				session.save(sanpham);
+				Sanpham sp = new Sanpham(tensanpham,masanpham,donvi,donvitinh,giatien);
+				sp=session.get(Sanpham.class, masanpham);
+				if (sp != null) {
+				//	nv2.setid(idnv);
+					sp.setTensanpham(tensanpham);
+					sp.setMasanpham(masanpham);
+					sp.setDonvi(donvi);
+					sp.setDonvitinh(donvitinh);
+					sp.setGiatien(giatien);
+					
+					//person2.setAge(t2);
+				///	person2.setAddress(t3);
+					 session.save(sp);
+					 alert.setContentText("Da Cap nhat San pham !");
+		        	 alert.showAndWait();
+		        	 idluusp.setVisible(false);
+		         	 
+		         	tf1.setEditable(false);
+		        	tf2.setEditable(false);
+		        	tf3.setEditable(false);
+		        	tf4.setEditable(false);
+		        	tf5.setEditable(false);
+		        	
+		        	 
 				}
 				session.getTransaction().commit();	
-			//	ta.appendText("Update Thanh Cong  ! ! !");
-			} catch (RuntimeException error) {
+			}catch (RuntimeException error) {
 				session.getTransaction().rollback();
-			//	ta.appendText("Khong the thuc hien thao tac ! ");
 			}
+			
+			ReloadSANPHAM();
 	    }
-	    
+	    private void setCellValueFromTabletoTexfFieldd()  {
+			 tableSP.setOnMouseClicked(event -> {
+				 //
+				 Sanpham sp = tableSP.getItems().get(tableSP.getSelectionModel().getSelectedIndex());
+				 tf1.setText(sp.getTensanpham());
+				 tf2.setText(Integer.toString(sp.getMasanpham()));
+				 tf3.setText(sp.getDonvi());
+				 tf4.setText(Integer.toString(sp.getGiatien()));
+				 tf5.setText(Integer.toString(sp.getDonvitinh())); 
+			 });
+			 
+			
+		 }
 	    
 	    public ObservableList<Sanpham> getSanpham() {
 	        ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
@@ -759,6 +818,7 @@ public class DSNVController extends Application implements  Initializable  {
 	    }
 
 	    void initialize1() {
+	    	setCellValueFromTabletoTexfFieldd();
 	    	tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 	        masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 	        //loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
@@ -1508,6 +1568,7 @@ public class DSNVController extends Application implements  Initializable  {
         giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
         donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
         tableSP.setItems(getSanpham());
+        setCellValueFromTabletoTexfFieldd();
 		Timkiem();
 		//QL danh mục phiếu hóa đơn //Nhi
 		mahoadon.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("mahoadon"));
