@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1193.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.DSNVController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1382.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.DSNVController">
   <tabs>
       <Tab text="QL BÁN HÀNG">
         <content>
@@ -408,6 +408,22 @@
                         <Font name="System Bold Italic" size="48.0" />
                      </font>
                   </Label>
+                  <Button fx:id="idaddsp" layoutX="920.0" layoutY="194.0" mnemonicParsing="false" onAction="#addsp" text="Tạo danh mục sản phẩm" />
+                  <Label layoutX="885.0" layoutY="252.0" text="Mã sản phẩm" />
+                  <Label layoutX="885.0" layoutY="316.0" text="Tên sản phẩm" />
+                  <Label layoutX="882.0" layoutY="375.0" text="Đơn vị tính" />
+                  <Label layoutX="1143.0" layoutY="252.0" text="Loại hàng" />
+                  <Label layoutX="1142.0" layoutY="316.0" text="Giá" />
+                  <Label layoutX="1143.0" layoutY="375.0" text="Số lượng " />
+                  <TextField fx:id="tfmsp" layoutX="972.0" layoutY="248.0" />
+                  <TextField fx:id="tftensp" layoutX="972.0" layoutY="312.0" />
+                  <TextField fx:id="tfdvt" layoutX="972.0" layoutY="371.0" />
+                  <TextField fx:id="tfloaihang" layoutX="1203.0" layoutY="248.0" />
+                  <TextField fx:id="tfgia" layoutX="1203.0" layoutY="312.0" />
+                  <TextField fx:id="tfslsp" layoutX="1203.0" layoutY="371.0" />
+                  <Button fx:id="idreloadsp" layoutX="786.0" layoutY="169.0" mnemonicParsing="false" onAction="#ReloadSP" text="Reload" />
+                  <Button fx:id="idupdatesp" layoutX="1195.0" layoutY="194.0" mnemonicParsing="false" onAction="#updatesp" text="Cập nhật danh mục sản phẩm" />
+                  <Button fx:id="idluusp" layoutX="1108.0" layoutY="455.0" mnemonicParsing="false" onAction="#savesp" text="Lưu" visible="false" />
                </children></AnchorPane>
         </content>
       </Tab>
