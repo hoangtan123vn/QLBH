@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
@@ -23,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1193.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.DSNVController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1382.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.DSNVController">
   <tabs>
       <Tab text="QL BÁN HÀNG">
         <content>
@@ -195,31 +190,6 @@
             </AnchorPane>
          </content></Tab>
 
-      <Tab text="QL KHÁCH HÀNG">
-         <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="295.0" layoutY="53.0" prefHeight="48.0" prefWidth="270.0" text="KHÁCH HÀNG ">
-                     <font>
-                        <Font name="System Bold" size="36.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="searchKH" layoutX="60.0" layoutY="136.0" prefHeight="28.0" prefWidth="311.0" promptText="Tìm theo tên khách hàng" />
-                  <TableView fx:id="tableKH" layoutX="27.0" layoutY="181.0" prefHeight="360.0" prefWidth="624.0">
-                    <columns>
-                      <TableColumn fx:id="idKH" prefWidth="75.0" text="Mã KH" />
-                      <TableColumn fx:id="hvtKH" prefWidth="112.0" text="Tên Khách Hàng" />
-                        <TableColumn fx:id="sdtKH" prefWidth="99.0" text="Số điện thoại" />
-                        <TableColumn fx:id="nsKH" prefWidth="75.0" text="Năm sinh " />
-                        <TableColumn fx:id="gtKH" prefWidth="75.0" text="Giới tính" />
-                        <TableColumn fx:id="diemtichluy" prefWidth="99.0" text="Điểm tích lũy" />
-                        <TableColumn fx:id="emailKH" prefWidth="88.0" text="Email" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-         </content></Tab>
-
       <Tab text="QL KHO">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -243,31 +213,30 @@
                                     <TableColumn fx:id="giatien" minWidth="0.0" prefWidth="133.0" text="Giá tiền" />
                                  </columns>
                               </TableView>
-                              <TextField fx:id="tf1" layoutX="789.0" layoutY="248.0" prefHeight="28.0" prefWidth="189.0" />
-                              <TextField fx:id="tf2" layoutX="789.0" layoutY="302.0" prefHeight="30.0" prefWidth="189.0" />
-                              <TextField fx:id="tf3" layoutX="790.0" layoutY="351.0" prefHeight="27.0" prefWidth="188.0" />
-                              <TextField fx:id="tf5" layoutX="789.0" layoutY="395.0" prefHeight="25.0" prefWidth="188.0" />
-                              <TextField fx:id="tf4" layoutX="789.0" layoutY="446.0" prefHeight="25.0" prefWidth="189.0" />
+                              <TextField fx:id="tf1" layoutX="789.0" layoutY="248.0" prefHeight="28.0" prefWidth="119.0" />
+                              <TextField fx:id="tf2" layoutX="795.0" layoutY="307.0" prefHeight="23.0" prefWidth="117.0" />
+                              <TextField fx:id="tf3" layoutX="795.0" layoutY="353.0" prefHeight="25.0" prefWidth="77.0" />
+                              <TextField fx:id="tf5" layoutX="794.0" layoutY="395.0" prefHeight="25.0" prefWidth="80.0" />
+                              <TextField fx:id="tf4" layoutX="794.0" layoutY="446.0" prefHeight="25.0" prefWidth="80.0" />
                               <Text layoutX="705.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên sản phẩm" />
-                              <Text layoutX="703.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã sản phẩm" />
-                              <Text layoutX="705.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đơn vị" />
-                              <Text layoutX="705.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số lượng" />
-                              <Text layoutX="705.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giá tiền" />
+                              <Text layoutX="706.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã sản phẩm" />
+                              <Text layoutX="705.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don vi" />
+                              <Text layoutX="705.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don vi tinh" />
+                              <Text layoutX="705.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gia" />
                               <MenuButton layoutX="559.0" layoutY="225.0" mnemonicParsing="false" onAction="#ThemSP" prefHeight="25.0" prefWidth="114.0" text="Tuy chon khac" underline="true">
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Action 1" />
                                     <MenuItem mnemonicParsing="false" text="Action 2" />
                                  </items>
                               </MenuButton>
-                               <Button fx:id="idluusp" layoutX="883.0" layoutY="512.0" mnemonicParsing="false" onAction="#luusp" text="Lưu" visible="false" />
                            </children>
                         </AnchorPane>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                      </children>
                   </AnchorPane>
-                  <Button fx:id="idaddSP" alignment="BASELINE_LEFT" layoutX="999.0" layoutY="250.0" mnemonicParsing="false" onAction="#ThemSP" prefHeight="39.0" prefWidth="58.0" text="Thêm " />
-                  <Button fx:id="iddelSP" layoutX="999.0" layoutY="341.0" mnemonicParsing="false" onAction="#XoaSP" prefHeight="41.0" prefWidth="58.0" text="Xóa " />
-                  <Button fx:id="idupdSP" layoutX="998.0" layoutY="437.0" mnemonicParsing="false" onAction="#SuaSP" prefHeight="40.0" prefWidth="60.0" text="Sửa" />
+                  <Button fx:id="idaddSP" alignment="BASELINE_LEFT" layoutX="1071.0" layoutY="229.0" mnemonicParsing="false" onAction="#ThemSP" prefHeight="39.0" prefWidth="58.0" text="Thêm " />
+                  <Button fx:id="iddelSP" layoutX="1071.0" layoutY="295.0" mnemonicParsing="false" onAction="#XoaSP" prefHeight="31.0" prefWidth="58.0" text="Xóa " />
+                  <Button fx:id="idupdSP" layoutX="1070.0" layoutY="352.0" mnemonicParsing="false" onAction="#SuaSP" prefHeight="33.0" prefWidth="60.0" text="Sửa" />
                   <Label layoutX="975.0" layoutY="20.0" prefHeight="29.0" prefWidth="82.0" text="Hong Thai" />
                   <Button fx:id="DangXuat" layoutX="1064.0" layoutY="18.0" mnemonicParsing="false" text="Dang xuat" />
                </children>
@@ -394,29 +363,6 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab text="QL SẢN PHẨM">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <TableView fx:id="tableQLSP" layoutX="131.0" layoutY="194.0" prefHeight="362.0" prefWidth="707.0">
-                    <columns>
-                      <TableColumn fx:id="masanpham1" prefWidth="100.7999849319458" text="Mã Sản Phẩm" />
-                      <TableColumn fx:id="tensanpham1" prefWidth="96.0" text="Tên Sản Phẩm" />
-                        <TableColumn fx:id="donvitinh1" prefWidth="92.00001525878906" text="Đơn vị tính" />
-                        <TableColumn fx:id="loaisanpham1" prefWidth="84.0" text="Loại hàng" />
-                        <TableColumn fx:id="giatien1" prefWidth="72.79998779296875" text="Giá" />
-                        <TableColumn fx:id="donvi1" prefWidth="102.39996337890625" text="Số lượng" />
-                        <TableColumn fx:id="imagesp" prefWidth="160.0" text="Hình ảnh" />
-                    </columns>
-                  </TableView>
-                  <Label alignment="CENTER" layoutX="268.0" layoutY="53.0" prefHeight="88.0" prefWidth="468.0" text="Quản Lý Sản Phẩm">
-                     <font>
-                        <Font name="System Bold Italic" size="48.0" />
-                     </font>
-                  </Label>
-               </children></AnchorPane>
-        </content>
-      </Tab>
       <Tab text="QL KHÁCH HÀNG">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
@@ -436,20 +382,6 @@
                         <TableColumn fx:id="gtKH" prefWidth="75.0" text="Giới tính" />
                         <TableColumn fx:id="diemtichluy" prefWidth="99.0" text="Điểm tích lũy" />
                         <TableColumn fx:id="emailKH" prefWidth="88.0" text="Email" />
-                    </columns>
-                  </TableView>
-                  <Label layoutX="819.0" layoutY="61.0" prefHeight="45.0" prefWidth="250.0" text="LỊCH SỬ MUA HÀNG">
-                     <font>
-                        <Font name="System Bold Italic" size="24.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="tableLSMH" layoutX="732.0" layoutY="181.0" prefHeight="173.0" prefWidth="447.0">
-                    <columns>
-                      <TableColumn fx:id="idKH1" prefWidth="75.0" text="Mã KH" />
-                      <TableColumn fx:id="tenKHmua" prefWidth="110.0" text="Tên Khách Hàng" />
-                        <TableColumn fx:id="maHoaDon" prefWidth="106.0" text="Mã Hóa Đơn" />
-                        <TableColumn fx:id="tenNVBanHang" text="NV Bán Hàng" />
-                        <TableColumn fx:id="ngaymua" prefWidth="75.0" text="Ngày mua" />
                     </columns>
                   </TableView>
                </children>
