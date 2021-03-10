@@ -1,4 +1,5 @@
 package QLBH;
+
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class HoadonDetailController {
+	
 
 	@FXML
     private Label lbMahoadon;
@@ -37,13 +39,17 @@ public class HoadonDetailController {
     
     @FXML
     void goBack(ActionEvent e) throws IOException {
-        Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
+       Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+       FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("danhsachnhanvien.fxml"));
-        Parent QLBHParent = loader.load();
-        Scene scene = new Scene(QLBHParent);
+        Parent QLBHhdParent = loader.load();
+        Scene scene = new Scene(QLBHhdParent);
         stage.setScene(scene);
+  
 
+    	
     }
+    
+    
 
 }
