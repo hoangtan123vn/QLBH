@@ -363,6 +363,7 @@
                         <Image url="@../../../../../QLBHH/src/main/java/QLBH/avata.jpg" />
                      </image>
                   </ImageView>
+                  <Button layoutX="691.0" layoutY="515.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" text="Chi tiết hóa đơn" />
                </children>
             </AnchorPane>
          </content>

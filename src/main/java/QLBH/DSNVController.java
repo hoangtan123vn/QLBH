@@ -910,6 +910,19 @@ public class DSNVController extends Application implements Initializable {
 		sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
 		tableHoaDon.setItems(sortedData);
 	}
+	
+	//chi tiết hóa đơn  scene new 
+	public void changeSceneHoadonDetail(ActionEvent e) throws IOException {
+		Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("HoadonDetail.fxml"));
+        Parent hoadonViewParent = loader.load();
+        Scene scene = new Scene(hoadonViewParent);
+        HoadonDetailController DSNVController = loader.getController();
+        Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+        DSNVController.setHoadon(selected);
+        stage.setScene(scene);
+	}
 
 	/*
 	 * 
@@ -1463,6 +1476,7 @@ public class DSNVController extends Application implements Initializable {
 		manv1.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("manv"));
 		tableHoaDon.setItems(getHoadon());
 		searchPHD();
+	//	tableHoaDon.setItems(listPHD);
 
 		// QL danh mục phiếu đặt hàng //Nhi
 		madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
