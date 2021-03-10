@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1382.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.DSNVController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1382.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.DSNVController">
   <tabs>
       <Tab text="QL BÁN HÀNG">
         <content>
@@ -211,6 +211,7 @@
                                     <TableColumn fx:id="donvi" prefWidth="79.0" text="Đơn vị" />
                                     <TableColumn fx:id="donvitinh" minWidth="0.0" prefWidth="111.0" text="Số lượng" />
                                     <TableColumn fx:id="giatien" minWidth="0.0" prefWidth="133.0" text="Giá tiền" />
+                                    <TableColumn fx:id="loaisanpham" prefWidth="115.20001220703125" text="Loại Sản Phẩm" />
                                  </columns>
                               </TableView>
                               <TextField fx:id="tf1" layoutX="789.0" layoutY="248.0" prefHeight="28.0" prefWidth="189.0" />
@@ -230,6 +231,8 @@
                                  </items>
                               </MenuButton>
                                 <Button fx:id="idluusp" layoutX="883.0" layoutY="512.0" mnemonicParsing="false" onAction="#luusp" text="Lưu" visible="false" />
+                              <Text layoutX="687.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loại sản phẩm" />
+                              <TextField fx:id="tf6" layoutX="789.0" layoutY="498.0" prefHeight="25.0" prefWidth="189.0" />
                            </children>
                         </AnchorPane>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />

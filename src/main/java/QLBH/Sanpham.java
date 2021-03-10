@@ -12,12 +12,15 @@ public class Sanpham {
 	private String loaisanpham;
 	private String donvi;
 	private int giatien;
-	private int donvitinh;
+	private String donvitinh;
 	
 	public Sanpham() {
 		super();
 	}
-	public Sanpham(String tensanpham,int masanpham,String donvi,int giatien,int donvitinh,String loaisanpham) {
+	public Sanpham(int masanpham) {
+		super();
+	}
+	public Sanpham(String tensanpham,int masanpham,String donvi,int giatien,String donvitinh,String loaisanpham) {
 		super();
 		//this.id=id;
 		this.tensanpham=tensanpham;
@@ -58,10 +61,10 @@ public class Sanpham {
 	public void setGiatien(int giatien) {
 		this.giatien = giatien;
 	}
-	public int getDonvitinh() {
+	public String getDonvitinh() {
 		return donvitinh;
 	}
-	public void setDonvitinh(int donvitinh) {
+	public void setDonvitinh(String donvitinh) {
 		this.donvitinh = donvitinh;
 	}
 }

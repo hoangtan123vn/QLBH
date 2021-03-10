@@ -537,6 +537,9 @@ public class DSNVController extends Application implements Initializable {
 
 	@FXML
 	private TableColumn masanpham;
+	
+	@FXML
+	private TableColumn loaisanpham;
 
 	@FXML
 	private TextField tf1;
@@ -552,6 +555,9 @@ public class DSNVController extends Application implements Initializable {
 
 	@FXML
 	private TextField tf5;
+	
+	@FXML
+	private TextField tf6;
 
 	@FXML
 	private TextField Timkiem;
@@ -598,17 +604,19 @@ public class DSNVController extends Application implements Initializable {
 	@FXML
 	private void ThemSP(ActionEvent event) {
 		// ta.setText("");
-		String t1 = tf1.getText();
-		int t2 = Integer.parseInt(tf2.getText());
-		String t3 = tf3.getText();
-		int t5 = Integer.parseInt(tf5.getText());
-		int t4 = Integer.parseInt(tf4.getText());
+		String tensp = tf1.getText();
+		int masp = Integer.parseInt(tf2.getText());
+		String donvi = tf3.getText();
+		String dvt = tf5.getText();
+		int giatien = Integer.parseInt(tf4.getText());
+		String loaisp = tf6.getText();
+		
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		Sanpham sanpham = new Sanpham(t1, t2, t3, t4, t5,null);
+		Sanpham sanpham = new Sanpham(tensp, masp, donvi, giatien, dvt, loaisp);
 		// person=session.get(Person.class, t1);
 		try {
 			session.beginTransaction();
@@ -640,7 +648,7 @@ public class DSNVController extends Application implements Initializable {
 			     		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 			     		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 			     		Session session = sessionFactory.openSession();
-			     		Sanpham sp = new Sanpham(null, masanpham, null, masanpham, masanpham, null);
+			     		Sanpham sp = new Sanpham(masanpham);
 			     		sp=session.get(Sanpham.class, masanpham);
 			     		try {
 			     			session.beginTransaction();
@@ -660,6 +668,7 @@ public class DSNVController extends Application implements Initializable {
 			     		tf3.setText("");
 			     		tf4.setText("");
 			     		tf5.setText("");
+			     		tf6.setText("");
 			     		
 			         } else if (type == ButtonType.NO) {
 			        	 alert.close();
@@ -674,6 +683,7 @@ public class DSNVController extends Application implements Initializable {
 		    	tf3.setEditable(true);
 		    	tf4.setEditable(true);
 		    	tf5.setEditable(true);
+		    	tf6.setEditable(true);
 		    	idluusp.setVisible(true);
 	   }
 	   @FXML
@@ -683,11 +693,12 @@ public class DSNVController extends Application implements Initializable {
 	    void luusp (ActionEvent actionEvent) {
 	    	Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Cap nhat thanh cong ");
-			Integer masanpham = Integer.parseInt(tf2.getText());
-	    	String tensanpham = tf1.getText();
-	    	String donvi = tf3.getText();
-	    	Integer donvitinh = Integer.parseInt(tf5.getText());
-	    	Integer giatien = Integer.parseInt(tf4.getText());
+			String tensp = tf1.getText();
+			int masp = Integer.parseInt(tf2.getText());
+			String donvi = tf3.getText();
+			String dvt = tf5.getText();
+			int giatien = Integer.parseInt(tf4.getText());
+			String loaisp = tf6.getText();
 	    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
 					.build();
@@ -696,15 +707,16 @@ public class DSNVController extends Application implements Initializable {
 			Session session = sessionFactory.openSession();
 			try {
 				session.beginTransaction();
-				Sanpham sp = new Sanpham(tensanpham,masanpham,donvi,donvitinh,giatien, null);
-				sp=session.get(Sanpham.class, masanpham);
+				Sanpham sp = new Sanpham(tensp, masp, donvi, giatien, dvt, loaisp);
+				sp=session.get(Sanpham.class, masp);
 				if (sp != null) {
 				//	nv2.setid(idnv);
-					sp.setTensanpham(tensanpham);
-					sp.setMasanpham(masanpham);
+					sp.setTensanpham(tensp);
+					sp.setMasanpham(masp);
 					sp.setDonvi(donvi);
-					sp.setDonvitinh(donvitinh);
+					sp.setDonvitinh(dvt);
 					sp.setGiatien(giatien);
+					sp.setLoaisanpham(loaisp);
 					
 					
 					 session.save(sp);
@@ -717,6 +729,7 @@ public class DSNVController extends Application implements Initializable {
 		        	tf3.setEditable(false);
 		        	tf4.setEditable(false);
 		        	tf5.setEditable(false);
+		        	tf6.setEditable(false);
 				}
 				session.getTransaction().commit();
 			}catch (RuntimeException error) {
@@ -758,7 +771,9 @@ public class DSNVController extends Application implements Initializable {
 			 tf2.setText(Integer.toString(sp.getMasanpham()));
 			 tf3.setText(sp.getDonvi());
 			 tf4.setText(Integer.toString(sp.getGiatien()));
-			 tf5.setText(Integer.toString(sp.getDonvitinh())); 
+			 tf5.setText(sp.getDonvitinh());
+			 tf6.setText(sp.getLoaisanpham());
+			 
 		 });
 		 
 		
@@ -770,7 +785,9 @@ public class DSNVController extends Application implements Initializable {
 		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
+		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+		
 		tableSP.setItems(getSanpham());
 		Timkiem();
 		
@@ -1434,7 +1451,8 @@ public class DSNVController extends Application implements Initializable {
 		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
+		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
 		tableSP.setItems(getSanpham());
 		Timkiem();
 		// QL danh mục phiếu hóa đơn //Nhi
