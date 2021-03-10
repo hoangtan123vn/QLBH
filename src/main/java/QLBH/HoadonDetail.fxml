@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="216.0" layoutY="30.0" text="CHI TIẾT HÓA ĐƠN ">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="84.0" text="Mã hóa đơn " />
+      <Label layoutX="52.0" layoutY="141.0" text="Mã sản phẩm" />
+      <Label layoutX="52.0" layoutY="174.0" text="Số lượng" />
+      <Label layoutX="52.0" layoutY="211.0" text="Tổng giá" />
+      <Label layoutX="51.0" layoutY="113.0" text="Thời gian mua " />
+      <Label layoutX="48.0" layoutY="246.0" text="Mã khách hàng " />
+      <Label layoutX="50.0" layoutY="281.0" text="Mã nhân viên " />
+      <Label fx:id="lbMahoadon" layoutX="215.0" layoutY="84.0" text="Mã hóa đơn " />
+      <Label fx:id="lbMasanpham" layoutX="213.0" layoutY="141.0" text="Mã sản phẩm" />
+      <Label fx:id="lbSoluong" layoutX="213.0" layoutY="174.0" text="Số lượng" />
+      <Label fx:id="lbTonggia" layoutX="213.0" layoutY="211.0" text="Tổng giá" />
+      <Label fx:id="lbThoigianmua" layoutX="212.0" layoutY="113.0" text="Thời gian mua " />
+      <Label fx:id="lbMakhachhang" layoutX="209.0" layoutY="246.0" text="Mã khách hàng " />
+      <Label fx:id="lbManhanvien" layoutX="211.0" layoutY="281.0" text="Mã nhân viên " />
+   </children>
+</AnchorPane>
