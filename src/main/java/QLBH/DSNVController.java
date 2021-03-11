@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollBar;
@@ -41,6 +42,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -105,9 +107,13 @@ public class DSNVController extends Application implements Initializable {
 	@FXML
 	private TextField hovaten_nv;
 
-	@FXML
-	private TextField ns_nv;
-
+	 @FXML
+    private DatePicker ns_nv;
+	 
+	  @FXML
+	private DatePicker ngayvaolam;
+	 
+	 
 	@FXML
 	private TextField cv_nv;
 
@@ -154,12 +160,14 @@ public class DSNVController extends Application implements Initializable {
 		Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 		id_nv.setText(Integer.toString(nv.getManv()));
 		hovaten_nv.setText(nv.getHovaten());
-		ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+	//	ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+		ns_nv.setValue(nv.getNgaysinh());
 		cv_nv.setText(nv.getChucvu());
 		gt_nv.setText(nv.getGioitinh());
 		sdt_nv.setText(Integer.toString(nv.getSdt()));
 		diachi_nv.setText(nv.getDiachi());
 		cmnd_nv.setText(Integer.toString(nv.getCmnd()));
+		ngayvaolam.setValue(nv.getNgayvaolam());
 	}
 
 	@FXML
@@ -199,15 +207,16 @@ public class DSNVController extends Application implements Initializable {
 	 * 
 	 * }
 	 */
-	@FXML
+		@FXML
 	void luucapnhat(ActionEvent event) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Cap nhat thanh cong ");
 		int idnv = (Integer.parseInt(id_nv.getText()));
 		String hovatennv = hovaten_nv.getText();
-		int ngaysinhnv = (Integer.parseInt(ns_nv.getText()));
+		LocalDate ngaysinhnv = ns_nv.getValue();
 		String chucvunv = cv_nv.getText();
 		String gioitinhnv = gt_nv.getText();
+		LocalDate nvl = ngayvaolam.getValue();
 		int sdtnv = (Integer.parseInt(sdt_nv.getText()));
 		int cmndnv = (Integer.parseInt(cmnd_nv.getText()));
 		String diachinv = diachi_nv.getText();
@@ -218,7 +227,7 @@ public class DSNVController extends Application implements Initializable {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv);
+			Nhanvien nv2 = new Nhanvien(idnv,hovatennv,ngaysinhnv,chucvunv,gioitinhnv,sdtnv,cmndnv,diachinv, nvl);
 			nv2 = session.get(Nhanvien.class, idnv);
 			if (nv2 != null) {
 				// nv2.setid(idnv);
@@ -243,6 +252,7 @@ public class DSNVController extends Application implements Initializable {
 				cmnd_nv.setEditable(false);
 				sdt_nv.setEditable(false);
 				diachi_nv.setEditable(false);
+				ngayvaolam.setEditable(false);
 
 			}
 			session.getTransaction().commit();
@@ -289,6 +299,7 @@ public class DSNVController extends Application implements Initializable {
 		sdt_nv.setEditable(true);
 		diachi_nv.setEditable(true);
 		luucapnhat.setVisible(true);
+		ngayvaolam.setEditable(true);
 		reset.setVisible(true);
 	}
 
@@ -325,13 +336,14 @@ public class DSNVController extends Application implements Initializable {
 				reloadNHANVIEN();
 				id_nv.setText("");
 				hovaten_nv.setText("");
-				ns_nv.setText("");
+				ns_nv.setValue(null);
 				cv_nv.setText("");
 				sdt_nv.setText("");
 				cmnd_nv.setText("");
 				diachi_nv.setText("");
 				gt_nv.setText("");
 				imgnhanvien.setImage(null);
+				ngayvaolam.setValue(null);
 			} else if (type == ButtonType.NO) {
 				alert.close();
 			}
@@ -343,7 +355,7 @@ public class DSNVController extends Application implements Initializable {
 
 		// id.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("id"));
 		hovaten.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("hovaten"));
-		ngaysinh.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("ngaysinh"));
+		ngaysinh.setCellValueFactory(new PropertyValueFactory<Nhanvien, Date>("ngaysinh"));
 		chucvu.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("chucvu"));
 		sdt.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("sdt"));
 		cmnd.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("cmnd"));
@@ -403,7 +415,9 @@ public class DSNVController extends Application implements Initializable {
 			Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 			id_nv.setText(Integer.toString(nv.getManv()));
 			hovaten_nv.setText(nv.getHovaten());
-			ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+		//	ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+			ns_nv.setValue(nv.getNgaysinh());
+			ngayvaolam.setValue(nv.getNgayvaolam());
 			cv_nv.setText(nv.getChucvu());
 			gt_nv.setText(nv.getGioitinh());
 			sdt_nv.setText(Integer.toString(nv.getSdt()));

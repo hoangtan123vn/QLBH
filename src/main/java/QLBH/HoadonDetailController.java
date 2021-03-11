@@ -40,7 +40,7 @@ public class HoadonDetailController {
     @FXML
     void goBack(ActionEvent e) throws IOException {
        Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-       FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("danhsachnhanvien.fxml"));
         Parent QLBHhdParent = loader.load();
         Scene scene = new Scene(QLBHhdParent);
