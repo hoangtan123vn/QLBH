@@ -33,5 +33,6 @@
   <mapping class="QLBH.Phieutrahang"/>
   <mapping class="QLBH.Nhacungcap"/>
   <mapping class="QLBH.KhachHang"/>
+  <mapping class="QLBH.Taikhoannv"/>
  </session-factory>
 </hibernate-configuration>

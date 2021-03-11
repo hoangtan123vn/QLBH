@@ -136,7 +136,7 @@ public class ThemNVController extends Application implements Initializable{
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		DSNVController ds = new DSNVController();
+		chucnangquanly ds = new chucnangquanly();
     	try {
     		 FileInputStream fis = new FileInputStream(file);
     		 byte[] bFile = new byte[(int) (file.length())];

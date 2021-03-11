@@ -65,7 +65,7 @@ import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
 
-public class DSNVController extends Application implements Initializable {
+public class chucnangquanly extends Application implements Initializable {
 
 	///////////////////////////// AUTHOR : LÊ HOÀNG
 	///////////////////////////// TÂN/////////////////////////**************************
@@ -183,7 +183,7 @@ public class DSNVController extends Application implements Initializable {
 	@FXML
 	void ListNhanvien(ActionEvent event) throws IOException {
 		if (Listnhanvien.getValue() == "Danh sách nhân viên") {
-			Parent root = FXMLLoader.load(getClass().getResource("danhsachnhanvien.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
 
 			// Scene scene = new Scene(root);
 			// Stage stage = new Stage();
@@ -1354,7 +1354,6 @@ public class DSNVController extends Application implements Initializable {
 
 	@FXML
 	void Taonhacungcap(ActionEvent event) {
-
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("taonhacungcap.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
@@ -1454,12 +1453,7 @@ public class DSNVController extends Application implements Initializable {
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
 ///////////////////
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	public void initialize(URL url, ResourceBundle rb) {
 		// QL NHÂN VIÊN //HOÀNG TÂN
 		ObservableList<String> list = FXCollections.observableArrayList("Danh sách nhân viên ", "Lịch làm");
@@ -1539,6 +1533,12 @@ public class DSNVController extends Application implements Initializable {
 		// Integer>("thoigianno"));
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
 		Nhacungcap.setItems(getNhacungcap());
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
