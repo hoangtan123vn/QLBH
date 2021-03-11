@@ -22,6 +22,7 @@ public class QLBH extends Application {
 		stage.setScene(scene);
 		stage.setTitle("Phan mem quan ly ban hang");
 		stage.show();	
+		
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

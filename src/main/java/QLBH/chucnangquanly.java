@@ -260,7 +260,7 @@ public class chucnangquanly extends Application implements Initializable {
 			session.getTransaction().rollback();
 		}
 
-		reloadNHANVIEN();
+		initializeNHANVIEN();
 	}
 
 	@FXML
@@ -333,7 +333,7 @@ public class chucnangquanly extends Application implements Initializable {
 					session.getTransaction().rollback();
 
 				}
-				reloadNHANVIEN();
+				initializeNHANVIEN();
 				id_nv.setText("");
 				hovaten_nv.setText("");
 				ns_nv.setValue(null);
