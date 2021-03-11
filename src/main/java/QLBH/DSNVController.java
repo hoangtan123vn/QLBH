@@ -925,8 +925,31 @@ public class DSNVController extends Application implements Initializable {
 		tableHoaDon.setItems(sortedData);
 	}
 	
-	//chi tiết hóa đơn  scene new 
-	public void changeSceneHoadonDetail(ActionEvent e) throws IOException {
+	@FXML
+	private void changeSceneHoadonDetail (ActionEvent event) throws IOException {
+		
+	//	Parent root = FXMLLoader.load(getClass().getResource("HoadonDetail.fxml"));
+		FXMLLoader loader = new FXMLLoader();
+		Parent hoadonViewParent = loader.load();
+		 loader.setLocation(getClass().getResource("HoadonDetail.fxml"));
+		Scene scene = new Scene(hoadonViewParent);
+		
+		HoadonDetailController DSNVController = loader.getController();
+        Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+        DSNVController.setHoadon(selected);
+       
+		Stage stage = new Stage();
+		stage.setTitle("Chi tiet hoa don");
+		stage.setScene(scene);
+		stage.show();
+		
+       // Scene scene1 = new Scene(hoadonViewParent);
+        
+		
+	}
+	
+	//chi tiết hóa đơn  new stage 
+/*	public void changeSceneHoadonDetail(ActionEvent e) throws IOException {
 		Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("HoadonDetail.fxml"));
@@ -936,7 +959,7 @@ public class DSNVController extends Application implements Initializable {
         Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
         DSNVController.setHoadon(selected);
         stage.setScene(scene);
-	}
+	}*/
 
 	/*
 	 * 
