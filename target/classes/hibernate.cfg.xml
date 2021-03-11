@@ -27,7 +27,6 @@
   <!-- Names of the annotated entity class -->
   <mapping class="QLBH.Nhanvien"/>
   <mapping class="QLBH.Sanpham"/>
-  <mapping class="QLBH.Nhanvien"/>
   <mapping class="QLBH.Hoadon"/>
   <mapping class="QLBH.Phieudathang"/>
   <mapping class="QLBH.Phieunhaphang"/>

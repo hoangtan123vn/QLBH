@@ -291,7 +291,7 @@ public class DSNVController extends Application implements Initializable {
 		luucapnhat.setVisible(true);
 		reset.setVisible(true);
 	}
-
+//a
 	@FXML
 	void XoaNhanvien(ActionEvent event) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -581,15 +581,15 @@ public class DSNVController extends Application implements Initializable {
 
 		FilteredList<Sanpham> filteredData = new FilteredList<>(TableSP, b -> true);
 		Timkiem.textProperty().addListener((observable, oldValue, newValue) -> {
-			filteredData.setPredicate(sanpham -> {
+			filteredData.setPredicate(sp -> {
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
 				}
 				String lowerCaseFilter = newValue.toLowerCase();
 
-				if (sanpham.getTensanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				if (sp.getTensanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches username
-				} else if (sanpham.getDonvi().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				} else if (sp.getDonvi().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches password
 				} else
 					return false; // Does not match.
@@ -616,11 +616,11 @@ public class DSNVController extends Application implements Initializable {
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		Sanpham sanpham = new Sanpham(tensp, masp, donvi, giatien, dvt, loaisp);
+		Sanpham sp = new Sanpham(tensp, masp, donvi, giatien, dvt, loaisp);
 		// person=session.get(Person.class, t1);
 		try {
 			session.beginTransaction();
-			session.save(sanpham);
+			session.save(sp);
 			session.getTransaction().commit();
 			// ta.appendText("Them Thanh Cong ! ! !");
 			ReloadSANPHAM();
@@ -630,51 +630,49 @@ public class DSNVController extends Application implements Initializable {
 		}
 
 	}
-
+//a
 	   @FXML
 	    void XoaSP(ActionEvent event) {
 		   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-			 alert.setTitle("Xoa San Pham");
-			 alert.setContentText("Save?");
-			 ButtonType okButton = new ButtonType("Yes");
-			 ButtonType noButton = new ButtonType("NO");
-			 alert.getButtonTypes().setAll(okButton, noButton);
-			 alert.showAndWait().ifPresent(type -> {
-			         if (type == okButton) {
-			        	int masanpham = (Integer.parseInt(tf2.getText()));
-			         	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-			     				.configure("hibernate.cfg.xml")
-			     				.build();
-			     		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			     		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			     		Session session = sessionFactory.openSession();
-			     		Sanpham sp = new Sanpham(masanpham);
-			     		sp=session.get(Sanpham.class, masanpham);
-			     		try {
-			     			session.beginTransaction();
-			     			
-			     			if(sp != null) {
-			     				session.delete(sp);
-			     				
-			     			}		
-			     			session.getTransaction().commit();	
-			     		} catch (RuntimeException error) {
-			     			session.getTransaction().rollback();
-			     			
-			     		}
-			     		ReloadSANPHAM();
-			     		tf1.setText("");
-			     		tf2.setText("");
-			     		tf3.setText("");
-			     		tf4.setText("");
-			     		tf5.setText("");
-			     		tf6.setText("");
-			     		
-			         } else if (type == ButtonType.NO) {
-			        	 alert.close();
-			         }
-			         ObservableList<Sanpham> table = FXCollections.observableArrayList(getSanpham());
-			 });
+			alert.setTitle("Current project is modified");
+			alert.setContentText("Save?");
+			ButtonType okButton = new ButtonType("Yes");
+			ButtonType noButton = new ButtonType("NO");
+			alert.getButtonTypes().setAll(okButton, noButton);
+			alert.showAndWait().ifPresent(type -> {
+				if (type == okButton) {
+					int masp = (Integer.parseInt(tf2.getText()));
+					StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+							.configure("hibernate.cfg.xml").build();
+					Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+					SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+					Session session = sessionFactory.openSession();
+					Sanpham sp = new Sanpham(masp);
+					sp = session.get(Sanpham.class, masp);
+					try {
+						session.beginTransaction();
+
+						if (sp != null) {
+							session.delete(sp);
+
+						}
+						session.getTransaction().commit();
+					} catch (RuntimeException error) {
+						session.getTransaction().rollback();
+
+					}
+					ReloadSANPHAM();
+					tf1.setText(" ");
+					tf2.setText(" ");
+					tf3.setText(" ");
+					tf4.setText(" ");
+					tf5.setText(" ");
+					tf6.setText(" ");
+					} else if (type == ButtonType.NO) {
+					alert.close();
+				}
+				ObservableList<Sanpham> tableSP = FXCollections.observableArrayList(getSanpham());
+			});
 	   }
 	   @FXML
 		void SuaSP (ActionEvent event) {
@@ -739,7 +737,7 @@ public class DSNVController extends Application implements Initializable {
 	    }
 
 	public ObservableList<Sanpham> getSanpham() {
-		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
+		ObservableList<Sanpham> tableSP = FXCollections.observableArrayList();
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
@@ -752,13 +750,22 @@ public class DSNVController extends Application implements Initializable {
 		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
 		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
 		for (Sanpham ent : eList) {
-			TableSP.add(ent);
+			tableSP.add(ent);
 		}
-		return TableSP;
+		return tableSP;
 	}
 
 	void ReloadSANPHAM() {
-		initialize1();
+		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
+		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+		
+		tableSP.setItems(getSanpham());
+		Timkiem();
 		getSanpham();
 
 	}
@@ -775,25 +782,8 @@ public class DSNVController extends Application implements Initializable {
 			 tf6.setText(sp.getLoaisanpham());
 			 
 		 });
-		 
-		
+		 		
 	 }
-	void initialize1() {
-		setCellValueFromTabletoTexfFieldd();
-		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
-		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
-		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
-		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
-		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
-		
-		tableSP.setItems(getSanpham());
-		Timkiem();
-		
-		
-	}
-
 /////////////////////////////AUTHOR :HỒNG THÁI/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : THỐNG KÊ ///////////*************************
 ///////////////////
