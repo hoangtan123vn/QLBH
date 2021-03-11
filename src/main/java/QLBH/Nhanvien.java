@@ -1,8 +1,12 @@
 package QLBH;
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.*;
+
+import javafx.scene.control.DatePicker;
 
 
 @Entity
@@ -16,18 +20,20 @@ public class Nhanvien implements Serializable {
 //	private Image imgnhanvien;
 	private int manv;
 	private String hovaten;
-	private int ngaysinh;
+	//private int ngaysinh;
+	private LocalDate ngaysinh;
 	private String chucvu;
 	private int sdt;
 	private int cmnd;
 	private String gioitinh;
 	private String diachi;
 	private byte[] image;
+	private LocalDate ngayvaolam;
 	public Nhanvien() {
 		super();
 	}
 	
-	public Nhanvien(int manv,String hovaten,int ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image) {
+	public Nhanvien(int manv,String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image,LocalDate ngayvaolam) {
 		super();
 		this.manv=manv;
 		this.hovaten=hovaten;
@@ -38,8 +44,9 @@ public class Nhanvien implements Serializable {
 		this.cmnd=cmnd;
 		this.diachi=diachi;
 		this.image = image;
+		this.ngayvaolam = ngayvaolam;
 	}
-	public Nhanvien(int manv,String hovaten,int ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi) {
+	public Nhanvien(int manv,String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,LocalDate ngayvaolam) {
 		super();
 		this.manv=manv;
 		this.hovaten=hovaten;
@@ -49,9 +56,9 @@ public class Nhanvien implements Serializable {
 		this.sdt=sdt;
 		this.cmnd=cmnd;
 		this.diachi=diachi;
-		
+		this.ngayvaolam=ngayvaolam;
 	}
-	public Nhanvien(String hovaten,int ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image) {
+	public Nhanvien(String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image,LocalDate ngayvaolam) {
 		super();
 		this.hovaten=hovaten;
 		this.ngaysinh=ngaysinh;
@@ -61,7 +68,7 @@ public class Nhanvien implements Serializable {
 		this.cmnd=cmnd;
 		this.diachi=diachi;
 		this.image = image;
-		
+		this.ngayvaolam=ngayvaolam;
 	}
 	
 	public Nhanvien(int manv) {
@@ -69,7 +76,7 @@ public class Nhanvien implements Serializable {
 		this.manv=manv;
 	}
 			
-	public Nhanvien(String hovaten,int ngaysinh,String chucvu,int sdt,int cmnd,String diachi) {
+	public Nhanvien(String hovaten,LocalDate ngaysinh,String chucvu,int sdt,int cmnd,String diachi) {
 		super();
 		//this.id=id;
 		this.hovaten=hovaten;
@@ -99,6 +106,15 @@ public class Nhanvien implements Serializable {
 		this.image = image;
 	}
 	
+	
+	public LocalDate getNgayvaolam() {
+		return ngayvaolam;
+	}
+
+	public void setNgayvaolam(LocalDate ngayvaolam) {
+		this.ngayvaolam = ngayvaolam;
+	}
+
 	public int getManv() {
 		return manv;
 	}
@@ -131,12 +147,15 @@ public class Nhanvien implements Serializable {
 	public void setHovaten(String hovaten) {
 		this.hovaten = hovaten;
 	}
-	public int getNgaysinh() {
+	
+	public LocalDate getNgaysinh() {
 		return ngaysinh;
 	}
-	public void setNgaysinh(int ngaysinh) {
+
+	public void setNgaysinh(LocalDate ngaysinh) {
 		this.ngaysinh = ngaysinh;
 	}
+
 	public String getChucvu() {
 		return chucvu;
 	}

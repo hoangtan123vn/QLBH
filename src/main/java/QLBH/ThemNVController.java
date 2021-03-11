@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -29,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -60,9 +62,6 @@ public class ThemNVController extends Application implements Initializable{
     private ImageView imgview;
 
     @FXML
-    private TextField tfns;
-
-    @FXML
     private TextField tfsdt;
 
     @FXML
@@ -89,6 +88,12 @@ public class ThemNVController extends Application implements Initializable{
     @FXML
     private ComboBox<String> tfgt;
     
+    @FXML
+    private DatePicker tfngayvaolam;
+    
+    
+    @FXML
+    private DatePicker tfns;
     @FXML
      void AddImage(ActionEvent event) {
     	 Stage stage = (Stage) ap.getScene().getWindow();
@@ -117,12 +122,14 @@ public class ThemNVController extends Application implements Initializable{
 		 
   //  	int id = Integer.parseInt(tfid.getText());
     	String t1 = tfhovaten.getText();
-    	int t2 = Integer.parseInt(tfns.getText());
+    	//int t2 = Integer.parseInt(tfns.getText());
+    	LocalDate t2 = tfns.getValue();
     	String t3 = tfcv.getValue();
     	String t4 = tfgt.getValue();
     	int t5 = Integer.parseInt(tfsdt.getText());
     	int t6 = Integer.parseInt(tfcmnd.getText());
     	String t7 = tfdc.getText();
+    	LocalDate t8 = tfngayvaolam.getValue();
     	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 				.configure("hibernate.cfg.xml")
 				.build();
@@ -134,7 +141,7 @@ public class ThemNVController extends Application implements Initializable{
     		 FileInputStream fis = new FileInputStream(file);
     		 byte[] bFile = new byte[(int) (file.length())];
     		 fis.read(bFile);
-    		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile);
+    		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
     		 session.beginTransaction();
     		 session.save(nv);
     		 session.getTransaction().commit();

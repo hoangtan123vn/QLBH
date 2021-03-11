@@ -22,6 +22,6 @@
       <Label layoutX="52.0" layoutY="281.0" text="Mã NV" />
       <Label fx:id="lbMakh" layoutX="213.0" layoutY="220.0" text="Mã kh" />
       <Label fx:id="lbManv" layoutX="201.0" layoutY="281.0" text="Mã nv" />
-      <Button layoutX="405.0" layoutY="328.0" mnemonicParsing="false" onAction="#goBack" text="Trở lại" />
+      <Button fx:id="back" layoutX="405.0" layoutY="328.0" mnemonicParsing="false" onAction="#goBack" text="Trở lại" />
    </children>
 </AnchorPane>
