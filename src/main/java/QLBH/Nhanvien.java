@@ -23,9 +23,20 @@ public class Nhanvien implements Serializable {
 	private String gioitinh;
 	private String diachi;
 	private byte[] image;
+	
+	private String username;
+	private String password;
+	
 	public Nhanvien() {
 		super();
 	}
+	public Nhanvien(String username, String password) {
+		super();
+		
+		this.username=username;
+		this.password=password;
+	}
+	
 	
 	public Nhanvien(int manv,String hovaten,int ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image) {
 		super();
@@ -155,7 +166,19 @@ public class Nhanvien implements Serializable {
 	public void setCmnd(int cmnd) {
 		this.cmnd = cmnd;
 	}
- ;
+	public String getusername() {
+		return username;
+	}
+	public void setusername(String username) {
+		this.username = username;
+	}
+	public String getpassword() {
+		return password;
+	}
+	public void setpassword(String password) {
+		this.password = password;
+	}
+ 
 
 	
 
