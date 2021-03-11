@@ -21,7 +21,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import QLBH.Taikhoannv;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,6 +33,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -49,6 +50,8 @@ public class LoginController implements  Initializable{
 
     @FXML
 	private PasswordField passwordField;
+    @FXML
+    private Label thongbao;
      
    @FXML
     void login(ActionEvent event) throws IOException {
@@ -58,17 +61,16 @@ public class LoginController implements  Initializable{
       System.out.println(passwordField.getText());
 
        if (emailIdField.getText().isEmpty()) {
-           showAlert(Alert.AlertType.ERROR, owner, "LỖI ĐĂNG NHẬP !",
-               "HÃY NHẬP TÀI KHOẢN CỦA ");
+           thongbao.setText("Bạn chưa nhập tài khoản !");
            return;
        }
        else if (passwordField.getText().isEmpty()) {
-           showAlert(Alert.AlertType.ERROR, owner, "LỖI ĐĂNG NHẬP !",
-               "HÃY NHẬP MẬT KHẨU CỦA ");
-           return;
+           thongbao.setText("Bạn chưa nhập mật khẩu !");
+           return ;
        }
       
    
+  
    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 			.configure("hibernate.cfg.xml")
 			.build();
@@ -77,28 +79,47 @@ public class LoginController implements  Initializable{
 	Session session = sessionFactory.openSession();
 	String username = emailIdField.getText();
 	String password =passwordField.getText();
+	String chucvu= null;
 	//String hql = "SELECT u.username, u.password FROM taikhoannv u WHERE u.username = :username, u.password= :password";	
 	//String hql = "SELECT u.username FROM Taikhoannv u WHERE u.username = :username";
-	Taikhoannv taikhoan = new Taikhoannv ( username,password);
+	//Taikhoannv taikhoan = new Taikhoannv ( username,password);
+		Nhanvien nhanvien = new Nhanvien(username, password);
+
+	//Nhanvien nhanvien = new Nhanvien (chucvu);
 	try {
 		session.getTransaction().begin();
       
-        String hql = "FROM Taikhoannv A WHERE A.username = :username and A.password = :password";
+        String hql = "FROM Nhanvien A WHERE A.username = :username and A.password = :password and A.chucvu='QL' ";
+        String hql2 ="FROM Nhanvien A WHERE A.username = :username and A.password = :password and A.chucvu='NV' ";
         Query query = session.createQuery(hql);
-        List<Taikhoannv> taikhoannv = session.createQuery(hql, Taikhoannv.class).setParameter("username", username).setParameter("password",password).list();
-        for(Taikhoannv b : taikhoannv) {
-               if(b.getusername().contains(taikhoan.getusername()) && b.getpassword().contains(taikhoan.getpassword())) {
+        Query query2 = session.createQuery(hql2);
+        List<Nhanvien> nhanvien1 = session.createQuery(hql).setParameter("username", username).setParameter("password",password).list();
+        for(Nhanvien b  : nhanvien1) {
+        	 
+               if(b.getusername().contains(nhanvien.getusername()) && b.getpassword().contains(nhanvien.getpassword())) {
             	   Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
             	   FXMLLoader loader = new FXMLLoader();
             	   loader.setLocation(getClass().getResource("danhsachnhanvien.fxml"));
             	   Parent sampleparent =loader.load();
             	   Scene scene = new Scene(sampleparent);
-            	   stage.setScene(scene);
-		}  
-        break;            
+            	   stage.setScene(scene);    
+		}
+           break;    
         }
-        showAlert(Alert.AlertType.ERROR, owner, "LỖI ĐĂNG NHẬP !",
-                "TÀI KHOẢN HOẶC MẬT KHẨU CỦA BẠN BỊ SAI, VUI LÒNG NHẬP LẠI");
+        List<Nhanvien> nhanvien2 = session.createQuery(hql2).setParameter("username", username).setParameter("password",password).list();
+        for(Nhanvien b  : nhanvien2) {
+       	 
+            if(b.getusername().contains(nhanvien.getusername()) && b.getpassword().contains(nhanvien.getpassword())) {
+         	   Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+         	   FXMLLoader loader = new FXMLLoader();
+         	   loader.setLocation(getClass().getResource("welcome.fxml"));
+         	   Parent sampleparent =loader.load();
+         	   Scene scene = new Scene(sampleparent);
+         	   stage.setScene(scene);    
+		}
+            
+     }
+        thongbao.setText(" đăng nhập thất bại !!  ");
 	}
 	catch(HibernateException e) {
 		e.printStackTrace();
@@ -108,13 +129,6 @@ public class LoginController implements  Initializable{
 	   
 	      
    }
-   private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
-       Alert alert = new Alert(alertType);
-       alert.setTitle(title);
-       alert.setHeaderText(null);
-       alert.setContentText(message);
-       alert.initOwner(owner);
-       alert.show();
-   }
+ 
    
 }
