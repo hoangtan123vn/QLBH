@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.LapPhieuDatHangController">
+   <children>
+      <AnchorPane layoutX="2.0" layoutY="10.0" prefHeight="689.0" prefWidth="936.0">
+         <children>
+            <TableView fx:id="tableSP" layoutX="27.0" layoutY="261.0" prefHeight="363.0" prefWidth="531.0">
+               <columns>
+                  <TableColumn fx:id="tensanpham" prefWidth="115.0" text="Tên sản phẩm" />
+                  <TableColumn fx:id="masanpham" minWidth="0.0" prefWidth="93.0" text="Mã sản phẩm" />
+                  <TableColumn fx:id="donvi" prefWidth="79.0" text="Đơn vị" />
+                  <TableColumn fx:id="donvitinh" minWidth="0.0" prefWidth="111.0" text="Số lượng" />
+                  <TableColumn fx:id="giatien" minWidth="0.0" prefWidth="133.0" text="Giá tiền" />
+                  <TableColumn fx:id="giatien1" minWidth="0.0" prefWidth="133.0" />
+               </columns>
+            </TableView>
+            <TextField layoutX="163.0" layoutY="175.0" prefHeight="27.0" prefWidth="235.0" />
+            <Text layoutX="55.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhà cung cấp" wrappingWidth="80.341796875" />
+            <Text layoutX="55.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ" wrappingWidth="46.953125" />
+            <Label layoutX="220.0" layoutY="38.0" prefHeight="27.0" prefWidth="184.0" text="LẬP PHIẾU ĐẶT HÀNG">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="163.0" layoutY="136.0" prefHeight="25.0" prefWidth="235.0" />
+            <Button layoutX="194.0" layoutY="644.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="58.0" text="Đặt " />
+            <Button layoutX="331.0" layoutY="644.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="58.0" text="Hủy" />
+            <Text layoutX="55.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanh toán" wrappingWidth="86.953125" />
+            <ComboBox layoutX="163.0" layoutY="220.0" prefHeight="25.0" prefWidth="235.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

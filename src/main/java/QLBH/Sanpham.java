@@ -12,7 +12,7 @@ public class Sanpham {
 	private String loaisanpham;
 	private String donvi;
 	private int giatien;
-	private String donvitinh;
+	private int donvitinh;
 	
 	public Sanpham() {
 		super();
@@ -20,12 +20,11 @@ public class Sanpham {
 	public Sanpham(int masanpham) {
 		super();
 	}
-	public Sanpham(String tensanpham,int masanpham,String donvi,int giatien,String donvitinh,String loaisanpham) {
+	public Sanpham(String tensanpham,int masanpham,String donvi,int giatien,int donvitinh) {
 		super();
 		//this.id=id;
 		this.tensanpham=tensanpham;
 		this.masanpham=masanpham;
-		this.loaisanpham=loaisanpham;
 		this.donvi=donvi;
 		this.giatien=giatien;
 		this.donvitinh=donvitinh;
@@ -61,10 +60,10 @@ public class Sanpham {
 	public void setGiatien(int giatien) {
 		this.giatien = giatien;
 	}
-	public String getDonvitinh() {
+	public int getDonvitinh() {
 		return donvitinh;
 	}
-	public void setDonvitinh(String donvitinh) {
-		this.donvitinh = donvitinh;
+		public void setDonvitinh(int donvitinh) {
+			this.donvitinh = donvitinh;
+		}
 	}
-}
