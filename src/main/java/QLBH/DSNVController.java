@@ -919,19 +919,16 @@ public class DSNVController extends Application implements Initializable {
 	private void changeSceneHoadonDetail (ActionEvent event) throws IOException {
 		
 	//	Parent root = FXMLLoader.load(getClass().getResource("HoadonDetail.fxml"));
-		FXMLLoader loader = new FXMLLoader();
-		Parent hoadonViewParent = loader.load();
-		 loader.setLocation(getClass().getResource("HoadonDetail.fxml"));
-		Scene scene = new Scene(hoadonViewParent);
-		
-		HoadonDetailController DSNVController = loader.getController();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("HoadonDetail.fxml"));
+        Parent hoadonViewParent = loader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(hoadonViewParent);
         Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+        HoadonDetailController DSNVController = loader.getController();
         DSNVController.setHoadon(selected);
-       
-		Stage stage = new Stage();
-		stage.setTitle("Chi tiet hoa don");
-		stage.setScene(scene);
-		stage.show();
+        stage.setTitle("Chi tiet hoa don");
+        stage.setScene(scene);
+        stage.show();
 		
        // Scene scene1 = new Scene(hoadonViewParent);
         
