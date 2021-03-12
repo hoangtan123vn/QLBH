@@ -89,8 +89,10 @@ public class LoginController implements  Initializable{
 	try {
 		session.getTransaction().begin();
 		String hql = "FROM Taikhoannv A WHERE A.username = :username and A.password = :password";
-        String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.manv=B.manv and A.username = :username and A.password = :password and B.chucvu='Quản lý' ";
-        String hql2 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.manv=B.manv and A.username = :username and A.password = :password and B.chucvu='Nhân viên' ";
+      //  String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.username = :username and A.password = :password and B.chucvu='Quản lý' ";
+		String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.manv=B.manv and A.username = :username and A.password = :password and B.chucvu='Quản lý' ";
+    //   String hql2 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.username = :username and A.password = :password and B.chucvu='Nhân viên' ";
+            String hql2 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.manv=B.manv and A.username = :username and A.password = :password and B.chucvu='Nhân viên' ";
         Query query = session.createQuery(hql);
         query.setParameter("username", username);
         query.setParameter("password", password);

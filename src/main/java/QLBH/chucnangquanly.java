@@ -64,13 +64,7 @@ import QLBH.Hoadon;
 import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
-import application.Metadata;
-import application.MetadataSources;
-import application.Sanpham;
-import application.Session;
-import application.SessionFactory;
-import application.StandardServiceRegistry;
-import application.StandardServiceRegistryBuilder;
+
 
 public class chucnangquanly extends Application implements Initializable {
 

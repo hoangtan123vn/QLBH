@@ -10,6 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -41,9 +42,11 @@ import javafx.event.*;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
+import QLBH.Taikhoannv;
 
 public class ThemNVController extends Application implements Initializable{
 	private FileChooser filechooser;
@@ -91,9 +94,21 @@ public class ThemNVController extends Application implements Initializable{
     @FXML
     private DatePicker tfngayvaolam;
     
-    
+    @FXML
+    private TextField iduser;
+
+    @FXML
+    private TextField idpass;
+
+    @FXML
+    private TextField confirmpass;
+
     @FXML
     private DatePicker tfns;
+   
+    @FXML
+    private Label thongbao;
+    
     @FXML
      void AddImage(ActionEvent event) {
     	 Stage stage = (Stage) ap.getScene().getWindow();
@@ -130,6 +145,24 @@ public class ThemNVController extends Application implements Initializable{
     	int t6 = Integer.parseInt(tfcmnd.getText());
     	String t7 = tfdc.getText();
     	LocalDate t8 = tfngayvaolam.getValue();
+    	String user1 = iduser.getText();
+    	String pass = idpass.getText();
+    	String cfpass = confirmpass.getText();
+    	
+    	if(user1.isEmpty()) {
+    		thongbao.setText("Bạn chưa nhập tài khoản");
+    	}
+    	else if(pass.isEmpty()){
+    		thongbao.setText("Bạn chưa nhập mật khẩu");
+		}
+    	else if(cfpass.isEmpty()) {
+    		thongbao.setText("Bạn chưa nhập xác nhận mật khẩu");
+    	}
+    /*	else if(cfpass != pass) {
+    		thongbao.setText("Xác nhận mật khẩu không đúng");
+    		return;
+    	}*/
+    	
     	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 				.configure("hibernate.cfg.xml")
 				.build();
@@ -137,13 +170,16 @@ public class ThemNVController extends Application implements Initializable{
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
 		chucnangquanly ds = new chucnangquanly();
+		FileInputStream fis = new FileInputStream(file);
+		 byte[] bFile = new byte[(int) (file.length())];
+		 fis.read(bFile);
+		Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
+		Taikhoannv taikhoan = new Taikhoannv(user1, pass,nv);
     	try {
-    		 FileInputStream fis = new FileInputStream(file);
-    		 byte[] bFile = new byte[(int) (file.length())];
-    		 fis.read(bFile);
-    		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
+    		// Taikhoannv = session.get(Nhanvien.class,nv.getManv());
     		 session.beginTransaction();
     		 session.save(nv);
+    		 session.save(taikhoan);
     		 session.getTransaction().commit();
     		 Stage stage = (Stage) add.getScene().getWindow();
         	 stage.close();

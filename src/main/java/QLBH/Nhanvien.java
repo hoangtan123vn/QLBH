@@ -7,17 +7,18 @@ import java.util.List;
 import javax.persistence.*;
 
 import javafx.scene.control.DatePicker;
+import javassist.SerialVersionUID;
 
 
 @Entity
 @Table(name="nhanvien")
 @Access(AccessType.FIELD)
 public class Nhanvien implements Serializable {
+//	private static final long SerialVersionUID=1L;
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@OneToMany(mappedBy="nhanvien")
-//	private List<Hoadon> hoadon;
-//	private Image imgnhanvien;
+	//@OneToOne(mappedBy="nhanvien")
+	private Taikhoannv taikhoannv;
 	private int manv;
 	private String hovaten;
 	//private int ngaysinh;
@@ -87,6 +88,8 @@ public class Nhanvien implements Serializable {
 		this.diachi=diachi;
 	}
 	
+	
+
 	/*public Nhanvien(Image imgnhanvien,String hovaten,int ngaysinh,String chucvu,int sdt,int cmnd,String diachi ) {
 		super();
 		this.imgnhanvien=imgnhanvien;
@@ -106,7 +109,7 @@ public class Nhanvien implements Serializable {
 		this.image = image;
 	}
 	
-	
+
 	public LocalDate getNgayvaolam() {
 		return ngayvaolam;
 	}
