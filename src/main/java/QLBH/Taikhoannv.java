@@ -13,7 +13,7 @@ public class Taikhoannv {
 	}
 	public Taikhoannv(String username, String password) {
 		super();
-		this.manv=manv;
+	//	this.manv=manv;
 		this.username=username;
 		this.password=password;
 	}

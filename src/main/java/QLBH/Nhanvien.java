@@ -15,12 +15,9 @@ import javafx.scene.control.DatePicker;
 public class Nhanvien implements Serializable {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@OneToMany(mappedBy="nhanvien")
-//	private List<Hoadon> hoadon;
-//	private Image imgnhanvien;
+
 	private int manv;
 	private String hovaten;
-	//private int ngaysinh;
 	private LocalDate ngaysinh;
 	private String chucvu;
 	private int sdt;
