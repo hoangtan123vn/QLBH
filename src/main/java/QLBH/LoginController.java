@@ -158,22 +158,12 @@ public class LoginController implements  Initializable{
         		}
         	}
         }
-<<<<<<< HEAD
-        List<Nhanvien> nhanvien2 = session.createQuery(hql2).setParameter("username", username).setParameter("password",password).list();
-        for(Nhanvien b  : nhanvien2) {
-       	 
-            if(b.getusername().contains(nhanvien.getusername()) && b.getpassword().contains(nhanvien.getpassword())) {
-         	   Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-         	   FXMLLoader loader = new FXMLLoader();
-         	   loader.setLocation(getClass().getResource("danhsachnhanvien.fxml"));
-         	   Parent sampleparent =loader.load();
-         	   Scene scene = new Scene(sampleparent);
-         	   stage.setScene(scene);    
-		}
+
+   
+		
             
-     }
-=======
->>>>>>> cd67c28c54bb80ad7f92daf15cee70e8aa63576f
+     
+
         thongbao.setText(" đăng nhập thất bại !!  ");
 	}
         
