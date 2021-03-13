@@ -91,7 +91,7 @@ public class ThemNCCController extends Application implements Initializable{
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
 		
-		DSNVController ds = new DSNVController();
+		chucnangquanly ds = new chucnangquanly();
     	try {
     		
     		 Nhacungcap nv = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);

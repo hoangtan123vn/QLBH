@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollBar;
@@ -41,6 +42,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -63,7 +65,7 @@ import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
 
-public class DSNVController extends Application implements Initializable {
+public class chucnangquanly extends Application implements Initializable {
 
 	///////////////////////////// AUTHOR : LÊ HOÀNG
 	///////////////////////////// TÂN/////////////////////////**************************
@@ -105,9 +107,13 @@ public class DSNVController extends Application implements Initializable {
 	@FXML
 	private TextField hovaten_nv;
 
-	@FXML
-	private TextField ns_nv;
-
+	 @FXML
+    private DatePicker ns_nv;
+	 
+	  @FXML
+	private DatePicker ngayvaolam;
+	 
+	 
 	@FXML
 	private TextField cv_nv;
 
@@ -154,12 +160,14 @@ public class DSNVController extends Application implements Initializable {
 		Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 		id_nv.setText(Integer.toString(nv.getManv()));
 		hovaten_nv.setText(nv.getHovaten());
-		ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+	//	ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+		ns_nv.setValue(nv.getNgaysinh());
 		cv_nv.setText(nv.getChucvu());
 		gt_nv.setText(nv.getGioitinh());
 		sdt_nv.setText(Integer.toString(nv.getSdt()));
 		diachi_nv.setText(nv.getDiachi());
 		cmnd_nv.setText(Integer.toString(nv.getCmnd()));
+		ngayvaolam.setValue(nv.getNgayvaolam());
 	}
 
 	@FXML
@@ -175,7 +183,7 @@ public class DSNVController extends Application implements Initializable {
 	@FXML
 	void ListNhanvien(ActionEvent event) throws IOException {
 		if (Listnhanvien.getValue() == "Danh sách nhân viên") {
-			Parent root = FXMLLoader.load(getClass().getResource("danhsachnhanvien.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
 
 			// Scene scene = new Scene(root);
 			// Stage stage = new Stage();
@@ -199,15 +207,16 @@ public class DSNVController extends Application implements Initializable {
 	 * 
 	 * }
 	 */
-	@FXML
+		@FXML
 	void luucapnhat(ActionEvent event) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Cap nhat thanh cong ");
 		int idnv = (Integer.parseInt(id_nv.getText()));
 		String hovatennv = hovaten_nv.getText();
-		int ngaysinhnv = (Integer.parseInt(ns_nv.getText()));
+		LocalDate ngaysinhnv = ns_nv.getValue();
 		String chucvunv = cv_nv.getText();
 		String gioitinhnv = gt_nv.getText();
+		LocalDate nvl = ngayvaolam.getValue();
 		int sdtnv = (Integer.parseInt(sdt_nv.getText()));
 		int cmndnv = (Integer.parseInt(cmnd_nv.getText()));
 		String diachinv = diachi_nv.getText();
@@ -218,7 +227,7 @@ public class DSNVController extends Application implements Initializable {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv);
+			Nhanvien nv2 = new Nhanvien(idnv,hovatennv,ngaysinhnv,chucvunv,gioitinhnv,sdtnv,cmndnv,diachinv, nvl);
 			nv2 = session.get(Nhanvien.class, idnv);
 			if (nv2 != null) {
 				// nv2.setid(idnv);
@@ -243,6 +252,7 @@ public class DSNVController extends Application implements Initializable {
 				cmnd_nv.setEditable(false);
 				sdt_nv.setEditable(false);
 				diachi_nv.setEditable(false);
+				ngayvaolam.setEditable(false);
 
 			}
 			session.getTransaction().commit();
@@ -250,7 +260,7 @@ public class DSNVController extends Application implements Initializable {
 			session.getTransaction().rollback();
 		}
 
-		reloadNHANVIEN();
+		initializeNHANVIEN();
 	}
 
 	@FXML
@@ -289,9 +299,10 @@ public class DSNVController extends Application implements Initializable {
 		sdt_nv.setEditable(true);
 		diachi_nv.setEditable(true);
 		luucapnhat.setVisible(true);
+		ngayvaolam.setEditable(true);
 		reset.setVisible(true);
 	}
-
+//a
 	@FXML
 	void XoaNhanvien(ActionEvent event) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -322,16 +333,17 @@ public class DSNVController extends Application implements Initializable {
 					session.getTransaction().rollback();
 
 				}
-				reloadNHANVIEN();
+				initializeNHANVIEN();
 				id_nv.setText("");
 				hovaten_nv.setText("");
-				ns_nv.setText("");
+				ns_nv.setValue(null);
 				cv_nv.setText("");
 				sdt_nv.setText("");
 				cmnd_nv.setText("");
 				diachi_nv.setText("");
 				gt_nv.setText("");
 				imgnhanvien.setImage(null);
+				ngayvaolam.setValue(null);
 			} else if (type == ButtonType.NO) {
 				alert.close();
 			}
@@ -343,7 +355,7 @@ public class DSNVController extends Application implements Initializable {
 
 		// id.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("id"));
 		hovaten.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("hovaten"));
-		ngaysinh.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("ngaysinh"));
+		ngaysinh.setCellValueFactory(new PropertyValueFactory<Nhanvien, Date>("ngaysinh"));
 		chucvu.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("chucvu"));
 		sdt.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("sdt"));
 		cmnd.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("cmnd"));
@@ -403,7 +415,9 @@ public class DSNVController extends Application implements Initializable {
 			Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 			id_nv.setText(Integer.toString(nv.getManv()));
 			hovaten_nv.setText(nv.getHovaten());
-			ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+		//	ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+			ns_nv.setValue(nv.getNgaysinh());
+			ngayvaolam.setValue(nv.getNgayvaolam());
 			cv_nv.setText(nv.getChucvu());
 			gt_nv.setText(nv.getGioitinh());
 			sdt_nv.setText(Integer.toString(nv.getSdt()));
@@ -533,13 +547,16 @@ public class DSNVController extends Application implements Initializable {
 	private TableColumn giatien;
 
 	@FXML
+	private AnchorPane anchorpane1;
+	
+	@FXML
+    private AnchorPane anchorpane2;
+	
+	@FXML
 	private TableColumn tensanpham;
 
 	@FXML
 	private TableColumn masanpham;
-	
-	@FXML
-	private TableColumn loaisanpham;
 
 	@FXML
 	private TextField tf1;
@@ -555,9 +572,6 @@ public class DSNVController extends Application implements Initializable {
 
 	@FXML
 	private TextField tf5;
-	
-	@FXML
-	private TextField tf6;
 
 	@FXML
 	private TextField Timkiem;
@@ -572,6 +586,33 @@ public class DSNVController extends Application implements Initializable {
 
 	@FXML
 	private Button idupdSP;
+	
+	
+	@FXML
+	private Button lichsudathang;
+	
+	@FXML
+	private Button lapphieudahang;
+	
+	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
+
+	@FXML
+	private void LapPhieuDatHang(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("lapphieudathang.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	@FXML
+	private void LichSuDatHang(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("lichsudathang.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+	}
 
 	@FXML
 	private TableView<Sanpham> tableSP;
@@ -602,21 +643,19 @@ public class DSNVController extends Application implements Initializable {
 	}
 
 	@FXML
-	private void ThemSP(ActionEvent event) {
+	private void ThemSP(ActionEvent event) throws IOException {
 		// ta.setText("");
-		String tensp = tf1.getText();
-		int masp = Integer.parseInt(tf2.getText());
-		String donvi = tf3.getText();
-		String dvt = tf5.getText();
-		int giatien = Integer.parseInt(tf4.getText());
-		String loaisp = tf6.getText();
-		
+		String t1 = tf1.getText();
+		int t2 = Integer.parseInt(tf2.getText());
+		String t3 = tf3.getText();
+		int t5 = Integer.parseInt(tf5.getText());
+		int t4 = Integer.parseInt(tf4.getText());
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		Sanpham sanpham = new Sanpham(tensp, masp, donvi, giatien, dvt, loaisp);
+		Sanpham sanpham = new Sanpham();
 		// person=session.get(Person.class, t1);
 		try {
 			session.beginTransaction();
@@ -648,7 +687,7 @@ public class DSNVController extends Application implements Initializable {
 			     		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 			     		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 			     		Session session = sessionFactory.openSession();
-			     		Sanpham sp = new Sanpham(masanpham);
+			     		Sanpham sp = new Sanpham();
 			     		sp=session.get(Sanpham.class, masanpham);
 			     		try {
 			     			session.beginTransaction();
@@ -668,7 +707,6 @@ public class DSNVController extends Application implements Initializable {
 			     		tf3.setText("");
 			     		tf4.setText("");
 			     		tf5.setText("");
-			     		tf6.setText("");
 			     		
 			         } else if (type == ButtonType.NO) {
 			        	 alert.close();
@@ -683,7 +721,6 @@ public class DSNVController extends Application implements Initializable {
 		    	tf3.setEditable(true);
 		    	tf4.setEditable(true);
 		    	tf5.setEditable(true);
-		    	tf6.setEditable(true);
 		    	idluusp.setVisible(true);
 	   }
 	   @FXML
@@ -693,12 +730,11 @@ public class DSNVController extends Application implements Initializable {
 	    void luusp (ActionEvent actionEvent) {
 	    	Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Cap nhat thanh cong ");
-			String tensp = tf1.getText();
-			int masp = Integer.parseInt(tf2.getText());
-			String donvi = tf3.getText();
-			String dvt = tf5.getText();
-			int giatien = Integer.parseInt(tf4.getText());
-			String loaisp = tf6.getText();
+			Integer masanpham = Integer.parseInt(tf2.getText());
+	    	String tensanpham = tf1.getText();
+	    	String donvi = tf3.getText();
+	    	Integer donvitinh = Integer.parseInt(tf5.getText());
+	    	Integer giatien = Integer.parseInt(tf4.getText());
 	    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
 					.build();
@@ -707,16 +743,15 @@ public class DSNVController extends Application implements Initializable {
 			Session session = sessionFactory.openSession();
 			try {
 				session.beginTransaction();
-				Sanpham sp = new Sanpham(tensp, masp, donvi, giatien, dvt, loaisp);
-				sp=session.get(Sanpham.class, masp);
+				Sanpham sp = new Sanpham();
+				sp=session.get(Sanpham.class, masanpham);
 				if (sp != null) {
 				//	nv2.setid(idnv);
-					sp.setTensanpham(tensp);
-					sp.setMasanpham(masp);
+					sp.setTensanpham(tensanpham);
+					sp.setMasanpham(masanpham);
 					sp.setDonvi(donvi);
-					sp.setDonvitinh(dvt);
+					sp.setDonvitinh(donvitinh);
 					sp.setGiatien(giatien);
-					sp.setLoaisanpham(loaisp);
 					
 					
 					 session.save(sp);
@@ -729,7 +764,6 @@ public class DSNVController extends Application implements Initializable {
 		        	tf3.setEditable(false);
 		        	tf4.setEditable(false);
 		        	tf5.setEditable(false);
-		        	tf6.setEditable(false);
 				}
 				session.getTransaction().commit();
 			}catch (RuntimeException error) {
@@ -771,9 +805,7 @@ public class DSNVController extends Application implements Initializable {
 			 tf2.setText(Integer.toString(sp.getMasanpham()));
 			 tf3.setText(sp.getDonvi());
 			 tf4.setText(Integer.toString(sp.getGiatien()));
-			 tf5.setText(sp.getDonvitinh());
-			 tf6.setText(sp.getLoaisanpham());
-			 
+			 tf5.setText(Integer.toString(sp.getDonvitinh())); 
 		 });
 		 
 		
@@ -785,15 +817,12 @@ public class DSNVController extends Application implements Initializable {
 		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
-		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
-		
+		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
 		tableSP.setItems(getSanpham());
 		Timkiem();
 		
 		
 	}
-
 /////////////////////////////AUTHOR :HỒNG THÁI/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : THỐNG KÊ ///////////*************************
 ///////////////////
@@ -911,8 +940,28 @@ public class DSNVController extends Application implements Initializable {
 		tableHoaDon.setItems(sortedData);
 	}
 	
-	//chi tiết hóa đơn  scene new 
-	public void changeSceneHoadonDetail(ActionEvent e) throws IOException {
+	@FXML
+	private void changeSceneHoadonDetail (ActionEvent event) throws IOException {
+		
+	//	Parent root = FXMLLoader.load(getClass().getResource("HoadonDetail.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("HoadonDetail.fxml"));
+        Parent hoadonViewParent = loader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(hoadonViewParent);
+        Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+        HoadonDetailController DSNVController = loader.getController();
+        DSNVController.setHoadon(selected);
+        stage.setTitle("Chi tiet hoa don");
+        stage.setScene(scene);
+        stage.show();
+		
+       // Scene scene1 = new Scene(hoadonViewParent);
+        
+		
+	}
+	
+	//chi tiết hóa đơn  new stage 
+/*	public void changeSceneHoadonDetail(ActionEvent e) throws IOException {
 		Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("HoadonDetail.fxml"));
@@ -922,7 +971,7 @@ public class DSNVController extends Application implements Initializable {
         Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
         DSNVController.setHoadon(selected);
         stage.setScene(scene);
-	}
+	}*/
 
 	/*
 	 * 
@@ -1330,7 +1379,6 @@ public class DSNVController extends Application implements Initializable {
 
 	@FXML
 	void Taonhacungcap(ActionEvent event) {
-
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("taonhacungcap.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
@@ -1430,12 +1478,7 @@ public class DSNVController extends Application implements Initializable {
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
 ///////////////////
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	public void initialize(URL url, ResourceBundle rb) {
 		// QL NHÂN VIÊN //HOÀNG TÂN
 		ObservableList<String> list = FXCollections.observableArrayList("Danh sách nhân viên ", "Lịch làm");
@@ -1465,7 +1508,6 @@ public class DSNVController extends Application implements Initializable {
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
-		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
 		tableSP.setItems(getSanpham());
 		Timkiem();
 		// QL danh mục phiếu hóa đơn //Nhi
@@ -1515,6 +1557,12 @@ public class DSNVController extends Application implements Initializable {
 		// Integer>("thoigianno"));
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
 		Nhacungcap.setItems(getNhacungcap());
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

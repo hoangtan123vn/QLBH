@@ -5,9 +5,10 @@
  <session-factory name="">
   <!-- JDBC connection settings -->
   <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="connection.url">jdbc:mysql://localhost/qlbh?serverTimezone=UTC</property>
+  <property name="connection.url">jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh</property>
   <property name="connection.username">root</property>
   <property name="connection.password"/>
+  
   <!-- JDBC connection pool, use Hibernate internal connection pool -->
   <property name="connection.pool_size">5</property>
   <!-- Defines the SQL dialect used in Hibernate's application -->
@@ -27,12 +28,12 @@
   <!-- Names of the annotated entity class -->
   <mapping class="QLBH.Nhanvien"/>
   <mapping class="QLBH.Sanpham"/>
-  <mapping class="QLBH.Nhanvien"/>
   <mapping class="QLBH.Hoadon"/>
   <mapping class="QLBH.Phieudathang"/>
   <mapping class="QLBH.Phieunhaphang"/>
   <mapping class="QLBH.Phieutrahang"/>
   <mapping class="QLBH.Nhacungcap"/>
   <mapping class="QLBH.KhachHang"/>
+  <mapping class="QLBH.Taikhoannv"/>
  </session-factory>
 </hibernate-configuration>

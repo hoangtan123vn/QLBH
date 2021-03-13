@@ -76,7 +76,7 @@ public class CalamNVController implements Initializable {
     @FXML
     void ListNhanvien(ActionEvent event) throws Exception {
     	if(Listnhanvien.getValue()=="Danh sách nhân viên") {
-    		Parent calamnhanvien = FXMLLoader.load(getClass().getResource("danhsachnhanvien.fxml"));
+    		Parent calamnhanvien = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
     		Scene calam_scene = new Scene(calamnhanvien);
     		Stage calam_stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
     		calam_stage.setScene(calam_scene);

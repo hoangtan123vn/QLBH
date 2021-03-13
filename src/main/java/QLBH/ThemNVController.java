@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -29,6 +30,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -39,6 +41,7 @@ import javafx.event.*;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
@@ -58,9 +61,6 @@ public class ThemNVController extends Application implements Initializable{
     
     @FXML
     private ImageView imgview;
-
-    @FXML
-    private TextField tfns;
 
     @FXML
     private TextField tfsdt;
@@ -90,6 +90,17 @@ public class ThemNVController extends Application implements Initializable{
     private ComboBox<String> tfgt;
     
     @FXML
+    private DatePicker tfngayvaolam;
+    
+    @FXML
+    private DatePicker tfns;
+    
+    @FXML
+    private TextField user;
+
+    @FXML
+    private TextField pass;
+    @FXML
      void AddImage(ActionEvent event) {
     	 Stage stage = (Stage) ap.getScene().getWindow();
     	 FileChooser fileChooser = new FileChooser();
@@ -117,25 +128,32 @@ public class ThemNVController extends Application implements Initializable{
 		 
   //  	int id = Integer.parseInt(tfid.getText());
     	String t1 = tfhovaten.getText();
-    	int t2 = Integer.parseInt(tfns.getText());
+    	//int t2 = Integer.parseInt(tfns.getText());
+    	LocalDate t2 = tfns.getValue();
     	String t3 = tfcv.getValue();
     	String t4 = tfgt.getValue();
     	int t5 = Integer.parseInt(tfsdt.getText());
     	int t6 = Integer.parseInt(tfcmnd.getText());
     	String t7 = tfdc.getText();
+    	LocalDate t8 = tfngayvaolam.getValue();
+    	String taikhoan = user.getText();
+    	String matkhau = pass.getText();
     	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 				.configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		DSNVController ds = new DSNVController();
+		chucnangquanly ds = new chucnangquanly();
+		 FileInputStream fis = new FileInputStream(file);
+		 byte[] bFile = new byte[(int) (file.length())];
+		 fis.read(bFile);
+		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
+	//	Taikhoannv taikhoannv = new Taikhoannv(taikhoan,matkhau,nv.getManv());
+	//	taikhoannv.setNhanvien(nv);
     	try {
-    		 FileInputStream fis = new FileInputStream(file);
-    		 byte[] bFile = new byte[(int) (file.length())];
-    		 fis.read(bFile);
-    		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile);
     		 session.beginTransaction();
+    	//	 session.save(taikhoannv);
     		 session.save(nv);
     		 session.getTransaction().commit();
     		 Stage stage = (Stage) add.getScene().getWindow();
