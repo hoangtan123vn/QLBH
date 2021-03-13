@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.ThemNVController">
+<AnchorPane fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.ThemNVController">
    <children>
       <Label layoutX="219.0" layoutY="89.0" prefHeight="27.0" prefWidth="96.0" text="Họ và tên  ">
          <font>
@@ -68,5 +68,22 @@
          </font>
       </Label>
       <DatePicker fx:id="tfngayvaolam" layoutX="337.0" layoutY="415.0" prefHeight="27.0" prefWidth="240.0" />
+      <TextField fx:id="user" layoutX="711.0" layoutY="219.0" />
+      <Label layoutX="648.0" layoutY="219.0" text="user">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="pass" layoutX="711.0" layoutY="270.0" />
+      <Label layoutX="647.0" layoutY="269.0" text="pass">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="658.0" layoutY="167.0" text="Tạo tài khoản nhân viên">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

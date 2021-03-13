@@ -12,10 +12,9 @@ import javafx.scene.control.DatePicker;
 @Entity
 @Table(name="nhanvien")
 @Access(AccessType.FIELD)
-public class Nhanvien implements Serializable {
-	@Id 
+public class Nhanvien  {
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
 	private int manv;
 	private String hovaten;
 	private LocalDate ngaysinh;

@@ -41,6 +41,7 @@ import javafx.event.*;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
@@ -91,9 +92,14 @@ public class ThemNVController extends Application implements Initializable{
     @FXML
     private DatePicker tfngayvaolam;
     
-    
     @FXML
     private DatePicker tfns;
+    
+    @FXML
+    private TextField user;
+
+    @FXML
+    private TextField pass;
     @FXML
      void AddImage(ActionEvent event) {
     	 Stage stage = (Stage) ap.getScene().getWindow();
@@ -130,6 +136,8 @@ public class ThemNVController extends Application implements Initializable{
     	int t6 = Integer.parseInt(tfcmnd.getText());
     	String t7 = tfdc.getText();
     	LocalDate t8 = tfngayvaolam.getValue();
+    	String taikhoan = user.getText();
+    	String matkhau = pass.getText();
     	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 				.configure("hibernate.cfg.xml")
 				.build();
@@ -137,12 +145,15 @@ public class ThemNVController extends Application implements Initializable{
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
 		chucnangquanly ds = new chucnangquanly();
+		 FileInputStream fis = new FileInputStream(file);
+		 byte[] bFile = new byte[(int) (file.length())];
+		 fis.read(bFile);
+		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
+	//	Taikhoannv taikhoannv = new Taikhoannv(taikhoan,matkhau,nv.getManv());
+	//	taikhoannv.setNhanvien(nv);
     	try {
-    		 FileInputStream fis = new FileInputStream(file);
-    		 byte[] bFile = new byte[(int) (file.length())];
-    		 fis.read(bFile);
-    		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
     		 session.beginTransaction();
+    	//	 session.save(taikhoannv);
     		 session.save(nv);
     		 session.getTransaction().commit();
     		 Stage stage = (Stage) add.getScene().getWindow();

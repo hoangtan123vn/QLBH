@@ -66,6 +66,23 @@ public class HoadonDetailController {
     @FXML
     private Button back;
     
+    @FXML
+    private TableView<Chitiethoadon> tbChitietHoaDon;
+
+    @FXML
+    private TableColumn tenhang;
+
+    @FXML
+    private TableColumn soluong;
+
+    @FXML
+    private TableColumn dongia;
+
+    @FXML
+    private TableColumn thanhtien;
+
+    
+    
     public void setHoadon (Hoadon hoadon) {
     	lbMahoadon.setText(hoadon.getMahoadon());
     	lbThoigianmua.setText(hoadon.getThoigianmua());
