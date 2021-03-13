@@ -112,7 +112,7 @@ public class LoginController implements  Initializable{
             if(b.getusername().contains(nhanvien.getusername()) && b.getpassword().contains(nhanvien.getpassword())) {
          	   Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
          	   FXMLLoader loader = new FXMLLoader();
-         	   loader.setLocation(getClass().getResource("welcome.fxml"));
+         	   loader.setLocation(getClass().getResource("danhsachnhanvien.fxml"));
          	   Parent sampleparent =loader.load();
          	   Scene scene = new Scene(sampleparent);
          	   stage.setScene(scene);    
