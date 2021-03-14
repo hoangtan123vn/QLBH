@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import antlr.collections.List;
@@ -28,6 +27,9 @@ public class Nhacungcap {
 		super();
 	}
 
+	public Nhacungcap(int mancc) {
+		this.mancc = mancc;
+	}
 	public Nhacungcap(Integer mancc, String tenncc, String diachi, Integer sodienthoai, String email) {
 		super();
 		this.mancc = mancc;

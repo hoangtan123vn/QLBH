@@ -1,18 +1,22 @@
 package QLBH;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 @Entity
 @Table(name="sanpham")
 public class Sanpham {
 	@Id 
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int masanpham;
 	//private int id;
 	private String tensanpham;
-	private int masanpham;
 	private String loaisanpham;
 	private String donvi;
 	private int giatien;
-	private int donvitinh;
+	private String donvitinh;
+
 	
 	public Sanpham() {
 		super();
@@ -20,14 +24,15 @@ public class Sanpham {
 	public Sanpham(int masanpham) {
 		super();
 	}
-	public Sanpham(String tensanpham,int masanpham,String donvi,int giatien,int donvitinh) {
+	public Sanpham(String tensanpham,String loaisanpham,String donvi,int giatien,String donvitinh) {
 		super();
 		//this.id=id;
 		this.tensanpham=tensanpham;
-		this.masanpham=masanpham;
+	//	this.masanpham=masanpham;
 		this.donvi=donvi;
 		this.giatien=giatien;
 		this.donvitinh=donvitinh;
+		this.loaisanpham=loaisanpham;
 		
 }
 	public String getTensanpham() {
@@ -60,10 +65,10 @@ public class Sanpham {
 	public void setGiatien(int giatien) {
 		this.giatien = giatien;
 	}
-	public int getDonvitinh() {
+	public String getDonvitinh() {
 		return donvitinh;
 	}
-		public void setDonvitinh(int donvitinh) {
+		public void setDonvitinh(String donvitinh) {
 			this.donvitinh = donvitinh;
 		}
 	}
