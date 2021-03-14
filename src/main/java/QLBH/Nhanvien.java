@@ -11,11 +11,19 @@ import javafx.scene.control.DatePicker;
 
 @Entity
 @Table(name="nhanvien")
-@Access(AccessType.FIELD)
 public class Nhanvien  {
+	
+	
+//	private Taikhoannv taikhoannv;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int manv;
+	
+	
+	//@OneToOne(mappedBy = "nhanvien")
+//	private Taikhoannv taikhoannv;
+	
 	private String hovaten;
 	private LocalDate ngaysinh;
 	private String chucvu;
@@ -28,6 +36,7 @@ public class Nhanvien  {
 	public Nhanvien() {
 		super();
 	}
+	
 	
 	public Nhanvien(int manv,String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image,LocalDate ngayvaolam) {
 		super();
@@ -170,7 +179,16 @@ public class Nhanvien  {
 	public void setCmnd(int cmnd) {
 		this.cmnd = cmnd;
 	}
- ;
+
+/*	public Taikhoannv getTaikhoannv() {
+		return taikhoannv;
+	}
+
+	public void setTaikhoannv(Taikhoannv taikhoannv) {
+		this.taikhoannv = taikhoannv;
+	}
+	
+ ;*/
 
 	
 

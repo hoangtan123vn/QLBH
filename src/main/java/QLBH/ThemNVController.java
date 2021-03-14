@@ -144,26 +144,28 @@ public class ThemNVController extends Application implements Initializable{
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		chucnangquanly ds = new chucnangquanly();
+	//	chucnangquanly ds = new chucnangquanly();
 		 FileInputStream fis = new FileInputStream(file);
 		 byte[] bFile = new byte[(int) (file.length())];
 		 fis.read(bFile);
 		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
-	//	Taikhoannv taikhoannv = new Taikhoannv(taikhoan,matkhau,nv.getManv());
-	//	taikhoannv.setNhanvien(nv);
+		 Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
+		//taikhoannv.setNhanvien(nv);
     	try {
     		 session.beginTransaction();
-    	//	 session.save(taikhoannv);
     		 session.save(nv);
+    		 session.save(tk);
     		 session.getTransaction().commit();
     		 Stage stage = (Stage) add.getScene().getWindow();
         	 stage.close();
         	 alert.setContentText("Them nhan vien thanh cong !");
+        //	 System.out.println();
         	 alert.showAndWait();    
         	 
         	
     	}
     	catch (RuntimeException error){
+    		
     		 alert.setContentText("Them nhan vien that bai  !");
     		 alert.showAndWait();
     		session.getTransaction().rollback();
