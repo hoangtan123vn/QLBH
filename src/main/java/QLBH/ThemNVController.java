@@ -10,6 +10,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -99,7 +101,13 @@ public class ThemNVController extends Application implements Initializable{
     private TextField user;
 
     @FXML
-    private TextField pass;
+    private PasswordField xacnhanpass;
+
+    @FXML
+    private Label thongbao;
+    
+    @FXML
+    private PasswordField pass;
     @FXML
      void AddImage(ActionEvent event) {
     	 Stage stage = (Stage) ap.getScene().getWindow();
@@ -138,12 +146,26 @@ public class ThemNVController extends Application implements Initializable{
     	LocalDate t8 = tfngayvaolam.getValue();
     	String taikhoan = user.getText();
     	String matkhau = pass.getText();
+    	String xacnhanmatkhau = xacnhanpass.getText();
+    	if (taikhoan.isEmpty()) {
+            thongbao.setText("Bạn chưa nhập tài khoản !");
+            return;
+        }
+        else if (matkhau.isEmpty()) {
+            thongbao.setText("Bạn chưa nhập mật khẩu !");
+            return ;
+        }
+        else if (!xacnhanmatkhau.equals(matkhau)) {
+        	thongbao.setText("Mật khẩu của bạn k đúng  !");
+            return ;
+        }
     	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 				.configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
+		
 	//	chucnangquanly ds = new chucnangquanly();
 		 FileInputStream fis = new FileInputStream(file);
 		 byte[] bFile = new byte[(int) (file.length())];

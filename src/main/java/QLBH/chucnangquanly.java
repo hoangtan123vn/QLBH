@@ -721,6 +721,7 @@ public class chucnangquanly extends Application implements Initializable {
 			     			
 			     			if(sp != null) {
 			     				session.delete(sp);
+			     				ReloadSANPHAM();
 			     				
 			     			}		
 			     			session.getTransaction().commit();	
@@ -728,7 +729,6 @@ public class chucnangquanly extends Application implements Initializable {
 			     			session.getTransaction().rollback();
 			     			
 			     		}
-			     		ReloadSANPHAM();
 			     		tf1.setText("");
 			     		tf2.setText("");
 			     		tf3.setText("");
