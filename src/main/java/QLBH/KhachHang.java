@@ -15,10 +15,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="khachhang")
 public class KhachHang {
-	@Id 
+	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-//	@OneToMany(mappedBy="khachhang")
-//	private List<Hoadon> hoadon;
+	@OneToMany(mappedBy="khachhang")
+	private List<Hoadon> hoadon;
+	@Id 
 	private int makh;
 	private String tenkh;
 	private String diachi;
@@ -92,6 +93,15 @@ public class KhachHang {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public List<Hoadon> getHoadon() {
+		return hoadon;
+	}
+
+	public void setHoadon(List<Hoadon> hoadon) {
+		this.hoadon = hoadon;
+	}
+	
 	
 	
 	

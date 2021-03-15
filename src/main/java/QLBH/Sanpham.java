@@ -1,16 +1,24 @@
 package QLBH;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table(name="sanpham")
 public class Sanpham {
+	
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	
 	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int masanpham;
 	//private int id;
+	@OneToMany(mappedBy = "sanpham")
+	private List<Chitiethoadon> chitiethoadon;
 	private String tensanpham;
 	private String loaisanpham;
 	private String donvi;
@@ -23,6 +31,15 @@ public class Sanpham {
 	}
 	public Sanpham(int masanpham) {
 		super();
+	}
+	
+	public Sanpham(int masanpham, String tensanpham,String loaisanpham,String donvi,int giatien,String donvitinh) {
+			this.tensanpham=tensanpham;
+			this.masanpham=masanpham;
+			this.donvi=donvi;
+			this.giatien=giatien;
+			this.donvitinh=donvitinh;
+			this.loaisanpham=loaisanpham;
 	}
 	public Sanpham(String tensanpham,String loaisanpham,String donvi,int giatien,String donvitinh) {
 		super();
@@ -71,4 +88,6 @@ public class Sanpham {
 		public void setDonvitinh(String donvitinh) {
 			this.donvitinh = donvitinh;
 		}
+	
+		
 	}

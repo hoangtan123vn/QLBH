@@ -87,8 +87,8 @@ public class HoadonDetailController {
     	lbMahoadon.setText(hoadon.getMahoadon());
     	lbThoigianmua.setText(hoadon.getThoigianmua());
     	lbTonggia.setText(String.valueOf(hoadon.getMahoadon()));
-    	lbMakh.setText(String.valueOf(hoadon.getMakh()));
-    	lbManv.setText(String.valueOf(hoadon.getManv()));
+    	lbMakh.setText(String.valueOf(hoadon.getKhachhang()));
+    	lbManv.setText(String.valueOf(hoadon.getNhanvien()));
     }
     
     @FXML

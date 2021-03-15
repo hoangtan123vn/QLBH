@@ -20,7 +20,8 @@ public class Nhanvien  {
 	@Id
 	private int manv;
 	
-	
+	@OneToMany(mappedBy = "nhanvien")
+	private List<Hoadon> hoadon;
 	//@OneToOne(mappedBy = "nhanvien")
 //	private Taikhoannv taikhoannv;
 	
@@ -179,6 +180,18 @@ public class Nhanvien  {
 	public void setCmnd(int cmnd) {
 		this.cmnd = cmnd;
 	}
+
+
+	public List<Hoadon> getHoadon() {
+		return hoadon;
+	}
+
+
+	public void setHoadon(List<Hoadon> hoadon) {
+		this.hoadon = hoadon;
+	}
+	
+	
 
 /*	public Taikhoannv getTaikhoannv() {
 		return taikhoannv;

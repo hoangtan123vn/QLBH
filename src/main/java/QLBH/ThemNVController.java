@@ -128,6 +128,17 @@ public class ThemNVController extends Application implements Initializable{
     	 Stage stage = (Stage) huy.getScene().getWindow();
     	 stage.close();
     }
+ //  chucnangquanly cnql = new chucnangquanly();
+ //   public static chucnangquanly instance;
+
+ //   public chucnangquanly() {
+ //       instance = this;
+ //   }
+
+/*    public static chucnangquanly getInstance() {
+        return instance;
+    }*/
+    
 
     @FXML
      void ThemNVButton(ActionEvent event) throws IOException  {
@@ -171,16 +182,32 @@ public class ThemNVController extends Application implements Initializable{
 		 byte[] bFile = new byte[(int) (file.length())];
 		 fis.read(bFile);
 		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
-		 Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
+		Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
+		//THÊM DỮ LIỆU
+		Sanpham sanpham123 = new Sanpham(90,"chai nuoc ","nuoc giai khat","chai",20,"123");
+		Sanpham sanpham1234 = new Sanpham(91,"nuoc aquaria ","nuoc giai khat","chai",20,"123");
+		KhachHang khachHang = new KhachHang(9,"123","123",123,2711,"Nam",123,"@email");
+		
+		Hoadon hoadon = new Hoadon("01","2711",123,nv,khachHang);
+		Chitiethoadon cthd = new Chitiethoadon(12,hoadon,sanpham123);
+		Chitiethoadon cthd2 = new Chitiethoadon(1,hoadon,sanpham1234);
 		//taikhoannv.setNhanvien(nv);
-    	try {
+    	
+		try {
     		 session.beginTransaction();
     		 session.save(nv);
     		 session.save(tk);
+    		 session.save(sanpham123);
+    		 session.save(sanpham1234);
+    		 session.save(khachHang);
+    		 session.save(hoadon);
+    		 session.save(cthd);
+    		 session.save(cthd2);
     		 session.getTransaction().commit();
     		 Stage stage = (Stage) add.getScene().getWindow();
         	 stage.close();
         	 alert.setContentText("Them nhan vien thanh cong !");
+        	 
         //	 System.out.println();
         	 alert.showAndWait();    
         	 
@@ -192,6 +219,7 @@ public class ThemNVController extends Application implements Initializable{
     		 alert.showAndWait();
     		session.getTransaction().rollback();
     	}
+    	chucnangquanly.getInstance().reloadNHANVIEN();
     	
     	// ds.reload1();
     	

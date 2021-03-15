@@ -72,7 +72,15 @@ public class chucnangquanly extends Application implements Initializable {
 	////////////////////////////////// CHỨC NĂNG : QUẢN LÝ NHÂN VIÊN
 	///////////////////////////// ///////////*************************
 	///////////////////
+	public static chucnangquanly instance;
 
+    public chucnangquanly() {
+        instance = this;
+    }
+
+    public static chucnangquanly getInstance() {
+        return instance;
+    }
 	private Image image;
 	@FXML
 	private Button idaddNV;
@@ -169,6 +177,7 @@ public class chucnangquanly extends Application implements Initializable {
 		cmnd_nv.setText(Integer.toString(nv.getCmnd()));
 		ngayvaolam.setValue(nv.getNgayvaolam());
 	}
+	
 
 	@FXML
 	private void ThemNV(ActionEvent event) throws IOException {
@@ -242,6 +251,7 @@ public class chucnangquanly extends Application implements Initializable {
 				/// person2.setAddress(t3);
 				session.save(nv2);
 				initializeNHANVIEN();
+			//	tableNV.refresh();
 				alert.setContentText("Cap nhat nhan vien thanh cong !");
 				alert.showAndWait();
 				luucapnhat.setVisible(false);
@@ -948,7 +958,8 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return tableHoaDon;
 	}
-
+	
+	
 	void searchPHD() {
 		ObservableList<Hoadon> tbHoaDon = FXCollections.observableArrayList(getHoadon());
 
@@ -1614,7 +1625,7 @@ public class chucnangquanly extends Application implements Initializable {
 		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
 		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("tonggia"));
 		makh.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("makh"));
-		manv1.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("manv"));
+		manv1.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("manv"));
 		tableHoaDon.setItems(getHoadon());
 		searchPHD();
 	//	tableHoaDon.setItems(listPHD);
