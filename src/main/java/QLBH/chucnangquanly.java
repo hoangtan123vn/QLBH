@@ -16,6 +16,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -250,10 +251,11 @@ public class chucnangquanly extends Application implements Initializable {
 				// person2.setAge(t2);
 				/// person2.setAddress(t3);
 				session.save(nv2);
-				initializeNHANVIEN();
-			//	tableNV.refresh();
+				
+				
 				alert.setContentText("Cap nhat nhan vien thanh cong !");
 				alert.showAndWait();
+				
 				luucapnhat.setVisible(false);
 				reset.setVisible(false);
 				hovaten_nv.setEditable(false);
@@ -267,6 +269,8 @@ public class chucnangquanly extends Application implements Initializable {
 
 			}
 			session.getTransaction().commit();
+			//tableNV.refresh();
+			initializeNHANVIEN();
 		} catch (RuntimeException error) {
 			session.getTransaction().rollback();
 		}
@@ -1580,6 +1584,8 @@ public class chucnangquanly extends Application implements Initializable {
 		});
 
 	}
+	
+	
 
 
 
@@ -1589,6 +1595,8 @@ public class chucnangquanly extends Application implements Initializable {
 
 	
 	public void initialize(URL url, ResourceBundle rb) {
+	
+
 		// QL NHÂN VIÊN //HOÀNG TÂN
 		ObservableList<String> list = FXCollections.observableArrayList("Danh sách nhân viên ", "Lịch làm");
 		Listnhanvien.setItems(list);
@@ -1624,8 +1632,23 @@ public class chucnangquanly extends Application implements Initializable {
 		mahoadon.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("mahoadon"));
 		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
 		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("tonggia"));
-		makh.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("makh"));
+		
+	//	makh.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("makh"));
 		manv1.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("manv"));
+	/*	makh.setCellFactory(tv -> new TableCell<>() {
+
+		    @Override
+		    protected void updateItem(Hoadon item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getKhachhang());
+		        }
+		    }
+
+		});*/
+		
 		tableHoaDon.setItems(getHoadon());
 		searchPHD();
 	//	tableHoaDon.setItems(listPHD);
