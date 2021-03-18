@@ -1511,7 +1511,7 @@ public class chucnangquanly extends Application implements Initializable {
 	}
 
 	
-	void ReloadNHACUNGCAP() {
+	public void ReloadNHACUNGCAP() {
 		mancc1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("mancc"));
 		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
 		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
@@ -1523,8 +1523,12 @@ public class chucnangquanly extends Application implements Initializable {
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
 		Nhacungcap.setItems(getNhacungcap());
 		getNhacungcap();
-
+		
+		
 	}
+	
+	
+	
 	@FXML
 	void Taonhacungcap(ActionEvent event) {
 		try {

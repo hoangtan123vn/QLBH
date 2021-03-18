@@ -44,8 +44,16 @@ import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 
 public class ThemNCCController extends Application implements Initializable{
+/*	public static ThemNCCController instance;
 
-	
+    public ThemNCCController() {
+        instance = this;
+    }
+
+    public static ThemNCCController getInstance() {
+        return instance;
+    }
+*/	
 	@FXML
     private TextField tfncc;
 
@@ -78,7 +86,7 @@ public class ThemNCCController extends Application implements Initializable{
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Them Nha cung cap");
 		 
-    	Integer mancc = Integer.parseInt(tfncc.getText());
+    	//Integer mancc = Integer.parseInt(tfncc.getText());
     	String tenncc = tftenncc.getText();
     	String diachi = tfdiachi.getText();
     	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
@@ -91,20 +99,21 @@ public class ThemNCCController extends Application implements Initializable{
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
 		
-		chucnangquanly ds = new chucnangquanly();
     	try {
     		
-    		 Nhacungcap nv = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
+    		 Nhacungcap nv = new Nhacungcap(tenncc,diachi,sodienthoai,email);
     		 session.beginTransaction();
     		 session.save(nv);
     		 session.getTransaction().commit();
-    		 Nhacungcap ncc = new Nhacungcap(mancc,tenncc,diachi,sodienthoai,email);
+    		 //Nhacungcap ncc = new Nhacungcap(tenncc,diachi,sodienthoai,email);
     		 Stage stage = (Stage) idsave.getScene().getWindow();
     		 
         	 stage.close();
         	 alert.setContentText("Them nha cung cap thanh cong !");
         	 alert.showAndWait();    
         	 
+        	 
+        	chucnangquanly.getInstance().ReloadNHACUNGCAP();
         	
     	}
     	catch (RuntimeException error){
