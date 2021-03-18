@@ -710,14 +710,62 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 
 	}
+/*
+ * @FXML
+	void XoaNhanvien(ActionEvent event) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Current project is modified");
+		alert.setContentText("Save?");
+		ButtonType okButton = new ButtonType("Yes");
+		ButtonType noButton = new ButtonType("NO");
+		alert.getButtonTypes().setAll(okButton, noButton);
+		alert.showAndWait().ifPresent(type -> {
+			if (type == okButton) {
+				int t1 = (Integer.parseInt(id_nv.getText()));
+				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+						.configure("hibernate.cfg.xml").build();
+				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+				Session session = sessionFactory.openSession();
+				Nhanvien nv = new Nhanvien(t1);
+				nv = session.get(Nhanvien.class, t1);
+				try {
+					session.beginTransaction();
 
+					if (nv != null) {
+						session.delete(nv);
+
+					}
+					session.getTransaction().commit();
+				} catch (RuntimeException error) {
+					session.getTransaction().rollback();
+
+				}
+				initializeNHANVIEN();
+				id_nv.setText("");
+				hovaten_nv.setText("");
+				ns_nv.setValue(null);
+				cv_nv.setText("");
+				sdt_nv.setText("");
+				cmnd_nv.setText("");
+				diachi_nv.setText("");
+				gt_nv.setText("");
+				imgnhanvien.setImage(null);
+				ngayvaolam.setValue(null);
+			} else if (type == ButtonType.NO) {
+				alert.close();
+			}
+			ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
+		});
+	}
+*/
 	   @FXML
 	    void XoaSP(ActionEvent event) {
 		   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			 alert.setTitle("Xoa San Pham");
 			 alert.setContentText("Save?");
 			 ButtonType okButton = new ButtonType("Yes");
-			 ButtonType noButton = new ButtonType("NO");
+			 ButtonType noButton = new ButtonType("No");
 			 alert.getButtonTypes().setAll(okButton, noButton);
 			 alert.showAndWait().ifPresent(type -> {
 			         if (type == okButton) {
@@ -743,6 +791,7 @@ public class chucnangquanly extends Application implements Initializable {
 			     			session.getTransaction().rollback();
 			     			
 			     		}
+			     		initialize1();
 			     		tf1.setText("");
 			     		tf2.setText("");
 			     		tf3.setText("");
@@ -861,7 +910,7 @@ public class chucnangquanly extends Application implements Initializable {
 		setCellValueFromTabletoTexfFieldd();
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
