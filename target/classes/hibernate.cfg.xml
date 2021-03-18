@@ -5,7 +5,7 @@
  <session-factory name="">
   <!-- JDBC connection settings -->
   <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="connection.url">jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh</property>
+  <property name="connection.url">jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh</property>
   <property name="connection.username">root</property>
   <property name="connection.password"/>
   
@@ -26,6 +26,7 @@
   <!-- Drop and re-create the database schema on startup -->
   <property name="hbm2ddl.auto">update</property>
   <!-- Names of the annotated entity class -->
+  <mapping class="QLBH.Chitiethoadon"/>
   <mapping class="QLBH.Nhanvien"/>
   <mapping class="QLBH.Sanpham"/>
   <mapping class="QLBH.Hoadon"/>

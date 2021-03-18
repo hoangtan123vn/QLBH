@@ -61,7 +61,8 @@ import org.hibernate.boot.registry.*;
 import QLBH.Sanpham;
 
 public class LapPhieuDatHangController implements Initializable{
-
+	
+	@FXML
 	private Button huy;
 	
 	@FXML
@@ -76,18 +77,44 @@ public class LapPhieuDatHangController implements Initializable{
 	@FXML
 	private TableColumn tensanpham;
 
-	@FXML
+	@FXML	
 	private TableColumn masanpham;
+	
+	@FXML	
+	private TableColumn loaisanpham;
+	
+	@FXML
+	private TextField tf1;
+
+	@FXML
+	private TextField tf2;
+
+	@FXML
+	private TextField tf3;
+
+	@FXML
+	private TextField tf4;
+
+	@FXML
+	private TextField tf5;
+	
+	@FXML
+	private TextField tf6;
+	
+	@FXML
+	private TextField Timkiem;
 	
 	@FXML
 	private TableView<Sanpham> tableSP;
 	
-	ObservableList<Sanpham> table = FXCollections.observableArrayList(getSanpham());
+	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
 	
 	@FXML
 	void CanCel(ActionEvent event) {
-	
+		Stage stage = (Stage) huy.getScene().getWindow();
+   	 stage.close();
 	}
+	
 	
 	public ObservableList<Sanpham> getSanpham() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
@@ -113,16 +140,30 @@ public class LapPhieuDatHangController implements Initializable{
 		getSanpham();
 
 	}
-	void initialize1() {
+	
+	void Timkiem() {
+		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList(getSanpham());
 
-		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
-		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
-		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
-		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
-		tableSP.setItems(getSanpham());
-		
+		FilteredList<Sanpham> filteredData = new FilteredList<>(TableSP, b -> true);
+		Timkiem.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(sanpham -> {
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				String lowerCaseFilter = newValue.toLowerCase();
+
+				if (sanpham.getTensanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches username
+				} else if (sanpham.getDonvi().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches password
+				} else
+					return false; // Does not match.
+			});
+		});
+		SortedList<Sanpham> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(tableSP.comparatorProperty());
+		tableSP.setItems(sortedData);
+
 	}
 
 	@Override
@@ -133,13 +174,36 @@ public class LapPhieuDatHangController implements Initializable{
 		
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
 		tableSP.setItems(getSanpham());
 		
 	}	
+	 private void setCellValueFromTabletoTexfFieldd()  {
+		 tableSP.setOnMouseClicked(event -> {
+			 //
+			 Sanpham sp = tableSP.getItems().get(tableSP.getSelectionModel().getSelectedIndex());
+			 tf1.setText(sp.getTensanpham());
+			 tf2.setText(Integer.toString(sp.getMasanpham()));
+			 tf3.setText(sp.getDonvi());
+			 tf4.setText(Integer.toString(sp.getGiatien()));
+			 tf5.setText(sp.getDonvitinh()); 
+			 tf6.setText(sp.getLoaisanpham());
+		 });
+		 
+		
+	 }
+void initialize1() {
+	Timkiem();
+	setCellValueFromTabletoTexfFieldd();
+	tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+	masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+	loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+	donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+	giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+	donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+	tableSP.setItems(getSanpham());
+	}	
 }
-
-
