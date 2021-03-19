@@ -37,5 +37,7 @@
   <mapping class="QLBH.KhachHang"/>
   <mapping class="QLBH.Taikhoannv"/>
    <mapping class="QLBH.Chitiethoadon"/>
+   <mapping class="QLBH.Chitietdathang"/>
+   
  </session-factory>
 </hibernate-configuration>

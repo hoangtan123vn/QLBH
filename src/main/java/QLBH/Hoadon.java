@@ -19,6 +19,7 @@ public class Hoadon {
 	@OneToMany(mappedBy="hoadon")
 	private List<Chitiethoadon> chitiethoadon;
 //	@JoinColumn()
+	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="makh")
 	@GeneratedValue

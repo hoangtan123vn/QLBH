@@ -110,18 +110,9 @@ public class DathangDetailController implements Initializable{
 	 public void setPhieudathang (Phieudathang phieudathang) {
 	    	lbMadathang.setText(String.valueOf((phieudathang.getMadathang())));
 	    	lbThoigiandat.setText(phieudathang.getThoigiandat());
-	    	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
-	    	lbMancc.setText(String.valueOf((phieudathang.getMancc())));
-	    	lbManv.setText(String.valueOf((phieudathang.getManv())));
-	    //	lbTonggia.setText(String.valueOf(hoadon.getMahoadon()));
-	    //	lbMancc.setText((phieudathang.ge()).toString());
-	    //	lbManv.setText((phieudathang.getNhanvien()).toString());
-	   // 	int mahoadon = hoadon.getMahoadon();
-	    //	IntilizeChitietDathang(phieudathang);
-	    //	getChitietHoadon(phieudathang);
-	    }
-
-	
-
-	
+	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
+	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
+	    	lbManv.setText(phieudathang.getNhanvien().toString());
+	  
+	    }	
 }

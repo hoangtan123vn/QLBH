@@ -7,33 +7,53 @@ import javax.persistence.*;
 @Entity
 @Table (name="chitietdathang")
 public class Chitietdathang implements Serializable{
+	
+//	private int madathang;
+//	private int masanpham;
+	
 	@Id
-	private int madathang;
-	private int masanpham;
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn (name="madathang")
+//	@GeneratedValue
+	private Phieudathang phieudathang;
+	
+	@Id
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn(name="masanpham")
+//	@GeneratedValue
+	private Sanpham sanpham;
 	private int soluong;
 	
-	public int getMadathang() {
-		return madathang;
+	public Sanpham getSanpham() {
+		return sanpham;
 	}
-	public void setMadathang(int madathang) {
-		this.madathang = madathang;
+	public void setSanpham(Sanpham sanpham) {
+		this.sanpham = sanpham;
 	}
-	public int getMasanpham() {
-		return masanpham;
-	}
-	public void setMasanpham(int masanpham) {
-		this.masanpham = masanpham;
-	}
+//	public int getMadathang() {
+//		return madathang;
+//	}
+//	public void setMadathang(int madathang) {
+//		this.madathang = madathang;
+//	}
+//	public int getMasanpham() {
+//		return masanpham;
+//	}
+//	public void setMasanpham(int masanpham) {
+//		this.masanpham = masanpham;
+//	}
 	public int getSoluong() {
 		return soluong;
 	}
 	public void setSoluong(int soluong) {
 		this.soluong = soluong;
 	}
-	public Chitietdathang(int madathang, int masanpham, int soluong) {
+	public Chitietdathang(Phieudathang phieudathang, Sanpham sanpham, int soluong) {
 		super();
-		this.madathang = madathang;
-		this.masanpham = masanpham;
+	//	this.madathang = madathang;
+	//	this.masanpham = masanpham;
+		this.phieudathang=phieudathang;
+		this.sanpham=sanpham;
 		this.soluong = soluong;
 	}
 	
