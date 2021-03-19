@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1382.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.chucnangquanly">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1382.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.chucnangquanly">
   <tabs>
       <Tab text="QL BÁN HÀNG">
         <content>
@@ -258,7 +258,7 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <TabPane fx:id="tabPaneQLDM" layoutY="135.0" prefHeight="442.0" prefWidth="684.0" tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="tabPaneQLDM" layoutY="135.0" prefHeight="442.0" prefWidth="899.0" tabClosingPolicy="UNAVAILABLE">
                      <tabs>
                         <Tab fx:id="sTab_PhieuHoaDon" text="Danh mục phiếu hóa đơn">
                            <content>
@@ -276,6 +276,7 @@
                                     <TextField fx:id="searchPHD" layoutX="383.0" layoutY="48.0" promptText="Tìm theo mã hóa đơn" />
                                     <Label fx:id="lbDanhMucPHD" layoutX="113.0" layoutY="30.0" text="DANH MỤC PHIẾU HÓA ĐƠN " />
                                     <ScrollBar fx:id="verticalPHD" layoutX="643.0" layoutY="113.0" orientation="VERTICAL" prefHeight="197.0" prefWidth="14.0" />
+                                    <Button layoutX="686.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" text="Chi tiết hóa đơn" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -360,7 +361,6 @@
                         <Image url="@../../../../../QLBHH/src/main/java/QLBH/avata.jpg" />
                      </image>
                   </ImageView>
-                  <Button layoutX="691.0" layoutY="515.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" text="Chi tiết hóa đơn" />
                </children>
             </AnchorPane>
          </content>
