@@ -21,6 +21,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import net.bytebuddy.implementation.bytecode.Addition;
 import javafx.stage.FileChooser;
 
 import java.util.List;
@@ -36,17 +39,19 @@ import java.util.ResourceBundle;
 import javax.persistence.criteria.CriteriaQuery;
 
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 
-public class HoadonDetailController {
+public class HoadonDetailController implements Initializable {
 	
 
 	@FXML
@@ -67,7 +72,7 @@ public class HoadonDetailController {
     private Button back;
     
     @FXML
-    private TableView<Chitiethoadon> tbChitietHoaDon;
+    private TableView<Object[]> tbChitietHoaDon;
 
     @FXML
     private TableColumn tenhang;
@@ -80,16 +85,30 @@ public class HoadonDetailController {
 
     @FXML
     private TableColumn thanhtien;
-
+    
+  /*  ObservableList<Object[]> tableHoadon = FXCollections.observableArrayList(
+    		new Object(tensanpham,soluong,giatien));*/
+   
     
     
     public void setHoadon (Hoadon hoadon) {
-    	lbMahoadon.setText(hoadon.getMahoadon());
+    	lbMahoadon.setText(String.valueOf((hoadon.getMahoadon())));
     	lbThoigianmua.setText(hoadon.getThoigianmua());
     //	lbTonggia.setText(String.valueOf(hoadon.getMahoadon()));
     	lbMakh.setText(String.valueOf(hoadon.getKhachhang()));
     	lbManv.setText(String.valueOf(hoadon.getNhanvien()));
+   // 	int mahoadon = hoadon.getMahoadon();
+    	IntilizeChitietHoadon(hoadon);
+    	getChitietHoadon(hoadon);
     }
+   
+void read() {
+	 
+}
+    //add column
+    
+    
+    
     
     @FXML
     void goBack(ActionEvent e) throws IOException {
@@ -102,10 +121,54 @@ public class HoadonDetailController {
   */
     	Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
+    }
+    public ObservableList<Object[]> getChitietHoadon(Hoadon hoadon) {
+    	String mahoadon = hoadon.getMahoadon();
+    	ObservableList<Object[]> TableHD = FXCollections.observableArrayList();
+    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+					.configure("hibernate.cfg.xml")
+					.build();
+			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+    	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C,Sanpham SP,Hoadon H WHERE H.mahoadon=C.hoadon.mahoadon and C.sanpham.masanpham=SP.masanpham and H.mahoadon = :hoadon";
+    	 String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
+    //	 String hql = " SELECT C.soluong FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
+    	 Query query = session.createQuery(hql);
+	    query.setParameter("hoadon", mahoadon);
+		
+		// List<Object[]> tk1 = query.list();
+		// ObservableList<Object[]> list = FXCollections.observableArrayList(query.list());
+		// List<Object> eList = session.createQuery(query).getResultList();
+		 List<Object[]> tk1 = query.list();
+		 for(Object[] b : tk1) {
+			String tensanpham = String.valueOf(b[0]);
+			String soluong  = String.valueOf(b[1]);
+			String giatien = String.valueOf(b[2]);
+	
+			TableHD.addAll(b);
+		//	TableHD.getItems.add(tensanpham);
+		 } 
+		 return TableHD;
+		// return tk1;
+    }
 
-    	
+    public void IntilizeChitietHoadon(Hoadon hoadon) {
+    //	tenhang.setCellValueFactory(new PropertyValueFactory<Object[],String>("sanpham"));
+   // 	soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Integer>("soluong"));
+   // 	dongia.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Sanpham>("sanpham"));
+    	tbChitietHoaDon.setItems(getChitietHoadon(hoadon));
     }
     
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		//IntilizeChitietHoadon();
+	//	LoadBangChitiet();
+	//	String masanpham
+	}
+
     
 
 }

@@ -88,6 +88,13 @@ public class Sanpham {
 		public void setDonvitinh(String donvitinh) {
 			this.donvitinh = donvitinh;
 		}
+		public List<Chitiethoadon> getChitiethoadon() {
+			return chitiethoadon;
+		}
+		public void setChitiethoadon(List<Chitiethoadon> chitiethoadon) {
+			this.chitiethoadon = chitiethoadon;
+		}
+		
 	
 		
 	}

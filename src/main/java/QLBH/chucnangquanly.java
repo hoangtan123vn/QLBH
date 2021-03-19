@@ -970,10 +970,10 @@ public class chucnangquanly extends Application implements Initializable {
 	private TableColumn tonggia;
 
 	@FXML
-	private TableColumn makh;
+	private TableColumn<Hoadon,KhachHang> makh;
 
 	@FXML
-	private TableColumn manv1;
+	private TableColumn<Hoadon,Nhanvien> manv1;
 
 	@FXML
 	private TableColumn manv;
@@ -1057,6 +1057,18 @@ public class chucnangquanly extends Application implements Initializable {
         
 		
 	}
+	
+	/*protected void updateItem(T item, boolean empty) {
+	    super.updateItem(item, empty);
+
+	    if (empty || item == null) {
+	        setText(null);
+	      //  setGraphic(null);
+	    } else {
+	        setText(item.toString());
+	    }
+	}*/
+	
 	
 	//chi tiết hóa đơn  new stage 
 /*	public void changeSceneHoadonDetail(ActionEvent e) throws IOException {
@@ -1645,7 +1657,6 @@ public class chucnangquanly extends Application implements Initializable {
 /////////////////////////////AUTHOR :TỪ CHÍ HUY/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
 ///////////////////
-
 	
 	public void initialize(URL url, ResourceBundle rb) {
 	
@@ -1685,9 +1696,33 @@ public class chucnangquanly extends Application implements Initializable {
 		mahoadon.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("mahoadon"));
 		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
 		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("tonggia"));
+		makh.setCellFactory(tableHoaDon -> new TableCell<Hoadon,KhachHang>() {
+		    @Override
+		    protected void updateItem(KhachHang item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(Integer.toString(item.getMakh()));
+		        }
+		    }
+
+		});
+		manv1.setCellFactory(tableHoaDon -> new TableCell<Hoadon,Nhanvien>() {
+		    @Override
+		    protected void updateItem(Nhanvien item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(Integer.toString(item.getManv()));
+		        }
+		    }
+
+		});
 		
-	//	makh.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("makh"));
-		manv1.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("manv"));
+		makh.setCellValueFactory(new PropertyValueFactory<>("khachhang"));
+		manv1.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
 	/*	makh.setCellFactory(tv -> new TableCell<>() {
 
 		    @Override
