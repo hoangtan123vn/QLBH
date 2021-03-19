@@ -1121,7 +1121,19 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return tablePhieuDatHang;
 	}
-
+	 @FXML
+	    void changeSceneDathangDetail(ActionEvent event) throws IOException  {
+		 	FXMLLoader loader = new FXMLLoader(getClass().getResource("DathangDetail.fxml"));
+	        Parent dathangViewParent = loader.load();
+	        Stage stage1 = new Stage();
+	        Scene scene1 = new Scene(dathangViewParent);
+	        Phieudathang selected = tablePhieuDatHang.getSelectionModel().getSelectedItem();
+	        DathangDetailController DSNVController = loader.getController();
+	        DSNVController.setPhieudathang(selected);
+	        stage1.setTitle("Chi tiet dat hang");
+	        stage1.setScene(scene1);
+	        stage1.show();
+	    }
 	/*
 	 * 
 	 * --------------------- FXML Danh mục phiếu nhập
