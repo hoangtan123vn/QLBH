@@ -11,14 +11,14 @@
    <children>
       <AnchorPane layoutX="34.0" layoutY="1.0" prefHeight="689.0" prefWidth="936.0">
          <children>
-            <TableView fx:id="tableSP" layoutX="9.0" layoutY="358.0" prefHeight="266.0" prefWidth="410.0">
+            <TableView fx:id="tableSP" layoutX="18.0" layoutY="344.0" prefHeight="266.0" prefWidth="405.0">
                <columns>
                   <TableColumn fx:id="tensanpham" prefWidth="97.0" text="Tên sản phẩm" />
                   <TableColumn fx:id="masanpham" minWidth="0.0" prefWidth="83.0" text="Mã sản phẩm" />
                   <TableColumn fx:id="donvi" prefWidth="51.0" text="Đơn vị" />
-                  <TableColumn fx:id="donvitinh" minWidth="0.0" prefWidth="61.0" text="Số lượng" />
-                  <TableColumn fx:id="giatien" minWidth="0.0" prefWidth="60.0" text="Giá tiền" />
-                  <TableColumn fx:id="laoisanpham" minWidth="0.0" prefWidth="57.0" text="Loại" />
+                  <TableColumn fx:id="donvitinh" minWidth="0.0" prefWidth="81.0" text="Số lượng" />
+                  <TableColumn fx:id="giatien" minWidth="0.0" prefWidth="91.0" text="Giá tiền" />
+                  <TableColumn fx:id="loaisanpham" minWidth="0.0" prefWidth="0.0" text="Loại sản phẩm" />
                </columns>
             </TableView>
             <TextField layoutX="163.0" layoutY="175.0" prefHeight="27.0" prefWidth="235.0" text="75 đường 14 phường Bình An Quận 2 " />
@@ -41,7 +41,7 @@
                   <TableColumn fx:id="donvi1" prefWidth="51.0" text="Đơn vị" />
                   <TableColumn fx:id="donvitinh1" minWidth="0.0" prefWidth="61.0" text="Số lượng" />
                   <TableColumn fx:id="giatien1" minWidth="0.0" prefWidth="68.0" text="Giá tiền" />
-                  <TableColumn fx:id="loaisanpham" minWidth="0.0" prefWidth="69.0" text="Loại" />
+                  <TableColumn fx:id="loaisanpham1" minWidth="0.0" prefWidth="69.0" text="Loại" />
                   <TableColumn fx:id="Tongtien" minWidth="0.0" prefWidth="67.0" text="Tổng tiền" />
                </columns>
             </TableView>
@@ -57,7 +57,7 @@
             <Text layoutX="595.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giá " />
             <Text layoutX="595.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loại" />
             <TextField fx:id="tf6" layoutX="682.0" layoutY="176.0" />
-            <TextField fx:id="Timkiem" layoutX="9.0" layoutY="332.0" prefHeight="25.0" prefWidth="410.0" />
+            <TextField fx:id="Timkiem" layoutX="18.0" layoutY="319.0" prefHeight="25.0" prefWidth="405.0" />
          </children>
       </AnchorPane>
    </children>

@@ -104,43 +104,18 @@ public class LapPhieuDatHangController implements Initializable{
 	@FXML
 	private TextField Timkiem;
 	
+	
+	
+	ObservableList<Sanpham> table = FXCollections.observableArrayList(getSanpham());
+
 	@FXML
 	private TableView<Sanpham> tableSP;
-	
-	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
 	
 	@FXML
 	void CanCel(ActionEvent event) {
 		Stage stage = (Stage) huy.getScene().getWindow();
    	 stage.close();
 	}
-	
-	
-	public ObservableList<Sanpham> getSanpham() {
-		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-
-		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
-		sp.from(Sanpham.class);
-		List<Sanpham> eList = session.createQuery(sp).getResultList();
-		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
-		for (Sanpham ent : eList) {
-			TableSP.add(ent);
-		}
-		return TableSP;
-	}
-
-	void ReloadSANPHAM() {
-		initialize1();
-		getSanpham();
-
-	}
-	
 	void Timkiem() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList(getSanpham());
 
@@ -165,22 +140,29 @@ public class LapPhieuDatHangController implements Initializable{
 		tableSP.setItems(sortedData);
 
 	}
+	public ObservableList<Sanpham> getSanpham() {
+		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-		
-		
-		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
-		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
-		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
-		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
-		tableSP.setItems(getSanpham());
-		
-	}	
+		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
+		sp.from(Sanpham.class);
+		List<Sanpham> eList = session.createQuery(sp).getResultList();
+		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+		for (Sanpham ent : eList) {
+			TableSP.add(ent);
+		}
+		return TableSP;
+	}
+
+	void ReloadSANPHAM() {
+		getSanpham();
+
+	}
 	 private void setCellValueFromTabletoTexfFieldd()  {
 		 tableSP.setOnMouseClicked(event -> {
 			 //
@@ -188,22 +170,29 @@ public class LapPhieuDatHangController implements Initializable{
 			 tf1.setText(sp.getTensanpham());
 			 tf2.setText(Integer.toString(sp.getMasanpham()));
 			 tf3.setText(sp.getDonvi());
-			 tf4.setText(Integer.toString(sp.getGiatien()));
-			 tf5.setText(sp.getDonvitinh()); 
+			 //tf4.setText(Integer.toString(sp.getGiatien()));
+			 //tf5.setText(sp.getDonvitinh()); 
 			 tf6.setText(sp.getLoaisanpham());
 		 });
-		 
-		
 	 }
-void initialize1() {
-	Timkiem();
-	setCellValueFromTabletoTexfFieldd();
-	tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
-	masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-	loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
-	donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
-	giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-	donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
-	tableSP.setItems(getSanpham());
+
+			
+			@Override
+			public void initialize(URL url, ResourceBundle rb) {
+				setCellValueFromTabletoTexfFieldd();
+				tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+				masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+				loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+				donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+				giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+				donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+				
+				tableSP.setItems(getSanpham());
+				Timkiem();
+				
+			}
+	
+	
+	
 	}	
-}
+

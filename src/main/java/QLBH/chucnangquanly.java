@@ -710,55 +710,6 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 
 	}
-/*
- * @FXML
-	void XoaNhanvien(ActionEvent event) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("Current project is modified");
-		alert.setContentText("Save?");
-		ButtonType okButton = new ButtonType("Yes");
-		ButtonType noButton = new ButtonType("NO");
-		alert.getButtonTypes().setAll(okButton, noButton);
-		alert.showAndWait().ifPresent(type -> {
-			if (type == okButton) {
-				int t1 = (Integer.parseInt(id_nv.getText()));
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
-				Nhanvien nv = new Nhanvien(t1);
-				nv = session.get(Nhanvien.class, t1);
-				try {
-					session.beginTransaction();
-
-					if (nv != null) {
-						session.delete(nv);
-
-					}
-					session.getTransaction().commit();
-				} catch (RuntimeException error) {
-					session.getTransaction().rollback();
-
-				}
-				initializeNHANVIEN();
-				id_nv.setText("");
-				hovaten_nv.setText("");
-				ns_nv.setValue(null);
-				cv_nv.setText("");
-				sdt_nv.setText("");
-				cmnd_nv.setText("");
-				diachi_nv.setText("");
-				gt_nv.setText("");
-				imgnhanvien.setImage(null);
-				ngayvaolam.setValue(null);
-			} else if (type == ButtonType.NO) {
-				alert.close();
-			}
-			ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
-		});
-	}
-*/
 	   @FXML
 	    void XoaSP(ActionEvent event) {
 		   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -812,6 +763,7 @@ public class chucnangquanly extends Application implements Initializable {
 		    	tf3.setEditable(true);
 		    	tf4.setEditable(true);
 		    	tf5.setEditable(true);
+		    	tfloaisanpham.setEditable(true);
 		    	idluusp.setVisible(true);
 	   }
 	   @FXML
@@ -858,6 +810,7 @@ public class chucnangquanly extends Application implements Initializable {
 		        	tf3.setEditable(false);
 		        	tf4.setEditable(false);
 		        	tf5.setEditable(false);
+		        	tfloaisanpham.setEditable(false);
 		        	
 				}
 				session.getTransaction().commit();
