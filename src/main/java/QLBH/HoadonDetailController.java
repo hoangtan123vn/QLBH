@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -36,7 +37,12 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 
 import javafx.application.Application;
 import javafx.beans.Observable;
@@ -72,10 +78,10 @@ public class HoadonDetailController implements Initializable {
     private Button back;
     
     @FXML
-    private TableView<Object[]> tbChitietHoaDon;
+    private TableView<Chitiethoadon> tbChitietHoaDon;
 
     @FXML
-    private TableColumn tenhang;
+    private TableColumn<Chitiethoadon,Sanpham> tenhang;
 
     @FXML
     private TableColumn soluong;
@@ -125,51 +131,76 @@ void read() {
     	Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
     }
-    public ObservableList<Object[]> getChitietHoadon(Hoadon hoadon) {
+    public ObservableList<Chitiethoadon> getChitietHoadon(Hoadon hoadon) {
     	String mahoadon = hoadon.getMahoadon();
-    	ObservableList<Object[]> TableHD = FXCollections.observableArrayList();
+    	ObservableList<Chitiethoadon> TableHD = FXCollections.observableArrayList();
     	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
 					.build();
 			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 			Session session = sessionFactory.openSession();
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Chitiethoadon> query = builder.createQuery(Chitiethoadon.class);
+			Root<Chitiethoadon> root = query.from(Chitiethoadon.class); // FROM
+			Join<Chitiethoadon, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
+			Join<Chitiethoadon, Hoadon> HoadonJoin = root.join("hoadon",JoinType.INNER);
+			query.where(builder.equal(HoadonJoin.get("mahoadon"), mahoadon));
+			List<Chitiethoadon> cthd = session.createQuery(query).getResultList();
     	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C,Sanpham SP,Hoadon H WHERE H.mahoadon=C.hoadon.mahoadon and C.sanpham.masanpham=SP.masanpham and H.mahoadon = :hoadon";
-    	 String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
+    	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
     //	 String hql = " SELECT C.soluong FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
+	/*		 String hql = " SELECT C.soluong FROM Chitiethoadon C,Hoadon H WHERE C.hoadon.mahoadon=H.mahoadon and C.hoadon.mahoadon = :hoadon";
     	 Query query = session.createQuery(hql);
 	    query.setParameter("hoadon", mahoadon);
 		
 		// List<Object[]> tk1 = query.list();
 		// ObservableList<Object[]> list = FXCollections.observableArrayList(query.list());
 		// List<Object> eList = session.createQuery(query).getResultList();
-		 List<Object[]> tk1 = query.list();
-		 for(Object[] b : tk1) {
-			String tensanpham = String.valueOf(b[0]);
-			String soluong  = String.valueOf(b[1]);
-			String giatien = String.valueOf(b[2]);
-	
-			TableHD.addAll(b);
-		 } 
+		 List<Chitiethoadon> tk1 = query.getResultList();*/
+		 for(Chitiethoadon b : cthd) {
+			 TableHD.add(b);
+		 }
 		 return TableHD;
-		// return tk1;
+		
+		 
     }
 
     public void IntilizeChitietHoadon(Hoadon hoadon) {
     //	tenhang.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-  	    tenhang.setCellValueFactory(new PropertyValueFactory<Object[],Sanpham>("tensanpham"));
+  	    tenhang.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon,Sanpham>(){
+  	    	 @Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(item.getTensanpham());
+ 		        }
+ 		    }
+  	    });
+    	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Integer>("soluong"));
-     	dongia.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Sanpham>("sanpham"));
+    	dongia.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon,Sanpham>(){
+  	    	 @Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(Integer.toString(item.getGiatien()));
+ 		        }
+ 		    }
+  	    });
+    	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+     	//dongia.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Sanpham>("sanpham"));
     	tbChitietHoaDon.setItems(getChitietHoadon(hoadon));
     }
     
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		//IntilizeChitietHoadon();
-	//	LoadBangChitiet();
-	//	String masanpham
 	}
 
     
