@@ -1068,7 +1068,7 @@ public class chucnangquanly extends Application implements Initializable {
 	private TableColumn thoigiandat;
 
 	@FXML
-	private TableColumn tongtien;
+	private TableColumn tongtien1;
 
 	@FXML
 	private ScrollBar verticalPDH;
@@ -1151,6 +1151,9 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TableColumn thoigiannhap;
+	
+	@FXML
+	private TableColumn tongtien;
 
 	@FXML
 	private TableColumn manv2;
@@ -1225,8 +1228,8 @@ public class chucnangquanly extends Application implements Initializable {
 	@FXML
 	private TableColumn maphieutra;
 
-	@FXML
-	private TableColumn lido;
+	//@FXML
+	//private TableColumn lido;
 
 	@FXML
 	private TableColumn thoigiantra;
@@ -1697,7 +1700,7 @@ public class chucnangquanly extends Application implements Initializable {
 		// QL danh mục phiếu đặt hàng //Nhi
 		madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
 		thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
-		tongtien.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
+		tongtien1.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
 		mancc.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("mancc"));
 		manv.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("manv"));
 		tablePhieuDatHang.setItems(getPhieudathang());
