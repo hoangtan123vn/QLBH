@@ -191,6 +191,10 @@ public class Nhanvien  {
 		this.hoadon = hoadon;
 	}
 	
+	 public String toString() {
+	        return String.valueOf(manv);
+	    }
+	
 	
 
 /*	public Taikhoannv getTaikhoannv() {

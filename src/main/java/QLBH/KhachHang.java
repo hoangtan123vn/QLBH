@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.sun.xml.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
+
 
 @Entity
 @Table(name="khachhang")
@@ -101,15 +103,8 @@ public class KhachHang {
 	public void setHoadon(List<Hoadon> hoadon) {
 		this.hoadon = hoadon;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	 public String toString() {
+	        return String.valueOf(makh) ;
+	    }	
 	
 }

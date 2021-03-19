@@ -90,13 +90,16 @@ public class HoadonDetailController implements Initializable {
     		new Object(tensanpham,soluong,giatien));*/
    
     
+  /*  public String toString() {
+        return QLBH.Khachhang()+"@"+Integer.toHexString(hashCode());
+    }*/
     
     public void setHoadon (Hoadon hoadon) {
     	lbMahoadon.setText(String.valueOf((hoadon.getMahoadon())));
     	lbThoigianmua.setText(hoadon.getThoigianmua());
     //	lbTonggia.setText(String.valueOf(hoadon.getMahoadon()));
-    	lbMakh.setText(String.valueOf(hoadon.getKhachhang()));
-    	lbManv.setText(String.valueOf(hoadon.getNhanvien()));
+    	lbMakh.setText((hoadon.getKhachhang()).toString());
+    	lbManv.setText((hoadon.getNhanvien()).toString());
    // 	int mahoadon = hoadon.getMahoadon();
     	IntilizeChitietHoadon(hoadon);
     	getChitietHoadon(hoadon);
@@ -147,16 +150,16 @@ void read() {
 			String giatien = String.valueOf(b[2]);
 	
 			TableHD.addAll(b);
-		//	TableHD.getItems.add(tensanpham);
 		 } 
 		 return TableHD;
 		// return tk1;
     }
 
     public void IntilizeChitietHoadon(Hoadon hoadon) {
-    //	tenhang.setCellValueFactory(new PropertyValueFactory<Object[],String>("sanpham"));
-   // 	soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Integer>("soluong"));
-   // 	dongia.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Sanpham>("sanpham"));
+    //	tenhang.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+  	    tenhang.setCellValueFactory(new PropertyValueFactory<Object[],Sanpham>("tensanpham"));
+    	soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Integer>("soluong"));
+     	dongia.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Sanpham>("sanpham"));
     	tbChitietHoaDon.setItems(getChitietHoadon(hoadon));
     }
     
