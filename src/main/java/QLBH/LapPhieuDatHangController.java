@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.awt.event.WindowEvent;
@@ -55,6 +56,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.*;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
@@ -103,6 +105,9 @@ public class LapPhieuDatHangController implements Initializable{
 	
 	@FXML
 	private TextField Timkiem;
+	
+	 @FXML
+    private ComboBox<String> cbnhacungcap;
 	
 	
 	
@@ -175,6 +180,24 @@ public class LapPhieuDatHangController implements Initializable{
 			 tf6.setText(sp.getLoaisanpham());
 		 });
 	 }
+	 public ObservableList<String> getNhaCungCap() {
+		 ObservableList<String> tbNCC = FXCollections.observableArrayList();
+		 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+					.configure("hibernate.cfg.xml")
+					.build();
+		 Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+		 session.getTransaction().begin();
+		 String hql = "SELECT P.tenncc FROM Nhacungcap P";
+		 Query query = session.createQuery(hql);
+		ArrayList<String> listnhcc = (ArrayList) query.list();
+		 for(String t1 : listnhcc) {
+			 System.out.println(t1);
+			 tbNCC.add(t1);
+		 }
+		 return tbNCC;				 
+	 }
 
 			
 			@Override
@@ -186,7 +209,9 @@ public class LapPhieuDatHangController implements Initializable{
 				donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 				giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 				donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
-				
+			//	comboboxNCC();
+				ObservableList<String> list = FXCollections.observableArrayList(getNhaCungCap());
+				cbnhacungcap.setItems(list);
 				tableSP.setItems(getSanpham());
 				Timkiem();
 				
