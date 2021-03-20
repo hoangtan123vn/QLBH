@@ -929,7 +929,7 @@ public class chucnangquanly extends Application implements Initializable {
 	private TableColumn<Hoadon,Nhanvien> manv1;
 
 	@FXML
-	private TableColumn manv;
+	private TableColumn<Phieudathang,Nhanvien> manv;
 
 	@FXML
 	private TextField searchPHD;
@@ -1110,7 +1110,7 @@ public class chucnangquanly extends Application implements Initializable {
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-
+		
 		CriteriaQuery<Phieudathang> pdh = session.getCriteriaBuilder().createQuery(Phieudathang.class);
 		pdh.from(Phieudathang.class);
 		List<Phieudathang> eList = session.createQuery(pdh).getResultList();
@@ -1713,8 +1713,31 @@ public class chucnangquanly extends Application implements Initializable {
 		madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
 		thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
 		tongtien1.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
-		mancc.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("mancc"));
-		manv.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("manv"));
+		mancc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		mancc.setCellFactory(tablePhieuDatHang -> new TableCell<Phieudathang,Nhacungcap>(){
+			@Override
+ 		    protected void updateItem(Nhacungcap item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getMancc()));
+ 		        }
+ 		    }
+			
+		});
+		manv.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
+		manv.setCellFactory(tablePhieuDatHang ->new TableCell<Phieudathang,Nhanvien>(){
+			@Override
+ 		    protected void updateItem(Nhanvien item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getManv()));
+ 		        }
+ 		    }
+		});
 		tablePhieuDatHang.setItems(getPhieudathang());
 		searchPDH();
 
@@ -1731,7 +1754,7 @@ public class chucnangquanly extends Application implements Initializable {
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
 		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
 		mancc3.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("mancc"));
-		manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("manv"));
+		//manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("manv"));
 		tablePhieuTraHang.setItems(getPhieutrahang());
 		searchPTH();
 

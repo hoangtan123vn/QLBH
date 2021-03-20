@@ -5,7 +5,7 @@
  <session-factory name="">
   <!-- JDBC connection settings -->
   <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="connection.url">jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh</property>
+  <property name="connection.url">jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh</property>
   <property name="connection.username">root</property>
   <property name="connection.password"/>
   
@@ -36,7 +36,6 @@
   <mapping class="QLBH.Nhacungcap"/>
   <mapping class="QLBH.KhachHang"/>
   <mapping class="QLBH.Taikhoannv"/>
-   <mapping class="QLBH.Chitiethoadon"/>
    <mapping class="QLBH.Chitietdathang"/>
    
  </session-factory>
