@@ -311,7 +311,6 @@
                                  <children>
                                     <Label fx:id="lbDanhMucPNH" layoutX="163.0" layoutY="48.0" text="DANH MỤC PHIẾU NHẬP HÀNG " />
                                     <TextField fx:id="searchPNH" layoutX="410.0" layoutY="82.0" promptText="Tìm theo mã hóa đơn" />
-                                    <Button fx:id="btnSearchPNH" layoutX="574.0" layoutY="82.0" mnemonicParsing="false" onAction="#searchPNH" text="Tìm kiếm" />
                                     <TableView fx:id="tablePhieuNhapHang" layoutX="47.0" layoutY="134.0" prefHeight="200.0" prefWidth="567.0">
                                        <columns>
                                           <TableColumn fx:id="manhaphang" prefWidth="113.60004425048828" text="Mã phiếu nhập " />
@@ -322,6 +321,7 @@
                                        </columns>
                                     </TableView>
                                     <ScrollBar fx:id="verticalPNH" layoutX="614.0" layoutY="134.0" orientation="VERTICAL" prefHeight="199.0" prefWidth="14.0" />
+                                    <Button layoutX="679.0" layoutY="303.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" text="Chi tiết phiếu nhập hàng" />
                                  </children>
                               </AnchorPane>
                            </content>

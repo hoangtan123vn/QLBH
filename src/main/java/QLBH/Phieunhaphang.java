@@ -1,5 +1,7 @@
 package QLBH;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,22 +10,76 @@ import javax.persistence.*;
 
 public class Phieunhaphang {
 	
+	@OneToMany (mappedBy = "phieunhaphang")
+	private List<Chitietnhaphang> chitietnhaphang;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name="manv")
+	@GeneratedValue
+	private Nhanvien nhanvien;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name="mancc")
+	@GeneratedValue
+	private Nhacungcap nhacungcap;
+	
 	@Id
 	private String manhaphang;
 	private String thoigiannhap;
 	private int tongtien;
-	private int mancc;
-	private int manv;
+//	private int mancc;
+//	private int manv;
 	
 	
 	
-	public Phieunhaphang(String manhaphang, String thoigiannhap, int tongtien, int mancc, int manv) {
-		super();
-		this.manhaphang = manhaphang;
-		this.thoigiannhap = thoigiannhap;
-		this.tongtien = tongtien;
-		this.mancc = mancc;
-		this.manv = manv;
+	
+//	public String getManhaphang() {
+//		return manhaphang;
+//	}
+
+//	public void setManhaphang(String manhaphang) {
+//		this.manhaphang = manhaphang;
+//	}
+	
+	
+
+	public Phieunhaphang(String manhaphang, String thoigiannhap, int tongtien,Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	super();
+	this.manhaphang = manhaphang;
+	this.thoigiannhap = thoigiannhap;
+	this.tongtien = tongtien;
+	this.nhacungcap = nhacungcap;
+	this.nhanvien = nhanvien;
+}
+
+
+	public String getThoigiannhap() {
+		return thoigiannhap;
+	}
+	
+
+	public List<Chitietnhaphang> getChitietnhaphang() {
+		return chitietnhaphang;
+	}
+
+	public void setChitietnhaphang(List<Chitietnhaphang> chitietnhaphang) {
+		this.chitietnhaphang = chitietnhaphang;
+	}
+
+	public Nhanvien getNhanvien() {
+		return nhanvien;
+	}
+
+	public void setNhanvien(Nhanvien nhanvien) {
+		this.nhanvien = nhanvien;
+	}
+
+	public Nhacungcap getNhacungcap() {
+		return nhacungcap;
+	}
+
+	public void setNhacungcap(Nhacungcap nhacungcap) {
+		this.nhacungcap = nhacungcap;
 	}
 
 	public String getManhaphang() {
@@ -34,14 +90,6 @@ public class Phieunhaphang {
 		this.manhaphang = manhaphang;
 	}
 
-	public String getThoigiannhap() {
-		return thoigiannhap;
-	}
-
-	public void setThoigiannhap(String thoigiannhap) {
-		this.thoigiannhap = thoigiannhap;
-	}
-
 	public int getTongtien() {
 		return tongtien;
 	}
@@ -50,23 +98,12 @@ public class Phieunhaphang {
 		this.tongtien = tongtien;
 	}
 
-	public int getMancc() {
-		return mancc;
-	}
-
-	public void setMancc(int mancc) {
-		this.mancc = mancc;
-	}
-
-	public int getManv() {
-		return manv;
-	}
-
-	public void setManv(int manv) {
-		this.manv = manv;
+	public void setThoigiannhap(String thoigiannhap) {
+		this.thoigiannhap = thoigiannhap;
 	}
 
 	public Phieunhaphang() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

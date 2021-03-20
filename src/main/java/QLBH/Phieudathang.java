@@ -29,8 +29,7 @@ public class Phieudathang {
 	@GeneratedValue
 	private Nhanvien nhanvien;
 	
-//	private int mancc;
-//	private int manv;
+
 	
 	
 	public Phieudathang(String madathang, String thoigiandat, int tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien) {
@@ -40,8 +39,7 @@ public class Phieudathang {
 		this.tongtien = tongtien;
 		this.nhacungcap=nhacungcap;
 		this.nhanvien=nhanvien;
-		//this.mancc = mancc;
-		//this.manv = manv;
+		
 	}
 
 
@@ -75,24 +73,7 @@ public class Phieudathang {
 	}
 
 
-//	public int getMancc() {
-//		return mancc;
-//	}
 
-
-//	public void setMancc(int mancc) {
-//		this.mancc = mancc;
-//	}
-
-
-//	public int getManv() {
-//		return manv;
-//	}
-
-
-//	public void setManv(int manv) {
-//		this.manv = manv;
-//	}
 
 
 	public Phieudathang() {

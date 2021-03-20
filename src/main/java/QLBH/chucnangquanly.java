@@ -1226,6 +1226,20 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return tablePhieuNhapHang;
 	}
+	
+	@FXML
+    void changeSceneNhaphangDetail(ActionEvent event) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("NhaphangDetail.fxml"));
+        Parent nhaphangViewParent = loader.load();
+        Stage stage1 = new Stage();
+        Scene scene1 = new Scene(nhaphangViewParent);
+        Phieunhaphang selected = tablePhieuNhapHang.getSelectionModel().getSelectedItem();
+        NhaphangDetailController Nhaphang = loader.getController();
+        Nhaphang.setPhieunhaphang(selected);
+        stage1.setTitle("Chi tiet nhap hang");
+        stage1.setScene(scene1);
+        stage1.show();
+    }
 
 	/*
 	 * 
@@ -1809,8 +1823,35 @@ public class chucnangquanly extends Application implements Initializable {
 		manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("manhaphang"));
 		thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigiannhap"));
 		tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
-		mancc2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("mancc"));
-		manv2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manv"));
+		mancc2.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		mancc2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang,Nhacungcap>(){
+			@Override
+ 		    protected void updateItem(Nhacungcap item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getMancc()));
+ 		        }
+ 		    }
+			
+		});
+		manv2.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
+		manv2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhanvien>(){
+			@Override
+			protected void updateItem(Nhanvien item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getManv()));
+ 		        }
+ 		    }
+
+		});
+		
+		//mancc2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("mancc"));
+		//manv2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manv"));
 		tablePhieuNhapHang.setItems(getPhieunhaphang());
 		searchPNH();
 
