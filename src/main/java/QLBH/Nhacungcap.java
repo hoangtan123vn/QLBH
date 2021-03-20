@@ -27,7 +27,7 @@ public class Nhacungcap {
 
 	@OneToMany(mappedBy = "nhacungcap")
 	private List<Nocong> listnocong;
-
+	
 	public Nhacungcap() {
 		super();
 	}

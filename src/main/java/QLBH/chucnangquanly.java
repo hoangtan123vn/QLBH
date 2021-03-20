@@ -48,6 +48,9 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -456,7 +459,7 @@ public class chucnangquanly extends Application implements Initializable {
 			
 		});
 		//Nhà cung cấp
-		Nhacungcap.setOnMouseClicked(event -> {
+	/*	Nhacungcap.setOnMouseClicked(event -> {
 			//
 			Nhacungcap ncc = Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
 			tfncc.setText(Integer.toString(ncc.getMancc()));
@@ -465,7 +468,7 @@ public class chucnangquanly extends Application implements Initializable {
 			tfdiachi1.setText(ncc.getDiachi());
 			tfemail.setText(ncc.getEmail());
 			});
-		// 
+		// */
 		
 
 	}
@@ -1343,7 +1346,7 @@ public class chucnangquanly extends Application implements Initializable {
 	private Button taonhacungcap;
 
 	@FXML
-	private TableView<Nhacungcap> Nhacungcap;
+	private TableView<Nocong> tableNhacungcap;
 
 	@FXML
 	private TableColumn mancc1;
@@ -1441,20 +1444,23 @@ public class chucnangquanly extends Application implements Initializable {
 	 }
 
 	// NHÀ CUNG CẤP
-	public ObservableList<Nhacungcap> getNhacungcap() {
-		ObservableList<Nhacungcap> TableNhacungcap = FXCollections.observableArrayList();
+	public ObservableList<Nocong> getNhacungcap() {
+		ObservableList<Nocong> TableNhacungcap = FXCollections.observableArrayList();
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-
-		CriteriaQuery<Nhacungcap> ncc = session.getCriteriaBuilder().createQuery(Nhacungcap.class);
-		ncc.from(Nhacungcap.class);
-		List<Nhacungcap> eList = session.createQuery(ncc).getResultList();
+		CriteriaQuery<Nocong> ncc = session.getCriteriaBuilder().createQuery(Nocong.class);
+		//SELECT * FROM nocong INNER JOIN nhacungcap
+		Root<Nocong> root = ncc.from(Nocong.class);
+		Join<Nocong, Nhacungcap> NocongJoin = root.join("nhacungcap", JoinType.INNER);
+		//FROM
+		//ncc.from(Nhacungcap.class);
+		List<Nocong> eList = session.createQuery(ncc).getResultList();
 		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
 		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
-		for (Nhacungcap ent : eList) {
+		for (Nocong ent : eList) {
 			TableNhacungcap.add(ent);
 		}
 		return TableNhacungcap;
@@ -1462,7 +1468,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	void addncc(ActionEvent event) {
-		ObservableList<Nhacungcap> Tablencc = FXCollections.observableArrayList(getNhacungcap());
+		//ObservableList<Nocong> Tablencc = FXCollections.observableArrayList(getNhacungcap());
 		// ta.setText("");
 
 		Integer mancc = Integer.parseInt(tfncc.getText());
@@ -1501,7 +1507,7 @@ public class chucnangquanly extends Application implements Initializable {
 		// thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong,
 		// Integer>("thoigianno"));
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
-		Nhacungcap.setItems(getNhacungcap());
+		tableNhacungcap.setItems(getNhacungcap());
 		getNhacungcap();
 		
 		
@@ -1604,7 +1610,7 @@ public class chucnangquanly extends Application implements Initializable {
 		ReloadNHACUNGCAP();
 	}
 	
-	private void setCellValueFromTabletoTexfFieldNCC() {
+	/*private void setCellValueFromTabletoTexfFieldNCC() {
 		Nhacungcap.setOnMouseClicked(event -> {
 			//
 			Nhacungcap ncc = Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
@@ -1616,7 +1622,7 @@ public class chucnangquanly extends Application implements Initializable {
 			//
 		});
 
-	}
+	}*/
 	
 	
 
@@ -1759,17 +1765,28 @@ public class chucnangquanly extends Application implements Initializable {
 		searchPTH();
 
 		// QL nhà cung cấp //Sang
-		mancc1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("mancc"));
-		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
-		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
-		// sotienno.setCellValueFactory(new PropertyValueFactory<Nocong,
+		mancc1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		mancc1.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+ 	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(Integer.toString(item.getMancc()));
+		        }
+		    }
+ 	    });
+		tenncc.setCellValueFactory(new PropertyValueFactory<Nocong, String>("tenncc"));
+		diachi1.setCellValueFactory(new PropertyValueFactory<Nocong, String>("diachi"));
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nocong, Integer>("sodienthoai"));
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong,Nhacungcap>("nhacungcap"));
 		// Integer>("sotienno"));
 		// thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong,
 		// Integer>("thoigianno"));
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
-		setCellValueFromTabletoTexfFieldNCC();
-		Nhacungcap.setItems(getNhacungcap());
+		//setCellValueFromTabletoTexfFieldNCC();
+		tableNhacungcap.setItems(getNhacungcap());
 	}
 
 	@Override

@@ -147,6 +147,7 @@ void read() {
 			Join<Chitiethoadon, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
 			Join<Chitiethoadon, Hoadon> HoadonJoin = root.join("hoadon",JoinType.INNER);
 			query.where(builder.equal(HoadonJoin.get("mahoadon"), mahoadon));
+			//WHERE HOADON.MAHOADON = 
 			List<Chitiethoadon> cthd = session.createQuery(query).getResultList();
     	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C,Sanpham SP,Hoadon H WHERE H.mahoadon=C.hoadon.mahoadon and C.sanpham.masanpham=SP.masanpham and H.mahoadon = :hoadon";
     	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
