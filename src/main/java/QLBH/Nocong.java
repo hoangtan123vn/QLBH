@@ -1,5 +1,6 @@
 package QLBH;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -9,30 +10,34 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "nocong")
 public class Nocong {
+//	private Integer mancc;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="mancc")
+	private Nhacungcap nhacungcap;
 	@Id
 	private Integer manocong;
 	private Integer sotienno;
 	private Integer thoigianno;
-	private Integer mancc;
-
 	public Nocong() {
 		super();
 
 	}
 
-	public Nocong(Integer manocong, Integer sotienno, Integer thoigianno, Integer mancc) {
+	public Nocong(Integer manocong, Integer sotienno, Integer thoigianno,Nhacungcap nhacungcap) {
 		this.manocong = manocong;
 		this.sotienno = sotienno;
 		this.thoigianno = thoigianno;
-		this.mancc = mancc;
+		this.nhacungcap = nhacungcap;
+		
+	}
+	
+	public Nhacungcap getNhacungcap() {
+		return nhacungcap;
 	}
 
-	public Integer getMancc() {
-		return mancc;
-	}
-
-	public void setMancc(Integer mancc) {
-		this.mancc = mancc;
+	public void setNhacungcap(Nhacungcap nhacungcap) {
+		this.nhacungcap = nhacungcap;
 	}
 
 	public Integer getManocong() {
@@ -58,4 +63,5 @@ public class Nocong {
 	public void setThoigianno(Integer thoigianno) {
 		this.thoigianno = thoigianno;
 	}
+	
 }
