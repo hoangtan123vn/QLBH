@@ -2,7 +2,7 @@ package QLBH;
 
 import java.util.List;
 
-import javax.annotation.processing.Generated;
+//import javax.annotation.processing.Generated;
 import javax.persistence.*;
 
 @Entity

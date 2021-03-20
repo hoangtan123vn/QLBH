@@ -98,6 +98,32 @@ public class DathangDetailController implements Initializable{
     	Stage stage = (Stage) back1.getScene().getWindow();
         stage.close();
     }
+    public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
+    	String Phieudathang = phieudathang.getMadathang();
+    	ObservableList<Chitietdathang> tablePhieuDatHang = FXCollections.observableArrayList();
+    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+					.configure("hibernate.cfg.xml")
+					.build();
+			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Chitietdathang> query = builder.createQuery(Chitietdathang.class);
+			Root<Chitietdathang> root = query.from(Chitietdathang.class); // FROM
+		//	Join<Chitietdathang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
+		//	Join<Chitiethoadon, Hoadon> HoadonJoin = root.join("hoadon",JoinType.INNER);
+			Join<Chitietdathang, Sanpham> SanphamJoin = root.join("masanpham", JoinType.INNER);
+			//query.where(builder.equal(SanphamJoin.get("masanpham"), masanpham));
+			List<Chitietdathang> ctdh = session.createQuery(query).getResultList();
+		 for(Chitietdathang b : ctdh) {
+			 tablePhieuDatHang.add(b);
+		 }
+		 return tablePhieuDatHang;
+		
+		 
+    }
+
 
 
 	@Override
@@ -113,6 +139,6 @@ public class DathangDetailController implements Initializable{
 	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
 	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
 	    	lbManv.setText(phieudathang.getNhanvien().toString());
-	  
+	    //	getChitietDathang(phieudathang);
 	    }	
 }

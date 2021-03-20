@@ -22,6 +22,7 @@ public class Chitietdathang implements Serializable{
 	@JoinColumn(name="masanpham")
 //	@GeneratedValue
 	private Sanpham sanpham;
+	
 	private int soluong;
 	
 	public Sanpham getSanpham() {
