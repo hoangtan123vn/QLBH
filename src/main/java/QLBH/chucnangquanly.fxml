@@ -289,7 +289,6 @@
                                  <children>
                                     <Label fx:id="lbDanhMucPDH" layoutX="113.0" layoutY="24.0" text="DANH MỤC PHIẾU ĐẶT HÀNG " />
                                     <TextField fx:id="searchPDH" layoutX="408.0" layoutY="65.0" promptText="Tìm theo mã hóa đơn " />
-                                    <Button fx:id="btnSearchPDH" layoutX="564.0" layoutY="65.0" mnemonicParsing="false" onAction="#searchPDH" text="Tìm kiếm " />
                                     <TableView fx:id="tablePhieuDatHang" layoutX="37.0" layoutY="143.0" prefHeight="200.0" prefWidth="603.0">
                                        <columns>
                                           <TableColumn fx:id="madathang" prefWidth="102.39997100830078" text="Mã đặt hàng " />
@@ -330,7 +329,6 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="254.0" prefWidth="678.0">
                                  <children>
-                                    <Button fx:id="btnSearchPTH" layoutX="565.0" layoutY="65.0" mnemonicParsing="false" onAction="#searchPTH" text="Tìm kiếm" />
                                     <TableView fx:id="tablePhieuTraHang" layoutX="49.0" layoutY="114.0" prefHeight="200.0" prefWidth="565.0">
                                        <columns>
                                           <TableColumn fx:id="maphieutra" prefWidth="163.0" text="Mã phiếu trả " />
