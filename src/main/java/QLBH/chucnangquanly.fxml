@@ -341,6 +341,7 @@
                                     <TextField fx:id="searchPTH" layoutX="380.0" layoutY="65.0" promptText="Tìm theo mã phiếu trả " />
                                     <Label fx:id="lbDanhMucPTH" layoutX="142.0" layoutY="47.0" text="DANH MỤC PHIẾU TRẢ HÀNG " />
                                     <ScrollBar fx:id="verticalPTH" layoutX="615.0" layoutY="114.0" orientation="VERTICAL" prefHeight="198.0" prefWidth="14.0" />
+                                    <Button layoutX="675.0" layoutY="297.0" mnemonicParsing="false" onAction="#changeSceneTrahangDetail" text="Chi tiết trả hàng" />
                                  </children>
                               </AnchorPane>
                            </content>

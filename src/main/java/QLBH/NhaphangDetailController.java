@@ -146,7 +146,7 @@ public class NhaphangDetailController implements Initializable {
 	});*/
 	soluong.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("soluong"));
 //	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-	tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
+	//tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
 
 }
    

@@ -1306,6 +1306,20 @@ public class chucnangquanly extends Application implements Initializable {
 		tablePhieuTraHang.setItems(sortedData);
 
 	}
+	
+	 @FXML
+	    void changeSceneTrahangDetail(ActionEvent event) throws IOException {
+		 FXMLLoader loader = new FXMLLoader(getClass().getResource("TrahangDetail.fxml"));
+	        Parent trahangViewParent = loader.load();
+	        Stage stage1 = new Stage();
+	        Scene scene1 = new Scene(trahangViewParent);
+	        Phieutrahang selected = tablePhieuTraHang.getSelectionModel().getSelectedItem();
+	        TrahangDetailController Trahang = loader.getController();
+	        Trahang.setPhieutrahang(selected);
+	        stage1.setTitle("Chi tiet phieu tra");
+	        stage1.setScene(scene1);
+	        stage1.show();
+	    }
 
 	@FXML
 	private Text txtTitle_store;

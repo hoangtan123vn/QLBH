@@ -1,5 +1,7 @@
 package QLBH;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,17 +12,26 @@ public class Phieutrahang {
 	@Id 
 	private String maphieutra;
 	private String thoigiantra;
-	private int mancc;
-	private int manv;
+	//private int mancc;
+	//private int manv;
 	
+	@OneToMany(mappedBy = "phieutrahang")
+	private List<Chitietphieutra> chitietphieutra;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "mancc")
+	private Nhacungcap nhacungcap;
 	
-	public Phieutrahang(String maphieutra, String thoigiantra, int mancc, int manv) {
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "manv")
+	private Nhanvien nhanvien;
+	
+	public Phieutrahang(String maphieutra, String thoigiantra, Nhacungcap nhacungcap, Nhanvien nhanvien) {
 		super();
 		this.maphieutra = maphieutra;
 		this.thoigiantra = thoigiantra;
-		this.mancc = mancc;
-		this.manv = manv;
+		this.nhacungcap = nhacungcap;
+		this.nhanvien = nhanvien;
 	}
 
 	public String getMaphieutra() {
@@ -39,7 +50,7 @@ public class Phieutrahang {
 		this.thoigiantra = thoigiantra;
 	}
 
-	public int getMancc() {
+/*	public int getMancc() {
 		return mancc;
 	}
 
@@ -53,10 +64,34 @@ public class Phieutrahang {
 
 	public void setManv(int manv) {
 		this.manv = manv;
-	}
+	}*/
 
 	public Phieutrahang() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public List<Chitietphieutra> getChitietphieutra() {
+		return chitietphieutra;
+	}
+
+	public void setChitietphieutra(List<Chitietphieutra> chitietphieutra) {
+		this.chitietphieutra = chitietphieutra;
+	}
+
+	public Nhacungcap getNhacungcap() {
+		return nhacungcap;
+	}
+
+	public void setNhacungcap(Nhacungcap nhacungcap) {
+		this.nhacungcap = nhacungcap;
+	}
+
+	public Nhanvien getNhanvien() {
+		return nhanvien;
+	}
+
+	public void setNhanvien(Nhanvien nhanvien) {
+		this.nhanvien = nhanvien;
 	}
 
 }

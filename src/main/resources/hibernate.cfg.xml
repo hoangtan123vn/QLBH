@@ -39,6 +39,8 @@
   <mapping class="QLBH.Chitietdathang"/>
   <mapping class="QLBH.Nocong"/>
   <mapping class="QLBH.Chitietnhaphang"/>
+  <mapping class="QLBH.Chitietphieutra"/>
+  
    
  </session-factory>
 </hibernate-configuration>
