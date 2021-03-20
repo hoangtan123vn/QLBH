@@ -2,6 +2,8 @@ package QLBH;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,6 +18,7 @@ public class Nocong {
 	@JoinColumn(name="mancc")
 	private Nhacungcap nhacungcap;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer manocong;
 	private Integer sotienno;
 	private Integer thoigianno;

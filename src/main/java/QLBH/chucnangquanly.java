@@ -1498,17 +1498,72 @@ public class chucnangquanly extends Application implements Initializable {
 
 	
 	public void ReloadNHACUNGCAP() {
-		mancc1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("mancc"));
-		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
-		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
-		// sotienno.setCellValueFactory(new PropertyValueFactory<Nocong,
+		mancc1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		mancc1.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+ 	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(Integer.toString(item.getMancc()));
+		        }
+		    }
+ 	    });
+		tenncc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		tenncc.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getTenncc());
+		        }
+		    }
+	    });
+		diachi1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		diachi1.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getDiachi());
+		        }
+		    }
+	    });
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		sodienthoai.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(Integer.toString(item.getSodienthoai()));
+		        }
+		    }
+	    });
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong,Nhacungcap>("nhacungcap"));
 		// Integer>("sotienno"));
 		// thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong,
 		// Integer>("thoigianno"));
-		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
+		email.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		email.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getEmail());
+		        }
+		    }
+	    });
+		//setCellValueFromTabletoTexfFieldNCC();
 		tableNhacungcap.setItems(getNhacungcap());
-		getNhacungcap();
 		
 		
 	}
@@ -1777,14 +1832,58 @@ public class chucnangquanly extends Application implements Initializable {
 		        }
 		    }
  	    });
-		tenncc.setCellValueFactory(new PropertyValueFactory<Nocong, String>("tenncc"));
-		diachi1.setCellValueFactory(new PropertyValueFactory<Nocong, String>("diachi"));
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nocong, Integer>("sodienthoai"));
+		tenncc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		tenncc.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getTenncc());
+		        }
+		    }
+	    });
+		diachi1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		diachi1.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getDiachi());
+		        }
+		    }
+	    });
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		sodienthoai.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(Integer.toString(item.getSodienthoai()));
+		        }
+		    }
+	    });
 		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong,Nhacungcap>("nhacungcap"));
 		// Integer>("sotienno"));
 		// thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong,
 		// Integer>("thoigianno"));
-		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("email"));
+		email.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		email.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
+	    	 @Override
+		    protected void updateItem(Nhacungcap item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(item.getEmail());
+		        }
+		    }
+	    });
 		//setCellValueFromTabletoTexfFieldNCC();
 		tableNhacungcap.setItems(getNhacungcap());
 	}

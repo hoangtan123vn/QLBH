@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
 @Table(name = "nhacungcap")
 public class Nhacungcap {
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer mancc;
 	private String tenncc;
 	private String diachi;
