@@ -162,6 +162,7 @@ void read() {
 		 List<Chitiethoadon> tk1 = query.getResultList();*/
 		 for(Chitiethoadon b : cthd) {
 			 TableHD.add(b);
+			 System.out.println(b);
 		 }
 		 return TableHD;
 		

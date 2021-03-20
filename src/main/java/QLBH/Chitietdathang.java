@@ -25,6 +25,12 @@ public class Chitietdathang implements Serializable{
 	
 	private int soluong;
 	
+	public Chitietdathang() {
+		super();
+	}
+	
+	
+	
 	public Sanpham getSanpham() {
 		return sanpham;
 	}
@@ -51,8 +57,7 @@ public class Chitietdathang implements Serializable{
 	}
 	public Chitietdathang(Phieudathang phieudathang, Sanpham sanpham, int soluong) {
 		super();
-	//	this.madathang = madathang;
-	//	this.masanpham = masanpham;
+
 		this.phieudathang=phieudathang;
 		this.sanpham=sanpham;
 		this.soluong = soluong;

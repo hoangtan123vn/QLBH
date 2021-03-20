@@ -81,7 +81,7 @@ public class DathangDetailController implements Initializable{
     private TableView tbChitietDatHang;
 
     @FXML
-    private TableColumn tenhang;
+    private TableColumn<Chitietdathang,Sanpham> tenhang;
 
     @FXML
     private TableColumn soluong;
@@ -109,20 +109,52 @@ public class DathangDetailController implements Initializable{
 			Session session = sessionFactory.openSession();
 			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
+			//SELECT C.soluong,SP.tensanpham,SP.giatien FROM chitietdathang C,sanpham SP WHERE C.masanpham = SP.masanpham
 			CriteriaQuery<Chitietdathang> query = builder.createQuery(Chitietdathang.class);
 			Root<Chitietdathang> root = query.from(Chitietdathang.class); // FROM
-		//	Join<Chitietdathang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
-		//	Join<Chitiethoadon, Hoadon> HoadonJoin = root.join("hoadon",JoinType.INNER);
-			Join<Chitietdathang, Sanpham> SanphamJoin = root.join("masanpham", JoinType.INNER);
+			Join<Chitietdathang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
 			//query.where(builder.equal(SanphamJoin.get("masanpham"), masanpham));
 			List<Chitietdathang> ctdh = session.createQuery(query).getResultList();
 		 for(Chitietdathang b : ctdh) {
 			 tablePhieuDatHang.add(b);
+			 System.out.println(b);
 		 }
 		 return tablePhieuDatHang;
 		
 		 
     }
+    
+    public void IntitlizeChitietdathang(Phieudathang phieudathang) {
+    	tenhang.setCellFactory(tbChitietDatHang ->new TableCell<Chitietdathang, Sanpham>(){
+    		@Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(item.getTensanpham());
+ 		        }
+ 		    }
+    	});
+    	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+    	soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Integer>("soluong"));
+    	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+    	dongia.setCellFactory(tbChitietDatHang ->new TableCell<Chitietdathang, Sanpham>(){
+    		@Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getGiatien()));
+ 		        }
+ 		    }
+    	});
+    	
+    	tbChitietDatHang.setItems(getChitietdathang(phieudathang));
+    }
+    
+    
 
 
 
@@ -139,6 +171,7 @@ public class DathangDetailController implements Initializable{
 	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
 	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
 	    	lbManv.setText(phieudathang.getNhanvien().toString());
-	    //	getChitietDathang(phieudathang);
+	    	
+	    	IntitlizeChitietdathang(phieudathang);
 	    }	
 }

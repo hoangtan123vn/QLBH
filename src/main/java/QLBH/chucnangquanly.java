@@ -1104,6 +1104,9 @@ public class chucnangquanly extends Application implements Initializable {
 		tablePhieuDatHang.setItems(sortedData);
 
 	}
+	
+	
+	
 
 	// PHIẾU ĐẶT HÀNG
 	public ObservableList<Phieudathang> getPhieudathang() {
@@ -1131,8 +1134,8 @@ public class chucnangquanly extends Application implements Initializable {
 	        Stage stage1 = new Stage();
 	        Scene scene1 = new Scene(dathangViewParent);
 	        Phieudathang selected = tablePhieuDatHang.getSelectionModel().getSelectedItem();
-	        DathangDetailController DSNVController = loader.getController();
-	        DSNVController.setPhieudathang(selected);
+	        DathangDetailController Dathang = loader.getController();
+	        Dathang.setPhieudathang(selected);
 	        stage1.setTitle("Chi tiet dat hang");
 	        stage1.setScene(scene1);
 	        stage1.show();
