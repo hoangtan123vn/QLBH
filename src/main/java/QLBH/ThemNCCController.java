@@ -83,6 +83,7 @@ public class ThemNCCController extends Application implements Initializable{
 
     @FXML
     void save(ActionEvent event) {
+    	
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Them Nha cung cap");
 		 
@@ -91,6 +92,7 @@ public class ThemNCCController extends Application implements Initializable{
     	String diachi = tfdiachi.getText();
     	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
     	String email = tfemail.getText();
+    	
     
     	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 				.configure("hibernate.cfg.xml")
@@ -136,7 +138,6 @@ public class ThemNCCController extends Application implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
 		
 	}
 
