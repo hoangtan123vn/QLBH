@@ -62,5 +62,19 @@ public class Chitietdathang implements Serializable{
 		this.sanpham=sanpham;
 		this.soluong = soluong;
 	}
+
+
+
+	public Phieudathang getPhieudathang() {
+		return phieudathang;
+	}
+
+
+
+	public void setPhieudathang(Phieudathang phieudathang) {
+		this.phieudathang = phieudathang;
+	}
+	
+	
 	
 }

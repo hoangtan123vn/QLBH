@@ -24,21 +24,21 @@ public class Phieudathang {
 	@GeneratedValue
 	private Nhacungcap nhacungcap;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	/*@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="manv")
 	@GeneratedValue
-	private Nhanvien nhanvien;
+	private Nhanvien nhanvien;*/
 	
 
 	
 	
-	public Phieudathang(String madathang, String thoigiandat, int tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	public Phieudathang(String madathang, String thoigiandat, int tongtien, Nhacungcap nhacungcap) {
 		super();
 		this.madathang = madathang;
 		this.thoigiandat = thoigiandat;
 		this.tongtien = tongtien;
 		this.nhacungcap=nhacungcap;
-		this.nhanvien=nhanvien;
+		//this.nhanvien=nhanvien;
 		
 	}
 
@@ -101,13 +101,13 @@ public class Phieudathang {
 	}
 
 
-	public Nhanvien getNhanvien() {
+	/*public Nhanvien getNhanvien() {
 		return nhanvien;
 	}
 
 
 	public void setNhanvien(Nhanvien nhanvien) {
 		this.nhanvien = nhanvien;
-	}
+	}*/
 
 }

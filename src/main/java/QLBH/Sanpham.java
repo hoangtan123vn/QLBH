@@ -19,6 +19,11 @@ public class Sanpham {
 	//private int id;
 	@OneToMany(mappedBy = "sanpham")
 	private List<Chitiethoadon> chitiethoadon;
+	
+	
+	@OneToMany(mappedBy = "sanpham")
+	private List<Chitietdathang> chitietdathang;
+	
 	private String tensanpham;
 	private String loaisanpham;
 	private String donvi;
@@ -94,6 +99,14 @@ public class Sanpham {
 		public void setChitiethoadon(List<Chitiethoadon> chitiethoadon) {
 			this.chitiethoadon = chitiethoadon;
 		}
+		public List<Chitietdathang> getChitietdathang() {
+			return chitietdathang;
+		}
+		public void setChitietdathang(List<Chitietdathang> chitietdathang) {
+			this.chitietdathang = chitietdathang;
+		}
+		
+		
 		
 		
 	

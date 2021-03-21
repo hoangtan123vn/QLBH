@@ -108,8 +108,11 @@ public class LapPhieuDatHangController implements Initializable{
 	
 	 @FXML
     private ComboBox<String> cbnhacungcap;
+	 
+	 @FXML
+	    private Button idDatHang;
 	
-	
+	 
 	
 	ObservableList<Sanpham> table = FXCollections.observableArrayList(getSanpham());
 
@@ -191,13 +194,37 @@ public class LapPhieuDatHangController implements Initializable{
 		 session.getTransaction().begin();
 		 String hql = "SELECT P.tenncc FROM Nhacungcap P";
 		 Query query = session.createQuery(hql);
-		ArrayList<String> listnhcc = (ArrayList) query.list();
+		 ArrayList<String> listnhcc = (ArrayList) query.list();
 		 for(String t1 : listnhcc) {
 			 System.out.println(t1);
 			 tbNCC.add(t1);
 		 }
 		 return tbNCC;				 
 	 }
+	 
+	 
+	 @FXML
+	    void DatHang(ActionEvent event) {
+		 String nhacungcap = cbnhacungcap.getValue();
+		 String tensanpham = tf1.getText();
+		 String masanpham = tf2.getText();
+		 int donvi = Integer.parseInt(tf3.getText());
+		 String loaisanpham = tf6.getText();
+		 int soluong = Integer.parseInt(tf4.getText());
+		 int giatien = Integer.parseInt(tf5.getText());
+		 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+					.configure("hibernate.cfg.xml")
+					.build();
+		 Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+		 session.getTransaction().begin();
+		 
+		 
+		 
+		 
+		 
+	    }
 
 			
 			@Override
