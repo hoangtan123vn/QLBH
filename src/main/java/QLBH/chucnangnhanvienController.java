@@ -1,255 +1,189 @@
 package QLBH;
 
+import java.net.URL;
+import org.hibernate.query.Query;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javax.persistence.criteria.CriteriaQuery;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+import QLBH.Sanpham;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.List;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.sql.*;
-import java.time.LocalDate;
-import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
-import javax.persistence.criteria.CriteriaQuery;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.event.*;
-import org.hibernate.*;
-import org.hibernate.cfg.*;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.boot.*;
-import org.hibernate.boot.registry.*;
-import QLBH.Nhanvien;
-import QLBH.Hoadon;
-import QLBH.Phieudathang;
-import QLBH.Phieunhaphang;
-import QLBH.Phieutrahang;
+public class chucnangnhanvienController implements Initializable{
+	
+	
+	 @FXML
+	private TextField tongtien;
 
-public class chucnangnhanvienController {
+	@FXML
+	private TextField khachtra;
+
+	@FXML
+	private TextField tienthua;
+    @FXML
+    private TableView<Sanpham> TableSP;
 
     @FXML
-    private TabPane tabPaneQLDM;
+    private TableColumn donvi;
 
     @FXML
-    private Tab sTab_PhieuHoaDon;
+    private TableView <Sanpham> hoadon;
 
     @FXML
-    private TableView<?> tableHoaDon;
+    private TableColumn giatien;
 
     @FXML
-    private TableColumn<?, ?> mahoadon;
+    private TableColumn masanpham1;
 
     @FXML
-    private TableColumn<?, ?> thoigianmua;
+    private TableColumn loaisanpham;
 
     @FXML
-    private TableColumn<?, ?> tonggia;
+    private TableColumn loaisanpham1;
 
     @FXML
-    private TableColumn<?, ?> makh;
+    private TableColumn donvi1;
 
     @FXML
-    private TableColumn<?, ?> manv1;
+    private TableColumn giatien1;
 
     @FXML
-    private TextField searchPHD;
+    private TableColumn donvitnh;
 
     @FXML
-    private Label lbDanhMucPHD;
+    private TableColumn masanpham;
 
     @FXML
-    private ScrollBar verticalPHD;
+    private TableColumn tensanpham;
 
     @FXML
-    private Tab sTab_PhieuDatHang;
+    private TableColumn tensanpham1;
 
     @FXML
-    private Label lbDanhMucPDH;
+    private TableColumn donvitnh1;
 
-    @FXML
-    private TextField searchPDH;
+	 private void setCellValueFromTabletoTexfFieldd()  {
+		 TableSP.setOnMouseClicked(event -> {
+			 //
+			 event();
+			// Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+			//tongtien.setText(Integer.toString(sp.getGiatien()));
+		
+			
+		 });
+		 hoadon.setOnMouseClicked(event -> {
+			 //
+			
+			 Sanpham sp = hoadon.getItems().get(hoadon.getSelectionModel().getSelectedIndex());
+			tongtien.setText(Integer.toString(sp.getGiatien()));
+		
+			
+		 });
+	 }
 
-    @FXML
-    private Button btnSearchPDH;
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		
+		setCellValueFromTabletoTexfFieldd();
+		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+		donvitnh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
+		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+		TableSP.setItems(getSanpham());
+		
+	// 
+		masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+		tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+		loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+		donvitnh1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
+		giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+		donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+		
+		//hoadon.setItems(getHoadon());
+		
+	
+	
+		
+		
+	}
+	public ObservableList<Sanpham> getSanpham() {
+		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
 
-    @FXML
-    private TableView<?> tablePhieuDatHang;
-
-    @FXML
-    private TableColumn<?, ?> madathang;
-
-    @FXML
-    private TableColumn<?, ?> mancc;
-
-    @FXML
-    private TableColumn<?, ?> thoigiandat;
-
-    @FXML
-    private TableColumn<?, ?> manv;
-
-    @FXML
-    private TableColumn<?, ?> tongtien;
-
-    @FXML
-    private ScrollBar verticalPDH;
-
-    @FXML
-    private Tab sTab_PhieuNhapHang;
-
-    @FXML
-    private Label lbDanhMucPNH;
-
-    @FXML
-    private TextField searchPNH;
-
-    @FXML
-    private Button btnSearchPNH;
-
-    @FXML
-    private TableView<?> tablePhieuNhapHang;
-
-    @FXML
-    private TableColumn<?, ?> manhaphang;
-
-    @FXML
-    private TableColumn<?, ?> mancc2;
-
-    @FXML
-    private TableColumn<?, ?> thoigiannhap;
-
-    @FXML
-    private TableColumn<?, ?> manv2;
-
-    @FXML
-    private ScrollBar verticalPNH;
-
-    @FXML
-    private Tab sTab_PhieuTraHang;
-
-    @FXML
-    private Button btnSearchPTH;
-
-    @FXML
-    private TableView<?> tablePhieuTraHang;
-
-    @FXML
-    private TableColumn<?, ?> maphieutra;
-
-    @FXML
-    private TableColumn<?, ?> mancc3;
-
-    @FXML
-    private TableColumn<?, ?> thoigiantra;
-
-    @FXML
-    private TableColumn<?, ?> lido;
-
-    @FXML
-    private TextField searchPTH;
-
-    @FXML
-    private Label lbDanhMucPTH;
-
-    @FXML
-    private ScrollBar verticalPTH;
-
-    @FXML
-    private Text txtTitle_store;
-
-    @FXML
-    private Label lbTitleStore;
-
-    @FXML
-    private ImageView logo;
-
-    @FXML
-    private ImageView avata;
-
-    @FXML
-    private TextField searchKH;
-
-    @FXML
-    private TableView<?> tableKH;
-
-    @FXML
-    private TableColumn<?, ?> idKH;
-
-    @FXML
-    private TableColumn<?, ?> hvtKH;
-
-    @FXML
-    private TableColumn<?, ?> sdtKH;
-
-    @FXML
-    private TableColumn<?, ?> nsKH;
-
-    @FXML
-    private TableColumn<?, ?> gtKH;
-
-    @FXML
-    private TableColumn<?, ?> diemtichluy;
-
-    @FXML
-    private TableColumn<?, ?> emailKH;
-
-    @FXML
-    void changeSceneHoadonDetail(ActionEvent event) {
-
-    }
-
-    @FXML
-    void searchPDH(ActionEvent event) {
-
-    }
-
-    @FXML
-    void searchPNH(ActionEvent event) {
-
-    }
-
-    @FXML
-    void searchPTH(ActionEvent event) {
-
-    }
-
+		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
+		sp.from(Sanpham.class);
+		List<Sanpham> eList = session.createQuery(sp).getResultList();
+		for (Sanpham ent : eList) {
+			TableSP.add(ent);
+		}
+		return TableSP;
+	}
+	//
+	public ObservableList<Sanpham> getHoadon() {
+		ObservableList<Sanpham> hoadon = FXCollections.observableArrayList();
+		Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+		int masanpham = sp.getMasanpham();
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		String hql = "FROM Sanpham SP WHERE SP.masanpham = :masanpham";
+		Query query = session.createQuery(hql);
+		query.setParameter("masanpham", masanpham);
+		List<Sanpham> List =query.getResultList();
+		for(Sanpham b : List) {
+			hoadon.add(b);
+		}
+//		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
+//		sp.from(Sanpham.class);
+//		List<Sanpham> eList = session.createQuery(sp).getResultList();
+//		for (Sanpham ent : eList) {
+//			hoadon.add(ent);
+//		}
+		return hoadon;
+	}
+	//
+	private void event() {
+		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+		 //hoadon.setItems(getHoadon());
+		 //	TableSP.getSelectionModel().getSelectedItems();	
+	hoadon.setItems(getHoadon());
+	
+}
 }
