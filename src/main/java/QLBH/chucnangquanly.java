@@ -1182,7 +1182,7 @@ public class chucnangquanly extends Application implements Initializable {
 	ObservableList<Phieunhaphang> listPNH;
 
 	@FXML
-	void searchPNH() {
+/*	void searchPNH() {
 		ObservableList<Phieunhaphang> tbPhieuNhapHang = FXCollections.observableArrayList(getPhieunhaphang());
 
 		FilteredList<Phieunhaphang> filteredData = new FilteredList<>(tbPhieuNhapHang, b -> true);
@@ -1192,10 +1192,9 @@ public class chucnangquanly extends Application implements Initializable {
 					return true;
 				}
 				String lowerCaseFilter = newValue.toLowerCase();
-
-				if (phieunhaphang.getManhaphang().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches username
-				} else if (phieunhaphang.getThoigiannhap().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+			//	if (phieunhaphang.getManhaphang().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				//	return true; // Filter matches username
+				 if(phieunhaphang.getThoigiannhap().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches password
 				} else
 					return false; // Does not match.
@@ -1206,7 +1205,7 @@ public class chucnangquanly extends Application implements Initializable {
 		sortedData.comparatorProperty().bind(tablePhieuNhapHang.comparatorProperty());
 		tablePhieuNhapHang.setItems(sortedData);
 
-	}
+	}*/
 
 	public ObservableList<Phieunhaphang> getPhieunhaphang() {
 		ObservableList<Phieunhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
@@ -1834,7 +1833,7 @@ public class chucnangquanly extends Application implements Initializable {
 		searchPDH();
 
 		// QL danh mục phiếu nhập hàng // Nhi
-		manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("manhaphang"));
+		manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manhaphang"));
 		thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigiannhap"));
 		tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
 		mancc2.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
@@ -1867,7 +1866,7 @@ public class chucnangquanly extends Application implements Initializable {
 		//mancc2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("mancc"));
 		//manv2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manv"));
 		tablePhieuNhapHang.setItems(getPhieunhaphang());
-		searchPNH();
+		//searchPNH();
 
 		// QL danh mục phiếu trả hàng //Nhi
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));

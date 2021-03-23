@@ -12,7 +12,7 @@ public class Chitietnhaphang implements Serializable{
 	
 	@Id
 	@ManyToOne (cascade = CascadeType.ALL)
-	@JoinColumn (name="mannhaphang")
+	@JoinColumn (name="manhaphang")
 	private Phieunhaphang phieunhaphang;
 	
 	@Id
@@ -47,6 +47,15 @@ public class Chitietnhaphang implements Serializable{
 	public int getSoluong() {
 		return soluong;
 	}
+
+	public Phieunhaphang getPhieunhaphang() {
+		return phieunhaphang;
+	}
+
+	public void setPhieunhaphang(Phieunhaphang phieunhaphang) {
+		this.phieunhaphang = phieunhaphang;
+	}
+	
 	
 	
 }

@@ -10,6 +10,9 @@ import javax.persistence.*;
 
 public class Phieunhaphang {
 	
+	@Id
+	private int manhaphang;
+	
 	@OneToMany (mappedBy = "phieunhaphang")
 	private List<Chitietnhaphang> chitietnhaphang;
 	
@@ -23,8 +26,7 @@ public class Phieunhaphang {
 	@GeneratedValue
 	private Nhacungcap nhacungcap;
 	
-	@Id
-	private String manhaphang;
+	
 	private String thoigiannhap;
 	private int tongtien;
 //	private int mancc;
@@ -43,7 +45,7 @@ public class Phieunhaphang {
 	
 	
 
-	public Phieunhaphang(String manhaphang, String thoigiannhap, int tongtien,Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	public Phieunhaphang(int manhaphang, String thoigiannhap, int tongtien,Nhacungcap nhacungcap, Nhanvien nhanvien) {
 	super();
 	this.manhaphang = manhaphang;
 	this.thoigiannhap = thoigiannhap;
@@ -82,11 +84,11 @@ public class Phieunhaphang {
 		this.nhacungcap = nhacungcap;
 	}
 
-	public String getManhaphang() {
+	public int getManhaphang() {
 		return manhaphang;
 	}
 
-	public void setManhaphang(String manhaphang) {
+	public void setManhaphang(int manhaphang) {
 		this.manhaphang = manhaphang;
 	}
 

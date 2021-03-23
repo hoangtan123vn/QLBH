@@ -77,7 +77,7 @@ public class NhaphangDetailController implements Initializable {
 	    private Button backNH;
 
 	    @FXML
-	    private TableView tbChitietNhapHang;
+	    private TableView<Chitietnhaphang> tbChitietNhapHang;
 
 	   
 
@@ -100,7 +100,7 @@ public class NhaphangDetailController implements Initializable {
     }
     
     public void setPhieunhaphang(Phieunhaphang phieunhaphang) {
-    	lbManhaphang.setText(phieunhaphang.getManhaphang());
+    	lbManhaphang.setText(String.valueOf(phieunhaphang.getManhaphang()));
     	lbThoigiannhap.setText(phieunhaphang.getThoigiannhap());
     	lbMancc.setText((phieunhaphang.getNhacungcap().toString()));
     	lbManv.setText((phieunhaphang.getNhanvien().toString()));
@@ -109,7 +109,7 @@ public class NhaphangDetailController implements Initializable {
     }
     
    public ObservableList<Chitietnhaphang> getChitietnhaphang(Phieunhaphang phieunhaphang) {
-    	String Phieunhaphang = phieunhaphang.getManhaphang();
+    	String Phieunhaphang = String.valueOf(phieunhaphang.getManhaphang());
     	ObservableList<Chitietnhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
     	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
@@ -133,7 +133,7 @@ public class NhaphangDetailController implements Initializable {
     }
    
    public void  IntitlizeChitietnhaphang(Phieunhaphang phieunhaphang ) {
-	/*tenhang.setCellFactory(tbChitietNhapHang-> new TableCell<Chitietnhaphang, Sanpham>(){
+	tenhang.setCellFactory(tbChitietNhapHang-> new TableCell<Chitietnhaphang, Sanpham>(){
 		@Override
 		    protected void updateItem(Sanpham item, boolean empty) {
 		        super.updateItem(item, empty);
@@ -143,10 +143,22 @@ public class NhaphangDetailController implements Initializable {
 		            setText(item.getTensanpham());
 		        }
 		    }
-	});*/
+	});
 	soluong.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("soluong"));
-//	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-	//tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
+	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+	dongia.setCellFactory(tbChitietNhapHang ->new TableCell<Chitietnhaphang, Sanpham>(){
+		@Override
+		    protected void updateItem(Sanpham item, boolean empty) {
+		        super.updateItem(item, empty);
+		        if (empty || item == null) {
+		            setText(null);
+		        } else {
+		            setText(String.valueOf(item.getGiatien()));
+		        }
+		    }
+	});
+	tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
 
 }
    
