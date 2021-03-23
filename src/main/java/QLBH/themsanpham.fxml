@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="tf1" layoutX="278.0" layoutY="200.0" prefHeight="28.0" prefWidth="189.0" />
+      <TextField fx:id="tf2" layoutX="280.0" layoutY="253.0" prefHeight="29.0" prefWidth="185.0" />
+      <TextField fx:id="tf3" layoutX="279.0" layoutY="142.0" prefHeight="27.0" prefWidth="188.0" />
+      <TextField fx:id="tf4" layoutX="278.0" layoutY="306.0" prefHeight="25.0" prefWidth="189.0" />
+      <TextField fx:id="tf5" layoutX="278.0" layoutY="347.0" prefHeight="25.0" prefWidth="188.0" />
+      <TextField fx:id="tfloaisanpham" layoutX="484.0" layoutY="319.0" prefHeight="25.0" prefWidth="189.0" />
+      <Text layoutX="157.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên sản phẩm" />
+      <Text fx:id="idsanpham" layoutX="158.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã sản phẩm" />
+      <Text layoutX="158.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đơn vị" />
+      <Text layoutX="158.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số lượng" />
+      <Text layoutX="54.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giá tiền" />
+      <Label layoutX="52.0" layoutY="319.0" text="Loại sản phẩm" />
+   </children>
+</AnchorPane>

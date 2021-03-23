@@ -16,6 +16,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import QLBH.Sanpham;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -90,7 +91,9 @@ public class chucnangnhanvienController implements Initializable{
 
     @FXML
     private TableColumn donvitnh1;
-
+    
+    ObservableList<Sanpham> danhmuchoadon = FXCollections.observableArrayList();
+    
 	 private void setCellValueFromTabletoTexfFieldd()  {
 		 TableSP.setOnMouseClicked(event -> {
 			 //
@@ -130,11 +133,7 @@ public class chucnangnhanvienController implements Initializable{
 		giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		
-		//hoadon.setItems(getHoadon());
-		
-	
-	
-		
+		//hoadon.setItems(getHoadon());		
 		
 	}
 	public ObservableList<Sanpham> getSanpham() {
@@ -154,36 +153,14 @@ public class chucnangnhanvienController implements Initializable{
 		return TableSP;
 	}
 	//
-	public ObservableList<Sanpham> getHoadon() {
-		ObservableList<Sanpham> hoadon = FXCollections.observableArrayList();
-		Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		int masanpham = sp.getMasanpham();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-		String hql = "FROM Sanpham SP WHERE SP.masanpham = :masanpham";
-		Query query = session.createQuery(hql);
-		query.setParameter("masanpham", masanpham);
-		List<Sanpham> List =query.getResultList();
-		for(Sanpham b : List) {
-			hoadon.add(b);
-		}
-//		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
-//		sp.from(Sanpham.class);
-//		List<Sanpham> eList = session.createQuery(sp).getResultList();
-//		for (Sanpham ent : eList) {
-//			hoadon.add(ent);
-//		}
-		return hoadon;
-	}
+
 	//
 	private void event() {
 		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
 		 //hoadon.setItems(getHoadon());
-		 //	TableSP.getSelectionModel().getSelectedItems();	
-	hoadon.setItems(getHoadon());
+		 //	TableSP.getSelectionModel().getSelectedItems();
+		 hoadon.getItems().add(sp);
+	//hoadon.setItems(getHoadon());
 	
 }
 }

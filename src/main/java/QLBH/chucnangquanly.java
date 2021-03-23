@@ -593,35 +593,11 @@ public class chucnangquanly extends Application implements Initializable {
 	
 	@FXML
 	private TableColumn loaisanpham;
-
-	@FXML
-	private TextField tf1;
-
-	@FXML
-	private TextField tf2;
-
-	@FXML
-	private TextField tf3;
-
-	@FXML
-	private TextField tf4;
-
-	@FXML
-	private TextField tf5;
-
 	@FXML
 	private TextField Timkiem;
 
 	ObservableList<Sanpham> listM;
 
-	@FXML
-	private Button idaddSP;
-
-	@FXML
-	private Button iddelSP;
-
-	@FXML
-	private Button idupdSP;
 	
 	
 	@FXML
@@ -682,146 +658,10 @@ public class chucnangquanly extends Application implements Initializable {
 		tableSP.setItems(sortedData);
 
 	}
-
-	@FXML
-	private void ThemSP(ActionEvent event) throws IOException {
-		// ta.setText("");
-	//	idsanpham.setVisible(false);
-	//	tf2.setVisible(false);
-		String t1 = tf1.getText();
-	//	int t2 = Integer.parseInt(tf2.getText());
-		String t3 = tf3.getText();
-		String t5 = tf5.getText();
-		int t4 = Integer.parseInt(tf4.getText());
-		String t6 = tfloaisanpham.getText();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-		Sanpham sanpham = new Sanpham(t1,t6,t3,t4,t5);
-		// person=session.get(Person.class, t1);
-		try {
-			session.beginTransaction();
-			session.save(sanpham);
-			session.getTransaction().commit();
-			// ta.appendText("Them Thanh Cong ! ! !");
-			ReloadSANPHAM();
-		} catch (RuntimeException error) {
-			session.getTransaction().rollback();
-			// ta.appendText("Khong the thuc hien thao tac ! ");
-		}
-
-	}
-	   @FXML
-	    void XoaSP(ActionEvent event) {
-		   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-			 alert.setTitle("Xoa San Pham");
-			 alert.setContentText("Save?");
-			 ButtonType okButton = new ButtonType("Yes");
-			 ButtonType noButton = new ButtonType("No");
-			 alert.getButtonTypes().setAll(okButton, noButton);
-			 alert.showAndWait().ifPresent(type -> {
-			         if (type == okButton) {
-			        	int masanpham = (Integer.parseInt(tf2.getText()));
-			         	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-			     				.configure("hibernate.cfg.xml")
-			     				.build();
-			     		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			     		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			     		Session session = sessionFactory.openSession();
-			     		Sanpham sp = new Sanpham();
-			     		sp=session.get(Sanpham.class, masanpham);
-			     		try {
-			     			session.beginTransaction();
-			     			
-			     			if(sp != null) {
-			     				session.delete(sp);
-			     				ReloadSANPHAM();
-			     				
-			     			}		
-			     			session.getTransaction().commit();	
-			     		} catch (RuntimeException error) {
-			     			session.getTransaction().rollback();
-			     			
-			     		}
-			     		initialize1();
-			     		tf1.setText("");
-			     		tf2.setText("");
-			     		tf3.setText("");
-			     		tf4.setText("");
-			     		tf5.setText("");
-			     		tfloaisanpham.setText(null);
-			     		
-			         } else if (type == ButtonType.NO) {
-			        	 alert.close();
-			         }
-			         ObservableList<Sanpham> table = FXCollections.observableArrayList(getSanpham());
-			 });
-	   }
-	   @FXML
-		void SuaSP (ActionEvent event) {
-		    	tf1.setEditable(true);
-		    	tf2.setEditable(true);
-		    	tf3.setEditable(true);
-		    	tf4.setEditable(true);
-		    	tf5.setEditable(true);
-		    	tfloaisanpham.setEditable(true);
-		    	idluusp.setVisible(true);
-	   }
 	   @FXML
 	    private Button idluusp;
 	     
-	    @FXML
-	    void luusp (ActionEvent actionEvent) {
-	    	idsanpham.setVisible(true);
-			tf2.setVisible(true);
-	    	Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Cap nhat thanh cong ");
-			Integer masanpham = Integer.parseInt(tf2.getText());
-	    	String tensanpham = tf1.getText();
-	    	String donvi = tf3.getText();
-	    	String donvitinh = tf5.getText();
-	    	Integer giatien = Integer.parseInt(tf4.getText());
-	    	String loaisanpham = tfloaisanpham.getText();
-	    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
-			try {
-				session.beginTransaction();
-				Sanpham sp = new Sanpham(tensanpham,loaisanpham,donvi,giatien,donvitinh);
-				sp=session.get(Sanpham.class, masanpham);
-				if (sp != null) {
-				//	nv2.setid(idnv);
-					sp.setTensanpham(tensanpham);
-					//sp.setMasanpham(masanpham);
-					sp.setDonvi(donvi);
-					sp.setDonvitinh(donvitinh);
-					sp.setGiatien(giatien);
-					sp.setLoaisanpham(loaisanpham);
-					 session.save(sp);
-					 ReloadSANPHAM();
-					 alert.setContentText("Da Cap nhat San pham !");
-		        	 alert.showAndWait();
-		        	 idluusp.setVisible(false);
-		        	 
-		         	tf1.setEditable(false);
-		        	tf2.setEditable(false);
-		        	tf3.setEditable(false);
-		        	tf4.setEditable(false);
-		        	tf5.setEditable(false);
-		        	tfloaisanpham.setEditable(false);
-		        	
-				}
-				session.getTransaction().commit();
-			}catch (RuntimeException error) {
-				session.getTransaction().rollback();
-	    }
-			ReloadSANPHAM();
-	    }
+	 
 
 	public ObservableList<Sanpham> getSanpham() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
@@ -848,22 +688,8 @@ public class chucnangquanly extends Application implements Initializable {
 
 	}
 
-	 private void setCellValueFromTabletoTexfFieldd()  {
-		 tableSP.setOnMouseClicked(event -> {
-			 //
-			 Sanpham sp = tableSP.getItems().get(tableSP.getSelectionModel().getSelectedIndex());
-			 tf1.setText(sp.getTensanpham());
-			 tf2.setText(Integer.toString(sp.getMasanpham()));
-			 tf3.setText(sp.getDonvi());
-			 tf4.setText(Integer.toString(sp.getGiatien()));
-			 tf5.setText(sp.getDonvitinh()); 
-			 tfloaisanpham.setText(sp.getLoaisanpham());
-		 });
-		 
-		
-	 }
 	void initialize1() {
-		setCellValueFromTabletoTexfFieldd();
+	//	setCellValueFromTabletoTexfFieldd();
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
@@ -1737,7 +1563,7 @@ public class chucnangquanly extends Application implements Initializable {
 		searchKH();
 
 		// QL KHO//HỒNG THÁI
-		setCellValueFromTabletoTexfFieldd();
+	//	setCellValueFromTabletoTexfFieldd();
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
