@@ -709,7 +709,61 @@ public class chucnangquanly extends Application implements Initializable {
 /////////////////////////////AUTHOR :TRƯƠNG NGUYỄN YẾN NHI /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : KIỂM TRA NHẬP HÀNG  ///////////*************************
 ///////////////////
+	
+	
+		@FXML
+		private TableView<Phieudathang> phieudathangkt;
+		@FXML
+	    private TableColumn madathangkt;
 
+	    @FXML
+	    private TableColumn thoigiandatkt;
+
+	    @FXML
+	    private TableColumn tongtienkt;
+
+	    @FXML
+	    private TableColumn <Phieudathang, Nhacungcap> mancckt;
+	    
+		ObservableList<Phieudathang> listPDHkt;
+		
+		
+		
+		
+		public ObservableList<Phieudathang> getPhieudathangkt() {
+			ObservableList<Phieudathang> phieudathangkt = FXCollections.observableArrayList();
+			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+					.build();
+			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+			
+			CriteriaQuery<Phieudathang> pdhkt = session.getCriteriaBuilder().createQuery(Phieudathang.class);
+			pdhkt.from(Phieudathang.class);
+			List<Phieudathang> eList = session.createQuery(pdhkt).getResultList();
+			// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+			// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+			for (Phieudathang ent : eList) {
+				phieudathangkt.add(ent);
+			}
+			return phieudathangkt;
+		}
+		
+		 @FXML
+		    void changeSceneKiemtrahang(ActionEvent event) throws IOException {
+			 	FXMLLoader loader = new FXMLLoader(getClass().getResource("Kiemtrahang.fxml"));
+		        Parent kiemtraViewParent = loader.load();
+		        Stage stage1 = new Stage();
+		        Scene scene1 = new Scene(kiemtraViewParent);
+		        Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
+		        KiemtrahangController Dathang1 = loader.getController();
+		        Dathang1.setKiemtrahang(selected);
+		        stage1.setTitle("Kiem tra hang");
+		        stage1.setScene(scene1);
+		        stage1.show();
+		    }
+	    
+	    
 /////////////////////////////AUTHOR :TRƯƠNG NGUYỄN YẾN NHI /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : DANH MỤC  ///////////*************************
 ///////////////////
@@ -731,6 +785,8 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TabPane tabPaneid;
+	
+	
 
 	/*
 	 * 
@@ -1540,7 +1596,25 @@ public class chucnangquanly extends Application implements Initializable {
 ///////////////////
 	
 	public void initialize(URL url, ResourceBundle rb) {
-	
+		
+		//KIỂM TRA NHẬP HÀNG
+		madathangkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
+		thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
+		tongtienkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
+		mancckt.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		mancckt.setCellFactory(phieudathangkt -> new TableCell<Phieudathang,Nhacungcap>(){
+			@Override
+ 		    protected void updateItem(Nhacungcap item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getMancc()));
+ 		        }
+ 		    }
+			
+		});
+		phieudathangkt.setItems(getPhieudathangkt());
 
 		// QL NHÂN VIÊN //HOÀNG TÂN
 		ObservableList<String> list = FXCollections.observableArrayList("Danh sách nhân viên ", "Lịch làm");
