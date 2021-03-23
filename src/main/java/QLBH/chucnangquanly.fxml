@@ -292,10 +292,9 @@
                                     <TableView fx:id="tablePhieuDatHang" layoutX="37.0" layoutY="143.0" prefHeight="200.0" prefWidth="603.0">
                                        <columns>
                                           <TableColumn fx:id="madathang" prefWidth="102.39997100830078" text="Mã đặt hàng " />
-                                          <TableColumn fx:id="mancc" prefWidth="76.800048828125" text="Mã NCC" />
-                                          <TableColumn fx:id="thoigiandat" prefWidth="149.5999755859375" text="Thời gian đặt " />
-                                          <TableColumn fx:id="manv" prefWidth="102.39999389648438" text="Mã nhân viên " />
-                                          <TableColumn fx:id="tongtien1" prefWidth="170.39999389648438" text="Tổng tiền " />
+                                          <TableColumn fx:id="mancc" prefWidth="124.0" text="Mã NCC" />
+                                          <TableColumn fx:id="thoigiandat" prefWidth="157.0" text="Thời gian đặt " />
+                                          <TableColumn fx:id="tongtien1" prefWidth="210.0" text="Tổng tiền " />
                                        </columns>
                                     </TableView>
                                     <ScrollBar fx:id="verticalPDH" layoutX="633.0" layoutY="144.0" orientation="VERTICAL" prefHeight="198.0" prefWidth="14.0" />

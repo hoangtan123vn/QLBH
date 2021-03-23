@@ -908,8 +908,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 	/*
 	 * 
-	 * --------------------------FXML Danh Mục Phiếu Hóa
-	 * Đơn-------------------------
+	 * --------------------------FXML Danh Mục Phiếu Hóa Đơn  //NHI-------------------------
 	 * 
 	 */
 
@@ -1041,8 +1040,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 	/*
 	 * 
-	 * --------------------- FXML Danh mục phiếu đặt
-	 * hàng-----------------------------
+	 * --------------------- FXML Danh mục phiếu đặt hàng //NHI-----------------------------
 	 * 
 	 */
 
@@ -1142,8 +1140,7 @@ public class chucnangquanly extends Application implements Initializable {
 	    }
 	/*
 	 * 
-	 * --------------------- FXML Danh mục phiếu nhập
-	 * hàng-----------------------------
+	 * --------------------- FXML Danh mục phiếu nhập hàng //NHI-----------------------------
 	 * 
 	 */
 	@FXML
@@ -1242,8 +1239,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 	/*
 	 * 
-	 * --------------------- FXML Danh mục phiếu trả
-	 * hàng-----------------------------
+	 * --------------------- FXML Danh mục phiếu trả hàng //NHI-----------------------------
 	 * 
 	 */
 
@@ -1817,7 +1813,7 @@ public class chucnangquanly extends Application implements Initializable {
  		    }
 			
 		});
-		manv.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
+	/*	manv.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
 		manv.setCellFactory(tablePhieuDatHang ->new TableCell<Phieudathang,Nhanvien>(){
 			@Override
  		    protected void updateItem(Nhanvien item, boolean empty) {
@@ -1828,7 +1824,7 @@ public class chucnangquanly extends Application implements Initializable {
  		            setText(String.valueOf(item.getManv()));
  		        }
  		    }
-		});
+		});*/
 		tablePhieuDatHang.setItems(getPhieudathang());
 		searchPDH();
 
@@ -1871,7 +1867,22 @@ public class chucnangquanly extends Application implements Initializable {
 		// QL danh mục phiếu trả hàng //Nhi
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
 		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
-		mancc3.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("mancc"));
+	//	mancc3.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("mancc"));
+		mancc3.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		mancc3.setCellFactory(tablePhieuTraHang -> new TableCell<Phieutrahang, Nhacungcap>(){
+			@Override
+			protected void updateItem(Nhacungcap item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getMancc()));
+ 		        }
+ 		    }
+
+		});
+		
+		
 		//manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("manv"));
 		tablePhieuTraHang.setItems(getPhieutrahang());
 		searchPTH();

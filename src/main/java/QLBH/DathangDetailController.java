@@ -71,8 +71,8 @@ public class DathangDetailController implements Initializable{
     @FXML
     private Label lbMancc;
 
-    @FXML
-    private Label lbManv;
+ //   @FXML
+//    private Label lbManv;
 
     @FXML
     private Button back1;
@@ -170,7 +170,7 @@ public class DathangDetailController implements Initializable{
 	    	lbThoigiandat.setText(phieudathang.getThoigiandat());
 	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
 	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
-	    	lbManv.setText(phieudathang.getNhanvien().toString());
+	   // 	lbManv.setText(phieudathang.getNhanvien().toString());
 	    	
 	    	IntitlizeChitietdathang(phieudathang);
 	    }	

@@ -71,5 +71,9 @@ public class Chitietphieutra implements Serializable {
 	public void setLydo(String lydo) {
 		this.lydo = lydo;
 	}
+	public Chitietphieutra() {
+		super();
+	}
+	
 	
 }
