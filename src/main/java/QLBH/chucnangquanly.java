@@ -460,12 +460,12 @@ public class chucnangquanly extends Application implements Initializable {
 		});
 		// Nhà cung cấp
 		/*
-		 * Nhacungcap.setOnMouseClicked(event -> { // Nhacungcap ncc =
-		 * Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
-		 * tfncc.setText(Integer.toString(ncc.getMancc()));
-		 * tftenncc.setText(ncc.getTenncc());
-		 * tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
-		 * tfdiachi1.setText(ncc.getDiachi()); tfemail.setText(ncc.getEmail()); }); //
+		  tableNhacungcap.setOnMouseClicked(event -> { 
+		  Nocong ncc = tableNhacungcap.getItems().get(tableNhacungcap.getSelectionModel().getSelectedIndex());
+		  //tfncc.setText(Integer.toString(ncc.getMancc()));
+		  tftenncc.setText(ncc.getTenncc());
+		  tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
+		  tfdiachi1.setText(ncc.getDiachi()); tfemail.setText(ncc.getEmail()); }); 
 		 */
 
 	}
