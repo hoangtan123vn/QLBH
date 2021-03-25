@@ -18,6 +18,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -31,6 +32,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.util.List;
 import java.awt.event.MouseEvent;
@@ -53,6 +55,7 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -78,13 +81,14 @@ public class chucnangquanly extends Application implements Initializable {
 	///////////////////
 	public static chucnangquanly instance;
 
-    public chucnangquanly() {
-        instance = this;
-    }
+	public chucnangquanly() {
+		instance = this;
+	}
 
-    public static chucnangquanly getInstance() {
-        return instance;
-    }
+	public static chucnangquanly getInstance() {
+		return instance;
+	}
+
 	private Image image;
 	@FXML
 	private Button idaddNV;
@@ -119,13 +123,12 @@ public class chucnangquanly extends Application implements Initializable {
 	@FXML
 	private TextField hovaten_nv;
 
-	 @FXML
-    private DatePicker ns_nv;
-	 
-	  @FXML
+	@FXML
+	private DatePicker ns_nv;
+
+	@FXML
 	private DatePicker ngayvaolam;
-	 
-	 
+
 	@FXML
 	private TextField cv_nv;
 
@@ -172,7 +175,7 @@ public class chucnangquanly extends Application implements Initializable {
 		Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 		id_nv.setText(Integer.toString(nv.getManv()));
 		hovaten_nv.setText(nv.getHovaten());
-	//	ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+		// ns_nv.setText(Integer.toString(nv.getNgaysinh()));
 		ns_nv.setValue(nv.getNgaysinh());
 		cv_nv.setText(nv.getChucvu());
 		gt_nv.setText(nv.getGioitinh());
@@ -181,7 +184,6 @@ public class chucnangquanly extends Application implements Initializable {
 		cmnd_nv.setText(Integer.toString(nv.getCmnd()));
 		ngayvaolam.setValue(nv.getNgayvaolam());
 	}
-	
 
 	@FXML
 	private void ThemNV(ActionEvent event) throws IOException {
@@ -220,7 +222,7 @@ public class chucnangquanly extends Application implements Initializable {
 	 * 
 	 * }
 	 */
-		@FXML
+	@FXML
 	void luucapnhat(ActionEvent event) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Cap nhat thanh cong ");
@@ -240,7 +242,8 @@ public class chucnangquanly extends Application implements Initializable {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			Nhanvien nv2 = new Nhanvien(idnv,hovatennv,ngaysinhnv,chucvunv,gioitinhnv,sdtnv,cmndnv,diachinv, nvl);
+			Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,
+					nvl);
 			nv2 = session.get(Nhanvien.class, idnv);
 			if (nv2 != null) {
 				// nv2.setid(idnv);
@@ -254,11 +257,10 @@ public class chucnangquanly extends Application implements Initializable {
 				// person2.setAge(t2);
 				/// person2.setAddress(t3);
 				session.save(nv2);
-				
-				
+
 				alert.setContentText("Cap nhat nhan vien thanh cong !");
 				alert.showAndWait();
-				
+
 				luucapnhat.setVisible(false);
 				reset.setVisible(false);
 				hovaten_nv.setEditable(false);
@@ -272,13 +274,12 @@ public class chucnangquanly extends Application implements Initializable {
 
 			}
 			session.getTransaction().commit();
-			//tableNV.refresh();
+			// tableNV.refresh();
 			initializeNHANVIEN();
 		} catch (RuntimeException error) {
 			session.getTransaction().rollback();
 		}
 
-		
 	}
 
 	@FXML
@@ -320,6 +321,7 @@ public class chucnangquanly extends Application implements Initializable {
 		ngayvaolam.setEditable(true);
 		reset.setVisible(true);
 	}
+
 //a
 	@FXML
 	void XoaNhanvien(ActionEvent event) {
@@ -433,7 +435,7 @@ public class chucnangquanly extends Application implements Initializable {
 			Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 			id_nv.setText(Integer.toString(nv.getManv()));
 			hovaten_nv.setText(nv.getHovaten());
-		//	ns_nv.setText(Integer.toString(nv.getNgaysinh()));
+			// ns_nv.setText(Integer.toString(nv.getNgaysinh()));
 			ns_nv.setValue(nv.getNgaysinh());
 			ngayvaolam.setValue(nv.getNgayvaolam());
 			cv_nv.setText(nv.getChucvu());
@@ -454,22 +456,17 @@ public class chucnangquanly extends Application implements Initializable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			
-			
+
 		});
-		//Nhà cung cấp
-	/*	Nhacungcap.setOnMouseClicked(event -> {
-			//
-			Nhacungcap ncc = Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
-			tfncc.setText(Integer.toString(ncc.getMancc()));
-			tftenncc.setText(ncc.getTenncc());
-			tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
-			tfdiachi1.setText(ncc.getDiachi());
-			tfemail.setText(ncc.getEmail());
-			});
-		// */
-		
+		// Nhà cung cấp
+		/*
+		 * Nhacungcap.setOnMouseClicked(event -> { // Nhacungcap ncc =
+		 * Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
+		 * tfncc.setText(Integer.toString(ncc.getMancc()));
+		 * tftenncc.setText(ncc.getTenncc());
+		 * tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
+		 * tfdiachi1.setText(ncc.getDiachi()); tfemail.setText(ncc.getEmail()); }); //
+		 */
 
 	}
 
@@ -581,16 +578,16 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private AnchorPane anchorpane1;
-	
+
 	@FXML
-    private AnchorPane anchorpane2;
-	
+	private AnchorPane anchorpane2;
+
 	@FXML
 	private TableColumn tensanpham;
 
 	@FXML
 	private TableColumn masanpham;
-	
+
 	@FXML
 	private TableColumn loaisanpham;
 	@FXML
@@ -598,19 +595,17 @@ public class chucnangquanly extends Application implements Initializable {
 
 	ObservableList<Sanpham> listM;
 
-	
-	
 	@FXML
 	private Button lichsudathang;
-	
+
 	@FXML
 	private Button lapphieudahang;
-	
-	   @FXML
-	    private TextField tfloaisanpham;
-	   @FXML
-	   private Text idsanpham;
-	
+
+	@FXML
+	private TextField tfloaisanpham;
+	@FXML
+	private Text idsanpham;
+
 	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
 
 	@FXML
@@ -621,7 +616,7 @@ public class chucnangquanly extends Application implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	@FXML
 	private void LichSuDatHang(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("lichsudathang.fxml"));
@@ -658,10 +653,9 @@ public class chucnangquanly extends Application implements Initializable {
 		tableSP.setItems(sortedData);
 
 	}
-	   @FXML
-	    private Button idluusp;
-	     
-	 
+
+	@FXML
+	private Button idluusp;
 
 	public ObservableList<Sanpham> getSanpham() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
@@ -689,18 +683,17 @@ public class chucnangquanly extends Application implements Initializable {
 	}
 
 	void initialize1() {
-	//	setCellValueFromTabletoTexfFieldd();
+		// setCellValueFromTabletoTexfFieldd();
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
-		
+
 		tableSP.setItems(getSanpham());
 		Timkiem();
-		
-		
+
 	}
 /////////////////////////////AUTHOR :HỒNG THÁI/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : THỐNG KÊ ///////////*************************
@@ -709,61 +702,56 @@ public class chucnangquanly extends Application implements Initializable {
 /////////////////////////////AUTHOR :TRƯƠNG NGUYỄN YẾN NHI /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : KIỂM TRA NHẬP HÀNG  ///////////*************************
 ///////////////////
-	
-	
-		@FXML
-		private TableView<Phieudathang> phieudathangkt;
-		@FXML
-	    private TableColumn madathangkt;
 
-	    @FXML
-	    private TableColumn thoigiandatkt;
+	@FXML
+	private TableView<Phieudathang> phieudathangkt;
+	@FXML
+	private TableColumn madathangkt;
 
-	    @FXML
-	    private TableColumn tongtienkt;
+	@FXML
+	private TableColumn thoigiandatkt;
 
-	    @FXML
-	    private TableColumn <Phieudathang, Nhacungcap> mancckt;
-	    
-		ObservableList<Phieudathang> listPDHkt;
-		
-		
-		
-		
-		public ObservableList<Phieudathang> getPhieudathangkt() {
-			ObservableList<Phieudathang> phieudathangkt = FXCollections.observableArrayList();
-			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
-			
-			CriteriaQuery<Phieudathang> pdhkt = session.getCriteriaBuilder().createQuery(Phieudathang.class);
-			pdhkt.from(Phieudathang.class);
-			List<Phieudathang> eList = session.createQuery(pdhkt).getResultList();
-			// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-			// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
-			for (Phieudathang ent : eList) {
-				phieudathangkt.add(ent);
-			}
-			return phieudathangkt;
+	@FXML
+	private TableColumn tongtienkt;
+
+	@FXML
+	private TableColumn<Phieudathang, Nhacungcap> mancckt;
+
+	ObservableList<Phieudathang> listPDHkt;
+
+	public ObservableList<Phieudathang> getPhieudathangkt() {
+		ObservableList<Phieudathang> phieudathangkt = FXCollections.observableArrayList();
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+
+		CriteriaQuery<Phieudathang> pdhkt = session.getCriteriaBuilder().createQuery(Phieudathang.class);
+		pdhkt.from(Phieudathang.class);
+		List<Phieudathang> eList = session.createQuery(pdhkt).getResultList();
+		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+		for (Phieudathang ent : eList) {
+			phieudathangkt.add(ent);
 		}
-		
-		 @FXML
-		    void changeSceneKiemtrahang(ActionEvent event) throws IOException {
-			 	FXMLLoader loader = new FXMLLoader(getClass().getResource("Kiemtrahang.fxml"));
-		        Parent kiemtraViewParent = loader.load();
-		        Stage stage1 = new Stage();
-		        Scene scene1 = new Scene(kiemtraViewParent);
-		        Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
-		        KiemtrahangController Dathang1 = loader.getController();
-		        Dathang1.setKiemtrahang(selected);
-		        stage1.setTitle("Kiem tra hang");
-		        stage1.setScene(scene1);
-		        stage1.show();
-		    }
-	    
-	    
+		return phieudathangkt;
+	}
+
+	@FXML
+	void changeSceneKiemtrahang(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Kiemtrahang.fxml"));
+		Parent kiemtraViewParent = loader.load();
+		Stage stage1 = new Stage();
+		Scene scene1 = new Scene(kiemtraViewParent);
+		Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
+		KiemtrahangController Dathang1 = loader.getController();
+		Dathang1.setKiemtrahang(selected);
+		stage1.setTitle("Kiem tra hang");
+		stage1.setScene(scene1);
+		stage1.show();
+	}
+
 /////////////////////////////AUTHOR :TRƯƠNG NGUYỄN YẾN NHI /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : DANH MỤC  ///////////*************************
 ///////////////////
@@ -785,12 +773,11 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TabPane tabPaneid;
-	
-	
 
 	/*
 	 * 
-	 * --------------------------FXML Danh Mục Phiếu Hóa Đơn  //NHI-------------------------
+	 * --------------------------FXML Danh Mục Phiếu Hóa Đơn
+	 * //NHI-------------------------
 	 * 
 	 */
 
@@ -807,13 +794,13 @@ public class chucnangquanly extends Application implements Initializable {
 	private TableColumn tonggia;
 
 	@FXML
-	private TableColumn<Hoadon,KhachHang> makh;
+	private TableColumn<Hoadon, KhachHang> makh;
 
 	@FXML
-	private TableColumn<Hoadon,Nhanvien> manv1;
+	private TableColumn<Hoadon, Nhanvien> manv1;
 
 	@FXML
-	private TableColumn<Phieudathang,Nhanvien> manv;
+	private TableColumn<Phieudathang, Nhanvien> manv;
 
 	@FXML
 	private TextField searchPHD;
@@ -848,8 +835,7 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return tableHoaDon;
 	}
-	
-	
+
 	void searchPHD() {
 		ObservableList<Hoadon> tbHoaDon = FXCollections.observableArrayList(getHoadon());
 
@@ -874,55 +860,50 @@ public class chucnangquanly extends Application implements Initializable {
 		sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
 		tableHoaDon.setItems(sortedData);
 	}
-	
-	@FXML
-	private void changeSceneHoadonDetail (ActionEvent event) throws IOException {
-		
-	//	Parent root = FXMLLoader.load(getClass().getResource("HoadonDetail.fxml"));
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("HoadonDetail.fxml"));
-        Parent hoadonViewParent = loader.load();
-        Stage stage = new Stage();
-        Scene scene = new Scene(hoadonViewParent);
-        Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
-        HoadonDetailController DSNVController = loader.getController();
-        DSNVController.setHoadon(selected);
-        stage.setTitle("Chi tiet hoa don");
-        stage.setScene(scene);
-        stage.show();
-		
-       // Scene scene1 = new Scene(hoadonViewParent);
-        
-		
-	}
-	
-	/*protected void updateItem(T item, boolean empty) {
-	    super.updateItem(item, empty);
 
-	    if (empty || item == null) {
-	        setText(null);
-	      //  setGraphic(null);
-	    } else {
-	        setText(item.toString());
-	    }
-	}*/
-	
-	
-	//chi tiết hóa đơn  new stage 
-/*	public void changeSceneHoadonDetail(ActionEvent e) throws IOException {
-		Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("HoadonDetail.fxml"));
-        Parent hoadonViewParent = loader.load();
-        Scene scene = new Scene(hoadonViewParent);
-        HoadonDetailController DSNVController = loader.getController();
-        Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
-        DSNVController.setHoadon(selected);
-        stage.setScene(scene);
-	}*/
+	@FXML
+	private void changeSceneHoadonDetail(ActionEvent event) throws IOException {
+
+		// Parent root = FXMLLoader.load(getClass().getResource("HoadonDetail.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("HoadonDetail.fxml"));
+		Parent hoadonViewParent = loader.load();
+		Stage stage = new Stage();
+		Scene scene = new Scene(hoadonViewParent);
+		Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+		HoadonDetailController DSNVController = loader.getController();
+		DSNVController.setHoadon(selected);
+		stage.setTitle("Chi tiet hoa don");
+		stage.setScene(scene);
+		stage.show();
+
+		// Scene scene1 = new Scene(hoadonViewParent);
+
+	}
+
+	/*
+	 * protected void updateItem(T item, boolean empty) { super.updateItem(item,
+	 * empty);
+	 * 
+	 * if (empty || item == null) { setText(null); // setGraphic(null); } else {
+	 * setText(item.toString()); } }
+	 */
+
+	// chi tiết hóa đơn new stage
+	/*
+	 * public void changeSceneHoadonDetail(ActionEvent e) throws IOException { Stage
+	 * stage = (Stage)((Node) e.getSource()).getScene().getWindow(); FXMLLoader
+	 * loader = new FXMLLoader();
+	 * loader.setLocation(getClass().getResource("HoadonDetail.fxml")); Parent
+	 * hoadonViewParent = loader.load(); Scene scene = new Scene(hoadonViewParent);
+	 * HoadonDetailController DSNVController = loader.getController(); Hoadon
+	 * selected = tableHoaDon.getSelectionModel().getSelectedItem();
+	 * DSNVController.setHoadon(selected); stage.setScene(scene); }
+	 */
 
 	/*
 	 * 
-	 * --------------------- FXML Danh mục phiếu đặt hàng //NHI-----------------------------
+	 * --------------------- FXML Danh mục phiếu đặt hàng
+	 * //NHI-----------------------------
 	 * 
 	 */
 
@@ -984,9 +965,6 @@ public class chucnangquanly extends Application implements Initializable {
 		tablePhieuDatHang.setItems(sortedData);
 
 	}
-	
-	
-	
 
 	// PHIẾU ĐẶT HÀNG
 	public ObservableList<Phieudathang> getPhieudathang() {
@@ -996,7 +974,7 @@ public class chucnangquanly extends Application implements Initializable {
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		
+
 		CriteriaQuery<Phieudathang> pdh = session.getCriteriaBuilder().createQuery(Phieudathang.class);
 		pdh.from(Phieudathang.class);
 		List<Phieudathang> eList = session.createQuery(pdh).getResultList();
@@ -1007,22 +985,25 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return tablePhieuDatHang;
 	}
-	 @FXML
-	    void changeSceneDathangDetail(ActionEvent event) throws IOException  {
-		 	FXMLLoader loader = new FXMLLoader(getClass().getResource("DathangDetail.fxml"));
-	        Parent dathangViewParent = loader.load();
-	        Stage stage1 = new Stage();
-	        Scene scene1 = new Scene(dathangViewParent);
-	        Phieudathang selected = tablePhieuDatHang.getSelectionModel().getSelectedItem();
-	        DathangDetailController Dathang = loader.getController();
-	        Dathang.setPhieudathang(selected);
-	        stage1.setTitle("Chi tiet dat hang");
-	        stage1.setScene(scene1);
-	        stage1.show();
-	    }
+
+	@FXML
+	void changeSceneDathangDetail(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("DathangDetail.fxml"));
+		Parent dathangViewParent = loader.load();
+		Stage stage1 = new Stage();
+		Scene scene1 = new Scene(dathangViewParent);
+		Phieudathang selected = tablePhieuDatHang.getSelectionModel().getSelectedItem();
+		DathangDetailController Dathang = loader.getController();
+		Dathang.setPhieudathang(selected);
+		stage1.setTitle("Chi tiet dat hang");
+		stage1.setScene(scene1);
+		stage1.show();
+	}
+
 	/*
 	 * 
-	 * --------------------- FXML Danh mục phiếu nhập hàng //NHI-----------------------------
+	 * --------------------- FXML Danh mục phiếu nhập hàng
+	 * //NHI-----------------------------
 	 * 
 	 */
 	@FXML
@@ -1048,7 +1029,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TableColumn thoigiannhap;
-	
+
 	@FXML
 	private TableColumn tongtien;
 
@@ -1061,30 +1042,28 @@ public class chucnangquanly extends Application implements Initializable {
 	ObservableList<Phieunhaphang> listPNH;
 
 	@FXML
-/*	void searchPNH() {
-		ObservableList<Phieunhaphang> tbPhieuNhapHang = FXCollections.observableArrayList(getPhieunhaphang());
-
-		FilteredList<Phieunhaphang> filteredData = new FilteredList<>(tbPhieuNhapHang, b -> true);
-		searchPNH.textProperty().addListener((observable, oldValue, newValue) -> {
-			filteredData.setPredicate(phieunhaphang -> {
-				if (newValue == null || newValue.isEmpty()) {
-					return true;
-				}
-				String lowerCaseFilter = newValue.toLowerCase();
-			//	if (phieunhaphang.getManhaphang().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-				//	return true; // Filter matches username
-				 if(phieunhaphang.getThoigiannhap().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches password
-				} else
-					return false; // Does not match.
-			});
-		});
-
-		SortedList<Phieunhaphang> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(tablePhieuNhapHang.comparatorProperty());
-		tablePhieuNhapHang.setItems(sortedData);
-
-	}*/
+	/*
+	 * void searchPNH() { ObservableList<Phieunhaphang> tbPhieuNhapHang =
+	 * FXCollections.observableArrayList(getPhieunhaphang());
+	 * 
+	 * FilteredList<Phieunhaphang> filteredData = new
+	 * FilteredList<>(tbPhieuNhapHang, b -> true);
+	 * searchPNH.textProperty().addListener((observable, oldValue, newValue) -> {
+	 * filteredData.setPredicate(phieunhaphang -> { if (newValue == null ||
+	 * newValue.isEmpty()) { return true; } String lowerCaseFilter =
+	 * newValue.toLowerCase(); // if
+	 * (phieunhaphang.getManhaphang().toLowerCase().indexOf(lowerCaseFilter) != -1)
+	 * { // return true; // Filter matches username
+	 * if(phieunhaphang.getThoigiannhap().toLowerCase().indexOf(lowerCaseFilter) !=
+	 * -1) { return true; // Filter matches password } else return false; // Does
+	 * not match. }); });
+	 * 
+	 * SortedList<Phieunhaphang> sortedData = new SortedList<>(filteredData);
+	 * sortedData.comparatorProperty().bind(tablePhieuNhapHang.comparatorProperty())
+	 * ; tablePhieuNhapHang.setItems(sortedData);
+	 * 
+	 * }
+	 */
 
 	public ObservableList<Phieunhaphang> getPhieunhaphang() {
 		ObservableList<Phieunhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
@@ -1104,24 +1083,25 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return tablePhieuNhapHang;
 	}
-	
+
 	@FXML
-    void changeSceneNhaphangDetail(ActionEvent event) throws IOException{
+	void changeSceneNhaphangDetail(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("NhaphangDetail.fxml"));
-        Parent nhaphangViewParent = loader.load();
-        Stage stage1 = new Stage();
-        Scene scene1 = new Scene(nhaphangViewParent);
-        Phieunhaphang selected = tablePhieuNhapHang.getSelectionModel().getSelectedItem();
-        NhaphangDetailController Nhaphang = loader.getController();
-        Nhaphang.setPhieunhaphang(selected);
-        stage1.setTitle("Chi tiet nhap hang");
-        stage1.setScene(scene1);
-        stage1.show();
-    }
+		Parent nhaphangViewParent = loader.load();
+		Stage stage1 = new Stage();
+		Scene scene1 = new Scene(nhaphangViewParent);
+		Phieunhaphang selected = tablePhieuNhapHang.getSelectionModel().getSelectedItem();
+		NhaphangDetailController Nhaphang = loader.getController();
+		Nhaphang.setPhieunhaphang(selected);
+		stage1.setTitle("Chi tiet nhap hang");
+		stage1.setScene(scene1);
+		stage1.show();
+	}
 
 	/*
 	 * 
-	 * --------------------- FXML Danh mục phiếu trả hàng //NHI-----------------------------
+	 * --------------------- FXML Danh mục phiếu trả hàng
+	 * //NHI-----------------------------
 	 * 
 	 */
 
@@ -1137,8 +1117,8 @@ public class chucnangquanly extends Application implements Initializable {
 	@FXML
 	private TableColumn maphieutra;
 
-	//@FXML
-	//private TableColumn lido;
+	// @FXML
+	// private TableColumn lido;
 
 	@FXML
 	private TableColumn thoigiantra;
@@ -1183,20 +1163,20 @@ public class chucnangquanly extends Application implements Initializable {
 		tablePhieuTraHang.setItems(sortedData);
 
 	}
-	
-	 @FXML
-	    void changeSceneTrahangDetail(ActionEvent event) throws IOException {
-		 FXMLLoader loader = new FXMLLoader(getClass().getResource("TrahangDetail.fxml"));
-	        Parent trahangViewParent = loader.load();
-	        Stage stage1 = new Stage();
-	        Scene scene1 = new Scene(trahangViewParent);
-	        Phieutrahang selected = tablePhieuTraHang.getSelectionModel().getSelectedItem();
-	        TrahangDetailController Trahang = loader.getController();
-	        Trahang.setPhieutrahang(selected);
-	        stage1.setTitle("Chi tiet phieu tra");
-	        stage1.setScene(scene1);
-	        stage1.show();
-	    }
+
+	@FXML
+	void changeSceneTrahangDetail(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TrahangDetail.fxml"));
+		Parent trahangViewParent = loader.load();
+		Stage stage1 = new Stage();
+		Scene scene1 = new Scene(trahangViewParent);
+		Phieutrahang selected = tablePhieuTraHang.getSelectionModel().getSelectedItem();
+		TrahangDetailController Trahang = loader.getController();
+		Trahang.setPhieutrahang(selected);
+		stage1.setTitle("Chi tiet phieu tra");
+		stage1.setScene(scene1);
+		stage1.show();
+	}
 
 	@FXML
 	private Text txtTitle_store;
@@ -1221,7 +1201,6 @@ public class chucnangquanly extends Application implements Initializable {
 		return tablePhieuTraHang;
 	}
 
-
 	// SẢN PHẨM
 	public ObservableList<Sanpham> getSanPham1() {
 		ObservableList<Sanpham> TableQLSP = FXCollections.observableArrayList();
@@ -1242,8 +1221,6 @@ public class chucnangquanly extends Application implements Initializable {
 		return TableQLSP;
 	}
 
-
-
 /////////////////////////////AUTHOR :LÊ QUANG SANG /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : NHÀ CUNG CẤP  ///////////*************************
 ///////////////////
@@ -1255,9 +1232,6 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TableView<Nocong> tableNhacungcap;
-
-	@FXML
-	private TableColumn mancc1;
 
 	@FXML
 	private TableColumn tenncc;
@@ -1303,55 +1277,57 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private ComboBox<String> cbb;
-	
+
 	@FXML
 	private Button xoanhacc;
-	
-	 @FXML
-	 void XoaNCC(ActionEvent event) {
-		 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-			alert.setTitle("Current project is modified");
-			alert.setContentText("Delete?");
-			ButtonType okButton = new ButtonType("Yes");
-			ButtonType noButton = new ButtonType("NO");
-			alert.getButtonTypes().setAll(okButton, noButton);
-			alert.showAndWait().ifPresent(type -> {
-				if (type == okButton) {
-					int id_ncc = (Integer.parseInt(tfncc.getText()));
-					StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-							.configure("hibernate.cfg.xml").build();
-					Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-					SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-					Session session = sessionFactory.openSession();
-					Nhacungcap ncc = new Nhacungcap(id_ncc);
-					//Nhanvien nv = new Nhanvien(t1);
-					ncc = session.get(Nhacungcap.class, id_ncc);
-					try {
-						session.beginTransaction();
 
-						if (ncc != null) {
-							session.delete(ncc);
+	private ObservableList<Nhacungcap> nhacungcapdata;
 
-						}
-						session.getTransaction().commit();
-					} catch (RuntimeException error) {
-						session.getTransaction().rollback();
+	@FXML
+	void XoaNCC(ActionEvent event) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle("Current project is modified");
+		alert.setContentText("Delete?");
+		ButtonType okButton = new ButtonType("Yes");
+		ButtonType noButton = new ButtonType("NO");
+		alert.getButtonTypes().setAll(okButton, noButton);
+		alert.showAndWait().ifPresent(type -> {
+			if (type == okButton) {
+				int id_ncc = (Integer.parseInt(tfncc.getText()));
+				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+						.configure("hibernate.cfg.xml").build();
+				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+				Session session = sessionFactory.openSession();
+				Nhacungcap ncc = new Nhacungcap(id_ncc);
+				// Nhanvien nv = new Nhanvien(t1);
+				ncc = session.get(Nhacungcap.class, id_ncc);
+				try {
+					session.beginTransaction();
+
+					if (ncc != null) {
+						session.delete(ncc);
 
 					}
-					ReloadNHACUNGCAP();
-					tfncc.setText(null);
-					tftenncc.setText(null);
-					tfsdt.setText(null);
-					tfdiachi1.setText(null);
-					tfemail.setText(null);
-				} else if (type == ButtonType.NO) {
-					alert.close();
-				}
-				ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
-			});
-	 }
+					session.getTransaction().commit();
+				} catch (RuntimeException error) {
+					session.getTransaction().rollback();
 
-	// NHÀ CUNG CẤP
+				}
+				ReloadNHACUNGCAP();
+				tfncc.setText(null);
+				tftenncc.setText(null);
+				tfsdt.setText(null);
+				tfdiachi1.setText(null);
+				tfemail.setText(null);
+			} else if (type == ButtonType.NO) {
+				alert.close();
+			}
+			ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
+		});
+	}
+
+	// NỢ CÔNG
 	public ObservableList<Nocong> getNhacungcap() {
 		ObservableList<Nocong> TableNhacungcap = FXCollections.observableArrayList();
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
@@ -1360,11 +1336,16 @@ public class chucnangquanly extends Application implements Initializable {
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
 		CriteriaQuery<Nocong> ncc = session.getCriteriaBuilder().createQuery(Nocong.class);
-		//SELECT * FROM nocong INNER JOIN nhacungcap
+		// CriteriaQuery<Nhacungcap> Ncc
+		// =session.getCriteriaBuilder().createQuery(Nhacungcap.class);
+		// SELECT * FROM nocong INNER JOIN nhacungcap
+		// Root<Nhacungcap> root1 = Ncc.from(Nhacungcap.class);
 		Root<Nocong> root = ncc.from(Nocong.class);
 		Join<Nocong, Nhacungcap> NocongJoin = root.join("nhacungcap", JoinType.INNER);
-		//FROM
-		//ncc.from(Nhacungcap.class);
+		// Join<Nhacungcap,Nocong> NhacungcapJoin = root1.join("nhacungcap",
+		// JoinType.INNER);
+		// FROM
+		// ncc.from(Nhacungcap.class);
 		List<Nocong> eList = session.createQuery(ncc).getResultList();
 		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
 		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
@@ -1374,9 +1355,30 @@ public class chucnangquanly extends Application implements Initializable {
 		return TableNhacungcap;
 	}
 
+	// Nhà Cung Cấp
+	public ObservableList<Nhacungcap> getNhacungcap1() {
+		ObservableList<Nhacungcap> TableNhacungcap1 = FXCollections.observableArrayList();
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+
+		CriteriaQuery<Nhacungcap> NCC = session.getCriteriaBuilder().createQuery(Nhacungcap.class);
+		NCC.from(Nhacungcap.class);
+		List<Nhacungcap> eList = session.createQuery(NCC).getResultList();
+		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
+		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
+		for (Nhacungcap ent : eList) {
+			TableNhacungcap1.add(ent);
+		}
+		return TableNhacungcap1;
+	}
+
 	@FXML
 	void addncc(ActionEvent event) {
-		//ObservableList<Nocong> Tablencc = FXCollections.observableArrayList(getNhacungcap());
+		// ObservableList<Nocong> Tablencc =
+		// FXCollections.observableArrayList(getNhacungcap());
 		// ta.setText("");
 
 		Integer mancc = Integer.parseInt(tfncc.getText());
@@ -1404,80 +1406,20 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 	}
 
-	
 	public void ReloadNHACUNGCAP() {
-		mancc1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancc1.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
- 	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(Integer.toString(item.getMancc()));
-		        }
-		    }
- 	    });
-		tenncc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		tenncc.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
-	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getTenncc());
-		        }
-		    }
-	    });
-		diachi1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		diachi1.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
-	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getDiachi());
-		        }
-		    }
-	    });
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		sodienthoai.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
-	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(Integer.toString(item.getSodienthoai()));
-		        }
-		    }
-	    });
-		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong,Nhacungcap>("nhacungcap"));
-		// Integer>("sotienno"));
-		// thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong,
-		// Integer>("thoigianno"));
-		email.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		email.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
-	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getEmail());
-		        }
-		    }
-	    });
-		//setCellValueFromTabletoTexfFieldNCC();
+		tenncc.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("tenncc"));
+
+		diachi1.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("diachi"));
+
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("sodienthoai"));
+
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("nhacungcap"));
+
+		email.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("email"));
 		tableNhacungcap.setItems(getNhacungcap());
-		
-		
+
 	}
-	
-	
-	
+
 	@FXML
 	void Taonhacungcap(ActionEvent event) {
 		try {
@@ -1572,47 +1514,41 @@ public class chucnangquanly extends Application implements Initializable {
 
 		ReloadNHACUNGCAP();
 	}
-	
-	/*private void setCellValueFromTabletoTexfFieldNCC() {
-		Nhacungcap.setOnMouseClicked(event -> {
-			//
-			Nhacungcap ncc = Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
-			tfncc.setText(Integer.toString(ncc.getMancc()));
-			tftenncc.setText(ncc.getTenncc());
-			tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
-			tfdiachi1.setText(ncc.getDiachi());
-			tfemail.setText(ncc.getEmail());
-			//
-		});
 
-	}*/
-	
-	
-
-
+	/*
+	 * private void setCellValueFromTabletoTexfFieldNCC() {
+	 * Nhacungcap.setOnMouseClicked(event -> { // Nhacungcap ncc =
+	 * Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
+	 * tfncc.setText(Integer.toString(ncc.getMancc()));
+	 * tftenncc.setText(ncc.getTenncc());
+	 * tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
+	 * tfdiachi1.setText(ncc.getDiachi()); tfemail.setText(ncc.getEmail()); // });
+	 * 
+	 * }
+	 */
 
 /////////////////////////////AUTHOR :TỪ CHÍ HUY/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
 ///////////////////
-	
+
 	public void initialize(URL url, ResourceBundle rb) {
-		
-		//KIỂM TRA NHẬP HÀNG
+
+		// KIỂM TRA NHẬP HÀNG
 		madathangkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
 		thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
 		tongtienkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
 		mancckt.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancckt.setCellFactory(phieudathangkt -> new TableCell<Phieudathang,Nhacungcap>(){
+		mancckt.setCellFactory(phieudathangkt -> new TableCell<Phieudathang, Nhacungcap>() {
 			@Override
- 		    protected void updateItem(Nhacungcap item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(String.valueOf(item.getMancc()));
- 		        }
- 		    }
-			
+			protected void updateItem(Nhacungcap item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getMancc()));
+				}
+			}
+
 		});
 		phieudathangkt.setItems(getPhieudathangkt());
 
@@ -1637,7 +1573,7 @@ public class chucnangquanly extends Application implements Initializable {
 		searchKH();
 
 		// QL KHO//HỒNG THÁI
-	//	setCellValueFromTabletoTexfFieldd();
+		// setCellValueFromTabletoTexfFieldd();
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
@@ -1651,80 +1587,73 @@ public class chucnangquanly extends Application implements Initializable {
 		mahoadon.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("mahoadon"));
 		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
 		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("tonggia"));
-		makh.setCellFactory(tableHoaDon -> new TableCell<Hoadon,KhachHang>() {
-		    @Override
-		    protected void updateItem(KhachHang item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(Integer.toString(item.getMakh()));
-		        }
-		    }
+		makh.setCellFactory(tableHoaDon -> new TableCell<Hoadon, KhachHang>() {
+			@Override
+			protected void updateItem(KhachHang item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(Integer.toString(item.getMakh()));
+				}
+			}
 
 		});
-		manv1.setCellFactory(tableHoaDon -> new TableCell<Hoadon,Nhanvien>() {
-		    @Override
-		    protected void updateItem(Nhanvien item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(Integer.toString(item.getManv()));
-		        }
-		    }
+		manv1.setCellFactory(tableHoaDon -> new TableCell<Hoadon, Nhanvien>() {
+			@Override
+			protected void updateItem(Nhanvien item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(Integer.toString(item.getManv()));
+				}
+			}
 
 		});
-		
+
 		makh.setCellValueFactory(new PropertyValueFactory<>("khachhang"));
 		manv1.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
-	/*	makh.setCellFactory(tv -> new TableCell<>() {
+		/*
+		 * makh.setCellFactory(tv -> new TableCell<>() {
+		 * 
+		 * @Override protected void updateItem(Hoadon item, boolean empty) {
+		 * super.updateItem(item, empty); if (empty || item == null) { setText(null); }
+		 * else { setText(item.getKhachhang()); } }
+		 * 
+		 * });
+		 */
 
-		    @Override
-		    protected void updateItem(Hoadon item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getKhachhang());
-		        }
-		    }
-
-		});*/
-		
 		tableHoaDon.setItems(getHoadon());
 		searchPHD();
-	//	tableHoaDon.setItems(listPHD);
+		// tableHoaDon.setItems(listPHD);
 
 		// QL danh mục phiếu đặt hàng //Nhi
 		madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
 		thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
 		tongtien1.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
 		mancc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancc.setCellFactory(tablePhieuDatHang -> new TableCell<Phieudathang,Nhacungcap>(){
+		mancc.setCellFactory(tablePhieuDatHang -> new TableCell<Phieudathang, Nhacungcap>() {
 			@Override
- 		    protected void updateItem(Nhacungcap item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(String.valueOf(item.getMancc()));
- 		        }
- 		    }
-			
+			protected void updateItem(Nhacungcap item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getMancc()));
+				}
+			}
+
 		});
-	/*	manv.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
-		manv.setCellFactory(tablePhieuDatHang ->new TableCell<Phieudathang,Nhanvien>(){
-			@Override
- 		    protected void updateItem(Nhanvien item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(String.valueOf(item.getManv()));
- 		        }
- 		    }
-		});*/
+		/*
+		 * manv.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
+		 * manv.setCellFactory(tablePhieuDatHang ->new
+		 * TableCell<Phieudathang,Nhanvien>(){
+		 * 
+		 * @Override protected void updateItem(Nhanvien item, boolean empty) {
+		 * super.updateItem(item, empty); if (empty || item == null) { setText(null); }
+		 * else { setText(String.valueOf(item.getManv())); } } });
+		 */
 		tablePhieuDatHang.setItems(getPhieudathang());
 		searchPDH();
 
@@ -1733,133 +1662,83 @@ public class chucnangquanly extends Application implements Initializable {
 		thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigiannhap"));
 		tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
 		mancc2.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancc2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang,Nhacungcap>(){
+		mancc2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhacungcap>() {
 			@Override
- 		    protected void updateItem(Nhacungcap item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(String.valueOf(item.getMancc()));
- 		        }
- 		    }
-			
-		});
-		manv2.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
-		manv2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhanvien>(){
-			@Override
-			protected void updateItem(Nhanvien item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(String.valueOf(item.getManv()));
- 		        }
- 		    }
+			protected void updateItem(Nhacungcap item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getMancc()));
+				}
+			}
 
 		});
-		
-		//mancc2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("mancc"));
-		//manv2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manv"));
+		manv2.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
+		manv2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhanvien>() {
+			@Override
+			protected void updateItem(Nhanvien item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getManv()));
+				}
+			}
+
+		});
+
+		// mancc2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang,
+		// Integer>("mancc"));
+		// manv2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang,
+		// Integer>("manv"));
 		tablePhieuNhapHang.setItems(getPhieunhaphang());
-		//searchPNH();
+		// searchPNH();
 
 		// QL danh mục phiếu trả hàng //Nhi
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
 		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
-	//	mancc3.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("mancc"));
+		// mancc3.setCellValueFactory(new PropertyValueFactory<Phieutrahang,
+		// Integer>("mancc"));
 		mancc3.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancc3.setCellFactory(tablePhieuTraHang -> new TableCell<Phieutrahang, Nhacungcap>(){
+		mancc3.setCellFactory(tablePhieuTraHang -> new TableCell<Phieutrahang, Nhacungcap>() {
 			@Override
 			protected void updateItem(Nhacungcap item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(String.valueOf(item.getMancc()));
- 		        }
- 		    }
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getMancc()));
+				}
+			}
 
 		});
-		
-		
-		//manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang, Integer>("manv"));
+
+		// manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang,
+		// Integer>("manv"));
 		tablePhieuTraHang.setItems(getPhieutrahang());
 		searchPTH();
 
 		// QL nhà cung cấp //Sang
-		mancc1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancc1.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
- 	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(Integer.toString(item.getMancc()));
-		        }
-		    }
- 	    });
-		tenncc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		tenncc.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
-	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getTenncc());
-		        }
-		    }
-	    });
-		diachi1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		diachi1.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
-	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getDiachi());
-		        }
-		    }
-	    });
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		sodienthoai.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
-	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(Integer.toString(item.getSodienthoai()));
-		        }
-		    }
-	    });
-		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong,Nhacungcap>("nhacungcap"));
-		// Integer>("sotienno"));
-		// thoigianno.setCellValueFactory(new PropertyValueFactory<Nocong,
-		// Integer>("thoigianno"));
-		email.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		email.setCellFactory(table -> new TableCell<Nocong,Nhacungcap>(){
-	    	 @Override
-		    protected void updateItem(Nhacungcap item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getEmail());
-		        }
-		    }
-	    });
-		//setCellValueFromTabletoTexfFieldNCC();
+
+		tenncc.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("tenncc"));
+
+		diachi1.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("diachi"));
+
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("sodienthoai"));
+
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("nhacungcap"));
+
+		email.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("email"));
+
 		tableNhacungcap.setItems(getNhacungcap());
+
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
