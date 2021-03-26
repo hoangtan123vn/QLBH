@@ -1721,15 +1721,63 @@ public class chucnangquanly extends Application implements Initializable {
 
 		// QL nhà cung cấp //Sang
 
-		tenncc.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("tenncc"));
+		tenncc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		tenncc.setCellFactory(tableNCC -> new TableCell<Nocong, Nhacungcap>() {
+			@Override
+			protected void updateItem(Nhacungcap item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getTenncc()));
+				}
+			}
 
-		diachi1.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("diachi"));
+		});
 
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("sodienthoai"));
+		diachi1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		diachi1.setCellFactory(tableNCC -> new TableCell<Nocong, Nhacungcap>() {
+			@Override
+			protected void updateItem(Nhacungcap item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getDiachi()));
+				}
+			}
+
+		});
+
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		sodienthoai.setCellFactory(tableNCC -> new TableCell<Nocong, Nhacungcap>() {
+			@Override
+			protected void updateItem(Nhacungcap item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getSodienthoai()));
+				}
+			}
+
+		});
 
 		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("nhacungcap"));
 
-		email.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("email"));
+		email.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		email.setCellFactory(tableNCC -> new TableCell<Nocong, Nhacungcap>() {
+			@Override
+			protected void updateItem(Nhacungcap item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getEmail()));
+				}
+			}
+
+		});
 
 		tableNhacungcap.setItems(getNhacungcap());
 

@@ -36,21 +36,6 @@ public class Nocong {
 
 	}
 
-	public String getTenncc() {
-		return nhacungcap.getTenncc();
-	}
-
-	public String getDiachi() {
-		return nhacungcap.getDiachi();
-	}
-
-	public String getEmail() {
-		return nhacungcap.getEmail();
-	}
-
-	public Integer getSodienthoai() {
-		return nhacungcap.getSodienthoai();
-	}
 
 	public Nhacungcap getNhacungcap() {
 		return nhacungcap;
