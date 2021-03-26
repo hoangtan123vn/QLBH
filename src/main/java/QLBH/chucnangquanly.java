@@ -35,10 +35,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.embed.swing.SwingFXUtils;	
 
 import java.util.List;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -51,6 +54,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
+import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
@@ -218,14 +222,7 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 	}
 
-	/*
-	 * public ObservableList<Nhanvien> findAll() { initialize1(); getNhanvien(); //
-	 * Wrap the ObservableList in a FilteredList (initially display all data).
-	 * 
-	 * 
-	 * 
-	 * }
-	 */
+	
 	@FXML
 	void luucapnhat(ActionEvent event) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -573,7 +570,30 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TableColumn donvitinh;
+	
+	
+	@FXML
+	private TableColumn CapNhat;
+	
+	@FXML 
+	private TableColumn imageSp;	
 
+	@FXML
+	private Button themsanpham;
+	
+	@FXML 
+	private TableColumn<Sanpham,Void> xoasp;
+	
+	@FXML
+    void ThemSP(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("themsanpham.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
+    }
+
+	
 	@FXML
 	private TableColumn donvi;
 
@@ -632,6 +652,185 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TableView<Sanpham> tableSP;
+	
+	
+	
+	
+	
+	
+	
+	private void ButtonXoaSP() {
+	      
+
+        Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
+            @Override
+            public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
+                final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
+
+                    private final Button btn = new Button("Xóa Sản Phẩm");
+
+                    {
+                    	///////////////////////////
+                    btn.setOnAction((ActionEvent event) -> {
+                    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    	Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                		alert.setTitle("Xóa Sản Phẩm");
+                		alert.setContentText("Bạn có chắc xóa sản phẩm này ?");
+                		ButtonType okButton = new ButtonType("Yes");
+                		ButtonType noButton = new ButtonType("NO");
+                		alert.getButtonTypes().setAll(okButton, noButton);
+                		alert.showAndWait().ifPresent(type -> {
+                			if (type == okButton) {
+                				Sanpham sp = getTableView().getItems().get(getIndex());
+                				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+                						.configure("hibernate.cfg.xml").build();
+                				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+                				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+                				Session session = sessionFactory.openSession();
+                				sp = session.get(Sanpham.class, sp.getMasanpham());
+                				try {
+                					session.beginTransaction();
+                					if (sp != null) {
+                						session.delete(sp);
+                							
+
+                					}
+                					session.getTransaction().commit();
+                					ReloadSANPHAM();
+                					
+                					alert1.setContentText("Xóa sản phẩm thành công");
+                					alert1.showAndWait();
+                					
+                					
+                				} catch (RuntimeException error) {
+                					session.getTransaction().rollback();
+                				}
+                				
+                			} else if (type == ButtonType.NO) {
+                				alert.close();
+                			}
+                			
+                		});
+                        });
+                    }
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+        xoasp.setCellFactory(cellFactory);
+ }
+	
+	private void ButtonChinhSuaAnh() {
+	       // TableColumn<Sa, Void> colBtn = new TableColumn("Button Column");
+
+	        Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
+	            @Override
+	            public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
+	                final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
+
+	                    private final Button btn = new Button("Cập nhật sản phẩm");
+
+	                    {
+	                    	///////////////////////////
+	                    btn.setOnAction((ActionEvent event) -> {
+	                    			Parent root;
+									try {
+										FXMLLoader loader = new FXMLLoader(getClass().getResource("detailsanpham.fxml"));
+								        Parent CapnhatSP = loader.load();
+								        Stage stage = new Stage();
+								        Scene scene = new Scene(CapnhatSP);
+								      //  Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+								        Sanpham sp = getTableView().getItems().get(getIndex());
+								        detailsanphamcontroller CapNhatSP = loader.getController();
+								        CapNhatSP.setSanPham(sp);
+								        stage.setTitle("Cập nhật sản phẩm");
+								        stage.setScene(scene);
+								        stage.show();
+									} catch (IOException e) {
+										
+										e.printStackTrace();
+									}
+	                  
+	                			});
+	                    
+	                   
+	                			
+	                	
+	                        
+	                    }
+	                    @Override
+	                    public void updateItem(Void item, boolean empty) {
+	                        super.updateItem(item, empty);
+	                        if (empty) {
+	                            setGraphic(null);
+	                        } else {
+	                            setGraphic(btn);
+	                        }
+	                    }
+	                };
+	                return cell;
+	            }
+	        };
+	        CapNhat.setCellFactory(cellFactory);
+	 }
+	
+	
+	
+	void initialize1() {
+		//	setCellValueFromTabletoTexfFieldd();
+			tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+			masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+		//	loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+			loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+			donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+			giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+			donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+			imageSp.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
+			imageSp.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
+
+		        private ImageView imageView = new ImageView();
+
+		        @Override
+		        protected void updateItem(byte[] item, boolean empty) {
+		            super.updateItem(item, empty);
+		            if (item == null || empty) {
+		                setText(null);
+		                setGraphic(null);
+		            } else {
+		                imageView.setImage(getImageFromBytes(item));
+		                imageView.setFitHeight(150);
+	                    imageView.setFitWidth(250);
+		                setGraphic(imageView);
+		            }
+		            this.setItem(item);
+		        }
+		    });
+			
+			
+	}
+	
+	private Image getImageFromBytes(byte[] imgBytes) {
+	    try {
+	        ByteArrayInputStream inputStream = new ByteArrayInputStream(imgBytes);
+	        BufferedImage bufferedImage = ImageIO.read(inputStream);
+	        return SwingFXUtils.toFXImage(bufferedImage, null);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    } 
+	    return null;
+	}
+	
+
+	 
 
 	void Timkiem() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList(getSanpham());
@@ -672,8 +871,6 @@ public class chucnangquanly extends Application implements Initializable {
 		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
 		sp.from(Sanpham.class);
 		List<Sanpham> eList = session.createQuery(sp).getResultList();
-		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
 		for (Sanpham ent : eList) {
 			TableSP.add(ent);
 		}
@@ -682,23 +879,11 @@ public class chucnangquanly extends Application implements Initializable {
 
 	void ReloadSANPHAM() {
 		initialize1();
-		getSanpham();
-
-	}
-
-	void initialize1() {
-		// setCellValueFromTabletoTexfFieldd();
-		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
-		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
-		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
-		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
-
 		tableSP.setItems(getSanpham());
-		Timkiem();
-
+		
+		System.out.println("Thanh cong");
 	}
+
 /////////////////////////////AUTHOR :HỒNG THÁI/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : THỐNG KÊ ///////////*************************
 ///////////////////
@@ -1417,7 +1602,6 @@ public class chucnangquanly extends Application implements Initializable {
 	public void ReloadNHACUNGCAP() {
 		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap,String>("tenncc"));
 		
-		
 		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap,String>("diachi"));
 
 		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap,Integer>("sodienthoai"));
@@ -1528,18 +1712,6 @@ public class chucnangquanly extends Application implements Initializable {
 		ReloadNHACUNGCAP();
 	}
 
-	/*
-	 * private void setCellValueFromTabletoTexfFieldNCC() {
-	 * Nhacungcap.setOnMouseClicked(event -> { // Nhacungcap ncc =
-	 * Nhacungcap.getItems().get(Nhacungcap.getSelectionModel().getSelectedIndex());
-	 * tfncc.setText(Integer.toString(ncc.getMancc()));
-	 * tftenncc.setText(ncc.getTenncc());
-	 * tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
-	 * tfdiachi1.setText(ncc.getDiachi()); tfemail.setText(ncc.getEmail()); // });
-	 * 
-	 * }
-	 * 
-	 */
 	
 	private void edit() {
 		tenncc.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -1607,6 +1779,31 @@ public class chucnangquanly extends Application implements Initializable {
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
 		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+		ButtonXoaSP();
+		ButtonChinhSuaAnh();
+		imageSp.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
+		//imageSp.setPrefWidth(120);
+		//imageSp.set
+		imageSp.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
+
+	        private ImageView imageView = new ImageView();
+
+	        @Override
+	        protected void updateItem(byte[] item, boolean empty) {
+	            super.updateItem(item, empty);
+	            if (item == null || empty) {
+	                setText(null);
+	                setGraphic(null);
+	            } else {
+	                imageView.setImage(getImageFromBytes(item));
+	                imageView.setFitHeight(150);
+                    imageView.setFitWidth(250);
+	                setGraphic(imageView);
+	            }
+	            this.setItem(item);
+	        }
+	    });
+	//	imageSp.setPrefWidth(70);
 		tableSP.setItems(getSanpham());
 		Timkiem();
 		// QL danh mục phiếu hóa đơn //Nhi

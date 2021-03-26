@@ -33,7 +33,7 @@ public class Sanpham {
 	private int giatien;
 	private int donvitinh;
 	private byte[] imagesp;
-	private int soluong;
+
 
 	
 	public Sanpham(String tensanpham,String loaisanpham,String donvi,int giatien,int donvitinh,byte[] imagesp) {
