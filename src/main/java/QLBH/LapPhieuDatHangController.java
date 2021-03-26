@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Labeled;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -233,18 +234,9 @@ public class LapPhieuDatHangController implements Initializable{
 		 String loaisanpham1 = tf6.getText();
 		 int donvitinh1 = Integer.parseInt(tf4.getText());
 		 int giatien1 = Integer.parseInt(tf5.getText());
-		 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-		 Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
-		 session.getTransaction().begin();
-		 Sanpham sp = new Sanpham(tensanpham1,donvi1,loaisanpham1,donvitinh1,masanpham1,giatien1);
-		 for ( Sanpham sp : p  ) {
-			 tableSP1.getItems().add(sp);
-		 } 
+		 Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,donvitinh1,giatien1,loaisanpham1);
 		 tableSP1.getItems().add(sp);
+	//	 System.out.println(sp);
 		 
 	    }
 
@@ -254,17 +246,17 @@ public class LapPhieuDatHangController implements Initializable{
 				setCellValueFromTabletoTexfFieldd();
 				tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 				masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-				loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+				//loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 				donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 				giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 				donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
 			//	comboboxNCC();
-				tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham1"));
-				masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham1"));
-				loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai1"));
-				donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi1"));
-				//giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien1"));
-				donvitinh1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh1"));
+				tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+				masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+				loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+				donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+				giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+				donvitinh1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
 				ObservableList<String> list = FXCollections.observableArrayList(getNhaCungCap());
 				cbnhacungcap.setItems(list);
 				tableSP.setItems(getSanpham());

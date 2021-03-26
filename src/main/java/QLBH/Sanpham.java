@@ -47,6 +47,17 @@ public class Sanpham {
 		this.imagesp=imagesp;
 		
 	}
+	public Sanpham(String tensanpham,String loaisanpham,String donvi,int giatien,int donvitinh) {
+		super();
+		this.tensanpham=tensanpham;
+	//	this.masanpham=masanpham;
+		this.donvi=donvi;
+		this.giatien=giatien;
+		this.donvitinh=donvitinh;
+		this.loaisanpham=loaisanpham;
+	//	this.imagesp=imagesp;
+		
+	}
 	public Sanpham(int masanpham) {
 		super();
 	}
@@ -119,7 +130,7 @@ public class Sanpham {
 			this.chitietdathang = chitietdathang;
 		}		
 		
-		public Sanpham(String tensanpham,String donvi,String loaisanpham,int donvitinh, int masanpham , int giatien) {
+		public Sanpham(String tensanpham,int masanpham ,String donvi,int donvitinh, int giatien,String loaisanpham) {
 			this.tensanpham=tensanpham;
 			this.masanpham=masanpham;
 			this.donvi=donvi;
@@ -127,7 +138,7 @@ public class Sanpham {
 			this.donvitinh=donvitinh;
 			this.loaisanpham=loaisanpham;
 			//this.soluong=soluong;	
-			this.masanpham=masanpham;
+			//this.masanpham=masanpham;
 			
 	}
 }
