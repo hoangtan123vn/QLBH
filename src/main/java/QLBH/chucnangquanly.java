@@ -1758,12 +1758,16 @@ public class chucnangquanly extends Application implements Initializable {
 				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
+				Nhacungcap person = new Nhacungcap();
+		//		Nhacungcap person = tableNhacungcap.getSelectionModel().getSelectedItem();
 				
-				Nhacungcap person = event.getRowValue();
+				person = event.getRowValue();
+				
+			//	Nhacungcap person1 = new Nhacungcap();
+				
+				person = session.get(Nhacungcap.class, person.getMancc());
 				person.setTenncc(event.getNewValue());
-				Nhacungcap person1 = new Nhacungcap();
-				person1.get(Nhacungcap.class, mancc);
-				session.save(person1);
+				session.save(person);
 				session.getTransaction().commit();
 			}
 		});

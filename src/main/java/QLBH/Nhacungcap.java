@@ -28,6 +28,16 @@ public class Nhacungcap {
 	public Nhacungcap() {
 		super();
 	}
+	
+	
+	
+	public Nhacungcap(int mancc) {
+		super();
+		this.mancc = mancc;
+	}
+	
+	
+	
 	public Nhacungcap(Integer sodienthoai) {
 		this.sodienthoai = sodienthoai;
 	}
@@ -104,5 +114,7 @@ public class Nhacungcap {
 	public String toString() {
 		return String.valueOf(mancc);
 	}
+
+
 
 }

@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.swing.ImageIcon;
+
+import javafx.scene.image.ImageView;
 @Entity
 @Table(name="sanpham")
 public class Sanpham {
@@ -28,17 +31,26 @@ public class Sanpham {
 	private String loaisanpham;
 	private String donvi;
 	private int giatien;
-	private String donvitinh;
+	private int donvitinh;
+	private byte[] imagesp;
 
 	
-	public Sanpham() {
+	public Sanpham(String tensanpham,String loaisanpham,String donvi,int giatien,int donvitinh,byte[] imagesp) {
 		super();
+		this.tensanpham=tensanpham;
+	//	this.masanpham=masanpham;
+		this.donvi=donvi;
+		this.giatien=giatien;
+		this.donvitinh=donvitinh;
+		this.loaisanpham=loaisanpham;
+		this.imagesp=imagesp;
+		
 	}
 	public Sanpham(int masanpham) {
 		super();
 	}
 	
-	public Sanpham(int masanpham, String tensanpham,String loaisanpham,String donvi,int giatien,String donvitinh) {
+	public Sanpham(int masanpham, String tensanpham,String loaisanpham,String donvi,int giatien,int donvitinh) {
 			this.tensanpham=tensanpham;
 			this.masanpham=masanpham;
 			this.donvi=donvi;
@@ -46,7 +58,7 @@ public class Sanpham {
 			this.donvitinh=donvitinh;
 			this.loaisanpham=loaisanpham;
 	}
-	public Sanpham(String tensanpham,String loaisanpham,String donvi,int giatien,String donvitinh) {
+	public Sanpham(String tensanpham,String loaisanpham,String donvi,int giatien,int donvitinh) {
 		super();
 		//this.id=id;
 		this.tensanpham=tensanpham;
@@ -56,7 +68,17 @@ public class Sanpham {
 		this.donvitinh=donvitinh;
 		this.loaisanpham=loaisanpham;
 		
-}
+	}
+	public Sanpham() {
+		super();
+	}
+	
+	public byte[] getImagesp() {
+		return imagesp;
+	}
+	public void setImagesp(byte[] imagesp) {
+		this.imagesp = imagesp;
+	}
 	public String getTensanpham() {
 		return tensanpham;
 	}
@@ -87,10 +109,10 @@ public class Sanpham {
 	public void setGiatien(int giatien) {
 		this.giatien = giatien;
 	}
-	public String getDonvitinh() {
+	public int getDonvitinh() {
 		return donvitinh;
 	}
-		public void setDonvitinh(String donvitinh) {
+		public void setDonvitinh(int donvitinh) {
 			this.donvitinh = donvitinh;
 		}
 		public List<Chitiethoadon> getChitiethoadon() {
@@ -104,11 +126,9 @@ public class Sanpham {
 		}
 		public void setChitietdathang(List<Chitietdathang> chitietdathang) {
 			this.chitietdathang = chitietdathang;
-		}
+		}		
 		
-		
-		
-		
-	
-		
+	/*public ImageView getImage() {
+		return new ImageView(imagesp);
+	}*/
 	}
