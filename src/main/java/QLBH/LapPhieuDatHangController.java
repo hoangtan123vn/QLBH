@@ -86,6 +86,24 @@ public class LapPhieuDatHangController implements Initializable{
 	private TableColumn loaisanpham;
 	
 	@FXML
+	private TableColumn donvitinh1;
+
+	@FXML
+	private TableColumn donvi1;
+
+	@FXML
+	private TableColumn giatien1;
+	
+	@FXML
+	private TableColumn tensanpham1;
+
+	@FXML	
+	private TableColumn masanpham1;
+	
+	@FXML	
+	private TableColumn loaisanpham1;
+	
+	@FXML
 	private TextField tf1;
 
 	@FXML
@@ -118,6 +136,9 @@ public class LapPhieuDatHangController implements Initializable{
 
 	@FXML
 	private TableView<Sanpham> tableSP;
+	
+	@FXML
+	private TableView<Sanpham> tableSP1;
 	
 	@FXML
 	void CanCel(ActionEvent event) {
@@ -205,13 +226,13 @@ public class LapPhieuDatHangController implements Initializable{
 	 
 	 @FXML
 	    void DatHang(ActionEvent event) {
-		 String nhacungcap = cbnhacungcap.getValue();
-		 String tensanpham = tf1.getText();
-		 String masanpham = tf2.getText();
-		 int donvi = Integer.parseInt(tf3.getText());
-		 String loaisanpham = tf6.getText();
-		 int soluong = Integer.parseInt(tf4.getText());
-		 int giatien = Integer.parseInt(tf5.getText());
+		// String nhacungcap = cbnhacungcap.getValue();
+		 String tensanpham1 = tf1.getText();
+		 int masanpham1 = Integer.parseInt(tf2.getText());
+		 String donvi1 = tf3.getText();
+		 String loaisanpham1 = tf6.getText();
+		 int donvitinh1 = Integer.parseInt(tf4.getText());
+		 int giatien1 = Integer.parseInt(tf5.getText());
 		 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
 					.build();
@@ -219,10 +240,11 @@ public class LapPhieuDatHangController implements Initializable{
 			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 			Session session = sessionFactory.openSession();
 		 session.getTransaction().begin();
-		 
-		 
-		 
-		 
+		 Sanpham sp = new Sanpham(tensanpham1,donvi1,loaisanpham1,donvitinh1,masanpham1,giatien1);
+		 for ( Sanpham sp : p  ) {
+			 tableSP1.getItems().add(sp);
+		 } 
+		 tableSP1.getItems().add(sp);
 		 
 	    }
 
@@ -237,14 +259,18 @@ public class LapPhieuDatHangController implements Initializable{
 				giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 				donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
 			//	comboboxNCC();
+				tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham1"));
+				masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham1"));
+				loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai1"));
+				donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi1"));
+				//giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien1"));
+				donvitinh1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh1"));
 				ObservableList<String> list = FXCollections.observableArrayList(getNhaCungCap());
 				cbnhacungcap.setItems(list);
 				tableSP.setItems(getSanpham());
 				Timkiem();
 				
 			}
-	
-	
 	
 	}	
 
