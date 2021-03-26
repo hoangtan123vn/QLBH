@@ -19,12 +19,14 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -71,6 +73,8 @@ import QLBH.Hoadon;
 import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
+
+
 
 public class chucnangquanly extends Application implements Initializable {
 
@@ -1231,7 +1235,7 @@ public class chucnangquanly extends Application implements Initializable {
 	private Button taonhacungcap;
 
 	@FXML
-	private TableView<Nocong> tableNhacungcap;
+	private TableView<Nhacungcap> tableNhacungcap;
 
 	@FXML
 	private TableColumn tenncc;
@@ -1265,6 +1269,9 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TextField tfemail;
+	
+	@FXML
+	private TextField tfsotienno;
 
 	@FXML
 	private Button idaddncc;
@@ -1293,7 +1300,7 @@ public class chucnangquanly extends Application implements Initializable {
 		alert.getButtonTypes().setAll(okButton, noButton);
 		alert.showAndWait().ifPresent(type -> {
 			if (type == okButton) {
-				int id_ncc = (Integer.parseInt(tfncc.getText()));
+				int id_ncc = (Integer.parseInt(tfsdt.getText()));
 				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 						.configure("hibernate.cfg.xml").build();
 				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
@@ -1326,7 +1333,7 @@ public class chucnangquanly extends Application implements Initializable {
 			ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
 		});
 	}
-
+/*
 	// NỢ CÔNG
 	public ObservableList<Nocong> getNhacungcap() {
 		ObservableList<Nocong> TableNhacungcap = FXCollections.observableArrayList();
@@ -1354,10 +1361,10 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return TableNhacungcap;
 	}
-
+*/
 	// Nhà Cung Cấp
-	public ObservableList<Nhacungcap> getNhacungcap1() {
-		ObservableList<Nhacungcap> TableNhacungcap1 = FXCollections.observableArrayList();
+	public ObservableList<Nhacungcap> getNhacungcap() {
+		ObservableList<Nhacungcap> TableNhacungcap = FXCollections.observableArrayList();
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
@@ -1370,9 +1377,9 @@ public class chucnangquanly extends Application implements Initializable {
 		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
 		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
 		for (Nhacungcap ent : eList) {
-			TableNhacungcap1.add(ent);
+			TableNhacungcap.add(ent);
 		}
-		return TableNhacungcap1;
+		return TableNhacungcap;
 	}
 
 	@FXML
@@ -1386,13 +1393,14 @@ public class chucnangquanly extends Application implements Initializable {
 		String diachi = tfdiachi1.getText();
 		Integer sodienthoai = Integer.parseInt(tfsdt.getText());
 		String email = tfemail.getText();
+		Integer sotienno = Integer.parseInt(tfsotienno.getText());
 
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-		Nhacungcap ncc = new Nhacungcap(mancc, tenncc, diachi, sodienthoai, email);
+		Nhacungcap ncc = new Nhacungcap(mancc, tenncc, diachi, sodienthoai, email,sotienno);
 		// person=session.get(Person.class, t1);
 		try {
 			session.beginTransaction();
@@ -1407,15 +1415,16 @@ public class chucnangquanly extends Application implements Initializable {
 	}
 
 	public void ReloadNHACUNGCAP() {
-		tenncc.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("tenncc"));
+		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap,String>("tenncc"));
+		
+		
+		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap,String>("diachi"));
 
-		diachi1.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("diachi"));
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap,Integer>("sodienthoai"));
 
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("sodienthoai"));
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap,Integer>("sotienno"));
 
-		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("nhacungcap"));
-
-		email.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("email"));
+		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap,String>("email"));
 		tableNhacungcap.setItems(getNhacungcap());
 
 	}
@@ -1461,6 +1470,7 @@ public class chucnangquanly extends Application implements Initializable {
 		tfsdt.setEditable(true);
 		tfdiachi1.setEditable(true);
 		tfemail.setEditable(true);
+		tfsotienno.setEditable(true);
 		idluuncc.setVisible(true);
 	}
 
@@ -1476,6 +1486,7 @@ public class chucnangquanly extends Application implements Initializable {
 		String diachi = tfdiachi1.getText();
 		Integer sodienthoai = Integer.parseInt(tfsdt.getText());
 		String email = tfemail.getText();
+		Integer sotienno = Integer.parseInt(tfsotienno.getText());
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
@@ -1483,7 +1494,7 @@ public class chucnangquanly extends Application implements Initializable {
 		Session session = sessionFactory.openSession();
 		try {
 			session.beginTransaction();
-			Nhacungcap ncc1 = new Nhacungcap(mancc, tenncc, diachi, sodienthoai, email);
+			Nhacungcap ncc1 = new Nhacungcap(mancc, tenncc, diachi, sodienthoai, email,sotienno);
 			ncc1 = session.get(Nhacungcap.class, mancc);
 			if (ncc1 != null) {
 				// nv2.setid(idnv);
@@ -1492,6 +1503,7 @@ public class chucnangquanly extends Application implements Initializable {
 				ncc1.setDiachi(diachi);
 				ncc1.setSodienthoai(sodienthoai);
 				ncc1.setEmail(email);
+				ncc1.setSotienno(sotienno);
 
 				// person2.setAge(t2);
 				/// person2.setAddress(t3);
@@ -1505,6 +1517,7 @@ public class chucnangquanly extends Application implements Initializable {
 				tfdiachi1.setEditable(false);
 				tfsdt.setEditable(false);
 				tfemail.setEditable(false);
+				tfsotienno.setEditable(false);
 
 			}
 			session.getTransaction().commit();
@@ -1525,7 +1538,20 @@ public class chucnangquanly extends Application implements Initializable {
 	 * tfdiachi1.setText(ncc.getDiachi()); tfemail.setText(ncc.getEmail()); // });
 	 * 
 	 * }
+	 * 
 	 */
+	
+	private void edit() {
+		tenncc.setCellFactory(TextFieldTableCell.forTableColumn());
+		tenncc.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
+			@Override
+			public void handle(CellEditEvent<Nhacungcap, String> event) {
+				Nhacungcap person = event.getRowValue();
+				person.setTenncc(event.getNewValue());
+			}
+		});
+	}
+	
 
 /////////////////////////////AUTHOR :TỪ CHÍ HUY/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
@@ -1721,66 +1747,42 @@ public class chucnangquanly extends Application implements Initializable {
 
 		// QL nhà cung cấp //Sang
 
-		tenncc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		tenncc.setCellFactory(tableNCC -> new TableCell<Nocong, Nhacungcap>() {
+		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap,String>("tenncc"));
+		tenncc.setCellFactory(TextFieldTableCell.forTableColumn());
+		tenncc.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
-			protected void updateItem(Nhacungcap item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getTenncc()));
-				}
+			public void handle(CellEditEvent<Nhacungcap, String> event) {
+				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+						.build();
+				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+				Session session = sessionFactory.openSession();
+				session.beginTransaction();
+				
+				Nhacungcap person = event.getRowValue();
+				person.setTenncc(event.getNewValue());
+				Nhacungcap person1 = new Nhacungcap();
+				person1.get(Nhacungcap.class, mancc);
+				session.save(person1);
+				session.getTransaction().commit();
 			}
-
 		});
+	
+		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap,String>("diachi"));
+		//diachi1.setCellFactory(TextFieldTableCell.forTableColumn());
 
-		diachi1.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		diachi1.setCellFactory(tableNCC -> new TableCell<Nocong, Nhacungcap>() {
-			@Override
-			protected void updateItem(Nhacungcap item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getDiachi()));
-				}
-			}
-
-		});
-
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		sodienthoai.setCellFactory(tableNCC -> new TableCell<Nocong, Nhacungcap>() {
-			@Override
-			protected void updateItem(Nhacungcap item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getSodienthoai()));
-				}
-			}
-
-		});
-
-		sotienno.setCellValueFactory(new PropertyValueFactory<Nocong, Nhacungcap>("nhacungcap"));
-
-		email.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		email.setCellFactory(tableNCC -> new TableCell<Nocong, Nhacungcap>() {
-			@Override
-			protected void updateItem(Nhacungcap item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getEmail()));
-				}
-			}
-
-		});
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap,Integer>("sodienthoai"));
+		//sodienthoai.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap,Integer>("sotienno"));
+		//sotienno.setCellFactory(TextFieldTableCell.forTableColumn());
+		
+		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap,String>("email"));
+		//email.setCellFactory(TextFieldTableCell.forTableColumn());
 
 		tableNhacungcap.setItems(getNhacungcap());
-
+		tableNhacungcap.setEditable(true);
+	
 	}
 
 	@Override
@@ -1788,5 +1790,27 @@ public class chucnangquanly extends Application implements Initializable {
 		// TODO Auto-generated method stub
 
 	}
-
+	/*
+	@FXML public void edittenncc(TableColumn.CellEditEvent<Nhacungcap, String> edittennccEvent) {
+		Nhacungcap nhacungcap =	tableNhacungcap.getSelectionModel().getSelectedItem();
+		nhacungcap.setTenncc(edittennccEvent.getNewValue());
+	}
+	
+	@FXML public void editdiachi(TableColumn.CellEditEvent<Nhacungcap, String> editdiachiEvent) {
+		Nhacungcap nhacungcap =	tableNhacungcap.getSelectionModel().getSelectedItem();
+		nhacungcap.setDiachi(editdiachiEvent.getNewValue());
+	}
+	@FXML public void editsodienthoai(TableColumn.CellEditEvent<Nhacungcap, Integer> editsdtEvent) {
+		Nhacungcap nhacungcap =	tableNhacungcap.getSelectionModel().getSelectedItem();
+		nhacungcap.setSodienthoai(editsdtEvent.getNewValue());
+	}
+	@FXML public void editsotienno(TableColumn.CellEditEvent<Nhacungcap, Integer> editstnEvent) {
+		Nhacungcap nhacungcap =	tableNhacungcap.getSelectionModel().getSelectedItem();
+		nhacungcap.setSotienno(editstnEvent.getNewValue());
+	}
+	@FXML public void editemail(TableColumn.CellEditEvent<Nhacungcap, String> editemailEvent) {
+		Nhacungcap nhacungcap =	tableNhacungcap.getSelectionModel().getSelectedItem();
+		nhacungcap.setEmail(editemailEvent.getNewValue());
+	}
+*/
 }

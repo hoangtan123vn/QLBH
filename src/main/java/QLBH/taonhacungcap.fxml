@@ -16,7 +16,9 @@
       <TextField fx:id="tfsdt" layoutX="411.0" layoutY="88.0" />
       <TextField fx:id="tfdiachi" layoutX="411.0" layoutY="129.0" />
       <TextField fx:id="tfemail" layoutX="143.0" layoutY="138.0" />
-      <Button fx:id="idsave" layoutX="249.0" layoutY="196.0" mnemonicParsing="false" onAction="#save" text="Lưu" />
-      <Button fx:id="idclose" layoutX="339.0" layoutY="196.0" mnemonicParsing="false" onAction="#close" text="Quay lại" />
+      <Button fx:id="idsave" layoutX="261.0" layoutY="266.0" mnemonicParsing="false" onAction="#save" text="Lưu" />
+      <Button fx:id="idclose" layoutX="351.0" layoutY="266.0" mnemonicParsing="false" onAction="#close" text="Quay lại" />
+      <TextField fx:id="tfsotienno" layoutX="143.0" layoutY="182.0" />
+      <Label layoutX="85.0" layoutY="186.0" text="Số tiền nợ " />
    </children>
 </AnchorPane>

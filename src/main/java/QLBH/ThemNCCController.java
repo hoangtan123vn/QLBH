@@ -68,6 +68,9 @@ public class ThemNCCController extends Application implements Initializable{
 
     @FXML
     private TextField tfemail;
+    
+    @FXML
+    private TextField tfsotienno;
 
     @FXML
     private Button idsave;
@@ -92,6 +95,7 @@ public class ThemNCCController extends Application implements Initializable{
     	String diachi = tfdiachi.getText();
     	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
     	String email = tfemail.getText();
+    	Integer sotienno = Integer.parseInt(tfsotienno.getText());
     	
     
     	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
@@ -103,7 +107,7 @@ public class ThemNCCController extends Application implements Initializable{
 		
     	try {
     		
-    		 Nhacungcap nv = new Nhacungcap(tenncc,diachi,sodienthoai,email);
+    		 Nhacungcap nv = new Nhacungcap(tenncc,diachi,sodienthoai,email,sotienno);
     		 session.beginTransaction();
     		 session.save(nv);
     		 session.getTransaction().commit();

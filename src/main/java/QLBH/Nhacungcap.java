@@ -23,43 +23,42 @@ public class Nhacungcap {
 	private String diachi;
 	private Integer sodienthoai;
 	private String email;
-	// private Integer thoigianno;
+	private Integer sotienno;
 
-	@OneToMany(mappedBy = "nhacungcap")
-	private List<Nocong> listnocong;
-	
 	public Nhacungcap() {
 		super();
 	}
-
-	public List<Nocong> getListnocong() {
-		return listnocong;
+	public Nhacungcap(Integer sodienthoai) {
+		this.sodienthoai = sodienthoai;
 	}
 
-	public void setListnocong(List<Nocong> listnocong) {
-		this.listnocong = listnocong;
-	}
-
-	public Nhacungcap(int mancc) {
-		this.mancc = mancc;
-	}
-
-	public Nhacungcap(Integer mancc, String tenncc, String diachi, Integer sodienthoai, String email) {
+	public Nhacungcap(Integer mancc, String tenncc, String diachi, Integer sodienthoai, String email,Integer sotienno) {
 		super();
 		this.mancc = mancc;
 		this.tenncc = tenncc;
 		this.diachi = diachi;
 		this.sodienthoai = sodienthoai;
 		this.email = email;
+		this.sotienno = sotienno;
 	}
+	
 
-	public Nhacungcap(String tenncc, String diachi, Integer sodienthoai, String email) {
+	public Nhacungcap(String tenncc, String diachi, Integer sodienthoai, String email,Integer sotienno) {
 		super();
 
 		this.tenncc = tenncc;
 		this.diachi = diachi;
 		this.sodienthoai = sodienthoai;
 		this.email = email;
+		this.sotienno = sotienno;
+	}
+
+	public Integer getSotienno() {
+		return sotienno;
+	}
+
+	public void setSotienno(Integer sotienno) {
+		this.sotienno = sotienno;
 	}
 
 	public Integer getMancc() {
@@ -105,6 +104,5 @@ public class Nhacungcap {
 	public String toString() {
 		return String.valueOf(mancc);
 	}
-
 
 }
