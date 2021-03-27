@@ -58,6 +58,20 @@ public class Sanpham {
 	//	this.imagesp=imagesp;
 		
 	}
+	public Sanpham(int masanpham,String tensanpham,String loaisanpham,String donvi,int giatien) {
+		super();
+		this.tensanpham=tensanpham;
+		this.masanpham=masanpham;
+		this.donvi=donvi;
+		this.giatien=giatien;
+	//	this.donvitinh=donvitinh;
+		this.loaisanpham=loaisanpham;
+	//	this.imagesp=imagesp;
+		
+	}
+	
+	
+	
 	public Sanpham(int masanpham) {
 		super();
 	}

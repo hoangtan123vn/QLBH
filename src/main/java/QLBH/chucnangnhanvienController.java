@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.apache.derby.iapi.store.access.SpaceInfo;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -21,17 +22,21 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
@@ -91,6 +96,13 @@ public class chucnangnhanvienController implements Initializable{
 
     @FXML
     private TableColumn donvitnh1;
+        
+    @FXML
+    private TableColumn thanhtien;
+    
+    @FXML
+    private TableColumn xoaSP;
+
     
     ObservableList<Sanpham> danhmuchoadon = FXCollections.observableArrayList();
     
@@ -98,8 +110,10 @@ public class chucnangnhanvienController implements Initializable{
 		 TableSP.setOnMouseClicked(event -> {
 			 //
 			 event();
-			// Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+			 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+		//	 System.out.println(sp.getDonvitinh());
 			//tongtien.setText(Integer.toString(sp.getGiatien()));
+			 
 		
 			
 		 });
@@ -107,11 +121,52 @@ public class chucnangnhanvienController implements Initializable{
 			 //
 			
 			 Sanpham sp = hoadon.getItems().get(hoadon.getSelectionModel().getSelectedIndex());
-			tongtien.setText(Integer.toString(sp.getGiatien()));
+			 tongtien.setText(Integer.toString(sp.getGiatien()));
 		
 			
 		 });
 	 }
+	 
+	 private void ButtonXoaSP() {
+	      
+
+	        Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
+	            @Override
+	            public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
+	                final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
+
+	                    private final Button btn = new Button("Xóa Sản Phẩm");
+
+	                    {
+	                    	///////////////////////////
+	                    btn.setOnAction((ActionEvent event) -> {
+	                    	 Sanpham sp = getTableView().getItems().get(getIndex());
+	                    	 if(hoadon.getItems().contains(sp)) {
+	               			 sp.setDonvitinh(sp.getDonvitinh()-1);
+	               			 hoadon.refresh();
+	               			 if(sp.getDonvitinh()==0) {
+	               				 hoadon.getItems().remove(sp);
+	               				 hoadon.refresh();
+	               			 }
+	               		 }
+	                        });
+	                    }
+	                    @Override
+	                    public void updateItem(Void item, boolean empty) {
+	                        super.updateItem(item, empty);
+	                        if (empty) {
+	                            setGraphic(null);
+	                        } else {
+	                            setGraphic(btn);
+	                        }
+	                    }
+	                };
+	                return cell;
+	            }
+	        };
+	        xoaSP.setCellFactory(cellFactory);
+	 }
+	 
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -132,7 +187,7 @@ public class chucnangnhanvienController implements Initializable{
 		donvitnh1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
 		giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
-		
+		ButtonXoaSP();
 		//hoadon.setItems(getHoadon());		
 		
 	}
@@ -157,10 +212,17 @@ public class chucnangnhanvienController implements Initializable{
 	//
 	private void event() {
 		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		 //hoadon.setItems(getHoadon());
-		 //	TableSP.getSelectionModel().getSelectedItems();
-		 hoadon.getItems().add(sp);
-	//hoadon.setItems(getHoadon());
-	
+		 Sanpham sp1 = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+		 if(!hoadon.getItems().contains(sp)) {
+			 sp.setDonvitinh(1);
+			 hoadon.getItems().add(sp);
+		 }
+		 
+		 
+		 else if(hoadon.getItems().contains(sp)) {
+			 sp.setDonvitinh(sp.getDonvitinh()+1);
+			 hoadon.refresh();
+		 }
+	//	 System.out.println(sp1.getDonvitinh());	
 }
 }

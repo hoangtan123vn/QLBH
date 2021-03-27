@@ -654,11 +654,6 @@ public class chucnangquanly extends Application implements Initializable {
 	private TableView<Sanpham> tableSP;
 	
 	
-	
-	
-	
-	
-	
 	private void ButtonXoaSP() {
 	      
 
