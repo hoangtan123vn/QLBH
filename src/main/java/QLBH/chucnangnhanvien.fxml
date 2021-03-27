@@ -18,12 +18,10 @@
                <children>
                   <TableView fx:id="TableSP" layoutX="31.0" layoutY="400.0" prefHeight="240.0" prefWidth="780.0">
                     <columns>
-                      <TableColumn fx:id="masanpham" prefWidth="75.0" text="Id" />
-                      <TableColumn fx:id="tensanpham" prefWidth="75.0" text="SP" />
-                        <TableColumn fx:id="loaisanpham" prefWidth="184.00003051757812" text="Loại sản phẩm" />
-                        <TableColumn fx:id="donvitnh" prefWidth="149.0" text="Số lượng trong kho" />
-                        <TableColumn fx:id="giatien" prefWidth="91.0" text="Đơn giá" />
-                        <TableColumn fx:id="donvi" prefWidth="84.0" text="quantity" />
+                      <TableColumn fx:id="tensanpham" prefWidth="133.0" text="SP" />
+                        <TableColumn fx:id="loaisanpham" prefWidth="162.0" text="Loại sản phẩm" />
+                        <TableColumn fx:id="giatien" prefWidth="192.0" text="Đơn giá" />
+                        <TableColumn fx:id="hinhanhsanpham" prefWidth="292.0" text="Hình ảnh " />
                     </columns>
                   </TableView>
                   <TableView fx:id="hoadon" layoutX="31.0" layoutY="122.0" prefHeight="195.0" prefWidth="759.0">
@@ -31,9 +29,9 @@
                         <TableColumn fx:id="masanpham1" prefWidth="75.0" text="Id" />
                         <TableColumn fx:id="tensanpham1" prefWidth="75.0" text="SP" />
                         <TableColumn fx:id="loaisanpham1" prefWidth="135.0" text="Loại sản phẩm" />
-                        <TableColumn fx:id="donvitnh1" prefWidth="129.0" text="Số lượng " />
-                        <TableColumn fx:id="giatien1" prefWidth="82.0" text="Đơn giá" />
-                        <TableColumn fx:id="donvi1" prefWidth="75.0" text="quantity" />
+                        <TableColumn fx:id="donvitnh1" prefWidth="75.0" text="Số lượng " />
+                        <TableColumn fx:id="giatien1" prefWidth="110.0" text="Đơn giá" />
+                        <TableColumn fx:id="donvi1" prefWidth="101.0" text="quantity" />
                         <TableColumn fx:id="thanhtien" prefWidth="90.0" text="Thành tiền" />
                         <TableColumn prefWidth="97.0" fx:id="xoaSP" />
                      </columns>

@@ -1,10 +1,14 @@
 package QLBH;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URL;
 import org.hibernate.query.Query;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.apache.derby.iapi.store.access.SpaceInfo;
@@ -19,6 +23,7 @@ import QLBH.Sanpham;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,6 +39,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
@@ -58,8 +64,6 @@ public class chucnangnhanvienController implements Initializable{
     @FXML
     private TableView<Sanpham> TableSP;
 
-    @FXML
-    private TableColumn donvi;
 
     @FXML
     private TableView <Sanpham> hoadon;
@@ -83,12 +87,6 @@ public class chucnangnhanvienController implements Initializable{
     private TableColumn giatien1;
 
     @FXML
-    private TableColumn donvitnh;
-
-    @FXML
-    private TableColumn masanpham;
-
-    @FXML
     private TableColumn tensanpham;
 
     @FXML
@@ -102,6 +100,9 @@ public class chucnangnhanvienController implements Initializable{
     
     @FXML
     private TableColumn xoaSP;
+    
+    @FXML
+    private TableColumn hinhanhsanpham;
 
     
     ObservableList<Sanpham> danhmuchoadon = FXCollections.observableArrayList();
@@ -167,17 +168,49 @@ public class chucnangnhanvienController implements Initializable{
 	        xoaSP.setCellFactory(cellFactory);
 	 }
 	 
+	 private Image getImageFromBytes(byte[] imgBytes) {
+		    try {
+		        ByteArrayInputStream inputStream = new ByteArrayInputStream(imgBytes);
+		        BufferedImage bufferedImage = ImageIO.read(inputStream);
+		        return SwingFXUtils.toFXImage(bufferedImage, null);
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    } 
+		    return null;
+		}
+	 
+	 
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		
 		setCellValueFromTabletoTexfFieldd();
-		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
+	//	masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
-		donvitnh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
+	//	donvitnh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+	//	donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+		hinhanhsanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
+		hinhanhsanpham.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
+
+	        private ImageView imageView = new ImageView();
+
+	        @Override
+	        protected void updateItem(byte[] item, boolean empty) {
+	            super.updateItem(item, empty);
+	            if (item == null || empty) {
+	                setText(null);
+	                setGraphic(null);
+	            } else {
+	                imageView.setImage(getImageFromBytes(item));
+	                imageView.setFitHeight(150);
+                    imageView.setFitWidth(250);
+	                setGraphic(imageView);
+	            }
+	            this.setItem(item);
+	        }
+	    });
 		TableSP.setItems(getSanpham());
 		
 	// 
