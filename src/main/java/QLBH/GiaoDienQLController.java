@@ -91,6 +91,11 @@ public class GiaoDienQLController implements Initializable{
     @FXML
     void ChangeNhanvien(ActionEvent event) throws IOException {
  //   	Scene scene = new Scene(login); 
+    	AnchorPane pane = FXMLLoader.load(getClass().getResource("/Nhanvien/nhanvien.fxml"));
+    	mainpane.getChildren().setAll(pane);
+    	if(mainpane.getChildren().setAll(pane)) {
+    		//nhanvien.setClickable(false);
+    	}
     }
 
     @FXML

@@ -1,4 +1,4 @@
-package QLBH;
+package Nhanvien;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,6 +47,7 @@ import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
+import QLBH.Taikhoannv;
 
 public class ThemNVController extends Application implements Initializable{
 	private FileChooser filechooser;
@@ -121,6 +122,11 @@ public class ThemNVController extends Application implements Initializable{
     	}
     }
     
+    
+    
+    
+    
+
 
     @FXML
      void HuyThemNV(ActionEvent event) {
@@ -204,25 +210,21 @@ public class ThemNVController extends Application implements Initializable{
     	//	 session.save(cthd);
     	//	 session.save(cthd2);
     		 session.getTransaction().commit();
-    		 Stage stage = (Stage) add.getScene().getWindow();
+    		 Stage stage = (Stage) ap.getScene().getWindow();
         	 stage.close();
+        	
         	 alert.setContentText("Them nhan vien thanh cong !");
         	 
         //	 System.out.println();
-        	 alert.showAndWait();    
-        	 
-        	
+        	 alert.showAndWait();    	
     	}
     	catch (RuntimeException error){
-    		
+
     		 alert.setContentText("Them nhan vien that bai  !");
     		 alert.showAndWait();
     		session.getTransaction().rollback();
     	}
-    	//chucnangquanly.getInstance().reloadNHANVIEN();
-    	
-    	// ds.reload1();
-    	
+		 NhanvienController.getInstance().reloadNHANVIEN();
     }
 
 	@Override

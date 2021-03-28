@@ -171,7 +171,7 @@ public class NhanvienController implements Initializable{
 
 	@FXML
 	private void ThemNV(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("themnhanvien.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/Nhanvien/themnhanvien.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		stage.setScene(scene);

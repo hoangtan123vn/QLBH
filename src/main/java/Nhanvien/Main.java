@@ -1,4 +1,4 @@
-package QLBH;
+package Nhanvien;
 import java.sql.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,20 +13,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class QLBH extends Application {
+
+public class Main extends Application{
+
+	
+
 	@Override
 	public void start(Stage stage) throws Exception {
-	//	Parent root = FXMLLoader.load(getClass().getResource("giaodienquanly.fxml"));
-		Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
-		//Parent root = FXMLLoader.load(getClass().getResource("loginform.fxml"));
+		// TODO Auto-generated method stub
+		Parent root = FXMLLoader.load(getClass().getResource("nhanvien.fxml"));
+		//Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
+	//	Parent root = FXMLLoader.load(getClass().getResource("loginform.fxml"));
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Phan mem quan ly ban hang");
-		stage.show();	
-
+		stage.show();
 	}
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub 
+	public static void main(String[] args) throws Exception{
+		// TODO Auto-generated method stub
 		launch(args);
+		
 	}
+
 }
