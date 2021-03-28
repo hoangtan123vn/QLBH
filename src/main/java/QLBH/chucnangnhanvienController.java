@@ -20,6 +20,8 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import QLBH.Sanpham;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -111,7 +113,7 @@ public class chucnangnhanvienController implements Initializable{
 		 TableSP.setOnMouseClicked(event -> {
 			 //
 			 event();
-		//	 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+			 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
 		//	 System.out.println(sp.getDonvitinh());
 			//tongtien.setText(Integer.toString(sp.getGiatien()));
 			 
@@ -127,6 +129,27 @@ public class chucnangnhanvienController implements Initializable{
 			
 		 });
 	 }
+//
+	 private void thanhtien() {
+	      
+
+	        Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
+	            @Override
+	            public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
+	                final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
+	           		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+	           		 String thanhtien;
+	           		 
+	                  
+	                   
+	               
+	                };
+	                return cell;
+	            }
+	        };
+	        xoaSP.setCellFactory(cellFactory);
+	 }
+	 
 	 
 	 private void ButtonXoaSP() {
 	      
@@ -221,9 +244,19 @@ public class chucnangnhanvienController implements Initializable{
 		giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		ButtonXoaSP();
-		//hoadon.setItems(getHoadon());		
+		thanhtien.setCellValueFactory(new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+	            @Override
+	            public ObservableValue call(TableColumn.CellDataFeatures p) {
+	            	 
+	                return new ReadOnlyObjectWrapper(p.getValue());
+	            }
+	        });
 		
-	}
+//	        
+	    
+	
+		
+	} 
 	public ObservableList<Sanpham> getSanpham() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
@@ -245,17 +278,58 @@ public class chucnangnhanvienController implements Initializable{
 	//
 	private void event() {
 		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-	//	 Sanpham sp1 = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+		
+		// Sanpham sp1 = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
 		 if(!hoadon.getItems().contains(sp)) {
 			 sp.setDonvitinh(1);
 			 hoadon.getItems().add(sp);
+			// thanhtien.setOnEditCommit(String.valueOf(sp.getDonvitinh() * sp.getGiatien()));
+			 hoadon.refresh();
+			// Callback cellFactory = null;
+			// xoaSP.setCellFactory(cellFactory);
+
+		
+		
 		 }
 		 
 		 
 		 else if(hoadon.getItems().contains(sp)) {
 			 sp.setDonvitinh(sp.getDonvitinh()+1);
 			 hoadon.refresh();
+			 
+			 thanhtien.setCellFactory(new Callback<TableColumn, TableCell>() {
+		            @Override
+		            public TableCell call(TableColumn p) {
+		                return new TableCell() {
+		                    @Override
+		                    protected void updateItem(Object item, boolean empty) {
+		                        super.updateItem(item, empty);
+		                        if (this.getTableRow() != null && item != null) {
+//		                            System.out.println(this.getTableRow().getItem().toString());
+//		                            setText((this.getTableRow().getIndex() + 1) + "");
+//		                              System.out.println(this.getTableRow().getIndex());
+//		                            System.out.println(getTableView().getItems().get(getTableRow().getIndex() -1));
+//		                            System.out.println();
+		                           
+		                            System.out.println("");
+//		                            setText(String.valueOf(Integer.parseInt(getTableRow().getItem().toString()) + Integer.parseInt(getTableView().getItems().get(pre).toString())));
+		                            Integer totalValue = new Integer(0);
+		                            
+		                               totalValue = sp.getDonvitinh() * sp.getGiatien();
+		                            
+
+		                            setText(String.valueOf(totalValue));
+		                          
+//		                            setText(this.getTableRow().getItem().toString());
+		                        } else {
+		                            setText("");
+		                        }
+		                    }
+		                };
+		            }
+		        });
+	
 		 }
-	//	 System.out.println(sp1.getDonvitinh());	
+	}
 }
-}
+		 
