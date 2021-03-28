@@ -167,8 +167,7 @@ public class LoginController implements  Initializable{
                    	  // stage.setResizable(true);
                    	   
                 	}
-                	 break;
-                	 
+                	 break; 
         		}
         		Alert alert = new Alert(Alert.AlertType.INFORMATION);
     			 alert.setTitle("Đăng nhập");

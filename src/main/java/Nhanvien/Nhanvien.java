@@ -1,4 +1,4 @@
-package QLBH;
+package Nhanvien;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -20,10 +20,10 @@ public class Nhanvien  {
 	@Id
 	private int manv;
 	
-	@OneToMany(mappedBy = "nhanvien")
-	private List<Hoadon> hoadon;
-	@OneToOne(mappedBy = "nhanvien")
-	private Taikhoannv taikhoannv;
+/*	@OneToMany(mappedBy = "nhanvien")
+	private List<Hoadon> hoadon;*/
+	//@OneToOne(mappedBy = "nhanvien")
+//	private Taikhoannv taikhoannv;
 	
 	private String hovaten;
 	private LocalDate ngaysinh;
@@ -182,14 +182,14 @@ public class Nhanvien  {
 	}
 
 
-	public List<Hoadon> getHoadon() {
+/*	public List<Hoadon> getHoadon() {
 		return hoadon;
 	}
 
 
 	public void setHoadon(List<Hoadon> hoadon) {
 		this.hoadon = hoadon;
-	}
+	}*/
 	
 	 public String toString() {
 	        return String.valueOf(manv);
@@ -197,7 +197,7 @@ public class Nhanvien  {
 	
 	
 
-	public Taikhoannv getTaikhoannv() {
+/*	public Taikhoannv getTaikhoannv() {
 		return taikhoannv;
 	}
 
@@ -205,7 +205,7 @@ public class Nhanvien  {
 		this.taikhoannv = taikhoannv;
 	}
 	
- ;
+ ;*/
 
 	
 
