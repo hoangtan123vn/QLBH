@@ -69,9 +69,7 @@ public class Sanpham {
 	//	this.imagesp=imagesp;
 		
 	}
-	
-	
-	
+
 	public Sanpham(int masanpham) {
 		super();
 	}

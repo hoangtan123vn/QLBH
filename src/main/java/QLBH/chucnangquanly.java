@@ -756,11 +756,7 @@ public class chucnangquanly extends Application implements Initializable {
 									}
 	                  
 	                			});
-	                    
-	                   
-	                			
-	                	
-	                        
+	           
 	                    }
 	                    @Override
 	                    public void updateItem(Void item, boolean empty) {
@@ -1090,7 +1086,6 @@ public class chucnangquanly extends Application implements Initializable {
 	 * //NHI-----------------------------
 	 * 
 	 */
-
 	@FXML
 	private Tab sTab_PhieuDatHang;
 

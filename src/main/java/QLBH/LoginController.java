@@ -118,19 +118,24 @@ public class LoginController implements  Initializable{
                 //	System.out.println(tentaikhoan);
                 //	System.out.println(matkhau);
                 //	System.out.println(cvString);
-                	if(tentaikhoan.contains(checktk1.getusername())&& matkhau.contains(checktk1.getpassword()) && cvString.contains("Quản lý")) {
-                	   Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-                   	   FXMLLoader loader = new FXMLLoader();
-                   	   loader.setLocation(getClass().getResource("chucnangquanly.fxml"));
-                   	   Parent sampleparent =loader.load();
-                   	   Scene scene = new Scene(sampleparent);
+                if(tentaikhoan.contains(checktk1.getusername())&& matkhau.contains(checktk1.getpassword()) && cvString.contains("Quản lý")) {
+                	Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml")) ; 
+                	Scene scene = new Scene(sampleparent);
+                	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+                 	//  Stage stage = (Stage) (() event.getSource()).getScence().getWindow();
+                   	//   FXMLLoader loader = new FXMLLoader();
+                   	//   loader.setLocation(getClass().getResource("chucnangquanly.fxml"));
+                   	  // Parent sampleparent =loader.load();
+                	   stage.hide();
                    	   stage.setScene(scene);
+                   	   stage.show();
                 	}else {
+                		thongbao.setText(" đăng nhập thất bại !!  ");
                 		break;
                 	}
                 	 break;
         		}
-        		thongbao.setText(" đăng nhập thất bại !!  ");
+        		
   
         }
         	
@@ -145,28 +150,33 @@ public class LoginController implements  Initializable{
         		//KIEM TRA  XEM CHUC VU == NHANVIEN
         		for(Object[] singleRowValues1 : tk2 ) {
         		//	System.out.println("thanh cong");
+        			
         			String tentaikhoan1 = (String)singleRowValues1[0];
                 	String matkhau1 = (String)singleRowValues1[1];
                 	String cvString1 = (String)singleRowValues1[2];
                 	if(tentaikhoan1.contains(checktk1.getusername())&& matkhau1.contains(checktk1.getpassword()) &&cvString1.contains("Nhân viên")) {
-                	   Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-                   	   FXMLLoader loader = new FXMLLoader();
-                   	   loader.setLocation(getClass().getResource("chucnangnhanvien.fxml"));
-                   	   Parent sampleparent =loader.load();
-                   	   Scene scene = new Scene(sampleparent);
-                   	   stage.setScene(scene);
+                		Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml")) ; 
+                    	Scene scene = new Scene(sampleparent);
+                    	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+                    	stage.hide();
+                    	stage.setScene(scene);
+                    	stage.show();
+                   	  
+                   	   //stage.setFullScreen(true);
+                   	 //  stage.setMaximized(true);
+                   	  // stage.setResizable(true);
+                   	   
                 	}
                 	 break;
+                	 
         		}
+        		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    			 alert.setTitle("Đăng nhập");
+    		     alert.setContentText("Đăng nhập thành công");
+                alert.showAndWait();
         	}
         }
-
-   
-		
-            
-     
-
-        thongbao.setText(" đăng nhập thất bại !!  ");
+        thongbao.setText(" đăng nhập thất bại !!  ");	
 	}
         
         catch(HibernateException e) {

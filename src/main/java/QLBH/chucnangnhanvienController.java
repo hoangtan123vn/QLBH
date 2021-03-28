@@ -111,7 +111,7 @@ public class chucnangnhanvienController implements Initializable{
 		 TableSP.setOnMouseClicked(event -> {
 			 //
 			 event();
-			 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+		//	 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
 		//	 System.out.println(sp.getDonvitinh());
 			//tongtien.setText(Integer.toString(sp.getGiatien()));
 			 
@@ -245,7 +245,7 @@ public class chucnangnhanvienController implements Initializable{
 	//
 	private void event() {
 		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		 Sanpham sp1 = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+	//	 Sanpham sp1 = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
 		 if(!hoadon.getItems().contains(sp)) {
 			 sp.setDonvitinh(1);
 			 hoadon.getItems().add(sp);
