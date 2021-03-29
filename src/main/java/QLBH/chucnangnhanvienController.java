@@ -43,6 +43,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -315,14 +317,17 @@ public class chucnangnhanvienController implements Initializable{
 //		                            setText(String.valueOf(Integer.parseInt(getTableRow().getItem().toString()) + Integer.parseInt(getTableView().getItems().get(pre).toString())));
 		                            Integer totalValue = new Integer(0);
 		                            
-		                               totalValue = sp.getDonvitinh() * sp.getGiatien();
+		                            totalValue = sp.getDonvitinh() * sp.getGiatien();
 		                            
 
 		                            setText(String.valueOf(totalValue));
-		                            int sum;
-
-		                        
-		                          
+		                            int sum = 0;
+		                            for (Sanpham thanhtien : hoadon.getItems()) {
+		                                sum = sum + (thanhtien.getGiatien()* thanhtien.getDonvitinh());
+		                            }
+		                            tongtien.setText(String.valueOf(sum));
+		                           //int tientrakhach = Integer.parseInt(khachtra.getText())- Integer.parseInt(tongtien.getText());
+		                         //    System.out.print(tientrakhach);
 //		                            setText(this.getTableRow().getItem().toString());
 		                        } else {
 		                            setText("");
@@ -331,8 +336,14 @@ public class chucnangnhanvienController implements Initializable{
 		                };
 		            }
 		        });
-	
+				tienthua.addEventHandler(KeyEvent.KEY_PRESSED, e->{
+					if(e.getCode() == KeyCode.ENTER) {
+						
+						 int tientrakhach = Integer.parseInt(khachtra.getText())- Integer.parseInt(tongtien.getText());
+		                 System.out.print(tientrakhach);
+					}
+				});
+			 
 		 }
 	}
 }
-		 
