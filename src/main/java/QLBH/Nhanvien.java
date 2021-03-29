@@ -20,9 +20,9 @@ public class Nhanvien  {
 	@Id
 	private int manv;
 	
-	@OneToMany(mappedBy = "nhanvien")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true,mappedBy = "nhanvien")
 	private List<Hoadon> hoadon;
-	@OneToOne(mappedBy = "nhanvien")
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,mappedBy = "nhanvien")
 	private Taikhoannv taikhoannv;
 	
 	private String hovaten;
