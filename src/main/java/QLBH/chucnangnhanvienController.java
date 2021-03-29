@@ -319,6 +319,9 @@ public class chucnangnhanvienController implements Initializable{
 		                            
 
 		                            setText(String.valueOf(totalValue));
+		                            int sum;
+
+		                        
 		                          
 //		                            setText(this.getTableRow().getItem().toString());
 		                        } else {
