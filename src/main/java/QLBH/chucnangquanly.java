@@ -1560,11 +1560,15 @@ public class chucnangquanly extends Application implements Initializable {
 	@FXML
 	void Thanhtoancongno(ActionEvent event) {
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("thanhtoancongno.fxml"));
-			Parent root1 = (Parent) fxmlLoader.load();
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(getClass().getResource("thanhtoancongno.fxml"));
+	        Parent root1 = (Parent) loader.load();
 			Stage stage = new Stage();
-			stage.setScene(new Scene(root1));
-			stage.setTitle("Thanh Toán Công Nợ");
+	        ThanhtoanCNcontroller controller = loader.getController();
+	        Nhacungcap selected = tableNhacungcap.getSelectionModel().getSelectedItem();
+	        controller.setThanhtoan(selected);
+	        stage.setScene(new Scene(root1));
+	        stage.setTitle("Tạo nhà cung cấp");
 			stage.show();
 		} catch (Exception e) {
 			// TODO: handle exception
