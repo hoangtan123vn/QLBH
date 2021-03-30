@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 
 @Entity
 @Table(name = "nhacungcap")
@@ -24,7 +25,9 @@ public class Nhacungcap {
 	private Integer sodienthoai;
 	private String email;
 	private Integer sotienno;
-
+	
+	//private Button xoa;
+	
 	public Nhacungcap() {
 		super();
 	}
@@ -49,9 +52,23 @@ public class Nhacungcap {
 		this.diachi = diachi;
 		this.sodienthoai = sodienthoai;
 		this.email = email;
-		this.sotienno = sotienno;
+		this.sotienno = sotienno; 
+	//	this.xoa = xoa;
 	}
 	
+	
+
+//	public Button getXoa() {
+	//	return xoa;
+	//}
+
+
+
+	//public void setXoa(Button xoa) {
+		//this.xoa = xoa;
+//	}
+
+
 
 	public Nhacungcap(String tenncc, String diachi, Integer sodienthoai, String email,Integer sotienno) {
 		super();

@@ -1419,27 +1419,78 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TableColumn thoigianno;
-
+	
 	@FXML
-	private TextField tfncc;
+	private TableColumn<Nhacungcap,Void> deleteNCC;
+	
+	private void ButtonXoaNCC() {
 
-	@FXML
-	private TextField tftenncc;
+		Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>> cellFactory = new Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>>() {
+			@Override
+			public TableCell<Nhacungcap, Void> call(final TableColumn<Nhacungcap, Void> param) {
+				final TableCell<Nhacungcap, Void> cell = new TableCell<Nhacungcap, Void>() {
 
-	@FXML
-	private TextField tfsdt;
+					private final Button btncc = new Button("Xóa Nhà Cung Cấp");
 
-	@FXML
-	private TextField tfdiachi1;
+					{
+						///////////////////////////
+						btncc.setOnAction((ActionEvent event) -> {
+							Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+							Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+							alert.setTitle("Xóa Nhà Cung Cấp");
+							alert.setContentText("Bạn có chắc xóa nhà cung cấp này ?");
+							ButtonType okButton = new ButtonType("Yes");
+							ButtonType noButton = new ButtonType("NO");
+							alert.getButtonTypes().setAll(okButton, noButton);
+							alert.showAndWait().ifPresent(type -> {
+								if (type == okButton) {
+									Nhacungcap ncc = getTableView().getItems().get(getIndex());
+									StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+											.configure("hibernate.cfg.xml").build();
+									Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder()
+											.build();
+									SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+									Session session = sessionFactory.openSession();
+									ncc = session.get(Nhacungcap.class, ncc.getMancc());
+									try {
+										session.beginTransaction();
+										if (ncc != null) {
+											session.delete(ncc);
 
-	@FXML
-	private TextField tfemail;
+										}
+										session.getTransaction().commit();
+										ReloadNHACUNGCAP();
 
-	@FXML
-	private TextField tfsotienno;
+										alert1.setContentText("Xóa nhà cung cấp thành công");
+										alert1.showAndWait();
 
-	@FXML
-	private Button idaddncc;
+									} catch (RuntimeException error) {
+										session.getTransaction().rollback();
+									}
+
+								} else if (type == ButtonType.NO) {
+									alert.close();
+								}
+
+							});
+						});
+					}
+
+					@Override
+					public void updateItem(Void item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty) {
+							setGraphic(null);
+						} else {
+							setGraphic(btncc);
+						}
+					}
+				};
+				return cell;
+			}
+		};
+		deleteNCC.setCellFactory(cellFactory);
+	}
 
 	@FXML
 	private Button idreloadncc;
@@ -1450,78 +1501,9 @@ public class chucnangquanly extends Application implements Initializable {
 	@FXML
 	private ComboBox<String> cbb;
 
-	@FXML
-	private Button xoanhacc;
-
 	private ObservableList<Nhacungcap> nhacungcapdata;
 
-	@FXML
-	void XoaNCC(ActionEvent event) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("Current project is modified");
-		alert.setContentText("Delete?");
-		ButtonType okButton = new ButtonType("Yes");
-		ButtonType noButton = new ButtonType("NO");
-		alert.getButtonTypes().setAll(okButton, noButton);
-		alert.showAndWait().ifPresent(type -> {
-			if (type == okButton) {
-				int id_ncc = (Integer.parseInt(tfsdt.getText()));
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
-				Nhacungcap ncc = new Nhacungcap(id_ncc);
-				// Nhanvien nv = new Nhanvien(t1);
-				ncc = session.get(Nhacungcap.class, id_ncc);
-				try {
-					session.beginTransaction();
 
-					if (ncc != null) {
-						session.delete(ncc);
-
-					}
-					session.getTransaction().commit();
-				} catch (RuntimeException error) {
-					session.getTransaction().rollback();
-
-				}
-				ReloadNHACUNGCAP();
-				tfncc.setText(null);
-				tftenncc.setText(null);
-				tfsdt.setText(null);
-				tfdiachi1.setText(null);
-				tfemail.setText(null);
-			} else if (type == ButtonType.NO) {
-				alert.close();
-			}
-			ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
-		});
-	}
-
-	/*
-	 * // NỢ CÔNG public ObservableList<Nocong> getNhacungcap() {
-	 * ObservableList<Nocong> TableNhacungcap = FXCollections.observableArrayList();
-	 * StandardServiceRegistry standardRegistry = new
-	 * StandardServiceRegistryBuilder().configure("hibernate.cfg.xml") .build();
-	 * Metadata metaData = new
-	 * MetadataSources(standardRegistry).getMetadataBuilder().build();
-	 * SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-	 * Session session = sessionFactory.openSession(); CriteriaQuery<Nocong> ncc =
-	 * session.getCriteriaBuilder().createQuery(Nocong.class); //
-	 * CriteriaQuery<Nhacungcap> Ncc //
-	 * =session.getCriteriaBuilder().createQuery(Nhacungcap.class); // SELECT * FROM
-	 * nocong INNER JOIN nhacungcap // Root<Nhacungcap> root1 =
-	 * Ncc.from(Nhacungcap.class); Root<Nocong> root = ncc.from(Nocong.class);
-	 * Join<Nocong, Nhacungcap> NocongJoin = root.join("nhacungcap",
-	 * JoinType.INNER); // Join<Nhacungcap,Nocong> NhacungcapJoin =
-	 * root1.join("nhacungcap", // JoinType.INNER); // FROM //
-	 * ncc.from(Nhacungcap.class); List<Nocong> eList =
-	 * session.createQuery(ncc).getResultList(); // List<Nhanvien> eList =
-	 * session.createQuery(criteriaQuery).getResultList(); // List<Nhanvien> eList =
-	 * session.createQuery(Nhanvien.class).list(); for (Nocong ent : eList) {
-	 * TableNhacungcap.add(ent); } return TableNhacungcap; }
-	 */
 	// Nhà Cung Cấp
 	public ObservableList<Nhacungcap> getNhacungcap() {
 		ObservableList<Nhacungcap> TableNhacungcap = FXCollections.observableArrayList();
@@ -1541,39 +1523,7 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return TableNhacungcap;
 	}
-
-	@FXML
-	void addncc(ActionEvent event) {
-		// ObservableList<Nocong> Tablencc =
-		// FXCollections.observableArrayList(getNhacungcap());
-		// ta.setText("");
-
-		Integer mancc = Integer.parseInt(tfncc.getText());
-		String tenncc = tftenncc.getText();
-		String diachi = tfdiachi1.getText();
-		Integer sodienthoai = Integer.parseInt(tfsdt.getText());
-		String email = tfemail.getText();
-		Integer sotienno = Integer.parseInt(tfsotienno.getText());
-
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-		Nhacungcap ncc = new Nhacungcap(mancc, tenncc, diachi, sodienthoai, email, sotienno);
-		// person=session.get(Person.class, t1);
-		try {
-			session.beginTransaction();
-			session.save(ncc);
-			session.getTransaction().commit();
-			// ta.appendText("Them Thanh Cong ! ! !");
-			ReloadNHACUNGCAP();
-		} catch (RuntimeException error) {
-			session.getTransaction().rollback();
-			// ta.appendText("Khong the thuc hien thao tac ! ");
-		}
-	}
-
+	
 	public void ReloadNHACUNGCAP() {
 		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
 
@@ -1622,81 +1572,6 @@ public class chucnangquanly extends Application implements Initializable {
 		ReloadNHACUNGCAP();
 	}
 
-	@FXML
-	void updatencc(ActionEvent event) {
-		tfncc.setEditable(true);
-		tftenncc.setEditable(true);
-		tfsdt.setEditable(true);
-		tfdiachi1.setEditable(true);
-		tfemail.setEditable(true);
-		tfsotienno.setEditable(true);
-		idluuncc.setVisible(true);
-	}
-
-	@FXML
-	private Button idluuncc;
-
-	@FXML
-	void luuncc(ActionEvent actionEvent) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Cap nhat thanh cong ");
-		Integer mancc = Integer.parseInt(tfncc.getText());
-		String tenncc = tftenncc.getText();
-		String diachi = tfdiachi1.getText();
-		Integer sodienthoai = Integer.parseInt(tfsdt.getText());
-		String email = tfemail.getText();
-		Integer sotienno = Integer.parseInt(tfsotienno.getText());
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			Nhacungcap ncc1 = new Nhacungcap(mancc, tenncc, diachi, sodienthoai, email, sotienno);
-			ncc1 = session.get(Nhacungcap.class, mancc);
-			if (ncc1 != null) {
-				// nv2.setid(idnv);
-				ncc1.setMancc(mancc);
-				ncc1.setTenncc(tenncc);
-				ncc1.setDiachi(diachi);
-				ncc1.setSodienthoai(sodienthoai);
-				ncc1.setEmail(email);
-				ncc1.setSotienno(sotienno);
-
-				// person2.setAge(t2);
-				/// person2.setAddress(t3);
-				session.save(ncc1);
-				alert.setContentText("Cap nhat Nha Cung Cap thanh cong !");
-				alert.showAndWait();
-				idluuncc.setVisible(false);
-
-				tfncc.setEditable(false);
-				tftenncc.setEditable(false);
-				tfdiachi1.setEditable(false);
-				tfsdt.setEditable(false);
-				tfemail.setEditable(false);
-				tfsotienno.setEditable(false);
-
-			}
-			session.getTransaction().commit();
-		} catch (RuntimeException error) {
-			session.getTransaction().rollback();
-		}
-
-		ReloadNHACUNGCAP();
-	}
-
-	private void edit() {
-		tenncc.setCellFactory(TextFieldTableCell.forTableColumn());
-		tenncc.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
-			@Override
-			public void handle(CellEditEvent<Nhacungcap, String> event) {
-				Nhacungcap person = event.getRowValue();
-				person.setTenncc(event.getNewValue());
-			}
-		});
-	}
 
 /////////////////////////////AUTHOR :TỪ CHÍ HUY/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
@@ -2019,7 +1894,9 @@ public class chucnangquanly extends Application implements Initializable {
 				session.getTransaction().commit();
 			}
 		});
-
+		
+		//deleteNCC.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Button>("xoa"));
+		ButtonXoaNCC();
 		tableNhacungcap.setItems(getNhacungcap());
 		tableNhacungcap.setEditable(true);
 
