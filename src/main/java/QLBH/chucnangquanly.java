@@ -1209,6 +1209,8 @@ public class chucnangquanly extends Application implements Initializable {
 	private ScrollBar verticalPNH;
 
 	ObservableList<Phieunhaphang> listPNH;
+	
+	
 
 	@FXML
 	/*
@@ -1389,6 +1391,7 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return TableQLSP;
 	}
+	
 
 /////////////////////////////AUTHOR :LÊ QUANG SANG /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : NHÀ CUNG CẤP  ///////////*************************
