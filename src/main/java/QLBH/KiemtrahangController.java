@@ -67,6 +67,19 @@ public class KiemtrahangController implements Initializable{
 
 	    @FXML
 	    private Label thoigiandatkt;
+	   
+
+	    @FXML
+	    private TableColumn<Chitietdathang,Sanpham> tenhang;
+
+	    @FXML
+	    private TableColumn soluong;
+
+	    @FXML
+	    private TableColumn dongia;
+
+	    @FXML
+	    private TableColumn choice;
 
 	
 	    public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
@@ -98,8 +111,37 @@ public class KiemtrahangController implements Initializable{
 		madathangkt.setText(String.valueOf(phieudathang.getMadathang()));
 		thoigiandatkt.setText(String.valueOf(phieudathang.getThoigiandat()));
 		mancckt.setText(String.valueOf(phieudathang.getNhacungcap().toString()));
+		IntitlizeChitietdathang(phieudathang);
 	}
-
+	 public void IntitlizeChitietdathang(Phieudathang phieudathang) {
+	    	tenhang.setCellFactory(tableChitietKiemtra ->new TableCell<Chitietdathang, Sanpham>(){
+	    		@Override
+	 		    protected void updateItem(Sanpham item, boolean empty) {
+	 		        super.updateItem(item, empty);
+	 		        if (empty || item == null) {
+	 		            setText(null);
+	 		        } else {
+	 		            setText(item.getTensanpham());
+	 		        }
+	 		    }
+	    	});
+	    	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+	    	soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Integer>("soluong"));
+	    	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+	    	dongia.setCellFactory(tbChitietDatHang ->new TableCell<Chitietdathang, Sanpham>(){
+	    		@Override
+	 		    protected void updateItem(Sanpham item, boolean empty) {
+	 		        super.updateItem(item, empty);
+	 		        if (empty || item == null) {
+	 		            setText(null);
+	 		        } else {
+	 		            setText(String.valueOf(item.getGiatien()));
+	 		        }
+	 		    }
+	    	});
+	    	
+	    	tableChitietKiemtra.setItems(getChitietdathang(phieudathang));
+	    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

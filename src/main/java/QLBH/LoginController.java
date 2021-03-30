@@ -138,9 +138,7 @@ public class LoginController implements  Initializable{
         		
   
         }
-        	
-        	
-       
+
    }
         
         for(Taikhoannv checktk1 : checktaikhoan) {
