@@ -10,10 +10,12 @@
    <children>
       <AnchorPane prefHeight="586.0" prefWidth="1003.0">
          <children>
-            <TableView fx:id="tableChitietKiemtra" layoutX="255.0" layoutY="314.0" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="tableChitietKiemtra" layoutX="150.0" layoutY="197.0" prefHeight="254.0" prefWidth="695.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="tenhang" prefWidth="246.0" text="Tên sản phẩm " />
+                <TableColumn fx:id="soluong" prefWidth="168.0" text="Số lượng" />
+                  <TableColumn fx:id="dongia" prefWidth="179.0" text="Đơn giá" />
+                  <TableColumn fx:id="choice" prefWidth="101.0" text="Chọn" />
               </columns>
             </TableView>
             <Label layoutX="446.0" layoutY="30.0" text="KIỂM TRA HÀNG">

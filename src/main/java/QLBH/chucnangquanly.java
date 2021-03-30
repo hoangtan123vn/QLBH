@@ -739,7 +739,7 @@ public class chucnangquanly extends Application implements Initializable {
 								Scene scene = new Scene(CapnhatSP);
 								// Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
 								Sanpham sp = getTableView().getItems().get(getIndex());
-								detailsanphamcontroller CapNhatSP = loader.getController();
+							detailsanphamcontroller CapNhatSP = loader.getController();
 								CapNhatSP.setSanPham(sp);
 								stage.setTitle("Cập nhật sản phẩm");
 								stage.setScene(scene);
