@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -29,6 +30,7 @@
             <Label fx:id="mancckt" layoutX="198.0" layoutY="140.0" text="Mã NCC" />
             <Label layoutX="71.0" layoutY="116.0" text="Thời gian đặt" />
             <Label fx:id="thoigiandatkt" layoutX="198.0" layoutY="116.0" text="Thời gian đặt" />
+            <Button fx:id="select" layoutX="830.0" layoutY="492.0" mnemonicParsing="false" onAction="#selected" text="Button" />
          </children>
       </AnchorPane>
    </children>
