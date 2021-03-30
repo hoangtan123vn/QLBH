@@ -747,6 +747,7 @@ public class chucnangquanly extends Application implements Initializable {
 							} catch (IOException e) {
 
 								e.printStackTrace();
+								
 							}
 
 						});

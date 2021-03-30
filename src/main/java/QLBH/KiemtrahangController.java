@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -52,6 +53,10 @@ import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
+
+import com.sun.javafx.scene.control.SelectedCellsMap;
+import com.sun.xml.bind.v2.util.EditDistance;
+
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
@@ -77,9 +82,27 @@ public class KiemtrahangController implements Initializable{
 
 	    @FXML
 	    private TableColumn dongia;
+	    
+	    @FXML
+	    private Button select;
+	    
+	    @FXML
+	    void selected(ActionEvent event)  {
+	    	try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("thanhtoancongno.fxml"));
+				Parent root1 = (Parent) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setScene(new Scene(root1));
+				stage.setTitle("Thanh Toán Công Nợ");
+				stage.show();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+	    	
+	    }
 
 	    @FXML
-	    private TableColumn choice;
+	    private TableColumn<Chitietdathang,Void> choice;
 
 	
 	    public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
@@ -141,7 +164,15 @@ public class KiemtrahangController implements Initializable{
 	    	});
 	    	
 	    	tableChitietKiemtra.setItems(getChitietdathang(phieudathang));
+	    	tableChitietKiemtra.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	    }
+	 /*
+	 private void Edit() {
+		 tableChitietKiemtra.setOnMouseClicked(event -> {
+			 Chitietdathang ctdh = tableChitietKiemtra.getItems().get(tableChitietKiemtra.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE));
+			 
+		 });
+	 }*/
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
