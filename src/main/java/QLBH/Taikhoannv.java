@@ -6,7 +6,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name="taikhoannv")
-public class Taikhoannv {
+public class Taikhoannv implements Serializable{
 	
 	
 	

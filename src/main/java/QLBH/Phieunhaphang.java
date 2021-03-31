@@ -1,5 +1,6 @@
 package QLBH;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Table (name="nhaphang")
 
 
-public class Phieunhaphang {
+public class Phieunhaphang implements Serializable{
 	
 	@Id
 	private int manhaphang;

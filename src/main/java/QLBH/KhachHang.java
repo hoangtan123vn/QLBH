@@ -1,5 +1,6 @@
 package QLBH;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Access;
@@ -16,7 +17,7 @@ import com.sun.xml.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
 
 @Entity
 @Table(name="khachhang")
-public class KhachHang {
+public class KhachHang implements Serializable{
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@OneToMany(mappedBy="khachhang")

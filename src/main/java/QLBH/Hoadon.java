@@ -1,13 +1,14 @@
 package QLBH;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
 @Entity
 @Table(name="hoadon")
 //@Access(AccessType.FIELD)
-public class Hoadon {
+public class Hoadon implements Serializable{
 	@Id 
 	private String mahoadon;
 //	@GeneratedValue

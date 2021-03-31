@@ -1,5 +1,6 @@
 package QLBH;
 
+import java.io.Serializable;
 import java.util.List;
 
 //import javax.annotation.processing.Generated;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Table (name = "dathang")
 
 
-public class Phieudathang {
+public class Phieudathang implements Serializable {
 	
 	@Id
 	private String madathang;

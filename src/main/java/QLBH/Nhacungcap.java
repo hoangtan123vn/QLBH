@@ -1,5 +1,6 @@
 package QLBH;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javafx.scene.control.Button;
 
 @Entity
 @Table(name = "nhacungcap")
-public class Nhacungcap {
+public class Nhacungcap implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer mancc;

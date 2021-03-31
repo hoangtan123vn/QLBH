@@ -1,5 +1,6 @@
 package QLBH;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table (name="phieutra")
 
-public class Phieutrahang {
+public class Phieutrahang implements Serializable{
 	
 	@Id 
 	private String maphieutra;

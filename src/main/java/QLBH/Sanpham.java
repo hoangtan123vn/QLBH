@@ -1,4 +1,5 @@
 package QLBH;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import javax.swing.ImageIcon;
 import javafx.scene.image.ImageView;
 @Entity
 @Table(name="sanpham")
-public class Sanpham {
+public class Sanpham implements Serializable{
 	
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 	
