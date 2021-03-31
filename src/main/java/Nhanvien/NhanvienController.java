@@ -15,6 +15,7 @@ import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import QLBH.Nhanvien;
+import QLBH.Taikhoannv;
 import QLBH.chucnangquanly;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -212,11 +213,14 @@ public class NhanvienController implements Initializable{
 		int sdtnv = (Integer.parseInt(sdt_nv.getText()));
 		int cmndnv = (Integer.parseInt(cmnd_nv.getText()));
 		String diachinv = diachi_nv.getText();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+	/*	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.openSession();*/
+		SessionFactory factory = HibernateUltis.getSessionFactory();
+		 
+	      Session session = factory.getCurrentSession();
 		try {
 			session.beginTransaction();
 			Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,
@@ -364,6 +368,17 @@ public class NhanvienController implements Initializable{
 		tableNV.setItems(getNhanvien());
 		search();
 	}
+	/*void LoadData(Taikhoannv taikhoan) {
+		username.setText(data.getUsername());
+        user = data;
+        if (user.getAvatar() == null) {
+            avatar.setImage(new javafx.scene.image.Image("/img/avatar.png"));
+        } else {
+            File file = new File("src/main/resources/img/" + M_Image.getImageById(user.getAvatar()).getHashname() + ".png");
+            avatar.setImage(new Image(file.toURI().toString()));
+        }
+        listView(conferences);
+	}*/
 
 	public ObservableList<Nhanvien> getNhanvien() {
 		ObservableList<Nhanvien> TableNV = FXCollections.observableArrayList();

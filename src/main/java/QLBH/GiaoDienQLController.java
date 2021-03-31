@@ -72,6 +72,12 @@ public class GiaoDienQLController implements Initializable{
     
     @FXML
     private AnchorPane mainpane;
+    
+    @FXML
+    private Label username;
+    
+    @FXML
+    private Label tennhanvien;
         
     void setNhanvien(Nhanvien nhanvien) {
     	
@@ -97,6 +103,23 @@ public class GiaoDienQLController implements Initializable{
     		//nhanvien.setClickable(false);
     	}
     }
+    
+    public void LoadData(Taikhoannv taikhoan) {
+		username.setText(taikhoan.getusername());
+		tennhanvien.setText("Xin chao" + taikhoan.getNhanvien().getHovaten());
+    /*    user = data;
+        if (user.getAvatar() == null) {
+            avatar.setImage(new javafx.scene.image.Image("/img/avatar.png"));*/
+      /*  } else {
+            File file = new File("src/main/resources/img/" + M_Image.getImageById(user.getAvatar()).getHashname() + ".png");
+            avatar.setImage(new Image(file.toURI().toString()));
+        }
+        listView(conferences);*/
+	}
+    
+    
+    
+    
 
     @FXML
     void ChangeThongKe(ActionEvent event) {

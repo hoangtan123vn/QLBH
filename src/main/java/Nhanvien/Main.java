@@ -21,7 +21,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
-		Parent root = FXMLLoader.load(getClass().getResource("nhanvien.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/QLBH/giaodienquanly.fxml"));
 		//Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
 	//	Parent root = FXMLLoader.load(getClass().getResource("loginform.fxml"));
 		Scene scene = new Scene(root);

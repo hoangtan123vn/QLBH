@@ -28,9 +28,7 @@ public class Chitietdathang implements Serializable{
 	public Chitietdathang() {
 		super();
 	}
-	
-	
-	
+
 	public Sanpham getSanpham() {
 		return sanpham;
 	}
@@ -62,8 +60,6 @@ public class Chitietdathang implements Serializable{
 		this.sanpham=sanpham;
 		this.soluong = soluong;
 	}
-
-
 
 	public Phieudathang getPhieudathang() {
 		return phieudathang;

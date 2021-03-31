@@ -1,4 +1,4 @@
-package QLBH;
+package Nhanvien;
 
 
 import java.sql.Connection;
@@ -88,12 +88,11 @@ public class LoginController implements  Initializable{
 	String password =passwordField.getText();
 	//String hql = "SELECT u.username, u.password FROM taikhoannv u WHERE u.username = :username, u.password= :password";	
 	//String hql = "SELECT u.username FROM Taikhoannv u WHERE u.username = :username";
-	Taikhoannv taikhoannv = new Taikhoannv (username,password);
+	//Taikhoannv taikhoan = new Taikhoannv (username,password);
 //		Nhanvien nhanvien = new Nhanvien(username, password);
-	
+	taikhoan = new Taikhoannv(username,password);
 	//Nhanvien nhanvien = new Nhanvien (chucvu);
 	try {
-	//	taikhoan = new Taikhoannv(username,password);
 		session.getTransaction().begin();
 		String hql = "FROM Taikhoannv A WHERE A.username = :username and A.password = :password";
       //  String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.manv=B.manv and A.username = :username and A.password = :password and B.chucvu='Quản lý' ";
@@ -112,10 +111,9 @@ public class LoginController implements  Initializable{
         List<Object[]> tk1 = query1.list();
         List<Object[]> tk2 = query2.list();
         List<Taikhoannv> checktaikhoan = query.list(); 
-    //    Taikhoannv taikhoannv = new Taikhoannv(username,password);
         for(Taikhoannv checktk1 : checktaikhoan) {
         	//KIEM TRA XEM DANG NHAP DUOC HAY KHONG
-        	if(checktk1.getusername().contains(taikhoannv.getusername()) && checktk1.getpassword().contains(taikhoannv.getpassword())) {
+        	if(checktk1.getusername().contains(taikhoan.getusername()) && checktk1.getpassword().contains(taikhoan.getpassword())) {
         	//	System.out.println("Thanh cong?");
         		
         		//KIEM TRA XEM CHUC VU == QUAN LY
@@ -134,17 +132,11 @@ public class LoginController implements  Initializable{
                    	//   FXMLLoader loader = new FXMLLoader();
                    	//   loader.setLocation(getClass().getResource("chucnangquanly.fxml"));
                    	  // Parent sampleparent =loader.load();
-                	String tk = checktk1.getusername();
-                	String mk = checktk1.getpassword();
-                //	Taikhoannv taikhoan1 = new Taikhoannv();
-                	taikhoan = session.get(Taikhoannv.class,tk);
                 	FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
                     Parent tmp = loader.load();
                     Scene scene = new Scene(tmp);
                     Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
                     GiaoDienQLController quanly = loader.getController();
-            /*        System.out.println(checktk1.getusername());
-                    System.out.println(checktk1.getpassword());*/
                     quanly.LoadData(taikhoan);
                 		//GiaoDienQLController changeQl = 
                 	   stage.hide();
@@ -164,7 +156,7 @@ public class LoginController implements  Initializable{
         
         for(Taikhoannv checktk1 : checktaikhoan) {
         	//KIEM TRA XEM DANG NHAP DUOC HAY KHONG
-        	if(checktk1.getusername().contains(taikhoannv.getusername()) && checktk1.getpassword().contains(taikhoannv.getpassword())) {
+        	if(checktk1.getusername().contains(taikhoan.getusername()) && checktk1.getpassword().contains(taikhoan.getpassword())) {
         		
         		//KIEM TRA  XEM CHUC VU == NHANVIEN
         		for(Object[] singleRowValues1 : tk2 ) {

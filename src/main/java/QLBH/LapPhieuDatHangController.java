@@ -129,7 +129,7 @@ public class LapPhieuDatHangController implements Initializable{
     private ComboBox<String> cbnhacungcap;
 	 
 	 @FXML
-	    private Button idDatHang;
+	 private Button idDatHang;
 	
 	 
 	
@@ -222,23 +222,51 @@ public class LapPhieuDatHangController implements Initializable{
 			 tbNCC.add(t1);
 		 }
 		 return tbNCC;				 
-	 }
+	 }	
 	 
 	 
 	 @FXML
 	    void DatHang(ActionEvent event) {
 		// String nhacungcap = cbnhacungcap.getValue();
+		// Sanpham sp = tableSP.getItems().get(tableSP.getSelectionModel().getSelectedIndex());
 		 String tensanpham1 = tf1.getText();
 		 int masanpham1 = Integer.parseInt(tf2.getText());
 		 String donvi1 = tf3.getText();
 		 String loaisanpham1 = tf6.getText();
 		 int donvitinh1 = Integer.parseInt(tf4.getText());
 		 int giatien1 = Integer.parseInt(tf5.getText());
-		 Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,donvitinh1,giatien1,loaisanpham1);
-		 tableSP1.getItems().add(sp);
+		 
+	//	 addItem(masanpham1, tensanpham1, loaisanpham1, donvi1, giatien1, donvitinh1);
+		 tableSP1.refresh();
+		// Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,donvitinh1,giatien1,loaisanpham1);
+		// tableSP1.getItems().add(sp);
 	//	 System.out.println(sp);
 		 
 	    }
+/*	 	public void addItem(int masanpham,String tensanpham, String loaisanpham, String donvi,int giatien,int donvitinh) {
+		    Sanpham entry = tableSP1.getItems().stream()
+		        .filter(item -> item.getTensanpham().equals(tensanpham))
+		        .findAny()
+		        .orElseGet(()-> {
+		             Sanpham newItem = new Sanpham(masanpham,tensanpham, loaisanpham,donvi,0, 0);
+		             tableSP1.getItems().add(newItem);
+		             return newItem ;
+		        });
+		    
+		    entry.setDonvitinh(entry.getDonvitinh() + donvitinh);
+	 	    entry.setGiatien(entry.getGiatien() + giatien);
+	 	   // TableSP.refresh();
+		   // entry.s
+		}*/
+	 	
+	 	
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 			
 			@Override
@@ -251,6 +279,7 @@ public class LapPhieuDatHangController implements Initializable{
 				giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 				donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
 			//	comboboxNCC();
+				
 				tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 				masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 				loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));

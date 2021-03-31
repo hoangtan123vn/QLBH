@@ -5,6 +5,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import org.hibernate.query.Query;
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction.SUM;
+
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -131,6 +133,16 @@ public class chucnangnhanvienController implements Initializable{
 			
 		 });
 	 }
+	
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 //
 	 private void thanhtien() {
 	      
@@ -280,9 +292,18 @@ public class chucnangnhanvienController implements Initializable{
 	//
 	private void event() {
 		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		
+		 int masanpham = sp.getMasanpham();
+		 String tensanpham = sp.getTensanpham();
+		 String loaisanpham = sp.getLoaisanpham();
+		 String donvi = sp.getDonvi();
+		 int giatien = sp.getGiatien();
+		 addItem(masanpham, tensanpham, loaisanpham, donvi, giatien, 1);
+		 
+		 
+		 
+		// TableView<Integer> table = ... 
 		// Sanpham sp1 = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		 if(!hoadon.getItems().contains(sp)) {
+		/* if(!hoadon.getItems().contains(sp)) {
 			 sp.setDonvitinh(1);
 			 hoadon.getItems().add(sp);
 			// thanhtien.setOnEditCommit(String.valueOf(sp.getDonvitinh() * sp.getGiatien()));
@@ -297,45 +318,7 @@ public class chucnangnhanvienController implements Initializable{
 		 
 		 else if(hoadon.getItems().contains(sp)) {
 			 sp.setDonvitinh(sp.getDonvitinh()+1);
-			 hoadon.refresh();
-			 
-			 thanhtien.setCellFactory(new Callback<TableColumn, TableCell>() {
-		            @Override
-		            public TableCell call(TableColumn p) {
-		                return new TableCell() {
-		                    @Override
-		                    protected void updateItem(Object item, boolean empty) {
-		                        super.updateItem(item, empty);
-		                        if (this.getTableRow() != null && item != null) {
-//		                            System.out.println(this.getTableRow().getItem().toString());
-//		                            setText((this.getTableRow().getIndex() + 1) + "");
-//		                              System.out.println(this.getTableRow().getIndex());
-//		                            System.out.println(getTableView().getItems().get(getTableRow().getIndex() -1));
-//		                            System.out.println();
-		                           
-		                            System.out.println("");
-//		                            setText(String.valueOf(Integer.parseInt(getTableRow().getItem().toString()) + Integer.parseInt(getTableView().getItems().get(pre).toString())));
-		                            Integer totalValue = new Integer(0);
-		                            
-		                            totalValue = sp.getDonvitinh() * sp.getGiatien();
-		                            
-
-		                            setText(String.valueOf(totalValue));
-		                            int sum = 0;
-		                            for (Sanpham thanhtien : hoadon.getItems()) {
-		                                sum = sum + (thanhtien.getGiatien()* thanhtien.getDonvitinh());
-		                            }
-		                            tongtien.setText(String.valueOf(sum));
-		                           //int tientrakhach = Integer.parseInt(khachtra.getText())- Integer.parseInt(tongtien.getText());
-		                         //    System.out.print(tientrakhach);
-//		                            setText(this.getTableRow().getItem().toString());
-		                        } else {
-		                            setText("");
-		                        }
-		                    }
-		                };
-		            }
-		        });
+			 hoadon.refresh();*/
 				tienthua.addEventHandler(KeyEvent.KEY_PRESSED, e->{
 					if(e.getCode() == KeyCode.ENTER) {
 						
@@ -343,7 +326,80 @@ public class chucnangnhanvienController implements Initializable{
 		                 System.out.print(tientrakhach);
 					}
 				});
-			 
+				hoadon.refresh();
 		 }
+	
+			
+	//	 int soluong = sp.getDonvitinh();
+	/*	int masanpham = sp.getMasanpham();
+		String tensanpham = sp.getTensanpham();
+		String loaisanpham = sp.getLoaisanpham();
+		String donvi = sp.getDonvi();
+		int giatien = sp.getGiatien();
+		//int giatien
+		 int soluong = 1 ;
+		 for(Sanpham sanpham : danhmuchoadon) {
+			 if(sanpham.getMasanpham()==sp.getMasanpham()) {
+				// int capnhatsoluong = 
+				 soluong = soluong +1;
+				 hoadon.getItems().set(hoadon.getItems().indexOf(sanpham),sanpham);
+				 hoadon.refresh();
+				//return;
+			 }
+		 }
+		 
+		 
+		 danhmuchoadon.add(new Sanpham(masanpham,tensanpham,loaisanpham,donvi,giatien,soluong));
+		 if(!danhmuchoadon.add(new Sanpham(masanpham,tensanpham,loaisanpham,donvi,giatien,soluong))) {
+		 }
+		 hoadon.setItems(danhmuchoadon);*/
+		 
+		 
+		 /*	 
+	 if(!hoadon.getItems().contains(sp)) {
+			// sp.setDonvitinh(1);
+			 hoadon.getItems().add(sp);
+			// thanhtien.setOnEditCommit(String.valueOf(sp.getDonvitinh() * sp.getGiatien()));
+			 hoadon.refresh();
+			// Callback cellFactory = null;
+			// xoaSP.setCellFactory(cellFactory);
+
+		
+		
+		 }*/
+		// int soluong = sp.getDonvitinh();
+		 
+		
+	public void addItem(int masanpham,String tensanpham, String loaisanpham, String donvi,int giatien,int donvitinh) {
+	    Sanpham entry = hoadon.getItems().stream()
+	        .filter(item -> item.getTensanpham().equals(tensanpham))
+	        .findAny()
+	        .orElseGet(()-> {
+	             Sanpham newItem = new Sanpham(masanpham,tensanpham, loaisanpham,donvi,giatien, 0);
+	             hoadon.getItems().add(newItem);
+	             return newItem ;
+	        });
+	    
+	    
+	    entry.setDonvitinh(entry.getDonvitinh() + donvitinh);
+ 	    entry.setGiatien(entry.getGiatien() + giatien);
+ 	   // TableSP.refresh();
+	   // entry.s
 	}
+	
+	/*   public void calculateTotal() {
+	        ObservableList<Sanpham> items = hoadon.getItems();
+
+	        double total = 0.0;
+
+	        for (Sanpham item : items) {
+	            total += item.getTotal();
+	        }
+
+	        lblTotal.setText("Total : " + total + "");
+	    }*/
+
+	
+	
+	
 }
