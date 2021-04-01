@@ -29,6 +29,7 @@
                   <Font name="System Bold Italic" size="14.0" />
                </font></Label>
             <ImageView fx:id="imgnhanvien" fitHeight="72.0" fitWidth="80.0" layoutX="71.0" layoutY="671.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="dangxuat" layoutX="71.0" layoutY="781.0" mnemonicParsing="false" onAction="#DangXuat" prefHeight="25.0" prefWidth="80.0" text="Đăng xuất" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="mainpane" layoutX="236.0" layoutY="-1.0" prefHeight="874.0" prefWidth="1358.0" />

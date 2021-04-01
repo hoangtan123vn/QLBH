@@ -101,6 +101,11 @@ public class GiaoDienQLController implements Initializable{
     void ChangeNhacungcap(ActionEvent event) {
 
     }
+    @FXML
+    private Button dangxuat;
+    
+    
+    
 
     @FXML
     void ChangeNhanvien(ActionEvent event) throws IOException {
@@ -158,7 +163,19 @@ public class GiaoDienQLController implements Initializable{
         }
         listView(conferences);
 	}*/
-
+    @FXML
+    void DangXuat(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("loginform.fxml"));
+        Parent tmp;
+		tmp = loader.load();
+		Scene scene = new Scene(tmp);
+	//	Stage stage = new Stage();
+		Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+    	stage.setScene(scene);
+    	stage.show();
+    }
+ 
     @FXML
     void ChangeThongKe(ActionEvent event) {
 

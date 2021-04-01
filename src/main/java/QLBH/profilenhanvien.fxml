@@ -80,7 +80,7 @@
          </font>
       </Text>
       <ImageView fx:id="imagenhanvien" fitHeight="109.0" fitWidth="164.0" layoutX="395.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="419.0" layoutY="257.0" text="Ảnh nhân viên">
+      <Label layoutX="420.0" layoutY="234.0" text="Ảnh nhân viên">
          <font>
             <Font size="18.0" />
          </font>
