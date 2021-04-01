@@ -11,7 +11,7 @@ import javafx.scene.control.DatePicker;
 
 @Entity
 @Table(name="nhanvien")
-public class Nhanvien implements Serializable {
+public class Nhanvien implements Serializable{
 	
 	
 //	private Taikhoannv taikhoannv;

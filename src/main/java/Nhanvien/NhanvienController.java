@@ -213,14 +213,14 @@ public class NhanvienController implements Initializable{
 		int sdtnv = (Integer.parseInt(sdt_nv.getText()));
 		int cmndnv = (Integer.parseInt(cmnd_nv.getText()));
 		String diachinv = diachi_nv.getText();
-	/*	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();*/
-		SessionFactory factory = HibernateUltis.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		/*SessionFactory factory = HibernateUltis.getSessionFactory();
 		 
-	      Session session = factory.getCurrentSession();
+	      Session session = factory.getCurrentSession();*/
 		try {
 			session.beginTransaction();
 			Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,

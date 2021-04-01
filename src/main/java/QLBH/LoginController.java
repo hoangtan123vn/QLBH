@@ -14,6 +14,8 @@ import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 
+import Nhanvien.NhanvienController;
+
 import javax.persistence.criteria.CriteriaQuery;
 
 import org.apache.derby.vti.Restriction.AND;
@@ -143,9 +145,10 @@ public class LoginController implements  Initializable{
                     Scene scene = new Scene(tmp);
                     Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
                     GiaoDienQLController quanly = loader.getController();
+              //      NhanvienController nvcontroller = loader.getController();
             /*        System.out.println(checktk1.getusername());
                     System.out.println(checktk1.getpassword());*/
-                    quanly.LoadData(taikhoan);
+                   quanly.LoadData(taikhoan);
                 		//GiaoDienQLController changeQl = 
                 	   stage.hide();
                    	   stage.setScene(scene);

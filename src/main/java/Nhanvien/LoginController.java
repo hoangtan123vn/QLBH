@@ -166,7 +166,7 @@ public class LoginController implements  Initializable{
                 	String matkhau1 = (String)singleRowValues1[1];
                 	String cvString1 = (String)singleRowValues1[2];
                 	if(tentaikhoan1.contains(checktk1.getusername())&& matkhau1.contains(checktk1.getpassword()) &&cvString1.contains("Nhân viên")) {
-                		Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml")) ; 
+                		Parent sampleparent = FXMLLoader.load(getClass().getResource("giaodienquanly.fxml")) ; 
                     	Scene scene = new Scene(sampleparent);
                     	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
                     	

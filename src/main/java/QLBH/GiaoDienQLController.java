@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -38,6 +40,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Alert.AlertType;
@@ -76,8 +81,11 @@ public class GiaoDienQLController implements Initializable{
     @FXML
     private Label username;
     
+    
+    
     @FXML
-    private Label tennhanvien;
+    private ImageView imgnhanvien;
+
         
     void setNhanvien(Nhanvien nhanvien) {
     	
@@ -104,9 +112,25 @@ public class GiaoDienQLController implements Initializable{
     	}
     }
     
-    public void LoadData(Taikhoannv taikhoan) {
-		username.setText(taikhoan.getusername());
-		tennhanvien.setText("Xin chao" + taikhoan.getNhanvien().getHovaten());
+   public void LoadData(Taikhoannv taikhoan) {
+    	
+		username.setText("Xin chào " +taikhoan.getusername());
+		username.setUnderline(true);
+		//tennhanvien.setText("Xin chao" + taikhoan.getNhanvien().getHovaten());
+		byte[] getImageInBytes = taikhoan.getNhanvien().getImage();
+		try {
+			FileOutputStream fos = new FileOutputStream(new File("photo1.jpg"));
+			fos.write(getImageInBytes);
+			fos.close();
+			Image image = new Image("file:photo1.jpg", imgnhanvien.getFitHeight(), imgnhanvien.getFitHeight(), true, true);
+			imgnhanvien.setImage(image);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		username.setOnMouseClicked(event ->  {
+			
+		});
+   }
     /*    user = data;
         if (user.getAvatar() == null) {
             avatar.setImage(new javafx.scene.image.Image("/img/avatar.png"));*/
@@ -114,12 +138,8 @@ public class GiaoDienQLController implements Initializable{
             File file = new File("src/main/resources/img/" + M_Image.getImageById(user.getAvatar()).getHashname() + ".png");
             avatar.setImage(new Image(file.toURI().toString()));
         }
-        listView(conferences);*/
-	}
-    
-    
-    
-    
+        listView(conferences);
+	}*/
 
     @FXML
     void ChangeThongKe(ActionEvent event) {
@@ -153,3 +173,5 @@ public class GiaoDienQLController implements Initializable{
 	}
 
 }
+
+
