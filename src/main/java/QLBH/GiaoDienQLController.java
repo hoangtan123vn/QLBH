@@ -129,6 +129,24 @@ public class GiaoDienQLController implements Initializable{
 		}
 		username.setOnMouseClicked(event ->  {
 			
+			try {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("profilenhanvien.fxml"));
+	            Parent tmp;
+				tmp = loader.load();
+				Scene scene = new Scene(tmp);
+				Stage stage = new Stage();
+			//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+	            ProfilesNhanvienController profiles = loader.getController();
+	            profiles.loadData(taikhoan);
+	            stage.hide();
+            	stage.setScene(scene);
+            	stage.show();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+            
 		});
    }
     /*    user = data;

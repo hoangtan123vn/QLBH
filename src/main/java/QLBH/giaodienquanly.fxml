@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="868.0" prefWidth="1592.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.GiaoDienQLController">
    <children>
-      <AnchorPane layoutX="-1.0" prefHeight="821.0" prefWidth="235.0" style="-fx-background-color: #d5f4e6;">
+      <AnchorPane layoutX="-1.0" prefHeight="868.0" prefWidth="235.0" style="-fx-background-color: #d5f4e6;">
          <children>
             <ImageView fitHeight="199.0" fitWidth="237.0" pickOnBounds="true" preserveRatio="true">
                <image>
