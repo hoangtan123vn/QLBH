@@ -2,20 +2,26 @@ package QLBH;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -59,10 +65,12 @@ import com.sun.xml.bind.v2.util.EditDistance;
 
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
+
 import QLBH.Nhanvien;
 public class KiemtrahangController implements Initializable{
 	 @FXML
-	    private TableView tableChitietKiemtra;
+	    private TableView<Chitietdathang> tableChitietKiemtra;
 
 	    @FXML
 	    private Label madathangkt;
@@ -85,6 +93,34 @@ public class KiemtrahangController implements Initializable{
 	    
 	    @FXML
 	    private Button select;
+
+	    @FXML
+	    private Button btphieunhap;
+
+	    @FXML
+	    private Button btphieutra;
+	    
+	    @FXML
+	    private TableColumn choice;
+
+	    
+	  //  ObservableList<String> CheckBoxList = FXCollections.observableArrayList();
+	    @FXML
+	    void TaoPhieuNhap(ActionEvent event) throws IOException {
+	    	
+	    	
+	    	Parent root = FXMLLoader.load(getClass().getResource("Phieunhaphang.fxml"));
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Them nhan vien");
+			stage.show();
+	    }
+
+	    @FXML
+	    void TaoPhieuTra(ActionEvent event) {
+
+	    }
 	    
 	    @FXML
 	    void selected(ActionEvent event)  {
@@ -101,10 +137,6 @@ public class KiemtrahangController implements Initializable{
 	    	
 	    }
 
-	    @FXML
-	    private TableColumn<Chitietdathang,Void> choice;
-
-	
 	    public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
 	    	String Phieudathang = phieudathang.getMadathang();
 	    	ObservableList<Chitietdathang> tableChitietkiemtra = FXCollections.observableArrayList();
@@ -163,8 +195,14 @@ public class KiemtrahangController implements Initializable{
 	 		    }
 	    	});
 	    	
+	    	
+	   // 	TableColumn<Chitietdathang,Boolean> choice = new TableColumn<Chitietdathang,Boolean>("Membership");
+	     	choice.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Boolean>("check"));
+	    	choice.setCellFactory(column -> new CheckBoxTableCell());
+	    	tableChitietKiemtra.setEditable(true);
+	    	tableChitietKiemtra.getColumns().add(choice);
 	    	tableChitietKiemtra.setItems(getChitietdathang(phieudathang));
-	    	tableChitietKiemtra.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+	    //	tableChitietKiemtra.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	    }
 	 /*
 	 private void Edit() {
