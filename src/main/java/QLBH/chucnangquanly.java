@@ -1018,10 +1018,10 @@ public class chucnangquanly extends Application implements Initializable {
 				}
 				String lowerCaseFilter = newValue.toLowerCase();
 
-				if (hoadon.getMahoadon().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				if (String.valueOf(hoadon.getMahoadon()).indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches username
-				} else if (hoadon.getThoigianmua().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches password
+			/*	} else if (hoadon.getThoigianmua().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches password*/
 				} else
 					return false; // Does not match.
 			});

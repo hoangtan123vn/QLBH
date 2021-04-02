@@ -1,5 +1,6 @@
 package QLBH;
 
+import java.awt.Checkbox;
 import java.io.Serializable;
 
 import javax.persistence.*;
@@ -24,6 +25,18 @@ public class Chitietdathang implements Serializable{
 	private Sanpham sanpham;
 	
 	private int soluong;
+
+	
+/*	public Chitietdathang(Phieudathang phieudathang, Sanpham sanpham, int soluong,Checkbox cbhang) {
+		super();
+
+		this.phieudathang=phieudathang;
+		this.sanpham=sanpham;
+		this.soluong = soluong;
+		this.cbhang = new Checkbox();
+	}*/
+	
+
 	
 	public Chitietdathang() {
 		super();

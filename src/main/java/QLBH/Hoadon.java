@@ -11,15 +11,15 @@ import QLBH.Nhanvien;
 @Table(name="hoadon")
 //@Access(AccessType.FIELD)
 public class Hoadon implements Serializable{
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id 
-	private String mahoadon;
-//	@GeneratedValue
+	private int mahoadon;
 	//@ManyToOne
 	//@PrimaryKeyJoinColumn(name ="makh")
 	//@PrimaryKeyJoinColumn(name=" manv")
 	//private Nhanvien nv;
 	//private KhachHang kh;
-	@OneToMany(mappedBy="hoadon")
+	@OneToMany(mappedBy="hoadon",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Chitiethoadon> chitiethoadon;
 //	@JoinColumn()
 	
@@ -47,7 +47,7 @@ public class Hoadon implements Serializable{
 	}
 	
 	
-	public Hoadon(String mahoadon, String thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
+	public Hoadon(int mahoadon, String thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
 		super();
 		//this.id=id;
 		this.mahoadon=mahoadon;
@@ -67,10 +67,10 @@ public class Hoadon implements Serializable{
 		this.khachhang = khachhang;
 	//	this.manv=manv;
 	}
-	public String getMahoadon() {
+	public int getMahoadon() {
 		return mahoadon;
 	}
-	public void setMahoadon(String mahoadon) {
+	public void setMahoadon(int mahoadon) {
 		this.mahoadon = mahoadon;
 	}
 	public String getThoigianmua() {

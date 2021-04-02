@@ -9,22 +9,16 @@ import javax.persistence.*;
 
 public class Chitiethoadon implements Serializable{
 	@Id
-/*	private String mahoadon;
-	@Id
-	private int masanpham*/
-	//@Id
-	@ManyToOne(cascade = CascadeType.ALL)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="mahoadon")	
 	private Hoadon hoadon;
 	
 	@Id
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name="masanpham")
 	//@JoinColumn(name="masanpham")
 	private Sanpham sanpham;
-	//@PrimaryKeyJoinColumn(name="masanpham")
-//	private int mahoadon;
-//	private int masanpham;
 	private int soluong;
 	
 	

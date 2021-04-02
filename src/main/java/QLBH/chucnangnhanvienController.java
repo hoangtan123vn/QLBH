@@ -430,8 +430,6 @@ public class chucnangnhanvienController implements Initializable{
 	void thanhtoan(ActionEvent event) {
 		//Sanpham sp = new Sanpham(10,"A","a","s",1000,2000);
 		//sp.getMasanpham();
-		
-
 
 		Alert alert = new Alert(AlertType.INFORMATION);
 		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
@@ -440,16 +438,17 @@ public class chucnangnhanvienController implements Initializable{
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 		Session session = sessionFactory.openSession();
-
 		int makh = Integer.parseInt(khachhangg.getText());
 		int tongtienmua = Integer.parseInt(tongtien.getText());
 		KhachHang khachhang = new KhachHang();
 		khachhang = session.get(KhachHang.class, makh);
+		//Nhanvien nhanvien = new Nhanvien();
+		//nhanvien = session.get(Nhanvien.class, 12);
 		Hoadon hoadonn = new Hoadon(null, tongtienmua, null,khachhang);
 		 try {
     		 session.beginTransaction();
     		 session.save(hoadonn);
-    		 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
+    	//	 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
     		 //session.save(chitiethoadon);
     		// session.save(spp);
     		 session.getTransaction().commit();
@@ -457,8 +456,8 @@ public class chucnangnhanvienController implements Initializable{
     		 alert.showAndWait();   
 		 }
 	    	catch (RuntimeException error){
-	    		
-	    		 alert.setContentText("Thêm hoa don thất bại   !");
+	    		System.out.println(error);
+	    		 alert.setContentText("Lỗi " + error);
 	    		 alert.showAndWait();
 	    		session.getTransaction().rollback();
 	    	}
@@ -467,12 +466,13 @@ public class chucnangnhanvienController implements Initializable{
 			int masp = sp.getMasanpham();
 			spp = session.get(Sanpham.class, masp);
 			int soluong = sp.getDonvitinh();
-			System.out.println(masp);
+			System.out.println(" masp : " +masp);
 			//System.out.println(masp);
 			Chitiethoadon  chitiethoadon = new Chitiethoadon(soluong,hoadonn,spp);
 			 try {
 	    		 session.beginTransaction();
 	    		// session.save(hoadonn);
+	    		 System.out.println(hoadonn.getMahoadon());
 	    		 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
 	    		 session.save(chitiethoadon);
 	    		// session.save(spp);
@@ -493,13 +493,14 @@ public class chucnangnhanvienController implements Initializable{
 	
 	// tim khach hang
 	@FXML
-	void timkhachhang(ActionEvent event) throws IOException{
-		Parent root = FXMLLoader.load(getClass().getResource("timkhachhang.fxml"));
-		Scene scene = new Scene(root);
-		Stage stage = new Stage();
-		stage.setScene(scene);
-		stage.show();
+	void timkhachhang(ActionEvent event){
+		timkhachhangController controller2 = new timkhachhangController(this);
+
+        // Show the new stage/window
+        controller2.showStage();
 	}
+	
+	
 	@FXML
 	void chinhsachkhuyenmai(ActionEvent event) {
 		

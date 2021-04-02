@@ -132,7 +132,7 @@ void read() {
         stage.close();
     }
     public ObservableList<Chitiethoadon> getChitietHoadon(Hoadon hoadon) {
-    	String mahoadon = hoadon.getMahoadon();
+    	int mahoadon = hoadon.getMahoadon();
     	ObservableList<Chitiethoadon> TableHD = FXCollections.observableArrayList();
     	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
