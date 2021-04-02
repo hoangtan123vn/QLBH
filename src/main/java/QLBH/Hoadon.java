@@ -5,6 +5,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+
+import qlbhh.qlbhh.KhachHang;
+import qlbhh.qlbhh.Nhanvien;
 @Entity
 @Table(name="hoadon")
 //@Access(AccessType.FIELD)
@@ -49,6 +52,16 @@ public class Hoadon implements Serializable{
 		super();
 		//this.id=id;
 		this.mahoadon=mahoadon;
+		this.thoigianmua=thoigianmua;
+		this.tonggia=tonggia;
+		this.nhanvien = nhanvien;
+		this.khachhang = khachhang;
+	//	this.manv=manv;
+	}
+	public Hoadon( String thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
+		super();
+		//this.id=id;
+		//this.mahoadon=mahoadon;
 		this.thoigianmua=thoigianmua;
 		this.tonggia=tonggia;
 		this.nhanvien = nhanvien;
