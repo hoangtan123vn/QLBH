@@ -12,8 +12,8 @@ import QLBH.Nhanvien;
 //@Access(AccessType.FIELD)
 public class Hoadon implements Serializable{
 	@Id 
-	private String mahoadon;
-//	@GeneratedValue
+	private int mahoadon;
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	//@ManyToOne
 	//@PrimaryKeyJoinColumn(name ="makh")
 	//@PrimaryKeyJoinColumn(name=" manv")
@@ -47,7 +47,7 @@ public class Hoadon implements Serializable{
 	}
 	
 	
-	public Hoadon(String mahoadon, String thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
+	public Hoadon(int mahoadon, String thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
 		super();
 		//this.id=id;
 		this.mahoadon=mahoadon;
@@ -67,10 +67,10 @@ public class Hoadon implements Serializable{
 		this.khachhang = khachhang;
 	//	this.manv=manv;
 	}
-	public String getMahoadon() {
+	public int getMahoadon() {
 		return mahoadon;
 	}
-	public void setMahoadon(String mahoadon) {
+	public void setMahoadon(int mahoadon) {
 		this.mahoadon = mahoadon;
 	}
 	public String getThoigianmua() {
