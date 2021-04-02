@@ -11,15 +11,15 @@ import QLBH.Nhanvien;
 @Table(name="hoadon")
 //@Access(AccessType.FIELD)
 public class Hoadon implements Serializable{
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id 
 	private int mahoadon;
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	//@ManyToOne
 	//@PrimaryKeyJoinColumn(name ="makh")
 	//@PrimaryKeyJoinColumn(name=" manv")
 	//private Nhanvien nv;
 	//private KhachHang kh;
-	@OneToMany(mappedBy="hoadon")
+	@OneToMany(mappedBy="hoadon",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Chitiethoadon> chitiethoadon;
 //	@JoinColumn()
 	

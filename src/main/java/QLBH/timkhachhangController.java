@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import javax.persistence.criteria.CriteriaQuery;
 
+import org.apache.derby.iapi.store.access.ConglomerateController;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -29,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +39,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class timkhachhangController implements Initializable{
@@ -70,6 +73,13 @@ public class timkhachhangController implements Initializable{
     @FXML
     private Button them;
     
+    @FXML
+    private AnchorPane ap;
+    
+    private Stage thisStage;
+    
+    private final chucnangnhanvienController CNNVController;
+    
     
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -86,6 +96,37 @@ public class timkhachhangController implements Initializable{
 		
 		
 	}
+	
+	public timkhachhangController(chucnangnhanvienController CNNVController ) {
+		 this.CNNVController = CNNVController;
+
+	        // Create the new stage
+	        thisStage = new Stage();
+
+	        // Load the FXML file
+	        try {
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("timkhachhang.fxml"));
+
+	            // Set this class as the controller
+	            loader.setController(this);
+
+	            // Load the scene
+	            thisStage.setScene(new Scene(loader.load()));
+
+	            // Setup the window/stage
+	            thisStage.setTitle("Chon khach hang");
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	}
+	
+	
+	public void showStage() {
+        thisStage.showAndWait();
+    }
+	
+	
 
 	public ObservableList<KhachHang> getKhachHang() {
 		ObservableList<KhachHang> tableKH = FXCollections.observableArrayList();
@@ -132,21 +173,41 @@ public class timkhachhangController implements Initializable{
 
 	 
 	 @FXML
-	 void them(ActionEvent e) throws IOException  {
+	 void them(ActionEvent event) throws IOException  {
 //		 	System.out.print("111");
-		 FXMLLoader loader = new FXMLLoader(getClass().getResource("chucnangnhanvien.fxml"));
-			Parent hoadonViewParent = loader.load();
-			Stage stage = new Stage();
-			Scene scene = new Scene(hoadonViewParent);
-			KhachHang selected = tableKH.getSelectionModel().getSelectedItem();
-			chucnangnhanvienController Controller = loader.getController();
+		//    FXMLLoader loader = new FXMLLoader(getClass().getResource("chucnangnhanvien.fxml"));
+		   // root= loader.load();
+		//	Parent hoadonViewParent = loader.load();
+			//Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+		//	Stage stage = new Stage();
+		//	Scene scene = new Scene(hoadonViewParent);
+	/*	 FXMLLoader loader = new FXMLLoader();  
+		 loader.setLocation(getClass().getResource("chucnangnhanvien.fxml"));
+		 Parent root = loader.load();
+		 chucnangnhanvienController nv = loader.getController();
+		 KhachHang selected = tableKH.getSelectionModel().getSelectedItem();
+		 nv.setkhachhang(selected);
+		
+			/*chucnangnhanvienController Controller = loader.getController();
 			Controller.setkhachhang(selected);
-			//stage.setTitle("Chi tiet hoa don");
+		
+			Stage stage1 = (Stage) ap.getScene().getWindow();
+       	 	stage1.close();*/
+			//Controller.setStageAnd
+			/*stage.setTitle("Chi tiet hoa don");
 			stage.setScene(scene);
-			stage.show();
+			stage.show();*/
 		  	//Stage stage = (Stage) back.getScene().getWindow();
-	        //stage.close();
+	        //stage.close();*/
+		 
+		 
+		 
+		 KhachHang selected = tableKH.getSelectionModel().getSelectedItem();
+		 CNNVController.setkhachhang(selected);
+		 Stage stage1 = (Stage) ap.getScene().getWindow();
+    	 stage1.close();
 
 	 }
+	
 }
 
