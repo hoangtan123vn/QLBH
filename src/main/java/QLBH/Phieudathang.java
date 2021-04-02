@@ -102,6 +102,12 @@ public class Phieudathang implements Serializable {
 	}
 
 
+	public void setChitietdathang(List<Chitietdathang> chitietdathang) {
+		this.chitietdathang = chitietdathang;
+	}
+
+	
+
 	/*public Nhanvien getNhanvien() {
 		return nhanvien;
 	}

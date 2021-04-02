@@ -148,6 +148,7 @@ public class LoginController implements  Initializable{
               //      NhanvienController nvcontroller = loader.getController();
             /*        System.out.println(checktk1.getusername());
                     System.out.println(checktk1.getpassword());*/
+                  // quanly.ChangeThongKe(event);
                    quanly.LoadData(taikhoan);
                 		//GiaoDienQLController changeQl = 
                 	   stage.hide();

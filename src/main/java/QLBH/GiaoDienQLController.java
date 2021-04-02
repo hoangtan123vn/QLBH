@@ -46,6 +46,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -177,13 +178,13 @@ public class GiaoDienQLController implements Initializable{
     }
  
     @FXML
-    void ChangeThongKe(ActionEvent event) {
-
+    void ChangeThongKe(ActionEvent event) throws IOException {
+   
     }
 
     @FXML
     void changeBanHang(ActionEvent event) {
-
+    	
     }
 
     @FXML

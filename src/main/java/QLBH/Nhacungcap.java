@@ -3,6 +3,7 @@ package QLBH;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,11 @@ public class Nhacungcap implements Serializable{
 	private Integer sodienthoai;
 	private String email;
 	private Integer sotienno;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true,mappedBy = "nhacungcap")
+	private List<Phieudathang> phieudathang;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true,mappedBy = "nhacungcap")
+	private List<Phieunhaphang> phieunhaphang;
 	//private Button xoa;
 	
 	public Nhacungcap() {
@@ -133,6 +138,32 @@ public class Nhacungcap implements Serializable{
 		return String.valueOf(mancc);
 	}
 
+
+
+	public List<Phieudathang> getPhieudathang() {
+		return phieudathang;
+	}
+
+
+
+	public void setPhieudathang(List<Phieudathang> phieudathang) {
+		this.phieudathang = phieudathang;
+	}
+
+
+
+	public List<Phieunhaphang> getPhieunhaphang() {
+		return phieunhaphang;
+	}
+
+
+
+	public void setPhieunhaphang(List<Phieunhaphang> phieunhaphang) {
+		this.phieunhaphang = phieunhaphang;
+	}
+
+	
+	
 
 
 }
