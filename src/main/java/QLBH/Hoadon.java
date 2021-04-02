@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import qlbhh.qlbhh.KhachHang;
-import qlbhh.qlbhh.Nhanvien;
+import QLBH.KhachHang;
+import QLBH.Nhanvien;
 @Entity
 @Table(name="hoadon")
 //@Access(AccessType.FIELD)
