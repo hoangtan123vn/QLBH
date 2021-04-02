@@ -17,7 +17,7 @@ public class QLBH extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 	//	Parent root = FXMLLoader.load(getClass().getResource("/Nhanvien/nhanvien.fxml"));
-		Parent root = FXMLLoader.load(getClass().getResource("loginform.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
 	//	Parent root = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml"));
 		Scene scene = new Scene(root);
 		stage.setScene(scene);

@@ -24,7 +24,7 @@ public class Phieudathang implements Serializable {
 	@JoinColumn(name="mancc")
 	@GeneratedValue
 	private Nhacungcap nhacungcap;
-	
+
 	/*@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="manv")
 	@GeneratedValue

@@ -16,6 +16,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -81,6 +83,28 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
     	tfnoht.setText(String.valueOf(nhacungcap.getSotienno()));
     	java.util.Date date=new java.util.Date();  
     	tfdate.setText(String.valueOf(date));
+    	tfthanhtoan.addEventHandler(KeyEvent.KEY_PRESSED, e->{
+			if(e.getCode() == KeyCode.ENTER) {
+				if( Integer.parseInt(tfthanhtoan.getText()) < Integer.parseInt(tfnoht.getText())) {
+				
+                 
+                 khachtra.setText("");
+                 thongbao.setText("Khong Du Tien, Nhap lai");
+                 
+
+                 
+                 
+			}
+				else {
+					 float tiengiam = Float.parseFloat(giamgia.getText())/100;
+					 float tongtiengiam = Float.parseFloat(tongtien.getText())*(1-tiengiam);
+					 float tientrakhach = Float.parseFloat(khachtra.getText())- tongtiengiam;
+					// System.out.print(tiengiam);
+	                // System.out.print(tongtiengiam);
+	                 tienthua.setText(String.valueOf(tientrakhach));
+				}
+			}
+		});
     }
     
     
