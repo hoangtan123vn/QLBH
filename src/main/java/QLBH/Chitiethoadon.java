@@ -20,6 +20,7 @@ public class Chitiethoadon implements Serializable{
 	//@JoinColumn(name="masanpham")
 	private Sanpham sanpham;
 	private int soluong;
+	private double thanhtien;
 	
 	
 	public Chitiethoadon(int soluong,Hoadon hoadon,Sanpham sanpham) {
@@ -29,6 +30,25 @@ public class Chitiethoadon implements Serializable{
 		this.sanpham=sanpham;
 	
 	}
+	public Chitiethoadon(int soluong,Hoadon hoadon,Sanpham sanpham,Double thanhtien) {
+		super();
+		this.soluong=soluong;
+		this.hoadon= hoadon;
+		this.sanpham=sanpham;
+		this.thanhtien=thanhtien;
+	}
+	
+	public Chitiethoadon(int soluong,Sanpham sanpham,Double thanhtien) {
+		super();
+		this.soluong=soluong;
+		//this.hoadon= hoadon;
+		this.sanpham=sanpham;
+		this.thanhtien=thanhtien;
+	}
+	
+	
+	
+	
 	
 
 /*	public String getMahoadon() {
@@ -49,10 +69,21 @@ public class Chitiethoadon implements Serializable{
 	public void setMasanpham(int masanpham) {
 		this.masanpham = masanpham;
 	}*/
+	
 
 
 	public int getSoluong() {
 		return soluong;
+	}
+
+
+	public double getThanhtien() {
+		return thanhtien;
+	}
+
+
+	public void setThanhtien(double thanhtien) {
+		this.thanhtien = thanhtien;
 	}
 
 

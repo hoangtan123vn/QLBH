@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.URL;
 import org.hibernate.query.Query;
 
+import com.sun.xml.bind.v2.util.QNameMap.Entry;
+
 import QLBH.*;
 
 import java.util.ArrayList;
@@ -94,13 +96,13 @@ public class BanHangController implements Initializable{
 
 
     @FXML
-    private TableView <Sanpham> hoadon;
+    private TableView <Chitiethoadon> hoadon;
 
     @FXML
     private TableColumn giatien;
 
     @FXML
-    private TableColumn masanpham1;
+    private TableColumn<Chitiethoadon, Sanpham> masanpham1;
 
     @FXML
     private TableColumn loaisanpham;
@@ -149,7 +151,7 @@ public class BanHangController implements Initializable{
 		 TableSP.setOnMouseClicked(event -> {
 			 //
 			 event();
-			 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+			// Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
 		//	 System.out.println(sp.getDonvitinh());
 			//tongtien.setText(Integer.toString(sp.getGiatien()));
 			 
@@ -200,14 +202,15 @@ public class BanHangController implements Initializable{
 			    		 alert.showAndWait();
 			    		session.getTransaction().rollback();
 			    	}
-				for (Sanpham sp : hoadon.getItems()) {
+				for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
 					Sanpham spp= new Sanpham();
-					int masp = sp.getMasanpham();
-					spp = session.get(Sanpham.class, masp);
-					int soluong = sp.getDonvitinh();
-					System.out.println(" masp : " +masp);
+					int masp = chitiethoadon123.getSanpham().getMasanpham();
+					spp= session.get(Sanpham.class, masp);
+					int soluong = chitiethoadon123.getSoluong();
+					double thanhtien = chitiethoadon123.getThanhtien();
+				//	System.out.println(" masp : " +masp);
 					//System.out.println(masp);
-					Chitiethoadon  chitiethoadon = new Chitiethoadon(soluong,hoadonn,spp);
+					Chitiethoadon  chitiethoadon = new Chitiethoadon(soluong,hoadonn,spp,thanhtien);
 					 try {
 			    		 session.beginTransaction();
 			    		// session.save(hoadonn);
@@ -232,7 +235,7 @@ public class BanHangController implements Initializable{
 		   
 	 }
 //
-	 private void thanhtien() {
+	/* private void thanhtien() {
 	      
 
 	        Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
@@ -250,28 +253,28 @@ public class BanHangController implements Initializable{
 	            }
 	        };
 	        xoaSP.setCellFactory(cellFactory);
-	 }
+	 }*/
 	 
 	 
 	 private void ButtonXoaSP() {
 	      
 
-	        Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
+	        Callback<TableColumn<Chitiethoadon, Void>, TableCell<Chitiethoadon, Void>> cellFactory = new Callback<TableColumn<Chitiethoadon, Void>, TableCell<Chitiethoadon, Void>>() {
 	            @Override
-	            public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
-	                final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
+	            public TableCell<Chitiethoadon, Void> call(final TableColumn<Chitiethoadon, Void> param) {
+	                final TableCell<Chitiethoadon, Void> cell = new TableCell<Chitiethoadon, Void>() {
 
 	                    private final Button btn = new Button("Xóa Sản Phẩm");
 
 	                    {
 	                    	///////////////////////////
 	                    btn.setOnAction((ActionEvent event) -> {
-	                    	 Sanpham sp = getTableView().getItems().get(getIndex());
-	                    	 if(hoadon.getItems().contains(sp)) {
-	               			 sp.setDonvitinh(sp.getDonvitinh()-1);
+	                    	Chitiethoadon chitiethoadon = getTableView().getItems().get(getIndex());
+	                    	 if(hoadon.getItems().contains(chitiethoadon)) {
+	               			 chitiethoadon.setSoluong(chitiethoadon.getSoluong()-1);
 	               			 hoadon.refresh();
-	               			 if(sp.getDonvitinh()==0) {
-	               				 hoadon.getItems().remove(sp);
+	               			 if(chitiethoadon.getSoluong()==0) {
+	               				 hoadon.getItems().remove(chitiethoadon);
 	               				 hoadon.refresh();
 	               			 }
 	               		 }
@@ -341,20 +344,81 @@ public class BanHangController implements Initializable{
 		TableSP.setItems(getSanpham());
 		
 	// 
-		masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		tensanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
-		loaisanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
-		donvitnh1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
-		giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
+	//	masanpham1.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Sanpham>("sanpham"));
+		masanpham1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		masanpham1.setCellFactory(hoadon -> new TableCell<Chitiethoadon, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getMasanpham()));
+				}
+			}
+
+		});
+		
+		tensanpham1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		tensanpham1.setCellFactory(hoadon -> new TableCell<Chitiethoadon, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item.getTensanpham());
+				}
+			}
+
+		});
+		
+		
+		
+		loaisanpham1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		loaisanpham1.setCellFactory(hoadon -> new TableCell<Chitiethoadon, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item.getLoaisanpham());
+				}
+			}
+
+		});
+		donvitnh1.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Integer>("soluong"));
+
+		giatien1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		giatien1.setCellFactory(hoadon -> new TableCell<Chitiethoadon, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getGiatien()));
+				}
+			}
+
+		});
+		donvi1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		donvi1.setCellFactory(hoadon -> new TableCell<Chitiethoadon, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item.getDonvi());
+				}
+			}
+
+		});
 		ButtonXoaSP();
-		thanhtien.setCellValueFactory(new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
-	            @Override
-	            public ObservableValue call(TableColumn.CellDataFeatures p) {
-	            	 
-	                return new ReadOnlyObjectWrapper(p.getValue());
-	            }
-	        });
+		
+		thanhtien.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Double>("thanhtien"));
 		
 //	        
 		khachtra.addEventHandler(KeyEvent.KEY_PRESSED, e->{
@@ -404,28 +468,34 @@ public class BanHangController implements Initializable{
 	//
 	private void event() {
 		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+		 
+		 /*	 int soluong = sp.getDonvitinh();
+		 Chitiethoadon chitiethoadon = new Chitiethoadon(soluong,sp,0.0);
+	//	int masanpham = sp.getMasanpham();
 		
 		// Sanpham sp1 = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		 if(!hoadon.getItems().contains(sp)) {
-			 sp.setDonvitinh(1);
-			 hoadon.getItems().add(sp);
+		 if(!hoadon.getItems().contains(sp.getTensanpham())) {
+			 chitiethoadon.setSoluong(1);
+			 hoadon.getItems().add(chitiethoadon);
 			// thanhtien.setOnEditCommit(String.valueOf(sp.getDonvitinh() * sp.getGiatien()));
 			 hoadon.refresh();
 			// Callback cellFactory = null;
 			// xoaSP.setCellFactory(cellFactory);
-			 tinhtongtien();
+			// tinhtongtien();
 		
 		 }
 		 
 		 
-		 else if(hoadon.getItems().contains(sp)) {
-			 sp.setDonvitinh(sp.getDonvitinh()+1);
+		 else if(hoadon.getItems().contains(chitiethoadon)) {
+			chitiethoadon.setSoluong(chitiethoadon.getSoluong()+1);
 			 hoadon.refresh();
-			 tinhtongtien();
+			// tinhtongtien();
 
-		 }
+		 }*/
+		 addItem(0, sp, 0.0);
+		 hoadon.refresh();
 	}
-	public void tinhtongtien() {
+/*	public void tinhtongtien() {
 		Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
 		 thanhtien.setCellFactory(new Callback<TableColumn, TableCell>() {
 	            @Override
@@ -462,7 +532,37 @@ public class BanHangController implements Initializable{
 	                };
 	            }
 	        }); 
+	}*/
+	public void addItem(int soluong,Sanpham sanpham,double thanhtien) {
+	    Chitiethoadon entry = hoadon.getItems().stream()
+	        .filter(item -> item.getSanpham().equals(sanpham))
+	        .findAny()
+	        .orElseGet(()-> {
+	           //  Sanpham newItem = new Sanpham(masanpham,tensanpham, loaisanpham,donvi,0, 0);
+	            Chitiethoadon newItem = new Chitiethoadon(soluong,sanpham,thanhtien);
+	        	hoadon.getItems().add(newItem);
+	            return newItem ;
+	        });
+	    entry.setSoluong(entry.getSoluong()+1);
+	//    entry.setDonvitinh(entry.getDonvitinh() + donvitinh);
+ 	 //   entry.setGiatien(entry.getGiatien() + giatien);
+	    entry.setThanhtien(entry.getSanpham().getGiatien()*entry.getSoluong());
+	    int sum = 0;
+        for (Chitiethoadon chitiethoadon : hoadon.getItems()) {
+            sum = sum + (chitiethoadon.getSanpham().getGiatien()*chitiethoadon.getSoluong());
+        }
+        tongtien.setText(String.valueOf(sum));
+ 	   // TableSP.refresh();
+	   // entry.s
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	//tim kiem 
 	@FXML
 	private TextField Timkiem;
