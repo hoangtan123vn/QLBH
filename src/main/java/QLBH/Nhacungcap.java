@@ -50,6 +50,7 @@ public class Nhacungcap implements Serializable{
 	public Nhacungcap(Integer sodienthoai) {
 		this.sodienthoai = sodienthoai;
 	}
+	
 
 	public Nhacungcap(Integer mancc, String tenncc, String diachi, Integer sodienthoai, String email,Integer sotienno) {
 		super();
@@ -85,6 +86,8 @@ public class Nhacungcap implements Serializable{
 		this.email = email;
 		this.sotienno = sotienno;
 	}
+	
+	
 
 	public Integer getSotienno() {
 		return sotienno;

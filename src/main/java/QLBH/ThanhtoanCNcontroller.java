@@ -1,7 +1,9 @@
 package QLBH;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,6 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import javafx.stage.FileChooser;
 
 import java.util.List;
@@ -47,77 +50,137 @@ import com.google.protobuf.StringValue;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
+
 public class ThanhtoanCNcontroller extends Application implements Initializable {
 	@FXML
-    private Label tfnoht;
+	private Label tfnoht;
 
-    @FXML
-    private TextField tfthanhtoan;
+	@FXML
+	private TextField tfthanhtoan;
 
-    @FXML
-    private Label tfdate;
+	@FXML
+	private Label tfdate;
 
-    @FXML
-    private Label tfnoconlai;
+	@FXML
+	private Label tfnoconlai;
 
-    @FXML
-    private Button bttaophieu;
+	@FXML
+	private Button bttaophieu;
 
-    @FXML
-    private Button btquaylai;
+	@FXML
+	private Button btquaylai;
 
-    @FXML
-    private ComboBox cbb;
+	@FXML
+	private ComboBox cbb;
+
+	@FXML
+	private Label tenncc;
+	
+	@FXML
+	private Label sodienthoai;
+	
+	@FXML
+	private Label email;
+	
+	@FXML
+	private Label diachi;
+
+	@FXML
+	private Label thongbao;
+
+	@FXML
+	void taophieuthanhtoan(ActionEvent event) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Them Nha cung cap");
+		 
+    	//Integer mancc = Integer.parseInt(tfncc.getText());
+    	String ten = tenncc.getText();
+    	Integer sotienno = Integer.parseInt(tfnoconlai.getText());
+    	String noio = diachi.getText();
+    	Integer sdt = Integer.parseInt(sodienthoai.getText());;
+    	String em = email.getText();
     
-    @FXML
-    private Label tenncc;
-    
-    @FXML
-    void close(ActionEvent event) {
-    	Stage stage = (Stage) btquaylai.getScene().getWindow();
-   	 	stage.close();
-    }
-    
-    public void setThanhtoan(Nhacungcap nhacungcap) {
-    	tenncc.setText(nhacungcap.getTenncc());
-    	tfnoht.setText(String.valueOf(nhacungcap.getSotienno()));
-    	java.util.Date date=new java.util.Date();  
-    	tfdate.setText(String.valueOf(date));
-    	tfthanhtoan.addEventHandler(KeyEvent.KEY_PRESSED, e->{
-			if(e.getCode() == KeyCode.ENTER) {
-				if( Integer.parseInt(tfthanhtoan.getText()) < Integer.parseInt(tfnoht.getText())) {
-				
-                 
-                 khachtra.setText("");
-                 thongbao.setText("Khong Du Tien, Nhap lai");
-                 
+    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+				.build();
+		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+		Session session = sessionFactory.openSession();
+		
+		
+    	try {		
+    		session.beginTransaction();
+			 Nhacungcap nv = new Nhacungcap();
+			// nv = session.get(Nhacungcap.class, nv.getMancc());
+			
+			
+				session.save(nv);
+			
+    		 session.getTransaction().commit();
+    		 //Nhacungcap ncc = new Nhacungcap(tenncc,diachi,sodienthoai,email);
+    		 Stage stage = (Stage) bttaophieu.getScene().getWindow();
+    		 
+        	 stage.close();
+        	 alert.setContentText("Them nha cung cap thanh cong !");
+        	 alert.showAndWait();    
+        	 
+        	 
+        	chucnangquanly.getInstance().ReloadNHACUNGCAP();
+        	
+    	}
+    	catch (RuntimeException error){
+    		 alert.setContentText("Them nha cung cap that bai  !");
+    		 alert.showAndWait();
+    		session.getTransaction().rollback();
+    	}
+	}
 
-                 
-                 
-			}
-				else {
-					 float tiengiam = Float.parseFloat(giamgia.getText())/100;
-					 float tongtiengiam = Float.parseFloat(tongtien.getText())*(1-tiengiam);
-					 float tientrakhach = Float.parseFloat(khachtra.getText())- tongtiengiam;
-					// System.out.print(tiengiam);
-	                // System.out.print(tongtiengiam);
-	                 tienthua.setText(String.valueOf(tientrakhach));
+	@FXML
+	void close(ActionEvent event) {
+		Stage stage = (Stage) btquaylai.getScene().getWindow();
+		stage.close();
+	}
+
+	public void setThanhtoan(Nhacungcap nhacungcap) {
+		tenncc.setText(nhacungcap.getTenncc());
+		tfnoht.setText(String.valueOf(nhacungcap.getSotienno()));
+		java.util.Date date = new java.util.Date();
+		tfdate.setText(String.valueOf(date));
+		tfthanhtoan.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+			if (e.getCode() == KeyCode.ENTER) {
+				if (Integer.parseInt(tfthanhtoan.getText()) > Integer.parseInt(tfnoht.getText())) {
+
+					tfthanhtoan.setText("");
+					thongbao.setVisible(true);
+					thongbao.setText("Không hợp lệ! Mời Nhập Lại!!!");
+					tfnoconlai.setText(" ");
+
+				} else {
+
+					tfnoconlai.setText(String
+							.valueOf(Integer.parseInt(tfnoht.getText()) - Integer.parseInt(tfthanhtoan.getText())));
+					tfnoconlai.setVisible(true);
+					thongbao.setVisible(false);
 				}
 			}
 		});
-    }
-    
-    
+		diachi.setText(nhacungcap.getDiachi());
+		sodienthoai.setText(String.valueOf(nhacungcap.getSodienthoai()));
+		email.setText(nhacungcap.getEmail());
+		
+	}
+	
+	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void start(Stage arg0) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
