@@ -28,6 +28,7 @@ import javafx.stage.FileChooser;
 
 import java.util.List;
 import java.awt.Desktop;
+import java.awt.Dialog;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -71,15 +72,15 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	private Button btquaylai;
 
 	@FXML
-	private ComboBox cbb;
+	private ComboBox<String> cbb;
 
 	@FXML
 	private Label tenncc;
-	
+
 	@FXML
 	private Label thongbao;
-
-	
+	@FXML
+	private Label thongbao1;
 
 	@FXML
 	void close(ActionEvent event) {
@@ -93,22 +94,54 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 		java.util.Date date = new java.util.Date();
 		tfdate.setText(String.valueOf(date));
 		tfthanhtoan.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.ENTER) {
-				if (Integer.parseInt(tfthanhtoan.getText()) > Integer.parseInt(tfnoht.getText())) {
-
-					tfthanhtoan.setText("");
+			
+				try {
+					if (e.getCode() == KeyCode.ENTER) {
+						if (Integer.parseInt(tfthanhtoan.getText()) > Integer.parseInt(tfnoht.getText()) & cbb.getValue()=="Chuyển Khoản" ) {
+	
+							tfthanhtoan.setText("");
+							thongbao.setVisible(true);
+							thongbao.setText("Không hợp lệ! Mời Nhập Lại!!!");
+							tfnoconlai.setText(" ");
+	
+						} else if (Integer.parseInt(tfthanhtoan.getText()) <= Integer.parseInt(tfnoht.getText()) & cbb.getValue()=="Chuyển Khoản") {
+	
+							tfnoconlai.setText(String
+									.valueOf(Integer.parseInt(tfnoht.getText()) - Integer.parseInt(tfthanhtoan.getText())));
+							tfnoconlai.setVisible(true);
+							thongbao.setVisible(false);
+							thongbao1.setVisible(false);
+						}
+						
+						
+					}
+				} catch (Exception e2) {
+					// TODO: handle exception
+					if(cbb.getValue() == "Trực Tiếp") {
+						thongbao1.setText("");
+						thongbao1.setVisible(true);
+						thongbao1.setText("Mời bạn gặp nhân viên A");
+						thongbao.setVisible(true);
+						thongbao.setText("Bạn không thể thấy kết quả khi nhập vào đây");
+						tfnoconlai.setText("");
+					}
+					else if(cbb.getValue() == "Chuyển Khoản") {
+						thongbao1.setText("");
+						thongbao1.setVisible(true);
+						thongbao1.setText("Mời bạn nhập vào ô thanh toán");
+						thongbao.setVisible(true);
+						//thongbao1.setVisible(true);
+						thongbao.setText("Bạn không được để trống và phải nhập số ");
+						
+					}
+					else {
 					thongbao.setVisible(true);
-					thongbao.setText("Không hợp lệ! Mời Nhập Lại!!!");
-					tfnoconlai.setText(" ");
-
-				} else {
-
-					tfnoconlai.setText(String
-							.valueOf(Integer.parseInt(tfnoht.getText()) - Integer.parseInt(tfthanhtoan.getText())));
-					tfnoconlai.setVisible(true);
-					thongbao.setVisible(false);
+					//thongbao1.setVisible(true);
+					thongbao.setText("Bạn không được để trống và phải nhập số ");
+					//thongbao1.setText("Nhớ chọn phương thức Chuyển Khoản và không được để trống  nha nha nha!!!!");
+					}
 				}
-			}
+			
 		});
 		bttaophieu.setOnMouseClicked(event ->  {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -158,9 +191,22 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 					"Trực Tiếp",
 					"Chuyển Khoản"
 				);
+		
+		cbb.getSelectionModel().select("Chuyển Khoản");
+	
+				
+//					if (cbb.getValue()=="Chuyển Khoản") {
+//						thongbao1.setVisible(true);
+//						thongbao1.setText("Mời bạn nhập vào ô thanh toán");
+//
+//					} else {
+//						thongbao1.setVisible(true);
+//						thongbao1.setText("Bạn nên tới quầy lễ tân ");
+//					}				
+	
+
+
 	}
-	
-	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

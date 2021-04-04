@@ -739,7 +739,7 @@ public class chucnangquanly extends Application implements Initializable {
 								Scene scene = new Scene(CapnhatSP);
 								// Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
 								Sanpham sp = getTableView().getItems().get(getIndex());
-							detailsanphamcontroller CapNhatSP = loader.getController();
+								detailsanphamcontroller CapNhatSP = loader.getController();
 								CapNhatSP.setSanPham(sp);
 								stage.setTitle("Cập nhật sản phẩm");
 								stage.setScene(scene);
@@ -747,7 +747,7 @@ public class chucnangquanly extends Application implements Initializable {
 							} catch (IOException e) {
 
 								e.printStackTrace();
-								
+
 							}
 
 						});
@@ -1020,8 +1020,10 @@ public class chucnangquanly extends Application implements Initializable {
 
 				if (String.valueOf(hoadon.getMahoadon()).indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches username
-			/*	} else if (hoadon.getThoigianmua().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches password*/
+					/*
+					 * } else if (hoadon.getThoigianmua().toLowerCase().indexOf(lowerCaseFilter) !=
+					 * -1) { return true; // Filter matches password
+					 */
 				} else
 					return false; // Does not match.
 			});
@@ -1122,19 +1124,19 @@ public class chucnangquanly extends Application implements Initializable {
 				String lowerCaseFilter = newValue.toLowerCase();
 				if (String.valueOf(phieudathang.getMadathang()).indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches username
-			
+
 				} else if (phieudathang.getThoigiandat().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches password
 				} else
 					return false; // Does not match.
-		
-		});
 
-		SortedList<Phieudathang> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(tablePhieuDatHang.comparatorProperty());
-		tablePhieuDatHang.setItems(sortedData);
-		
-	});
+			});
+
+			SortedList<Phieudathang> sortedData = new SortedList<>(filteredData);
+			sortedData.comparatorProperty().bind(tablePhieuDatHang.comparatorProperty());
+			tablePhieuDatHang.setItems(sortedData);
+
+		});
 	}
 
 	// PHIẾU ĐẶT HÀNG
@@ -1211,8 +1213,6 @@ public class chucnangquanly extends Application implements Initializable {
 	private ScrollBar verticalPNH;
 
 	ObservableList<Phieunhaphang> listPNH;
-	
-	
 
 	@FXML
 	/*
@@ -1393,7 +1393,6 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return TableQLSP;
 	}
-	
 
 /////////////////////////////AUTHOR :LÊ QUANG SANG /////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : NHÀ CUNG CẤP  ///////////*************************
@@ -1424,10 +1423,10 @@ public class chucnangquanly extends Application implements Initializable {
 
 	@FXML
 	private TableColumn thoigianno;
-	
+
 	@FXML
-	private TableColumn<Nhacungcap,Void> deleteNCC;
-	
+	private TableColumn<Nhacungcap, Void> deleteNCC;
+
 	private void ButtonXoaNCC() {
 
 		Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>> cellFactory = new Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>>() {
@@ -1508,7 +1507,6 @@ public class chucnangquanly extends Application implements Initializable {
 
 	private ObservableList<Nhacungcap> nhacungcapdata;
 
-
 	// Nhà Cung Cấp
 	public ObservableList<Nhacungcap> getNhacungcap() {
 		ObservableList<Nhacungcap> TableNhacungcap = FXCollections.observableArrayList();
@@ -1528,7 +1526,7 @@ public class chucnangquanly extends Application implements Initializable {
 		}
 		return TableNhacungcap;
 	}
-	
+
 	public void ReloadNHACUNGCAP() {
 		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
 
@@ -1561,19 +1559,19 @@ public class chucnangquanly extends Application implements Initializable {
 	@FXML
 	void Thanhtoancongno(ActionEvent event) {
 		try {
-	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(getClass().getResource("thanhtoancongno.fxml"));
-	        Parent root1 = (Parent) loader.load();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("thanhtoancongno.fxml"));
+			Parent root1 = (Parent) loader.load();
 			Stage stage = new Stage();
-	        ThanhtoanCNcontroller controller = loader.getController();
-	        Nhacungcap selected = tableNhacungcap.getSelectionModel().getSelectedItem();
-	        controller.setThanhtoan(selected);
-	        stage.setScene(new Scene(root1));
-	        stage.setTitle("Tạo nhà cung cấp");
+			ThanhtoanCNcontroller controller = loader.getController();
+			Nhacungcap selected = tableNhacungcap.getSelectionModel().getSelectedItem();
+			controller.setThanhtoan(selected);
+			stage.setScene(new Scene(root1));
+			stage.setTitle("Tạo nhà cung cấp");
 			stage.show();
-			
+
 			//
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -1583,7 +1581,6 @@ public class chucnangquanly extends Application implements Initializable {
 	void Reloadncc(ActionEvent event) {
 		ReloadNHACUNGCAP();
 	}
-
 
 /////////////////////////////AUTHOR :TỪ CHÍ HUY/////////////////////////************************** 
 //////////////////////////////////CHỨC NĂNG : BÁN HÀNG  ///////////*************************
@@ -1884,8 +1881,8 @@ public class chucnangquanly extends Application implements Initializable {
 				person = event.getRowValue();
 				person = session.get(Nhacungcap.class, person.getMancc());
 				person.setSotienno(event.getNewValue());
-				Integer i = (Integer)session.save(person);
-				System.out.println("Mã định danh đã tạo:"+ i);
+				Integer i = (Integer) session.save(person);
+				System.out.println("Mã định danh đã tạo:" + i);
 				session.getTransaction().commit();
 				ReloadNHACUNGCAP();
 			}
@@ -1912,8 +1909,9 @@ public class chucnangquanly extends Application implements Initializable {
 				ReloadNHACUNGCAP();
 			}
 		});
-		
-		//deleteNCC.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Button>("xoa"));
+
+		// deleteNCC.setCellValueFactory(new PropertyValueFactory<Nhacungcap,
+		// Button>("xoa"));
 		ButtonXoaNCC();
 		tableNhacungcap.setItems(getNhacungcap());
 		tableNhacungcap.setEditable(true);
