@@ -1120,20 +1120,21 @@ public class chucnangquanly extends Application implements Initializable {
 					return true;
 				}
 				String lowerCaseFilter = newValue.toLowerCase();
-
-				if (phieudathang.getMadathang().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				if (String.valueOf(phieudathang.getMadathang()).indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches username
+			
 				} else if (phieudathang.getThoigiandat().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches password
 				} else
 					return false; // Does not match.
-			});
+		
 		});
 
 		SortedList<Phieudathang> sortedData = new SortedList<>(filteredData);
 		sortedData.comparatorProperty().bind(tablePhieuDatHang.comparatorProperty());
 		tablePhieuDatHang.setItems(sortedData);
-
+		
+	});
 	}
 
 	// PHIẾU ĐẶT HÀNG

@@ -21,6 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
@@ -91,6 +92,9 @@ public class LapPhieuDatHangController implements Initializable{
 
 	@FXML
 	private TableColumn donvi1;
+	
+	@FXML
+	private TableColumn thanhtien;
 
 	@FXML
 	private TableColumn giatien1;
@@ -103,6 +107,9 @@ public class LapPhieuDatHangController implements Initializable{
 	
 	@FXML	
 	private TableColumn loaisanpham1;
+	
+	@FXML	
+	private TableColumn xoaSP;
 	
 	@FXML
 	private TextField tf1;
@@ -123,10 +130,16 @@ public class LapPhieuDatHangController implements Initializable{
 	private TextField tf6;
 	
 	@FXML
+	private TextField tf7;
+	
+	@FXML
+	private TextField tftongtien;
+
+	@FXML
 	private TextField Timkiem;
 	
 	 @FXML
-    private ComboBox<String> cbnhacungcap;
+    private ComboBox<Integer> cbnhacungcap;
 	 
 	 @FXML
 	 private Button idDatHang;
@@ -200,13 +213,13 @@ public class LapPhieuDatHangController implements Initializable{
 			 tf1.setText(sp.getTensanpham());
 			 tf2.setText(Integer.toString(sp.getMasanpham()));
 			 tf3.setText(sp.getDonvi());
-			 //tf4.setText(Integer.toString(sp.getGiatien()));
-			 //tf5.setText(sp.getDonvitinh()); 
+			 tf5.setText(Integer.toString(sp.getGiatien()));
+			 //tf4.setText(sp.getDonvitinh()); 
 			 tf6.setText(sp.getLoaisanpham());
 		 });
 	 }
-	 public ObservableList<String> getNhaCungCap() {
-		 ObservableList<String> tbNCC = FXCollections.observableArrayList();
+	 public ObservableList<Integer> getNhaCungCap() {
+		 ObservableList<Integer> tbNCC = FXCollections.observableArrayList();
 		 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
 					.build();
@@ -214,15 +227,62 @@ public class LapPhieuDatHangController implements Initializable{
 			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 			Session session = sessionFactory.openSession();
 		 session.getTransaction().begin();
-		 String hql = "SELECT P.tenncc FROM Nhacungcap P";
+		 String hql = "SELECT P.mancc FROM Nhacungcap P";
 		 Query query = session.createQuery(hql);
-		 ArrayList<String> listnhcc = (ArrayList) query.list();
-		 for(String t1 : listnhcc) {
+		 ArrayList<Integer> listnhcc = (ArrayList) query.list();
+		 for(int t1 : listnhcc) {
 			 System.out.println(t1);
 			 tbNCC.add(t1);
 		 }
 		 return tbNCC;				 
 	 }	
+	
+	 private void thanhtien() {
+	      
+		 	//thanhtien = soluong1*giatien1
+	        
+	            }
+	 private void ButtonXoaSP() {
+	      
+
+	        Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
+	            @Override
+	            public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
+	                final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
+
+	                    private final Button btn = new Button("Xóa");
+
+	                    {
+	                    	///////////////////////////
+	                    btn.setOnAction((ActionEvent event) -> {
+	                    	 Sanpham sp = getTableView().getItems().get(getIndex());
+	                    	 if(tableSP1.getItems().contains(sp)) {
+	               			 sp.setDonvitinh(sp.getDonvitinh()-sp.getDonvitinh());
+	               			 tableSP1.refresh();
+	               			 if(sp.getDonvitinh()==0) {
+	               				 tableSP1.getItems().remove(sp);
+	               				 tableSP1.refresh();
+	               			 }
+	               		 }
+	                        });
+	                    }
+	                    @Override
+	                    public void updateItem(Void item, boolean empty) {
+	                        super.updateItem(item, empty);
+	                        if (empty) {
+	                            setGraphic(null);
+	                        } else {
+	                            setGraphic(btn);
+	                        }
+	                    }
+	                };
+	                return cell;
+	            }
+	        };
+	        xoaSP.setCellFactory(cellFactory);
+	 }
+	 
+	 
 	 
 	 
 	 @FXML
@@ -235,14 +295,20 @@ public class LapPhieuDatHangController implements Initializable{
 		 String loaisanpham1 = tf6.getText();
 		 int donvitinh1 = Integer.parseInt(tf4.getText());
 		 int giatien1 = Integer.parseInt(tf5.getText());
-		 
+		 String thanhtien = tf7.getText();
 	//	 addItem(masanpham1, tensanpham1, loaisanpham1, donvi1, giatien1, donvitinh1);
 		 tableSP1.refresh();
-		// Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,donvitinh1,giatien1,loaisanpham1);
-		// tableSP1.getItems().add(sp);
+		 Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,donvitinh1,giatien1,loaisanpham1);
+		 tableSP1.getItems().add(sp);
 	//	 System.out.println(sp);
-		 
-	    }
+		 int sum = 0;
+         for (Sanpham thanhtien1 : tableSP1.getItems()) {
+             sum = sum + (thanhtien1.getGiatien()* thanhtien1.getDonvitinh());
+         }
+         tftongtien.setText(String.valueOf(sum));
+
+}	
+	    
 /*	 	public void addItem(int masanpham,String tensanpham, String loaisanpham, String donvi,int giatien,int donvitinh) {
 		    Sanpham entry = tableSP1.getItems().stream()
 		        .filter(item -> item.getTensanpham().equals(tensanpham))
@@ -258,7 +324,67 @@ public class LapPhieuDatHangController implements Initializable{
 	 	   // TableSP.refresh();
 		   // entry.s
 		}*/
-	 	
+	 @FXML
+		void xacnhan(ActionEvent event) {
+			//Sanpham sp = new Sanpham(10,"A","a","s",1000,2000);
+			//sp.getMasanpham();
+
+			Alert alert = new Alert(AlertType.INFORMATION);
+			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+					.configure("hibernate.cfg.xml")
+					.build();
+			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+			int tongtien = Integer.parseInt(tftongtien.getText());
+			int mancc = cbnhacungcap.getValue();
+			Nhacungcap nhacungcap = new Nhacungcap();
+			nhacungcap = session.get(Nhacungcap.class, mancc);
+			Phieudathang dathang = new Phieudathang(null,tongtien,nhacungcap,null);
+			 try {
+	    		 session.beginTransaction();
+	    		 session.save(dathang);
+	    	//	 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
+	    		 //session.save(chitiethoadon);
+	    		// session.save(spp);
+	    		 session.getTransaction().commit();
+	    		 alert.setContentText("Thêm phieu dat hang thành công !");
+	    		 alert.showAndWait();   
+			 }
+		    	catch (RuntimeException error){
+		    		System.out.println(error);
+		    		 alert.setContentText("Lỗi " + error);
+		    		 alert.showAndWait();
+		    		session.getTransaction().rollback();
+		    	}
+			 for (Sanpham sp : tableSP1.getItems()) {
+					Sanpham spp= new Sanpham();
+					int masp = sp.getMasanpham();
+					spp = session.get(Sanpham.class, masp);
+					int soluong = sp.getDonvitinh();
+					System.out.println(" masp : " +masp);
+			 
+			
+			Chitietdathang chitietdathang = new Chitietdathang(dathang,spp,soluong);
+			 try {
+	    		 session.beginTransaction();
+	    		 session.save(chitietdathang);
+	    	//	 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
+	    		 //session.save(chitiethoadon);
+	    		// session.save(spp);
+	    		 session.getTransaction().commit();
+	    		 alert.setContentText("Thêm phieu dat hang thành công !");
+	    		 alert.showAndWait();   
+			 }
+			 catch (RuntimeException error){
+		    		System.out.println(error);
+		    		 alert.setContentText("Lỗi " + error);
+		    		 alert.showAndWait();
+		    		session.getTransaction().rollback();
+		    	
+			 }	
+			 }
+	 }
 	 	
 	 
 	 
@@ -286,12 +412,22 @@ public class LapPhieuDatHangController implements Initializable{
 				donvi1.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 				giatien1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 				donvitinh1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
-				ObservableList<String> list = FXCollections.observableArrayList(getNhaCungCap());
+				ObservableList<Integer> list = FXCollections.observableArrayList(getNhaCungCap());
 				cbnhacungcap.setItems(list);
 				tableSP.setItems(getSanpham());
 				Timkiem();
+				ButtonXoaSP();
+				tf4.addEventHandler(KeyEvent.KEY_PRESSED, e->{
+		            if(e.getCode() == KeyCode.ENTER) {
+		            	
+		            	float soluong1 = Float.parseFloat(tf4.getText());
+		            	float giatien1 = Float.parseFloat(tf5.getText());
+		            	float thanhtien = soluong1*giatien1;
+		            	
+		            	tf7.setText(String.valueOf(thanhtien));
+			}
+				});
 				
 			}
-	
-	}	
+}
 

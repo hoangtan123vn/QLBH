@@ -175,7 +175,7 @@ public class chucnangnhanvienController implements Initializable{
 	            public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
 	                final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
 	           		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-	           		 String thanhtien;
+	           		 String tongtien;
 	           		 
 	                  
 	                   

@@ -13,7 +13,8 @@ import javax.persistence.*;
 public class Phieudathang implements Serializable {
 	
 	@Id
-	private String madathang;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int madathang;
 	private String thoigiandat;
 	private int tongtien;
 	
@@ -25,31 +26,31 @@ public class Phieudathang implements Serializable {
 	@GeneratedValue
 	private Nhacungcap nhacungcap;
 
-	/*@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="manv")
 	@GeneratedValue
-	private Nhanvien nhanvien;*/
+	private Nhanvien nhanvien;
 	
 
 	
 	
-	public Phieudathang(String madathang, String thoigiandat, int tongtien, Nhacungcap nhacungcap) {
+	public Phieudathang(int madathang, String thoigiandat, int tongtien, Nhacungcap nhacungcap) {
 		super();
 		this.madathang = madathang;
 		this.thoigiandat = thoigiandat;
 		this.tongtien = tongtien;
 		this.nhacungcap=nhacungcap;
-		//this.nhanvien=nhanvien;
+		this.nhanvien=nhanvien;
 		
 	}
 
 
-	public String getMadathang() {
+	public int getMadathang() {
 		return madathang;
 	}
 
 
-	public void setMadathang(String madathang) {
+	public void setMadathang(int madathang) {
 		this.madathang = madathang;
 	}
 
@@ -108,13 +109,19 @@ public class Phieudathang implements Serializable {
 
 	
 
-	/*public Nhanvien getNhanvien() {
+	public Nhanvien getNhanvien() {
 		return nhanvien;
 	}
 
 
 	public void setNhanvien(Nhanvien nhanvien) {
 		this.nhanvien = nhanvien;
-	}*/
-
+	}
+	public Phieudathang(String thoigiandat, int tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien) {
+		super();
+		this.thoigiandat = thoigiandat;
+		this.tongtien = tongtien;
+		this.nhacungcap=nhacungcap;
+		this.nhanvien=nhanvien;
+	}
 }

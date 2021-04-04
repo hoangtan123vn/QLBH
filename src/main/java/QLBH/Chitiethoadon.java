@@ -81,5 +81,11 @@ public class Chitiethoadon implements Serializable{
 	public Chitiethoadon() {
 		
 	}
+	public Chitiethoadon(int soluong) {
+		super();
+		this.soluong=soluong;
+		
+	
+	}
 
 }

@@ -129,6 +129,7 @@ public class Sanpham implements Serializable{
 	public int getDonvitinh() {
 		return donvitinh;
 	}
+	
 		public void setDonvitinh(int donvitinh) {
 			this.donvitinh = donvitinh;
 		}
@@ -152,6 +153,7 @@ public class Sanpham implements Serializable{
 			this.giatien=giatien;
 			this.donvitinh=donvitinh;
 			this.loaisanpham=loaisanpham;
+			
 			//this.soluong=soluong;	
 			//this.masanpham=masanpham;
 			

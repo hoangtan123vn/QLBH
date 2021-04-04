@@ -138,7 +138,7 @@ public class KiemtrahangController implements Initializable{
 	    }
 
 	    public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
-	    	String Phieudathang = phieudathang.getMadathang();
+	    	int Phieudathang = phieudathang.getMadathang();
 	    	ObservableList<Chitietdathang> tableChitietkiemtra = FXCollections.observableArrayList();
 	    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 						.configure("hibernate.cfg.xml")

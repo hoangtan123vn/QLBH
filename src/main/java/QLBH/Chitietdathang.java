@@ -15,7 +15,7 @@ public class Chitietdathang implements Serializable{
 	@Id
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn (name="madathang")
-//	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Phieudathang phieudathang;
 	
 	@Id
@@ -83,7 +83,5 @@ public class Chitietdathang implements Serializable{
 	public void setPhieudathang(Phieudathang phieudathang) {
 		this.phieudathang = phieudathang;
 	}
-	
-	
 	
 }
