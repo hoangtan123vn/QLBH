@@ -1549,7 +1549,7 @@ public class chucnangquanly extends Application implements Initializable {
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root1));
-			stage.setTitle("Tạo nhà cung cấp");
+			stage.setTitle("Thanh Toán Công Nợ");
 			stage.show();
 		} catch (Exception e) {
 			// TODO: handle exception

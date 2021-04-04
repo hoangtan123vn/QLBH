@@ -77,62 +77,9 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	private Label tenncc;
 	
 	@FXML
-	private Label sodienthoai;
-	
-	@FXML
-	private Label email;
-	
-	@FXML
-	private Label diachi;
-
-	@FXML
 	private Label thongbao;
 
-	@FXML
-	void taophieuthanhtoan(ActionEvent event) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Them Nha cung cap");
-		 
-    	//Integer mancc = Integer.parseInt(tfncc.getText());
-    	String ten = tenncc.getText();
-    	Integer sotienno = Integer.parseInt(tfnoconlai.getText());
-    	String noio = diachi.getText();
-    	Integer sdt = Integer.parseInt(sodienthoai.getText());;
-    	String em = email.getText();
-    
-    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-		
-		
-    	try {		
-    		session.beginTransaction();
-			 Nhacungcap nv = new Nhacungcap();
-			// nv = session.get(Nhacungcap.class, nv.getMancc());
-			
-			
-				session.save(nv);
-			
-    		 session.getTransaction().commit();
-    		 //Nhacungcap ncc = new Nhacungcap(tenncc,diachi,sodienthoai,email);
-    		 Stage stage = (Stage) bttaophieu.getScene().getWindow();
-    		 
-        	 stage.close();
-        	 alert.setContentText("Them nha cung cap thanh cong !");
-        	 alert.showAndWait();    
-        	 
-        	 
-        	chucnangquanly.getInstance().ReloadNHACUNGCAP();
-        	
-    	}
-    	catch (RuntimeException error){
-    		 alert.setContentText("Them nha cung cap that bai  !");
-    		 alert.showAndWait();
-    		session.getTransaction().rollback();
-    	}
-	}
+	
 
 	@FXML
 	void close(ActionEvent event) {
@@ -163,10 +110,54 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 				}
 			}
 		});
-		diachi.setText(nhacungcap.getDiachi());
-		sodienthoai.setText(String.valueOf(nhacungcap.getSodienthoai()));
-		email.setText(nhacungcap.getEmail());
+		bttaophieu.setOnMouseClicked(event ->  {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Thanh Toán Công Nợ");
+			 
+	    	//Integer mancc = Integer.parseInt(tfncc.getText());
+	   // 	String ten = tenncc.getText();
+	    	Integer sotienno = Integer.parseInt(tfnoconlai.getText());
+	    //	String noio = diachi.getText();
+	    	//Integer sdt = Integer.parseInt(sodienthoai.getText());;
+	    	//String em = email.getText();
+	    
+	    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+					.build();
+			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+			
+			
+	    	try {		
+	    		 session.beginTransaction();
+				 Nhacungcap nv = new Nhacungcap();
+				 nv = session.get(Nhacungcap.class, nhacungcap.getMancc());
+				 nv.setSotienno(sotienno);
+				 session.save(nv);
+	    		 session.getTransaction().commit();
+	    		 //Nhacungcap ncc = new Nhacungcap(tenncc,diachi,sodienthoai,email);
+	    		 Stage stage = (Stage) bttaophieu.getScene().getWindow();
+	    		 
+	        	 stage.close();
+	        	 alert.setContentText("Cập nhật số tiền nợ thành công");
+	        	 alert.showAndWait();    
+	        	 
+	        	 
+	        	chucnangquanly.getInstance().ReloadNHACUNGCAP();
+	        	
+	    	}
+	    	catch (RuntimeException error){
+	    		 System.out.print(error);
+	    		 alert.setContentText("Cập nhật số tiền nợ thất bại");
+	    		 alert.showAndWait();
+	    		session.getTransaction().rollback();
+	    	}
+        });
 		
+		cbb.getItems().addAll(
+					"Trực Tiếp",
+					"Chuyển Khoản"
+				);
 	}
 	
 	
