@@ -229,7 +229,19 @@ public class BanHangController implements Initializable{
 				    		 session.getTransaction().rollback();
 				    	}
 					}
+				for (Sanpham spp : TableSP.getItems()) {
+                    int soluongban = spp.getDonvitinh();
+                    System.out.println(soluongban);
+                    
+                for (Chitiethoadon sp : hoadon.getItems()) {
+                    int soluongmua = sp.getSoluong();
+                    System.out.println(soluongmua);
 
+                }
+
+            }
+						
+				
 			});
 		 
 		   
