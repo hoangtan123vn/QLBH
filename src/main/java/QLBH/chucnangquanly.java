@@ -1550,7 +1550,7 @@ public class chucnangquanly extends Application implements Initializable {
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root1));
-			stage.setTitle("Tạo nhà cung cấp");
+			stage.setTitle("Thanh Toán Công Nợ");
 			stage.show();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -1571,6 +1571,9 @@ public class chucnangquanly extends Application implements Initializable {
 	        stage.setScene(new Scene(root1));
 	        stage.setTitle("Tạo nhà cung cấp");
 			stage.show();
+			
+			//
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -1818,6 +1821,7 @@ public class chucnangquanly extends Application implements Initializable {
 				person.setTenncc(event.getNewValue());
 				session.save(person);
 				session.getTransaction().commit();
+				ReloadNHACUNGCAP();
 			}
 		});
 
@@ -1838,6 +1842,7 @@ public class chucnangquanly extends Application implements Initializable {
 				person.setDiachi(event.getNewValue());
 				session.save(person);
 				session.getTransaction().commit();
+				ReloadNHACUNGCAP();
 			}
 		});
 
@@ -1859,6 +1864,7 @@ public class chucnangquanly extends Application implements Initializable {
 				person.setSodienthoai(event.getNewValue());
 				session.save(person);
 				session.getTransaction().commit();
+				ReloadNHACUNGCAP();
 			}
 		});
 
@@ -1878,8 +1884,10 @@ public class chucnangquanly extends Application implements Initializable {
 				person = event.getRowValue();
 				person = session.get(Nhacungcap.class, person.getMancc());
 				person.setSotienno(event.getNewValue());
-				session.save(person);
+				Integer i = (Integer)session.save(person);
+				System.out.println("Mã định danh đã tạo:"+ i);
 				session.getTransaction().commit();
+				ReloadNHACUNGCAP();
 			}
 		});
 
@@ -1901,6 +1909,7 @@ public class chucnangquanly extends Application implements Initializable {
 				person.setEmail(event.getNewValue());
 				session.save(person);
 				session.getTransaction().commit();
+				ReloadNHACUNGCAP();
 			}
 		});
 		

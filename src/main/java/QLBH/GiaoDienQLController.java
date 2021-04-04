@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
+import BanHang.BanHangController;
 import Nhanvien.NhanvienController;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -134,27 +135,69 @@ public class GiaoDienQLController implements Initializable{
 			e.printStackTrace();
 		}
 		username.setOnMouseClicked(event ->  {
-			
-			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("profilenhanvien.fxml"));
-	            Parent tmp;
-				tmp = loader.load();
-				Scene scene = new Scene(tmp);
-				Stage stage = new Stage();
-			//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-	            ProfilesNhanvienController profiles = loader.getController();
-	            profiles.loadData(taikhoan);
-	            stage.hide();
-            	stage.setScene(scene);
-            	stage.show();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-            
-            
+			profileNhanvien(taikhoan);
+
 		});
+		
+		banhang.setOnMouseClicked(event ->  {
+			SceneBanHang(taikhoan);
+		});
+		
    }
+   
+   
+   
+   public void profileNhanvien(Taikhoannv taikhoan) {
+	   try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("profilenhanvien.fxml"));
+           Parent tmp;
+			tmp = loader.load();
+			Scene scene = new Scene(tmp);
+			Stage stage = new Stage();
+		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+           ProfilesNhanvienController profiles = loader.getController();
+           profiles.loadData(taikhoan);
+           stage.hide();
+       	stage.setScene(scene);
+       	stage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   }
+   public void SceneBanHang(Taikhoannv taikhoan) {
+	   try {
+		   
+		/*   AnchorPane pane = FXMLLoader.load(getClass().getResource("/BanHang/banhang.fxml"));
+	    	mainpane.getChildren().setAll(pane);
+	    	if(mainpane.getChildren().setAll(pane)) {
+	    		//nhanvien.setClickable(false);
+	    	}*/
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/BanHang/banhang.fxml"));
+			AnchorPane pane = loader.load();
+			mainpane.getChildren().setAll(pane);
+	    	if(mainpane.getChildren().setAll(pane)) {
+	    		//nhanvien.setClickable(false);
+	    	}
+			//Parent tmp;
+		//	tmp = loader.load();
+		//	Scene scene = new Scene(tmp);
+		//	Stage stage = new Stage();
+		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+          BanHangController banHangController = loader.getController();
+          banHangController.loadData(taikhoan);
+      /*    stage.hide();
+      	stage.setScene(scene);
+      	stage.show();*/
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   }
+   
+   
+   
+   
     /*    user = data;
         if (user.getAvatar() == null) {
             avatar.setImage(new javafx.scene.image.Image("/img/avatar.png"));*/
@@ -183,8 +226,12 @@ public class GiaoDienQLController implements Initializable{
     }
 
     @FXML
-    void changeBanHang(ActionEvent event) {
-    	
+    void changeBanHang(ActionEvent event) throws Exception {
+    /*	AnchorPane pane = FXMLLoader.load(getClass().getResource("/BanHang/banhang.fxml"));
+    	mainpane.getChildren().setAll(pane);
+    	if(mainpane.getChildren().setAll(pane)) {
+    		//nhanvien.setClickable(false);
+    	}*/
     }
 
     @FXML
