@@ -2,6 +2,7 @@ package QLBH;
 
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.*;
@@ -34,7 +35,7 @@ public class Hoadon implements Serializable{
 	private Nhanvien nhanvien;
 	
 	
-	private String thoigianmua;
+	private LocalDateTime thoigianmua;
 	private int tonggia;
 //	private int makh;
 //	private int manv;
@@ -47,7 +48,7 @@ public class Hoadon implements Serializable{
 	}
 	
 	
-	public Hoadon(int mahoadon, String thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
+	public Hoadon(int mahoadon, LocalDateTime thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
 		super();
 		//this.id=id;
 		this.mahoadon=mahoadon;
@@ -57,11 +58,11 @@ public class Hoadon implements Serializable{
 		this.khachhang = khachhang;
 	//	this.manv=manv;
 	}
-	public Hoadon( String thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
+	public Hoadon( LocalDateTime dateTime, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
 		super();
 		//this.id=id;
 		//this.mahoadon=mahoadon;
-		this.thoigianmua=thoigianmua;
+		this.thoigianmua=dateTime;
 		this.tonggia=tonggia;
 		this.nhanvien = nhanvien;
 		this.khachhang = khachhang;
@@ -73,10 +74,10 @@ public class Hoadon implements Serializable{
 	public void setMahoadon(int mahoadon) {
 		this.mahoadon = mahoadon;
 	}
-	public String getThoigianmua() {
+	public LocalDateTime getThoigianmua() {
 		return thoigianmua;
 	}
-	public void setThoigianmua(String thoigianmua) {
+	public void setThoigianmua(LocalDateTime thoigianmua) {
 		this.thoigianmua = thoigianmua;
 	}
 	

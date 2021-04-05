@@ -19,6 +19,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.swing.event.ChangeListener;
 
 import org.apache.derby.iapi.store.access.SpaceInfo;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -62,6 +63,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import QLBH.Chitiethoadon;
+import QLBH.Sanpham;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
@@ -229,17 +232,66 @@ public class BanHangController implements Initializable{
 				    		 session.getTransaction().rollback();
 				    	}
 					}
+				//tich diem + tru san pham
 				for (Sanpham spp : TableSP.getItems()) {
-                    int soluongban = spp.getDonvitinh();
-                    System.out.println(soluongban);
-                    
-                for (Chitiethoadon sp : hoadon.getItems()) {
-                    int soluongmua = sp.getSoluong();
-                    System.out.println(soluongmua);
+		            //  int soluongban = spp.getDonvitinh();
+		             // System.out.println(soluongban);
+		              
+		          for (Chitiethoadon sp : hoadon.getItems()) {
+		              //int soluongmua = sp.getSoluong();
+		            //  System.out.println(soluongmua);
+		              if(spp.getMasanpham() == sp.getSanpham().getMasanpham()) {
+		              	System.out.println(spp.getDonvitinh());
+		              	System.out.println(sp.getSoluong());
+		              	int soluongtrongkho = spp.getDonvitinh();
+		              	int soluongban = sp.getSoluong();
+		              	int masanphamm = sp.getSanpham().getMasanpham();
+		              	int soluongconlai = soluongtrongkho - soluongban;
+		 				int tichdiem = Integer.parseInt(tongtien.getText())/10000;
+						int tichluy = Integer.parseInt(diemtichluy.getText());
+						int makhh = Integer.parseInt(khachhangg.getText());
+						System.out.println(tichdiem);
+						System.out.println(tichluy);
+						System.out.println(makhh);
+						int tongg = tichluy +tichdiem ;
+						System.out.println(tongg);
+		              	System.out.print(masanphamm);
+		              	if (soluongban <= soluongtrongkho) {
 
-                }
+			                    	try{
+			                    		 
+			            				session.getTransaction().begin();
+			            				String hql = "update KhachHang kh set kh.diemtichluy = :diemtichluy where kh.makh =:makh ";
+			            				Query query = session.createQuery(hql);
+			            				query.setParameter("diemtichluy", tongg);
+			            				query.setParameter("makh",makhh);
+			            				System.out.println("11111");
+			            				int result = query.executeUpdate();
+			            				System.out.print(result);
+			            	    		 String hql2 = "update Sanpham sp set sp.donvitinh =:soluongconlai where sp.masanpham =:masanpham ";
+			            	    		 Query query1 = session.createQuery(hql2);
+			            	    		 query1.setParameter("soluongconlai", soluongconlai);
+			            	    	     query1.setParameter("masanpham",masanphamm);
+			            	    	     int result1 = query1.executeUpdate();
+			            	    	     System.out.print(result);
+			            	    	     session.clear();
+			            	    	     session.close();
+			            	    	     System.out.println("tru san pham thanh cong !");
+			            				}
+			            		        catch(HibernateException e) {
+			            		    		e.printStackTrace();
+			            		       
+			            		        }
+		              	}
+		              	else {
+		              		 alert.setContentText("het hang roi du me may");
+					    		 alert.showAndWait();
 
-            }
+		              	}
+		              }
+		          }
+
+		      }
 						
 				
 			});
