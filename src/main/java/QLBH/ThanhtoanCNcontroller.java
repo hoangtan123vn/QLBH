@@ -28,6 +28,7 @@ import javafx.stage.FileChooser;
 
 import java.util.List;
 import java.awt.Desktop;
+import java.awt.Desktop.Action;
 import java.awt.Dialog;
 import java.io.File;
 import java.io.FileInputStream;
@@ -87,6 +88,19 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 		Stage stage = (Stage) btquaylai.getScene().getWindow();
 		stage.close();
 	}
+	@FXML
+	public void actionComboBox() {
+		if(cbb.getValue() == "Trực Tiếp") {
+			thongbao1.setVisible(true);
+			thongbao1.setText("Mời bạn gặp nhân viên A");
+			tfthanhtoan.setVisible(false);
+		}
+		else {
+			thongbao1.setVisible(true);
+			thongbao1.setText("Mời bạn nhập vào ô thanh toán");
+			tfthanhtoan.setVisible(true);
+		}
+	}
 
 	public void setThanhtoan(Nhacungcap nhacungcap) {
 		tenncc.setText(nhacungcap.getTenncc());
@@ -97,14 +111,14 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 			
 				try {
 					if (e.getCode() == KeyCode.ENTER) {
-						if (Integer.parseInt(tfthanhtoan.getText()) > Integer.parseInt(tfnoht.getText()) & cbb.getValue()=="Chuyển Khoản" ) {
+						if (Integer.parseInt(tfthanhtoan.getText()) > Integer.parseInt(tfnoht.getText()) ) {
 	
 							tfthanhtoan.setText("");
 							thongbao.setVisible(true);
 							thongbao.setText("Không hợp lệ! Mời Nhập Lại!!!");
 							tfnoconlai.setText(" ");
 	
-						} else if (Integer.parseInt(tfthanhtoan.getText()) <= Integer.parseInt(tfnoht.getText()) & cbb.getValue()=="Chuyển Khoản") {
+						} else if (Integer.parseInt(tfthanhtoan.getText()) <= Integer.parseInt(tfnoht.getText()) ) {
 	
 							tfnoconlai.setText(String
 									.valueOf(Integer.parseInt(tfnoht.getText()) - Integer.parseInt(tfthanhtoan.getText())));
@@ -117,29 +131,8 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 					}
 				} catch (Exception e2) {
 					// TODO: handle exception
-					if(cbb.getValue() == "Trực Tiếp") {
-						thongbao1.setText("");
-						thongbao1.setVisible(true);
-						thongbao1.setText("Mời bạn gặp nhân viên A");
-						thongbao.setVisible(true);
-						thongbao.setText("Bạn không thể thấy kết quả khi nhập vào đây");
-						tfnoconlai.setText("");
-					}
-					else if(cbb.getValue() == "Chuyển Khoản") {
-						thongbao1.setText("");
-						thongbao1.setVisible(true);
-						thongbao1.setText("Mời bạn nhập vào ô thanh toán");
-						thongbao.setVisible(true);
-						//thongbao1.setVisible(true);
-						thongbao.setText("Bạn không được để trống và phải nhập số ");
-						
-					}
-					else {
 					thongbao.setVisible(true);
-					//thongbao1.setVisible(true);
-					thongbao.setText("Bạn không được để trống và phải nhập số ");
-					//thongbao1.setText("Nhớ chọn phương thức Chuyển Khoản và không được để trống  nha nha nha!!!!");
-					}
+					thongbao.setText("Bạn không được bỏ trống ");
 				}
 			
 		});
@@ -192,9 +185,8 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 					"Chuyển Khoản"
 				);
 		
-		cbb.getSelectionModel().select("Chuyển Khoản");
 	
-				
+						
 //					if (cbb.getValue()=="Chuyển Khoản") {
 //						thongbao1.setVisible(true);
 //						thongbao1.setText("Mời bạn nhập vào ô thanh toán");
@@ -205,8 +197,9 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 //					}				
 	
 
-
+		
 	}
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -219,5 +212,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 		// TODO Auto-generated method stub
 
 	}
+
+	
 
 }
