@@ -14,6 +14,7 @@ import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import BanHang.BanHangController;
 import Nhanvien.NhanvienController;
+import QLKho.QLKhoController;
 
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -142,6 +143,12 @@ public class GiaoDienQLController implements Initializable{
 		banhang.setOnMouseClicked(event ->  {
 			SceneBanHang(taikhoan);
 		});
+		kho.setOnMouseClicked(event ->  {
+			SceneQLKho(taikhoan);
+		});
+		
+		
+		
 		
    }
    
@@ -195,6 +202,40 @@ public class GiaoDienQLController implements Initializable{
 		}
    }
    
+   public void SceneQLKho(Taikhoannv taikhoan) {
+	   try {
+		   
+		/*   AnchorPane pane = FXMLLoader.load(getClass().getResource("/BanHang/banhang.fxml"));
+	    	mainpane.getChildren().setAll(pane);
+	    	if(mainpane.getChildren().setAll(pane)) {
+	    		//nhanvien.setClickable(false);
+	    	}*/
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/QLKho/QLKho.fxml"));
+			AnchorPane pane = loader.load();
+			mainpane.getChildren().setAll(pane);
+	    	if(mainpane.getChildren().setAll(pane)) {
+	    		//nhanvien.setClickable(false);
+	    	}
+			//Parent tmp;
+		//	tmp = loader.load();
+		//	Scene scene = new Scene(tmp);
+		//	Stage stage = new Stage();
+		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+          QLKhoController qlKhoController = loader.getController();
+          qlKhoController.loadData(taikhoan);
+      /*    stage.hide();
+      	stage.setScene(scene);
+      	stage.show();*/
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   }
+   
+   
+   
+   
+   
    
    
    
@@ -227,11 +268,7 @@ public class GiaoDienQLController implements Initializable{
 
     @FXML
     void changeBanHang(ActionEvent event) throws Exception {
-    /*	AnchorPane pane = FXMLLoader.load(getClass().getResource("/BanHang/banhang.fxml"));
-    	mainpane.getChildren().setAll(pane);
-    	if(mainpane.getChildren().setAll(pane)) {
-    		//nhanvien.setClickable(false);
-    	}*/
+
     }
 
     @FXML
