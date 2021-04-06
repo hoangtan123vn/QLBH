@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+
 import org.hibernate.query.Query;
 
 import com.sun.xml.bind.v2.util.QNameMap.Entry;
@@ -186,9 +188,10 @@ public class BanHangController implements Initializable{
 				khachhang = session.get(KhachHang.class, makh);
 				Nhanvien nhanvien = new Nhanvien();
 				nhanvien = session.get(Nhanvien.class,taikhoan.getNhanvien().getManv());
+				LocalDateTime dateTime = LocalDateTime.now();
 				//Nhanvien nhanvien = new Nhanvien();
 				//nhanvien = session.get(Nhanvien.class, 12);
-				Hoadon hoadonn = new Hoadon(null, tongtienmua, nhanvien,khachhang);
+				Hoadon hoadonn = new Hoadon(dateTime, tongtienmua, nhanvien,khachhang);
 				 try {
 		    		 session.beginTransaction();
 		    		 session.save(hoadonn);
