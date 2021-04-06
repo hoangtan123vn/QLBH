@@ -379,7 +379,7 @@ public class BanHangController implements Initializable{
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		
-
+		giamgia.setText("0");
 		
 		setCellValueFromTabletoTexfFieldd();
 	//	masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
