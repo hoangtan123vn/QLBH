@@ -23,7 +23,7 @@
             <Button fx:id="kiemtrahang" layoutX="35.0" layoutY="393.0" mnemonicParsing="false" onAction="#changeKTH" prefHeight="42.0" prefWidth="168.0" text="KIỂM TRA HÀNG" />
             <Button fx:id="danhmuc" layoutX="35.0" layoutY="451.0" mnemonicParsing="false" onAction="#changeDanhmuc" prefHeight="42.0" prefWidth="168.0" text="DANH MỤC" />
             <Button fx:id="nhacungcap" layoutX="35.0" layoutY="506.0" mnemonicParsing="false" onAction="#ChangeNhacungcap" prefHeight="42.0" prefWidth="168.0" text="NHÀ CUNG CẤP" />
-            <Button fx:id="khachhang" layoutX="35.0" layoutY="565.0" mnemonicParsing="false" onAction="#ChangeKhachHang" prefHeight="42.0" prefWidth="168.0" text="KHÁCH HÀNG" />
+            <Button fx:id="khachhang" layoutX="35.0" layoutY="565.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="168.0" text="KHÁCH HÀNG" />
             <Label fx:id="username" layoutX="52.0" layoutY="736.0" prefHeight="31.0" prefWidth="134.0" textFill="#e80000">
                <font>
                   <Font name="System Bold Italic" size="14.0" />

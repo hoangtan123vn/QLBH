@@ -13,6 +13,7 @@ import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import BanHang.BanHangController;
+import KhachHang.khachhangController;
 import Nhanvien.NhanvienController;
 import QLKho.QLKhoController;
 
@@ -95,10 +96,6 @@ public class GiaoDienQLController implements Initializable{
     }
     
     
-    @FXML
-    void ChangeKhachHang(ActionEvent event) {
-
-    }
 
     @FXML
     void ChangeNhacungcap(ActionEvent event) {
@@ -146,6 +143,10 @@ public class GiaoDienQLController implements Initializable{
 		
 		kho.setOnMouseClicked(event ->  {
 			SceneQLKho(taikhoan);
+		});
+		
+		khachhang.setOnMouseClicked(event ->  {
+			SceneKhachHang();
 		});
 		
 
@@ -218,23 +219,37 @@ public class GiaoDienQLController implements Initializable{
 			//e.printStackTrace();
 		}
    }
+   public void SceneKhachHang() {
+	   try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/KhachHang/khachhang.fxml"));
+			AnchorPane pane = loader.load();
+			
+			mainpane.getChildren().setAll(pane);
+	    /*	if(mainpane.getChildren().setAll(pane)) {
+	    		//nhanvien.setClickable(false);
+	    	}*/
+			//Parent tmp;
+		//	tmp = loader.load();
+		//	Scene scene = new Scene(tmp);
+		//	Stage stage = new Stage();
+		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+	    /*	khachhangController khachhangController = loader.getController();
+	        khachhangController.loadData(taikhoan);
+	        System.out.println(taikhoan);*/
+      /*    stage.hide();
+      	stage.setScene(scene);
+      	stage.show();*/
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+			//e.printStackTrace();
+		}
+   }
    
    
    
+
    
-   
-   
-   
-   
-    /*    user = data;
-        if (user.getAvatar() == null) {
-            avatar.setImage(new javafx.scene.image.Image("/img/avatar.png"));*/
-      /*  } else {
-            File file = new File("src/main/resources/img/" + M_Image.getImageById(user.getAvatar()).getHashname() + ".png");
-            avatar.setImage(new Image(file.toURI().toString()));
-        }
-        listView(conferences);
-	}*/
     @FXML
     void DangXuat(ActionEvent event) throws IOException {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("loginform.fxml"));
