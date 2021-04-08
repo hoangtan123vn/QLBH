@@ -17,7 +17,10 @@ import java.util.ResourceBundle;
 import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
+import QLBH.GiaoDienQLController;
+import QLBH.KiemtrahangController;
 import QLBH.Nhanvien;
+import QLBH.Phieudathang;
 import QLBH.Taikhoannv;
 import QLBH.chucnangquanly;
 import QLBH.detailsanphamcontroller;
@@ -119,7 +122,7 @@ public class QLKhoController implements Initializable {
 	private Button lichsudathang;
 
 	@FXML
-	private Button lapphieudahang;
+	private Button lapphieudathang;
 
 	@FXML
 	private TextField tfloaisanpham;
@@ -142,16 +145,7 @@ public class QLKhoController implements Initializable {
 
 
 	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
-    
-	
-	@FXML
-    void LapPhieuDatHang(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/QLKho/lapphieudathang.fxml"));
-		Scene scene = new Scene(root);
-		Stage stage = new Stage();
-		stage.setScene(scene);
-		stage.show();
-    }
+ 
 
     @FXML
     void LichSuDatHang(ActionEvent event) throws IOException {
@@ -387,16 +381,30 @@ public class QLKhoController implements Initializable {
 
 		System.out.println("Thanh cong");
 	}
-	public void loadData(Taikhoannv taikhoan) {
-		
+	public void loadData(Taikhoannv taikhoan){
+		lapphieudathang.setOnMouseClicked(event ->  {
+			 ChangeSceneLapPhieu(taikhoan);
+			 System.out.println(taikhoan);
+		 });
+	}
+	public void ChangeSceneLapPhieu(Taikhoannv taikhoan)  {
+	try {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("lapphieudathang.fxml"));
+		Parent kiemtraViewParent = loader.load();
+		Stage stage1 = new Stage();
+		Scene scene1 = new Scene(kiemtraViewParent);
+		//Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
+		LapPhieuDatHangController lapPhieuDatHangController = loader.getController();
+		lapPhieuDatHangController.loadData(taikhoan);
+		stage1.setTitle("Lap phieu dat hang");
+		stage1.setScene(scene1);
+		stage1.show();
+	} catch (Exception e) {
+		System.out.println(e);
+	}
 	}
     
-    
-    
-    
-    
-    
-
+  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

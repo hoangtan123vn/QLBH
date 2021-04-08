@@ -1125,8 +1125,8 @@ public class chucnangquanly extends Application implements Initializable {
 				if (String.valueOf(phieudathang.getMadathang()).indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches username
 
-				} else if (phieudathang.getThoigiandat().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches password
+			/*	} else if (phieudathang.getThoigiandat().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches password*/
 				} else
 					return false; // Does not match.
 

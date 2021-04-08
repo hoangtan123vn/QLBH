@@ -386,7 +386,9 @@ public class LapPhieuDatHangController implements Initializable{
 			 }
 	 }
 	 	
-	 
+	 public void loadData(Taikhoannv taikhoan) throws IOException{
+		 
+	 }
 	 
 	 
 	 

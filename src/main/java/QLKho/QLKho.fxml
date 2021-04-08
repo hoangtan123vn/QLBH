@@ -30,7 +30,7 @@
          </columns>
       </TableView>
       <Button fx:id="lichsudathang" layoutX="337.0" layoutY="116.0" mnemonicParsing="false" onAction="#LichSuDatHang" text="Lịch sử đặt hàng" />
-      <Button fx:id="lapphieudathang" layoutX="502.0" layoutY="116.0" mnemonicParsing="false" onAction="#LapPhieuDatHang" text="Lập phiếu đặt hàng" />
+      <Button fx:id="lapphieudathang" layoutX="502.0" layoutY="116.0" mnemonicParsing="false" text="Lập phiếu đặt hàng" />
       <Button fx:id="themsanpham" layoutX="452.0" layoutY="116.0" mnemonicParsing="false" onAction="#ThemSP" text="+SP" />
    </children>
 </AnchorPane>

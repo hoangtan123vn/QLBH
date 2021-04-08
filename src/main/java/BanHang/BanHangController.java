@@ -199,8 +199,8 @@ public class BanHangController implements Initializable{
 		    		 //session.save(chitiethoadon);
 		    		// session.save(spp);
 		    		 session.getTransaction().commit();
-		    		 alert.setContentText("Thêm hoa don thành công !");
-		    		 alert.showAndWait();   
+		    		// alert.setContentText("Thêm hoa don thành công !");
+		    	//	 alert.showAndWait();   
 				 }
 			    	catch (RuntimeException error){
 			    		System.out.println(error);
@@ -225,16 +225,17 @@ public class BanHangController implements Initializable{
 			    		 session.save(chitiethoadon);
 			    		// session.save(spp);
 			    		 session.getTransaction().commit();
-			    		 alert.setContentText("Thêm chi tiet  thành công !");
-			    		 alert.showAndWait();   
+			    		
 					 }
 				    	catch (RuntimeException error){
 				    		 System.out.println(error);
-				    		 alert.setContentText("Thêm chi tiet thất bại   !");
-				    		 alert.showAndWait();
+				    	//	 alert.setContentText("Thêm chi tiet thất bại   !");
+				    	//	 alert.showAndWait();
 				    		 session.getTransaction().rollback();
-				    	}
+				    	}  
 					}
+				 alert.setContentText("Tạo hóa đơn thành công !");
+	    		 alert.showAndWait(); 
 				//tich diem + tru san pham
 				for (Sanpham spp : TableSP.getItems()) {
 		            //  int soluongban = spp.getDonvitinh();
@@ -262,7 +263,6 @@ public class BanHangController implements Initializable{
 		              	if (soluongban <= soluongtrongkho) {
 
 			                    	try{
-			                    		 
 			            				session.getTransaction().begin();
 			            				String hql = "update KhachHang kh set kh.diemtichluy = :diemtichluy where kh.makh =:makh ";
 			            				Query query = session.createQuery(hql);
@@ -622,11 +622,6 @@ public class BanHangController implements Initializable{
  	   // TableSP.refresh();
 	   // entry.s
 	}
-	
-	
-	
-	
-	
 	
 	
 	

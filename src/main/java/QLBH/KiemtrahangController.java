@@ -164,7 +164,7 @@ public class KiemtrahangController implements Initializable{
 	    }
 	public void setKiemtrahang (Phieudathang phieudathang) {
 		madathangkt.setText(String.valueOf(phieudathang.getMadathang()));
-		thoigiandatkt.setText(String.valueOf(phieudathang.getThoigiandat()));
+		thoigiandatkt.setText(String.valueOf(phieudathang.getThoigian()));
 		mancckt.setText(String.valueOf(phieudathang.getNhacungcap().toString()));
 		IntitlizeChitietdathang(phieudathang);
 	}

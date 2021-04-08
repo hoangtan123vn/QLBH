@@ -1,6 +1,7 @@
 package QLBH;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 //import javax.annotation.processing.Generated;
@@ -15,10 +16,10 @@ public class Phieudathang implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int madathang;
-	private String thoigiandat;
-	private int tongtien;
+	private LocalDateTime thoigian;
+	private double tongtien;
 	
-	@OneToMany(mappedBy = "phieudathang")
+	@OneToMany(mappedBy = "phieudathang",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Chitietdathang> chitietdathang;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -34,13 +35,13 @@ public class Phieudathang implements Serializable {
 
 	
 	
-	public Phieudathang(int madathang, String thoigiandat, int tongtien, Nhacungcap nhacungcap) {
+	public Phieudathang(int madathang, LocalDateTime thoigian, double tongtien, Nhacungcap nhacungcap) {
 		super();
 		this.madathang = madathang;
-		this.thoigiandat = thoigiandat;
+		this.thoigian = thoigian;
 		this.tongtien = tongtien;
 		this.nhacungcap=nhacungcap;
-		this.nhanvien=nhanvien;
+		//this.nhanvien=nhanvien;
 		
 	}
 
@@ -55,22 +56,22 @@ public class Phieudathang implements Serializable {
 	}
 
 
-	public String getThoigiandat() {
-		return thoigiandat;
+	public LocalDateTime getThoigian() {
+		return thoigian;
 	}
 
 
-	public void setThoigiandat(String thoigiandat) {
-		this.thoigiandat = thoigiandat;
+	public void setThoigiandat(LocalDateTime thoigian) {
+		this.thoigian = thoigian;
 	}
 
 
-	public int getTongtien() {
+	public double getTongtien() {
 		return tongtien;
 	}
 
 
-	public void setTongtien(int tongtien) {
+	public void setTongtien(double tongtien) {
 		this.tongtien = tongtien;
 	}
 
@@ -117,9 +118,9 @@ public class Phieudathang implements Serializable {
 	public void setNhanvien(Nhanvien nhanvien) {
 		this.nhanvien = nhanvien;
 	}
-	public Phieudathang(String thoigiandat, int tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	public Phieudathang(LocalDateTime thoigian, double tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien) {
 		super();
-		this.thoigiandat = thoigiandat;
+		this.thoigian = thoigian;
 		this.tongtien = tongtien;
 		this.nhacungcap=nhacungcap;
 		this.nhanvien=nhanvien;

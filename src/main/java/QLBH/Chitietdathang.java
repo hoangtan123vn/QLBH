@@ -13,9 +13,9 @@ public class Chitietdathang implements Serializable{
 //	private int masanpham;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn (name="madathang")
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Phieudathang phieudathang;
 	
 	@Id
@@ -25,6 +25,8 @@ public class Chitietdathang implements Serializable{
 	private Sanpham sanpham;
 	
 	private int soluong;
+	
+	private double thanhtien;
 
 	
 /*	public Chitietdathang(Phieudathang phieudathang, Sanpham sanpham, int soluong,Checkbox cbhang) {
@@ -38,6 +40,14 @@ public class Chitietdathang implements Serializable{
 	
 
 	
+	public double getThanhtien() {
+		return thanhtien;
+	}
+
+	public void setThanhtien(double thanhtien) {
+		this.thanhtien = thanhtien;
+	}
+
 	public Chitietdathang() {
 		super();
 	}
@@ -73,6 +83,15 @@ public class Chitietdathang implements Serializable{
 		this.sanpham=sanpham;
 		this.soluong = soluong;
 	}
+	
+	public Chitietdathang(int soluong,Sanpham sanpham,double thanhtien) {
+		super();
+		this.thanhtien=thanhtien;
+		//this.phieudathang=phieudathang;
+		this.sanpham=sanpham;
+		this.soluong = soluong;
+	}
+	
 
 	public Phieudathang getPhieudathang() {
 		return phieudathang;
@@ -82,6 +101,15 @@ public class Chitietdathang implements Serializable{
 
 	public void setPhieudathang(Phieudathang phieudathang) {
 		this.phieudathang = phieudathang;
+	}
+	
+	public Chitietdathang(Phieudathang phieudathang, Sanpham sanpham, int soluong , double thanhtien) {
+		super();
+
+		this.phieudathang=phieudathang;
+		this.sanpham=sanpham;
+		this.soluong = soluong;
+		this.thanhtien = thanhtien;
 	}
 	
 }

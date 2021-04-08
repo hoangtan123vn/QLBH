@@ -143,12 +143,12 @@ public class GiaoDienQLController implements Initializable{
 		banhang.setOnMouseClicked(event ->  {
 			SceneBanHang(taikhoan);
 		});
+		
 		kho.setOnMouseClicked(event ->  {
 			SceneQLKho(taikhoan);
 		});
 		
-		
-		
+
 		
    }
    
@@ -174,25 +174,15 @@ public class GiaoDienQLController implements Initializable{
    }
    public void SceneBanHang(Taikhoannv taikhoan) {
 	   try {
-		   
-		/*   AnchorPane pane = FXMLLoader.load(getClass().getResource("/BanHang/banhang.fxml"));
-	    	mainpane.getChildren().setAll(pane);
-	    	if(mainpane.getChildren().setAll(pane)) {
-	    		//nhanvien.setClickable(false);
-	    	}*/
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/BanHang/banhang.fxml"));
 			AnchorPane pane = loader.load();
 			mainpane.getChildren().setAll(pane);
-	    	if(mainpane.getChildren().setAll(pane)) {
+	   /* 	if(mainpane.getChildren().setAll(pane)) {
 	    		//nhanvien.setClickable(false);
-	    	}
-			//Parent tmp;
-		//	tmp = loader.load();
-		//	Scene scene = new Scene(tmp);
-		//	Stage stage = new Stage();
-		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+	    	}*/
           BanHangController banHangController = loader.getController();
           banHangController.loadData(taikhoan);
+          System.out.println(taikhoan);
       /*    stage.hide();
       	stage.setScene(scene);
       	stage.show();*/
@@ -204,31 +194,28 @@ public class GiaoDienQLController implements Initializable{
    
    public void SceneQLKho(Taikhoannv taikhoan) {
 	   try {
-		   
-		/*   AnchorPane pane = FXMLLoader.load(getClass().getResource("/BanHang/banhang.fxml"));
-	    	mainpane.getChildren().setAll(pane);
-	    	if(mainpane.getChildren().setAll(pane)) {
-	    		//nhanvien.setClickable(false);
-	    	}*/
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/QLKho/QLKho.fxml"));
 			AnchorPane pane = loader.load();
+			
 			mainpane.getChildren().setAll(pane);
-	    	if(mainpane.getChildren().setAll(pane)) {
+	    /*	if(mainpane.getChildren().setAll(pane)) {
 	    		//nhanvien.setClickable(false);
-	    	}
+	    	}*/
 			//Parent tmp;
 		//	tmp = loader.load();
 		//	Scene scene = new Scene(tmp);
 		//	Stage stage = new Stage();
 		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-          QLKhoController qlKhoController = loader.getController();
-          qlKhoController.loadData(taikhoan);
+	    	QLKhoController qlKhoController = loader.getController();
+	        qlKhoController.loadData(taikhoan);
+	        System.out.println(taikhoan);
       /*    stage.hide();
       	stage.setScene(scene);
       	stage.show();*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
+			//e.printStackTrace();
 		}
    }
    

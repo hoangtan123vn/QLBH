@@ -45,7 +45,10 @@ public class Nhacungcap implements Serializable{
 		this.mancc = mancc;
 	}
 	
-	
+	public Nhacungcap(String tenncc) {
+		super();
+		this.tenncc=tenncc;
+	}
 	
 	public Nhacungcap(Integer sodienthoai) {
 		this.sodienthoai = sodienthoai;

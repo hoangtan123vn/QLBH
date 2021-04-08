@@ -103,7 +103,7 @@ public class DathangDetailController implements Initializable{
         stage.close();
     }
     public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
-    	String Phieudathang = phieudathang.getMadathang();
+    	int Phieudathang = phieudathang.getMadathang();
     	ObservableList<Chitietdathang> tablePhieuDatHang = FXCollections.observableArrayList();
     	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
@@ -171,7 +171,7 @@ public class DathangDetailController implements Initializable{
 
 	 public void setPhieudathang (Phieudathang phieudathang) {
 	    	lbMadathang.setText(String.valueOf((phieudathang.getMadathang())));
-	    	lbThoigiandat.setText(phieudathang.getThoigiandat());
+	    	lbThoigiandat.setText(String.valueOf(phieudathang.getThoigian()));
 	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
 	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
 	   // 	lbManv.setText(phieudathang.getNhanvien().toString());

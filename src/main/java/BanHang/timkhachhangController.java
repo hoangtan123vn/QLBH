@@ -92,6 +92,7 @@ public class timkhachhangController implements Initializable{
 		emailKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("email"));
 		diemtichluy.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("diemtichluy"));
 		tableKH.setItems(getKhachHang());
+		searchKH();
 		
 		
 		

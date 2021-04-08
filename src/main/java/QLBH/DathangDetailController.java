@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -167,11 +168,10 @@ public class DathangDetailController implements Initializable{
 
 	 public void setPhieudathang (Phieudathang phieudathang) {
 	    	lbMadathang.setText(String.valueOf((phieudathang.getMadathang())));
-	    	lbThoigiandat.setText(phieudathang.getThoigiandat());
+	    	lbThoigiandat.setText(String.valueOf(phieudathang.getThoigian()));
 	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
 	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
 	   // 	lbManv.setText(phieudathang.getNhanvien().toString());
-	    	
 	    	IntitlizeChitietdathang(phieudathang);
 	    }	
 }
