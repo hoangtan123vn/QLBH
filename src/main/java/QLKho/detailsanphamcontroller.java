@@ -30,6 +30,7 @@ import java.util.List;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,6 +48,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.*;
+
+import org.apache.derby.vti.IFastPath;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.service.ServiceRegistry;
@@ -100,6 +103,8 @@ public class detailsanphamcontroller implements Initializable{
     private Button reset;
     
     
+   //private 
+    
     
    
     
@@ -148,8 +153,21 @@ public class detailsanphamcontroller implements Initializable{
 				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 				Session session = sessionFactory.openSession();
-			
-				Sanpham sp = new Sanpham(capnhattensp,capnhatlsp,capnhatdvsp,capnhatgtsp,capnhatslsp);
+				byte[] bFile = null;
+				//anh
+				
+				/*	FileInputStream fis = new FileInputStream(file);
+					byte[] bFile = new byte[(int) (file.length())];
+					fis.read(bFile);*/
+				
+				if(bFile == null) {
+					BufferedImage bImage = SwingFXUtils.fromFXImage(imageSP.getImage(), null);
+					ByteArrayOutputStream s = new ByteArrayOutputStream();
+					ImageIO.write(bImage, "png", s);
+					 bFile  = s.toByteArray();
+				}
+				 Sanpham sp = new Sanpham(capnhattensp,capnhatlsp,capnhatdvsp,capnhatgtsp,capnhatslsp,bFile);
+				// Sanpham sp = new Sanpham(capnhattensp,capnhatlsp,capnhatdvsp,capnhatgtsp,capnhatslsp);
 				sp = session.get(Sanpham.class, IDSanPham);
 				try {
 					session.beginTransaction();
@@ -160,7 +178,7 @@ public class detailsanphamcontroller implements Initializable{
 						sp.setDonvi(capnhatdvsp);
 						sp.setGiatien(capnhatgtsp);
 						sp.setDonvitinh(capnhatslsp);
-					//	sp.setImagesp(bFile);
+						sp.setImagesp(bFile);
 						session.save(sp);
 						Stage stage = (Stage) ap.getScene().getWindow();
 			        	 stage.close();
