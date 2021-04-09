@@ -1310,33 +1310,33 @@ public class chucnangquanly extends Application implements Initializable {
 
 	ObservableList<Phieutrahang> listPTH;
 
-	@FXML
-	void searchPTH() {
-		ObservableList<Phieutrahang> tbPhieuTraHang = FXCollections.observableArrayList(getPhieutrahang());
-
-		FilteredList<Phieutrahang> filteredData = new FilteredList<>(tbPhieuTraHang, b -> true);
-		searchPTH.textProperty().addListener((observable, oldValue, newValue) -> {
-			filteredData.setPredicate(phieutrahang -> {
-				if (newValue == null || newValue.isEmpty()) {
-					return true;
-				}
-				String lowerCaseFilter = newValue.toLowerCase();
-
-				if (phieutrahang.getMaphieutra().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches username
-			/*	} else if (phieutrahang.getThoigiantra().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches password*/
-				} else
-					return false; // Does not match.
-			});
-		});
-
-		SortedList<Phieutrahang> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(tablePhieuTraHang.comparatorProperty());
-		tablePhieuTraHang.setItems(sortedData);
-
-	}
-
+//	@FXML
+//	void searchPTH() {
+//		ObservableList<Phieutrahang> tbPhieuTraHang = FXCollections.observableArrayList(getPhieutrahang());
+//
+//		FilteredList<Phieutrahang> filteredData = new FilteredList<>(tbPhieuTraHang, b -> true);
+//		searchPTH.textProperty().addListener((observable, oldValue, newValue) -> {
+//			filteredData.setPredicate(phieutrahang -> {
+//				if (newValue == null || newValue.isEmpty()) {
+//					return true;
+//				}
+//				String lowerCaseFilter = newValue.toLowerCase();
+//
+//				if (phieutrahang.getMaphieutra().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+//					return true; // Filter matches username
+//				} else if (phieutrahang.getThoigiantra().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+//					return true; // Filter matches password
+//				} else
+//					return false; // Does not match.
+//			});
+//		});
+//
+//		SortedList<Phieutrahang> sortedData = new SortedList<>(filteredData);
+//		sortedData.comparatorProperty().bind(tablePhieuTraHang.comparatorProperty());
+//		tablePhieuTraHang.setItems(sortedData);
+//
+//	}
+//
 	@FXML
 	void changeSceneTrahangDetail(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("TrahangDetail.fxml"));
@@ -1797,7 +1797,7 @@ public class chucnangquanly extends Application implements Initializable {
 		// manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang,
 		// Integer>("manv"));
 		tablePhieuTraHang.setItems(getPhieutrahang());
-		searchPTH();
+//		searchPTH();
 
 		// QL nhà cung cấp //Sang
 

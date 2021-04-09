@@ -47,10 +47,10 @@ public class Phieunhaphang implements Serializable{
 	
 	
 
-	public Phieunhaphang(int manhaphang, LocalDateTime thoigian, int tongtien,Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	public Phieunhaphang( LocalDateTime dateTime, int tongtien,Nhacungcap nhacungcap, Nhanvien nhanvien) {
 	super();
-	this.manhaphang = manhaphang;
-	this.thoigian = thoigian;
+	
+	this.thoigian =dateTime ;
 	this.tongtien = tongtien;
 	this.nhacungcap = nhacungcap;
 	this.nhanvien = nhanvien;
