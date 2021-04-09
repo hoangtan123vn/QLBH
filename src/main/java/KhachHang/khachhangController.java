@@ -19,6 +19,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
 import QLBH.Chitiethoadon;
+import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
 import QLBH.Nhacungcap;
@@ -149,12 +150,7 @@ public class khachhangController implements Initializable {
 		int makh = khachHang.getMakh();
 	//	int mahoadon = hoadon.getMahoadon();
     	ObservableList<Hoadon> TableHD = FXCollections.observableArrayList();
-    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
 			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Hoadon> query = builder.createQuery(Hoadon.class);

@@ -52,6 +52,7 @@ import com.google.protobuf.StringValue;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
+import QLBH.HibernateUtils;
 import QLBH.Nhacungcap;
 
 public class ThanhtoanCNcontroller extends Application implements Initializable {
@@ -148,11 +149,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	    	//Integer sdt = Integer.parseInt(sodienthoai.getText());;
 	    	//String em = email.getText();
 	    
-	    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
+	    	 Session session = HibernateUtils.getSessionFactory().openSession();
 			
 			
 	    	try {		

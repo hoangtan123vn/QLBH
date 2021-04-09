@@ -19,6 +19,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
 import QLBH.Chitiethoadon;
+import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
 import QLBH.Nhacungcap;
@@ -106,11 +107,7 @@ public class nhacungcapController implements Initializable{
 	
 	public ObservableList<Nhacungcap> getNhacungcap() {
 		ObservableList<Nhacungcap> TableNhacungcap = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		 Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Nhacungcap> NCC = session.getCriteriaBuilder().createQuery(Nhacungcap.class);
 		NCC.from(Nhacungcap.class);

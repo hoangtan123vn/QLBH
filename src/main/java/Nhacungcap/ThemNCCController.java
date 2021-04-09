@@ -42,6 +42,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
+import QLBH.HibernateUtils;
 import QLBH.Nhacungcap;
 
 public class ThemNCCController extends Application implements Initializable{
@@ -99,12 +100,7 @@ public class ThemNCCController extends Application implements Initializable{
     	Integer sotienno = Integer.parseInt(tfsotienno.getText());
     	
     
-    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-				.configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
 		
     	try {
     		
