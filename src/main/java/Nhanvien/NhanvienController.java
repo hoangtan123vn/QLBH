@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
+import QLBH.HibernateUtils;
 import QLBH.Nhanvien;
 import QLBH.Taikhoannv;
 import QLBH.chucnangquanly;
@@ -213,11 +214,7 @@ public class NhanvienController implements Initializable{
 		int sdtnv = (Integer.parseInt(sdt_nv.getText()));
 		int cmndnv = (Integer.parseInt(cmnd_nv.getText()));
 		String diachinv = diachi_nv.getText();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		 Session session = HibernateUtils.getSessionFactory().openSession();
 		/*SessionFactory factory = HibernateUltis.getSessionFactory();
 		 
 	      Session session = factory.getCurrentSession();*/

@@ -46,6 +46,8 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
+
+import QLBH.HibernateUtils;
 import QLBH.Sanpham;
 public class ThemSanPhamController extends Application implements Initializable{
 	private FileChooser filechooser;
@@ -95,12 +97,7 @@ public class ThemSanPhamController extends Application implements Initializable{
     	int giatiensp = Integer.parseInt(giatien.getText());
     	String donvisp = donvi.getValue();
     	String loaisp = loaisanpham.getValue();
-    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-				.configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
 		FileInputStream fis = new FileInputStream(file);
 		 byte[] bFile = new byte[(int) (file.length())];
 		 fis.read(bFile);

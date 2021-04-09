@@ -70,6 +70,7 @@ import org.hibernate.boot.registry.*;
 
 import QLBH.Chitietdathang;
 import QLBH.Chitiethoadon;
+import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Nhacungcap;
 import QLBH.Nhanvien;
@@ -355,12 +356,7 @@ public void loadData(Taikhoannv taikhoan) {
 		 int manhanvien = taikhoan.getNhanvien().getManv();
 		 lapphieu.setOnMouseClicked(event ->  {
 			 Alert alert = new Alert(AlertType.INFORMATION);
-			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
+			 Session session = HibernateUtils.getSessionFactory().openSession();
 			int manv = taikhoan.getNhanvien().getManv();
 			int tongtienphieudathang = Integer.parseInt(tongtien.getText());
 			//String tennhacc = cbnhacungcap.getValue();

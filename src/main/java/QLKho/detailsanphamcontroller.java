@@ -56,6 +56,8 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
+
+import QLBH.HibernateUtils;
 import QLBH.Sanpham;
 import QLBH.chucnangquanly;
 
@@ -148,11 +150,7 @@ public class detailsanphamcontroller implements Initializable{
 		int capnhatslsp = Integer.parseInt(soluong.getText());
 		int capnhatgtsp = Integer.parseInt(giatien.getText());
 		String capnhatlsp = loaisanpham.getValue();	
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+		 Session session = HibernateUtils.getSessionFactory().openSession();
 				byte[] bFile = null;
 				//anh
 				

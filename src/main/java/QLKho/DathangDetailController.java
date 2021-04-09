@@ -57,6 +57,7 @@ import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 import QLBH.Chitietdathang;
+import QLBH.HibernateUtils;
 import QLBH.Sanpham;
 import QLBH.Phieudathang;
 
@@ -105,12 +106,7 @@ public class DathangDetailController implements Initializable{
     public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
     	int Phieudathang = phieudathang.getMadathang();
     	ObservableList<Chitietdathang> tablePhieuDatHang = FXCollections.observableArrayList();
-    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
 			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			//SELECT C.soluong,SP.tensanpham,SP.giatien FROM chitietdathang C,sanpham SP WHERE C.masanpham = SP.masanpham

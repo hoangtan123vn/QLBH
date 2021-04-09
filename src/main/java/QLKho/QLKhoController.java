@@ -18,6 +18,7 @@ import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import QLBH.GiaoDienQLController;
+import QLBH.HibernateUtils;
 import QLBH.KiemtrahangController;
 import QLBH.Nhanvien;
 import QLBH.Phieudathang;
@@ -360,11 +361,7 @@ public class QLKhoController implements Initializable {
 
 	public ObservableList<Sanpham> getSanpham() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		 Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
 		sp.from(Sanpham.class);

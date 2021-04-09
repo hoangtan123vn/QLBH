@@ -44,6 +44,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import QLBH.GiaoDienQLController;
+import QLBH.HibernateUtils;
 import QLBH.Taikhoannv;
 
 public class LoginController implements  Initializable{
@@ -78,12 +79,7 @@ public class LoginController implements  Initializable{
        }
       
 
-   	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-			.configure("hibernate.cfg.xml")
-			.build();
-	Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-	SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-	Session session = sessionFactory.openSession();
+    Session session = HibernateUtils.getSessionFactory().openSession();
 	String username = emailIdField.getText();
 	String password =passwordField.getText();
 	//String hql = "SELECT u.username, u.password FROM taikhoannv u WHERE u.username = :username, u.password= :password";	

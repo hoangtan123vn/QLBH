@@ -15,6 +15,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import BanHang.BanHangController;
+import QLBH.HibernateUtils;
 //import QLBH.HoadonDetailController;
 import QLBH.Hoadon;
 import QLBH.chucnangnhanvienController;
@@ -127,11 +128,7 @@ public class ListNhaCungCapController implements Initializable {
 	
 	public ObservableList<Nhacungcap> getNhacungcap() {
 		ObservableList<Nhacungcap> tableKH = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		 Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Nhacungcap> ncc = session.getCriteriaBuilder().createQuery(Nhacungcap.class);
 		ncc.from(Nhacungcap.class);
