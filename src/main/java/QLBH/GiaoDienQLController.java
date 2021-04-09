@@ -148,6 +148,9 @@ public class GiaoDienQLController implements Initializable{
 		khachhang.setOnMouseClicked(event ->  {
 			SceneKhachHang();
 		});
+		nhacungcap.setOnMouseClicked(event ->  {
+			SceneNhaCungCap();
+		});
 		
 
 		
@@ -236,6 +239,33 @@ public class GiaoDienQLController implements Initializable{
 	    /*	khachhangController khachhangController = loader.getController();
 	        khachhangController.loadData(taikhoan);
 	        System.out.println(taikhoan);*/
+      /*    stage.hide();
+      	stage.setScene(scene);
+      	stage.show();*/
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+			//e.printStackTrace();
+		}
+   }
+   
+   public void SceneNhaCungCap() {
+	   try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Nhacungcap/nhacungcap.fxml"));
+			AnchorPane pane = loader.load();
+			
+			mainpane.getChildren().setAll(pane);
+	    /*	if(mainpane.getChildren().setAll(pane)) {
+	    		//nhanvien.setClickable(false);
+	    	}*/
+			//Parent tmp;
+		//	tmp = loader.load();
+		//	Scene scene = new Scene(tmp);
+		//	Stage stage = new Stage();
+		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+	   // 	QLKhoController qlKhoController = loader.getController();
+	      //  qlKhoController.loadData(taikhoan);
+	      //  System.out.println(taikhoan);
       /*    stage.hide();
       	stage.setScene(scene);
       	stage.show();*/
