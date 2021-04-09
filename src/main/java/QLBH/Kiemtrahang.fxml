@@ -32,6 +32,8 @@
             <Label fx:id="thoigiandatkt" layoutX="198.0" layoutY="116.0" text="Thời gian đặt" />
             <Button fx:id="btphieunhap" layoutX="713.0" layoutY="492.0" mnemonicParsing="false" onAction="#TaoPhieuNhap" text="Tạo phiếu nhập" />
             <Button fx:id="btphieutra" layoutX="590.0" layoutY="492.0" mnemonicParsing="false" onAction="#TaoPhieuTra" prefHeight="25.0" prefWidth="99.0" text="Tạo phiếu trả" />
+            <Label layoutX="71.0" layoutY="169.0" text="Tổng tiền " />
+            <Label fx:id="tongtien" layoutX="198.0" layoutY="169.0" text="Tổng tiền " />
          </children>
       </AnchorPane>
    </children>

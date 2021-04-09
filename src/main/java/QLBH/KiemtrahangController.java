@@ -42,8 +42,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import javax.crypto.MacSpi;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -65,6 +67,7 @@ import com.sun.xml.bind.v2.util.EditDistance;
 
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 
 import QLBH.Nhanvien;
@@ -80,7 +83,8 @@ public class KiemtrahangController implements Initializable{
 
 	    @FXML
 	    private Label thoigiandatkt;
-	   
+	   @FXML 
+	   private Label tongtien;
 
 	    @FXML
 	    private TableColumn<Chitietdathang,Sanpham> tenhang;
@@ -103,18 +107,36 @@ public class KiemtrahangController implements Initializable{
 	    @FXML
 	    private TableColumn choice;
 
+
 	    
 	  //  ObservableList<String> CheckBoxList = FXCollections.observableArrayList();
 	    @FXML
 	    void TaoPhieuNhap(ActionEvent event) throws IOException {
+	    	int  mancc= Integer.parseInt(mancckt.getText());
+	    	LocalDateTime dateTime = LocalDateTime.now();
+	    	Nhacungcap nhacungcap = new Nhacungcap();
+	
+			//nhacungcap = session.get(Nhacungcap.class,mancc);
+	    	Phieunhaphang phieunhaphang = new Phieunhaphang(dateTime, (Integer) null,null,null);
+	    	
+	    	//double tongtien = ct.getPhieudathang().getTongtien();
 	    	for (Chitietdathang ct : tableChitietKiemtra.getItems()) {
-	    		System.out.println(ct.getSoluong());
-	    		System.out.println(ct.getSanpham().getTensanpham());
-	    		for (choice cbh : data)
+	    		int soluong =ct.getSoluong();
+	    		String tenspString = ct.getSanpham().getTensanpham();
+	    		System.out.println("so luong :" +ct.getSoluong());
+	    		System.out.println("Ten sp :" +ct.getSanpham().getTensanpham());
+	    		int manhaphang = ct.getSanpham().getMasanpham();
+	    		System.out.println("ma sp: "+ manhaphang);
+	    		
+	    	//	int  mancc= Integer.parseInt(mancckt.getText());
+	    		System.out.println("tong tien"+ tongtien);
+	    		System.out.println("mancc:"+ mancc);
+	    		}
+	    		
 	    		
 	    	}
 	    	
-	    }
+	    
 
 	    @FXML
 	    void TaoPhieuTra(ActionEvent event) {
@@ -165,6 +187,7 @@ public class KiemtrahangController implements Initializable{
 		madathangkt.setText(String.valueOf(phieudathang.getMadathang()));
 		thoigiandatkt.setText(String.valueOf(phieudathang.getThoigian()));
 		mancckt.setText(String.valueOf(phieudathang.getNhacungcap().toString()));
+		tongtien.setText(String.valueOf(phieudathang.getTongtien()));
 		IntitlizeChitietdathang(phieudathang);
 	}
 	 public void IntitlizeChitietdathang(Phieudathang phieudathang) {
@@ -179,6 +202,7 @@ public class KiemtrahangController implements Initializable{
 	 		        }
 	 		    }
 	    	});
+	    	
 	    	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 	    	soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Integer>("soluong"));
 	    	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
