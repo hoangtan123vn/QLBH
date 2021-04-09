@@ -151,6 +151,10 @@ public class LapPhieuDatHangController implements Initializable{
 
 	    @FXML
 	    private Button lapphieu;
+	    
+	    
+	    @FXML
+	    private ComboBox<String> cbbthanhtoan;
 	 
 	
 	ObservableList<Sanpham> table = FXCollections.observableArrayList(getSanpham());
@@ -339,7 +343,7 @@ public class LapPhieuDatHangController implements Initializable{
 		    
 		    entry.setSoluong(soluong + entry.getSoluong());
 		    entry.setThanhtien(entry.getSanpham().getGiatien()*entry.getSoluong());
-		    double sum = 0;
+		    int sum = 0;
 	        for (Chitietdathang chitietdathang : tableSP1.getItems()) {
 	            sum = sum + (chitietdathang.getSanpham().getGiatien()*chitietdathang.getSoluong());
 	        }
@@ -358,7 +362,7 @@ public void loadData(Taikhoannv taikhoan) {
 			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 			Session session = sessionFactory.openSession();
 			int manv = taikhoan.getNhanvien().getManv();
-			double tongtienphieudathang = Double.parseDouble(tongtien.getText());
+			int tongtienphieudathang = Integer.parseInt(tongtien.getText());
 			//String tennhacc = cbnhacungcap.getValue();
 			//Nhacungcap ncc = new Nhacungcap(tennhacc);
 			Nhanvien nhanvien = new Nhanvien();
@@ -368,42 +372,98 @@ public void loadData(Taikhoannv taikhoan) {
 			Nhacungcap ncc = new Nhacungcap();
 			ncc = session.get(Nhacungcap.class, ma_ncc);
 			Phieudathang phieudathang = new Phieudathang(thoigiandat,tongtienphieudathang,ncc,nhanvien);
-			try {
-				session.beginTransaction();
-				session.save(phieudathang);
-				session.getTransaction().commit();
-			//	alert.setContentText("Thêm phieu dat hang thành công !");
-	    	//	 alert.showAndWait();  
-			} catch (Exception e) {
-				// TODO: handle exception
-				 alert.setContentText("Lỗi " + e);
-				 alert.showAndWait();
-		    	 session.getTransaction().rollback();
-			}
-			for (Chitietdathang chitietdathang : tableSP1.getItems()) {
-				Sanpham spp= new Sanpham();
-				int masp = chitietdathang.getSanpham().getMasanpham();
-				spp= session.get(Sanpham.class, masp);
-				int soluong = chitietdathang.getSoluong();
-				double thanhtien = chitietdathang.getThanhtien();
-				 phieudathang = session.get(Phieudathang.class, phieudathang.getMadathang());
-				Chitietdathang chitietdathang1 = new Chitietdathang(phieudathang,spp,soluong,thanhtien);
-				 try {
-		    		 session.beginTransaction();
-		    	//	 System.out.println(phieudathang.getMadathang() + "!23");
-		    		 session.save(chitietdathang1);
-		    		// session.save(spp);
-		    		 session.getTransaction().commit();
-		    		 alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
-		    		 alert.showAndWait();   
-				 }
-			    	catch (RuntimeException error){
-			    		 System.out.println(error);
-			    		 alert.setContentText("Lập phiếu đặt hàng thất bại  !");
-			    		 alert.showAndWait();
-			    		 session.getTransaction().rollback();
-			    	}
+			if(cbbthanhtoan.getValue() == "Trực tiếp" ) {
+				//System.out.println("Thanh cong");
+				try {
+					session.beginTransaction();
+					session.save(phieudathang);
+					session.getTransaction().commit();
+				//	alert.setContentText("Thêm phieu dat hang thành công !");
+		    	//	 alert.showAndWait();  
+				} catch (Exception e) {
+					// TODO: handle exception
+					 alert.setContentText("Lỗi " + e);
+					 alert.showAndWait();
+			    	 session.getTransaction().rollback();
 				}
+				for (Chitietdathang chitietdathang : tableSP1.getItems()) {
+					Sanpham spp= new Sanpham();
+					int masp = chitietdathang.getSanpham().getMasanpham();
+					spp= session.get(Sanpham.class, masp);
+					int soluong = chitietdathang.getSoluong();
+					double thanhtien = chitietdathang.getThanhtien();
+					 phieudathang = session.get(Phieudathang.class, phieudathang.getMadathang());
+					Chitietdathang chitietdathang1 = new Chitietdathang(phieudathang,spp,soluong,thanhtien);
+					 try {
+			    		 session.beginTransaction();
+			    	//	 System.out.println(phieudathang.getMadathang() + "!23");
+			    		 session.save(chitietdathang1);
+			    		// session.save(spp);
+			    		 session.getTransaction().commit();
+			    		 alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
+			    		 alert.showAndWait();   
+					 }
+				    	catch (RuntimeException error){
+				    		 System.out.println(error);
+				    		 alert.setContentText("Lập phiếu đặt hàng thất bại  !");
+				    		 alert.showAndWait();
+				    		 session.getTransaction().rollback();
+				    	}
+					}
+			}
+			else if(cbbthanhtoan.getValue() == "Tạo công nợ") {
+				Nhacungcap nhacungcap = new Nhacungcap();
+				nhacungcap= session.get(Nhacungcap.class, ma_ncc);
+				try {
+					
+					session.beginTransaction();
+					session.save(phieudathang);
+					nhacungcap.setSotienno(nhacungcap.getSotienno()+Integer.parseInt(String.valueOf(tongtienphieudathang)));
+					session.save(nhacungcap);
+					session.getTransaction().commit();
+					alert.setContentText("Cập nhật công nợ thành công  ");
+		    		 alert.showAndWait(); 
+				//	alert.setContentText("Thêm phieu dat hang thành công !");
+		    	//	 alert.showAndWait();  
+		    		 
+				} catch (Exception e) {
+					// TODO: handle exception
+					 alert.setContentText("Lỗi " + e);
+					 alert.showAndWait();
+			    	 session.getTransaction().rollback();
+				}
+				for (Chitietdathang chitietdathang : tableSP1.getItems()) {
+					Sanpham spp= new Sanpham();
+					int masp = chitietdathang.getSanpham().getMasanpham();
+					spp= session.get(Sanpham.class, masp);
+					int soluong = chitietdathang.getSoluong();
+					double thanhtien = chitietdathang.getThanhtien();
+					 phieudathang = session.get(Phieudathang.class, phieudathang.getMadathang());
+					Chitietdathang chitietdathang1 = new Chitietdathang(phieudathang,spp,soluong,thanhtien);
+					 try {
+			    		 session.beginTransaction();
+			    	//	 System.out.println(phieudathang.getMadathang() + "!23");
+			    		 session.save(chitietdathang1);
+			    		// session.save(spp);
+			    		 session.getTransaction().commit();
+			    		  
+					 }
+				    	catch (RuntimeException error){
+				    		 System.out.println(error);
+				    		 alert.setContentText("Lập phiếu đặt hàng thất bại  !");
+				    		 alert.showAndWait();
+				    		 session.getTransaction().rollback();
+				    	}
+					 
+					}
+				alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
+	    		 alert.showAndWait();  
+			}
+			else {
+				 alert.setContentText("bạn phải chọn phương thức thanh toán  !");
+				 alert.showAndWait();
+			}
+			
 			
 			
 		 });
@@ -411,6 +471,8 @@ public void loadData(Taikhoannv taikhoan) {
 
 			@Override
 			public void initialize(URL url, ResourceBundle rb) {
+				ObservableList<String> list = FXCollections.observableArrayList("Trực tiếp", "Tạo công nợ");
+				cbbthanhtoan.setItems(list);
 				setCellValueFromTabletoTexfFieldd();
 				tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 				masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));

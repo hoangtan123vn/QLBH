@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
 @Table(name="sanpham")
 public class Sanpham implements Serializable{
 	
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	
 	@Id 
 	private int masanpham;

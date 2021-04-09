@@ -17,7 +17,7 @@ public class Phieudathang implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int madathang;
 	private LocalDateTime thoigian;
-	private double tongtien;
+	private int tongtien;
 	
 	@OneToMany(mappedBy = "phieudathang",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Chitietdathang> chitietdathang;
@@ -35,7 +35,7 @@ public class Phieudathang implements Serializable {
 
 	
 	
-	public Phieudathang(int madathang, LocalDateTime thoigian, double tongtien, Nhacungcap nhacungcap) {
+	public Phieudathang(int madathang, LocalDateTime thoigian, int tongtien, Nhacungcap nhacungcap) {
 		super();
 		this.madathang = madathang;
 		this.thoigian = thoigian;
@@ -71,7 +71,7 @@ public class Phieudathang implements Serializable {
 	}
 
 
-	public void setTongtien(double tongtien) {
+	public void setTongtien(int tongtien) {
 		this.tongtien = tongtien;
 	}
 
@@ -118,7 +118,7 @@ public class Phieudathang implements Serializable {
 	public void setNhanvien(Nhanvien nhanvien) {
 		this.nhanvien = nhanvien;
 	}
-	public Phieudathang(LocalDateTime thoigian, double tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	public Phieudathang(LocalDateTime thoigian, int tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien) {
 		super();
 		this.thoigian = thoigian;
 		this.tongtien = tongtien;

@@ -33,7 +33,7 @@
       <Button fx:id="idDatHang" layoutX="682.0" layoutY="318.0" mnemonicParsing="false" onAction="#DatHang" prefHeight="27.0" prefWidth="58.0" text="Đặt " />
       <Button fx:id="huy" layoutX="773.0" layoutY="318.0" mnemonicParsing="false" onAction="#CanCel" prefHeight="27.0" prefWidth="58.0" text="Hủy" />
       <Text layoutX="55.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanh toán" wrappingWidth="86.953125" />
-      <ComboBox layoutX="163.0" layoutY="220.0" prefHeight="25.0" prefWidth="235.0" />
+      <ComboBox fx:id="cbbthanhtoan" layoutX="163.0" layoutY="220.0" prefHeight="25.0" prefWidth="235.0" />
       <TableView fx:id="tableSP1" layoutX="444.0" layoutY="358.0" prefHeight="278.0" prefWidth="520.0">
          <columns>
             <TableColumn fx:id="tensanpham1" prefWidth="97.0" text="Tên sản phẩm" />

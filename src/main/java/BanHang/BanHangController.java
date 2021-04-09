@@ -65,8 +65,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import QLBH.Chitiethoadon;
-import QLBH.Sanpham;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
@@ -208,18 +206,23 @@ public class BanHangController implements Initializable{
 			    		 alert.showAndWait();
 			    		session.getTransaction().rollback();
 			    	}
+				 for (Sanpham spp1 : TableSP.getItems()) {
 				for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
+					if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
+						if (chitiethoadon123.getSoluong() <= spp1.getDonvitinh()) {
+					Sanpham capnhatSanpham = new Sanpham();
+					capnhatSanpham= session.get(Sanpham.class, spp1.getMasanpham());
 					Sanpham spp= new Sanpham();
 					int masp = chitiethoadon123.getSanpham().getMasanpham();
 					spp= session.get(Sanpham.class, masp);
 					int soluong = chitiethoadon123.getSoluong();
 					double thanhtien = chitiethoadon123.getThanhtien();
-				//	System.out.println(" masp : " +masp);
-					//System.out.println(masp);
+					int soluongconlai = capnhatSanpham.getDonvitinh()-soluong;
 					Chitiethoadon  chitiethoadon = new Chitiethoadon(soluong,hoadonn,spp,thanhtien);
 					 try {
 			    		 session.beginTransaction();
-			    		// session.save(hoadonn);
+			    		 capnhatSanpham.setDonvitinh(soluongconlai);
+			    		 session.save(capnhatSanpham);
 			    		 System.out.println(hoadonn.getMahoadon());
 			    		 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
 			    		 session.save(chitiethoadon);
@@ -233,42 +236,29 @@ public class BanHangController implements Initializable{
 				    	//	 alert.showAndWait();
 				    		 session.getTransaction().rollback();
 				    	}  
+				}
+						
+					
+					
 					}
+		 }
 				 alert.setContentText("Tạo hóa đơn thành công !");
 	    		 alert.showAndWait(); 
 	    		 
+	    		 try {
+	    			 	int tichdiem = Integer.parseInt(tongtien.getText())/10000;
+						//int tichluy = Integer.parseInt(diemtichluy.getText());
+						//int makhh = Integer.parseInt(khachhangg.getText());
+	    			 	int tongg = khachhang.getDiemtichluy() +tichdiem ;
+	    			 	 session.beginTransaction();
+	    			 	 khachhang.setDiemtichluy(tongg);
+	    			 	 session.save(khachhang);
+	    			 	 session.getTransaction().commit();
+	    		 }catch (Exception e) {
+	    			 System.out.println(e);
+				}
 	    		 
-	    		 //tich diem
-					int tichdiem = Integer.parseInt(tongtien.getText())/10000;
-					int tichluy = Integer.parseInt(diemtichluy.getText());
-					int makhh = Integer.parseInt(khachhangg.getText());
-					System.out.println(tichdiem);
-					System.out.println(tichluy);
-					System.out.println(makhh);
-					int tongg = tichluy +tichdiem ;
-					System.out.println(tongg);
-	            	try{
-	    				session.getTransaction().begin();
-	    				String hql = "update KhachHang kh set kh.diemtichluy = :diemtichluy where kh.makh =:makh ";
-	    				Query query = session.createQuery(hql);
-	    				query.setParameter("diemtichluy", tongg);
-	    				query.setParameter("makh",makhh);
-	    				System.out.println("11111");
-	    				int result = query.executeUpdate();
-	    				System.out.print(result);
-	    	    	     session.clear();
-	    	    	     session.close();
-	    	    	     System.out.println("tich diem thanh cong !");
-
-	    				}
-	    		        catch(HibernateException e) {
-	    		    		e.printStackTrace();
-	    		       
-	    		        }
-				//
-				trusanpham();
-						
-				
+				 }
 			});
 		 
 		   
@@ -657,7 +647,7 @@ public class BanHangController implements Initializable{
 		}
 		else giamgia.setText("0");
 	}
-	void trusanpham() {
+	/*void trusanpham() {
 		 Alert alert = new Alert(AlertType.INFORMATION);
 			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
@@ -711,5 +701,5 @@ public class BanHangController implements Initializable{
 			catch(HibernateException e){
 				System.out.print(e);
 			}
-}
+}*/
 }
