@@ -236,65 +236,37 @@ public class BanHangController implements Initializable{
 					}
 				 alert.setContentText("Tạo hóa đơn thành công !");
 	    		 alert.showAndWait(); 
-				//tich diem + tru san pham
-				for (Sanpham spp : TableSP.getItems()) {
-		            //  int soluongban = spp.getDonvitinh();
-		             // System.out.println(soluongban);
-		              
-		          for (Chitiethoadon sp : hoadon.getItems()) {
-		              //int soluongmua = sp.getSoluong();
-		            //  System.out.println(soluongmua);
-		              if(spp.getMasanpham() == sp.getSanpham().getMasanpham()) {
-		              	System.out.println(spp.getDonvitinh());
-		              	System.out.println(sp.getSoluong());
-		              	int soluongtrongkho = spp.getDonvitinh();
-		              	int soluongban = sp.getSoluong();
-		              	int masanphamm = sp.getSanpham().getMasanpham();
-		              	int soluongconlai = soluongtrongkho - soluongban;
-		 				int tichdiem = Integer.parseInt(tongtien.getText())/10000;
-						int tichluy = Integer.parseInt(diemtichluy.getText());
-						int makhh = Integer.parseInt(khachhangg.getText());
-						System.out.println(tichdiem);
-						System.out.println(tichluy);
-						System.out.println(makhh);
-						int tongg = tichluy +tichdiem ;
-						System.out.println(tongg);
-		              	System.out.print(masanphamm);
-		              	if (soluongban <= soluongtrongkho) {
+	    		 
+	    		 
+	    		 //tich diem
+					int tichdiem = Integer.parseInt(tongtien.getText())/10000;
+					int tichluy = Integer.parseInt(diemtichluy.getText());
+					int makhh = Integer.parseInt(khachhangg.getText());
+					System.out.println(tichdiem);
+					System.out.println(tichluy);
+					System.out.println(makhh);
+					int tongg = tichluy +tichdiem ;
+					System.out.println(tongg);
+	            	try{
+	    				session.getTransaction().begin();
+	    				String hql = "update KhachHang kh set kh.diemtichluy = :diemtichluy where kh.makh =:makh ";
+	    				Query query = session.createQuery(hql);
+	    				query.setParameter("diemtichluy", tongg);
+	    				query.setParameter("makh",makhh);
+	    				System.out.println("11111");
+	    				int result = query.executeUpdate();
+	    				System.out.print(result);
+	    	    	     session.clear();
+	    	    	     session.close();
+	    	    	     System.out.println("tich diem thanh cong !");
 
-			                    	try{
-			            				session.getTransaction().begin();
-			            				String hql = "update KhachHang kh set kh.diemtichluy = :diemtichluy where kh.makh =:makh ";
-			            				Query query = session.createQuery(hql);
-			            				query.setParameter("diemtichluy", tongg);
-			            				query.setParameter("makh",makhh);
-			            				System.out.println("11111");
-			            				int result = query.executeUpdate();
-			            				System.out.print(result);
-			            	    		 String hql2 = "update Sanpham sp set sp.donvitinh =:soluongconlai where sp.masanpham =:masanpham ";
-			            	    		 Query query1 = session.createQuery(hql2);
-			            	    		 query1.setParameter("soluongconlai", soluongconlai);
-			            	    	     query1.setParameter("masanpham",masanphamm);
-			            	    	     int result1 = query1.executeUpdate();
-			            	    	     System.out.print(result);
-			            	    	     session.clear();
-			            	    	     session.close();
-			            	    	     System.out.println("tru san pham thanh cong !");
-			            				}
-			            		        catch(HibernateException e) {
-			            		    		e.printStackTrace();
-			            		       
-			            		        }
-		              	}
-		              	else {
-		              		 alert.setContentText("het hang roi du me may");
-					    		 alert.showAndWait();
-
-		              	}
-		              }
-		          }
-
-		      }
+	    				}
+	    		        catch(HibernateException e) {
+	    		    		e.printStackTrace();
+	    		       
+	    		        }
+				//
+				trusanpham();
 						
 				
 			});
@@ -685,4 +657,59 @@ public class BanHangController implements Initializable{
 		}
 		else giamgia.setText("0");
 	}
+	void trusanpham() {
+		 Alert alert = new Alert(AlertType.INFORMATION);
+			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+					.configure("hibernate.cfg.xml")
+					.build();
+			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+			Session session = sessionFactory.openSession();
+			try {
+			session.beginTransaction();
+			String hql2 = "update Sanpham sp set sp.donvitinh =:soluongconlai where sp.masanpham =:masanpham ";
+		for (Sanpham spp : TableSP.getItems()) {
+         for (Chitiethoadon sp : hoadon.getItems()) {
+
+       	  	if(spp.getMasanpham() == sp.getSanpham().getMasanpham()) {
+            // 	System.out.println(spp.getDonvitinh());
+            // 	System.out.println(sp.getSoluong());
+             	int soluongtrongkho = spp.getDonvitinh();
+            	int soluongban = sp.getSoluong();
+            	int masanphamm = sp.getSanpham().getMasanpham();
+             	int soluongconlai = soluongtrongkho - soluongban;
+             	System.out.println("masp: "+masanphamm);
+             	System.out.println("soluongban: "+soluongban);
+             	System.out.println("soluongtrongkho: "+soluongtrongkho);
+             	System.out.println("soluongconlai: "+soluongconlai);
+             	if (soluongban <= soluongtrongkho) {
+	                    	try{
+	            	    		 Query query1 = session.createQuery(hql2);
+	            	    		 query1.setParameter("soluongconlai", soluongconlai);
+	            	    	     query1.setParameter("masanpham",masanphamm);
+	            	    	     int result1 = query1.executeUpdate();
+	            	    	     
+	            	    	     System.out.println("tru san pham thanh cong !");
+	            	    	     
+	            				}
+	            		        catch(HibernateException e) {
+	            		    		e.printStackTrace();		       
+	            		        }
+             	}
+             	else {
+             		 alert.setContentText("het hang roi du me may");
+			    		 alert.showAndWait();
+             	}
+            }
+         }
+
+    }
+		 session.getTransaction().commit();
+	     session.clear();
+	     session.close();
+	     }
+			catch(HibernateException e){
+				System.out.print(e);
+			}
+}
 }
