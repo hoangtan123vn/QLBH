@@ -151,6 +151,9 @@ public class GiaoDienQLController implements Initializable{
 		nhacungcap.setOnMouseClicked(event ->  {
 			SceneNhaCungCap();
 		});
+		danhmuc.setOnMouseClicked(event ->  {
+			SceneDanhMuc();
+		});
 		
 
 		
@@ -255,26 +258,27 @@ public class GiaoDienQLController implements Initializable{
 			AnchorPane pane = loader.load();
 			
 			mainpane.getChildren().setAll(pane);
-	    /*	if(mainpane.getChildren().setAll(pane)) {
-	    		//nhanvien.setClickable(false);
-	    	}*/
-			//Parent tmp;
-		//	tmp = loader.load();
-		//	Scene scene = new Scene(tmp);
-		//	Stage stage = new Stage();
-		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-	   // 	QLKhoController qlKhoController = loader.getController();
-	      //  qlKhoController.loadData(taikhoan);
-	      //  System.out.println(taikhoan);
-      /*    stage.hide();
-      	stage.setScene(scene);
-      	stage.show();*/
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
 			//e.printStackTrace();
 		}
    }
+   public void SceneDanhMuc() {
+	   try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/danhmuc.fxml"));
+			AnchorPane pane = loader.load();
+			
+			mainpane.getChildren().setAll(pane);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+			//e.printStackTrace();
+		}
+   }
+   
+   
+   
    
    
    

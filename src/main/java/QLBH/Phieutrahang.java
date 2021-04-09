@@ -1,6 +1,7 @@
 package QLBH;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ public class Phieutrahang implements Serializable{
 	
 	@Id 
 	private String maphieutra;
-	private String thoigiantra;
+	private LocalDateTime thoigian;
 	//private int mancc;
 	//private int manv;
 	
@@ -27,10 +28,10 @@ public class Phieutrahang implements Serializable{
 	@JoinColumn(name = "manv")
 	private Nhanvien nhanvien;
 	
-	public Phieutrahang(String maphieutra, String thoigiantra, Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	public Phieutrahang(String maphieutra,LocalDateTime thoigian, Nhacungcap nhacungcap, Nhanvien nhanvien) {
 		super();
 		this.maphieutra = maphieutra;
-		this.thoigiantra = thoigiantra;
+		this.thoigian = thoigian;
 		this.nhacungcap = nhacungcap;
 		this.nhanvien = nhanvien;
 	}
@@ -43,12 +44,12 @@ public class Phieutrahang implements Serializable{
 		this.maphieutra = maphieutra;
 	}
 
-	public String getThoigiantra() {
-		return thoigiantra;
+	public LocalDateTime getThoigiantra() {
+		return thoigian;
 	}
 
-	public void setThoigiantra(String thoigiantra) {
-		this.thoigiantra = thoigiantra;
+	public void setThoigiantra(LocalDateTime thoigian) {
+		this.thoigian = thoigian;
 	}
 
 /*	public int getMancc() {

@@ -1,4 +1,4 @@
-package QLBH;
+package DanhMuc;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -28,7 +28,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
+import QLBH.Phieutrahang;
+import QLBH.Chitietphieutra;
+import QLBH.Sanpham;
 public class TrahangDetailController implements Serializable{
 
     @FXML
