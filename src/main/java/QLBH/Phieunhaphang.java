@@ -1,6 +1,7 @@
 package QLBH;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.*;
@@ -28,7 +29,7 @@ public class Phieunhaphang implements Serializable{
 	private Nhacungcap nhacungcap;
 	
 	
-	private String thoigiannhap;
+	private LocalDateTime thoigian;
 	private int tongtien;
 //	private int mancc;
 //	private int manv;
@@ -46,20 +47,28 @@ public class Phieunhaphang implements Serializable{
 	
 	
 
-	public Phieunhaphang(int manhaphang, String thoigiannhap, int tongtien,Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	public Phieunhaphang(int manhaphang, LocalDateTime thoigian, int tongtien,Nhacungcap nhacungcap, Nhanvien nhanvien) {
 	super();
 	this.manhaphang = manhaphang;
-	this.thoigiannhap = thoigiannhap;
+	this.thoigian = thoigian;
 	this.tongtien = tongtien;
 	this.nhacungcap = nhacungcap;
 	this.nhanvien = nhanvien;
 }
 
-
-	public String getThoigiannhap() {
-		return thoigiannhap;
-	}
 	
+
+	public LocalDateTime getThoigian() {
+		return thoigian;
+	}
+
+
+
+	public void setThoigian(LocalDateTime thoigian) {
+		this.thoigian = thoigian;
+	}
+
+
 
 	public List<Chitietnhaphang> getChitietnhaphang() {
 		return chitietnhaphang;
@@ -101,9 +110,6 @@ public class Phieunhaphang implements Serializable{
 		this.tongtien = tongtien;
 	}
 
-	public void setThoigiannhap(String thoigiannhap) {
-		this.thoigiannhap = thoigiannhap;
-	}
 
 	public Phieunhaphang() {
 		super();

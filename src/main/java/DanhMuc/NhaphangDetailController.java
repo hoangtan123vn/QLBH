@@ -1,4 +1,4 @@
-package QLBH;
+package DanhMuc;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -56,6 +56,11 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
+import QLBH.Chitiethoadon;
+import QLBH.Chitietnhaphang;
+import QLBH.Hoadon;
+import QLBH.Phieunhaphang;
+import QLBH.Sanpham;
 public class NhaphangDetailController implements Initializable {
 
 	 @FXML
@@ -122,7 +127,8 @@ public class NhaphangDetailController implements Initializable {
 			CriteriaQuery<Chitietnhaphang> query = builder.createQuery(Chitietnhaphang.class);
 			Root<Chitietnhaphang> root = query.from(Chitietnhaphang.class); // FROM
 			Join<Chitietnhaphang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
-	
+			Join<Chitietnhaphang, Phieunhaphang> NhapHangJoin = root.join("phieunhaphang",JoinType.INNER);
+			query.where(builder.equal(NhapHangJoin.get("manhaphang"), Phieunhaphang));
 			List<Chitietnhaphang> ctnh = session.createQuery(query).getResultList();
     	
 		 for(Chitietnhaphang b : ctnh) {
