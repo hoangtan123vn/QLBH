@@ -131,11 +131,7 @@ public class timkhachhangController implements Initializable{
 
 	public ObservableList<KhachHang> getKhachHang() {
 		ObservableList<KhachHang> tableKH = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<KhachHang> kh = session.getCriteriaBuilder().createQuery(KhachHang.class);
 		kh.from(KhachHang.class);
@@ -175,34 +171,6 @@ public class timkhachhangController implements Initializable{
 	 
 	 @FXML
 	 void them(ActionEvent event) throws IOException  {
-//		 	System.out.print("111");
-		//    FXMLLoader loader = new FXMLLoader(getClass().getResource("chucnangnhanvien.fxml"));
-		   // root= loader.load();
-		//	Parent hoadonViewParent = loader.load();
-			//Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-		//	Stage stage = new Stage();
-		//	Scene scene = new Scene(hoadonViewParent);
-	/*	 FXMLLoader loader = new FXMLLoader();  
-		 loader.setLocation(getClass().getResource("chucnangnhanvien.fxml"));
-		 Parent root = loader.load();
-		 chucnangnhanvienController nv = loader.getController();
-		 KhachHang selected = tableKH.getSelectionModel().getSelectedItem();
-		 nv.setkhachhang(selected);
-		
-			/*chucnangnhanvienController Controller = loader.getController();
-			Controller.setkhachhang(selected);
-		
-			Stage stage1 = (Stage) ap.getScene().getWindow();
-       	 	stage1.close();*/
-			//Controller.setStageAnd
-			/*stage.setTitle("Chi tiet hoa don");
-			stage.setScene(scene);
-			stage.show();*/
-		  	//Stage stage = (Stage) back.getScene().getWindow();
-	        //stage.close();*/
-		 
-		 
-		 
 		 KhachHang selected = tableKH.getSelectionModel().getSelectedItem();
 		 banHangController.setkhachhang(selected);
 		 Stage stage1 = (Stage) ap.getScene().getWindow();

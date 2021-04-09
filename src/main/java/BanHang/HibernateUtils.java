@@ -6,7 +6,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
  
-public class HibernateUltis {
+public class HibernateUtils {
  
   private static final SessionFactory sessionFactory = buildSessionFactory();
  

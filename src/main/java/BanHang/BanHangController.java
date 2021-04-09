@@ -174,12 +174,13 @@ public class BanHangController implements Initializable{
 	 public void loadData(Taikhoannv taikhoan) throws IOException{
 		 thanhtoan.setOnMouseClicked(event ->  {
 			 Alert alert = new Alert(AlertType.INFORMATION);
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+			 Session session = HibernateUtils.getSessionFactory().openSession();
+				/*StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 						.configure("hibernate.cfg.xml")
 						.build();
 				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+				Session session = sessionFactory.openSession();*/
 				int makh = Integer.parseInt(khachhangg.getText());
 				int tongtienmua = Integer.parseInt(tongtien.getText());
 				KhachHang khachhang = new KhachHang();
@@ -242,12 +243,9 @@ public class BanHangController implements Initializable{
 					
 					}
 		 }
+				 }
 				 alert.setContentText("Tạo hóa đơn thành công !");
 	    		 alert.showAndWait(); 
-	    		 
-	    		
-	    		 
-				 }
 				 try {
 	    			 	int tichdiem = Integer.parseInt(tongtien.getText())/10000;
 						//int tichluy = Integer.parseInt(diemtichluy.getText());
@@ -479,12 +477,8 @@ public class BanHangController implements Initializable{
 	} 
 	public ObservableList<Sanpham> getSanpham() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
 		sp.from(Sanpham.class);
 		List<Sanpham> eList = session.createQuery(sp).getResultList();

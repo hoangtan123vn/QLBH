@@ -19,6 +19,7 @@ public class Main extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
+		HibernateUtils.getSessionFactory();
 	//	Parent root = FXMLLoader.load(getClass().getResource("/QLBH/giaodienquanly.fxml"));
 		Parent root = FXMLLoader.load(getClass().getResource("banhang.fxml"));
 		//Parent root = FXMLLoader.load(getClass().getResource("nhanvien.fxml"));
