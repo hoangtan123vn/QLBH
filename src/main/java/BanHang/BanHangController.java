@@ -245,7 +245,10 @@ public class BanHangController implements Initializable{
 				 alert.setContentText("Tạo hóa đơn thành công !");
 	    		 alert.showAndWait(); 
 	    		 
-	    		 try {
+	    		
+	    		 
+				 }
+				 try {
 	    			 	int tichdiem = Integer.parseInt(tongtien.getText())/10000;
 						//int tichluy = Integer.parseInt(diemtichluy.getText());
 						//int makhh = Integer.parseInt(khachhangg.getText());
@@ -257,8 +260,6 @@ public class BanHangController implements Initializable{
 	    		 }catch (Exception e) {
 	    			 System.out.println(e);
 				}
-	    		 
-				 }
 			});
 		 
 		   
