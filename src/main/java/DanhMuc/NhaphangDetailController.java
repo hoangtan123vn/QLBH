@@ -58,6 +58,7 @@ import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 import QLBH.Chitiethoadon;
 import QLBH.Chitietnhaphang;
+import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Phieunhaphang;
 import QLBH.Sanpham;
@@ -116,12 +117,7 @@ public class NhaphangDetailController implements Initializable {
    public ObservableList<Chitietnhaphang> getChitietnhaphang(Phieunhaphang phieunhaphang) {
     	String Phieunhaphang = String.valueOf(phieunhaphang.getManhaphang());
     	ObservableList<Chitietnhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
-    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
 			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Chitietnhaphang> query = builder.createQuery(Chitietnhaphang.class);

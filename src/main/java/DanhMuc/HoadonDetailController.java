@@ -57,6 +57,7 @@ import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 import QLBH.Chitiethoadon;
+import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Sanpham;
 
@@ -137,12 +138,7 @@ void read() {
     public ObservableList<Chitiethoadon> getChitietHoadon(Hoadon hoadon) {
     	int mahoadon = hoadon.getMahoadon();
     	ObservableList<Chitiethoadon> TableHD = FXCollections.observableArrayList();
-    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
 			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Chitiethoadon> query = builder.createQuery(Chitiethoadon.class);

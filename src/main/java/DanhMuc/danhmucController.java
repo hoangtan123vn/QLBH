@@ -14,6 +14,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
 import QLBH.Nhacungcap;
@@ -110,12 +111,12 @@ public class danhmucController implements Initializable {
 	// HÓA ĐƠN
 	public ObservableList<Hoadon> getHoadon() {
 		ObservableList<Hoadon> tableHoaDon = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+	/*	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-
+		Session session = sessionFactory.openSession();*/
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		CriteriaQuery<Hoadon> hd = session.getCriteriaBuilder().createQuery(Hoadon.class);
 		hd.from(Hoadon.class);
 		List<Hoadon> eList = session.createQuery(hd).getResultList();
@@ -169,36 +170,8 @@ public class danhmucController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 
-		// Scene scene1 = new Scene(hoadonViewParent);
 
 	}
-
-	/*
-	 * protected void updateItem(T item, boolean empty) { super.updateItem(item,
-	 * empty);
-	 * 
-	 * if (empty || item == null) { setText(null); // setGraphic(null); } else {
-	 * setText(item.toString()); } }
-	 */
-
-	// chi tiết hóa đơn new stage
-	/*
-	 * public void changeSceneHoadonDetail(ActionEvent e) throws IOException { Stage
-	 * stage = (Stage)((Node) e.getSource()).getScene().getWindow(); FXMLLoader
-	 * loader = new FXMLLoader();
-	 * loader.setLocation(getClass().getResource("HoadonDetail.fxml")); Parent
-	 * hoadonViewParent = loader.load(); Scene scene = new Scene(hoadonViewParent);
-	 * HoadonDetailController DSNVController = loader.getController(); Hoadon
-	 * selected = tableHoaDon.getSelectionModel().getSelectedItem();
-	 * DSNVController.setHoadon(selected); stage.setScene(scene); }
-	 */
-
-	/*
-	 * 
-	 * --------------------- FXML Danh mục phiếu đặt hàng
-	 * //NHI-----------------------------
-	 * 
-	 */
 	@FXML
 	private Tab sTab_PhieuDatHang;
 
@@ -262,11 +235,12 @@ public class danhmucController implements Initializable {
 	// PHIẾU ĐẶT HÀNG
 	public ObservableList<Phieudathang> getPhieudathang() {
 		ObservableList<Phieudathang> tablePhieuDatHang = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
+		 Session session = HibernateUtils.getSessionFactory().openSession();
+		/*	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
 				.build();
 		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.openSession();*/
 
 		CriteriaQuery<Phieudathang> pdh = session.getCriteriaBuilder().createQuery(Phieudathang.class);
 		pdh.from(Phieudathang.class);
@@ -360,11 +334,7 @@ public class danhmucController implements Initializable {
 
 	public ObservableList<Phieunhaphang> getPhieunhaphang() {
 		ObservableList<Phieunhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		 Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Phieunhaphang> pnh = session.getCriteriaBuilder().createQuery(Phieunhaphang.class);
 		pnh.from(Phieunhaphang.class);
@@ -475,11 +445,7 @@ public class danhmucController implements Initializable {
 	// PHIẾU TRẢ HÀNG
 	public ObservableList<Phieutrahang> getPhieutrahang() {
 		ObservableList<Phieutrahang> tablePhieuTraHang = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		 Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Phieutrahang> pth = session.getCriteriaBuilder().createQuery(Phieutrahang.class);
 		pth.from(Phieutrahang.class);
@@ -599,18 +565,9 @@ public class danhmucController implements Initializable {
 
 		});
 
-		// mancc2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang,
-		// Integer>("mancc"));
-		// manv2.setCellValueFactory(new PropertyValueFactory<Phieunhaphang,
-		// Integer>("manv"));
 		tablePhieuNhapHang.setItems(getPhieunhaphang());
-		// searchPNH();
-
-		// QL danh mục phiếu trả hàng //Nhi
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
 		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
-		// mancc3.setCellValueFactory(new PropertyValueFactory<Phieutrahang,
-		// Integer>("mancc"));
 		mancc3.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
 		mancc3.setCellFactory(tablePhieuTraHang -> new TableCell<Phieutrahang, Nhacungcap>() {
 			@Override
@@ -624,9 +581,6 @@ public class danhmucController implements Initializable {
 			}
 
 		});
-
-		// manv.setCellValueFactory(new PropertyValueFactory<Phieutrahang,
-		// Integer>("manv"));
 		tablePhieuTraHang.setItems(getPhieutrahang());
 		searchPTH();
 	}

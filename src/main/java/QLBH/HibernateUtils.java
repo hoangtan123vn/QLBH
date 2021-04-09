@@ -1,4 +1,4 @@
-package BanHang;
+package QLBH;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;

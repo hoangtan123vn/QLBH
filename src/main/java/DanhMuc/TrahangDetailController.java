@@ -30,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import QLBH.Phieutrahang;
 import QLBH.Chitietphieutra;
+import QLBH.HibernateUtils;
 import QLBH.Sanpham;
 public class TrahangDetailController implements Serializable{
 
@@ -83,12 +84,7 @@ public class TrahangDetailController implements Serializable{
     public ObservableList<Chitietphieutra> getChitietphieutra(Phieutrahang phieutrahang) {
     	String Phieutrahang = phieutrahang.getMaphieutra();
     	ObservableList<Chitietphieutra> tablePhieuTraHang = FXCollections.observableArrayList();
-    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
 			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			//SELECT C.soluong,SP.tensanpham,SP.giatien FROM chitietdathang C,sanpham SP WHERE C.masanpham = SP.masanpham
