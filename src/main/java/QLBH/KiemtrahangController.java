@@ -107,14 +107,13 @@ public class KiemtrahangController implements Initializable{
 	  //  ObservableList<String> CheckBoxList = FXCollections.observableArrayList();
 	    @FXML
 	    void TaoPhieuNhap(ActionEvent event) throws IOException {
+	    	for (Chitietdathang ct : tableChitietKiemtra.getItems()) {
+	    		System.out.println(ct.getSoluong());
+	    		System.out.println(ct.getSanpham().getTensanpham());
+	    		for (choice cbh : data)
+	    		
+	    	}
 	    	
-	    	
-	    	Parent root = FXMLLoader.load(getClass().getResource("Phieunhaphang.fxml"));
-			Scene scene = new Scene(root);
-			Stage stage = new Stage();
-			stage.setScene(scene);
-			stage.setTitle("Them nhan vien");
-			stage.show();
 	    }
 
 	    @FXML
