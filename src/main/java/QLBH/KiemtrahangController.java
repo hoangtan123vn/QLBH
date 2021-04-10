@@ -1,5 +1,6 @@
 package QLBH;
 import javafx.fxml.FXML;
+import org.apache.derby.iapi.store.access.SpaceInfo;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -31,6 +32,8 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.bytebuddy.implementation.bytecode.Addition;
+import QLBH.Hoadon;
+import QLBH.Sanpham;
 import javafx.stage.FileChooser;
 
 import java.util.List;
@@ -69,6 +72,7 @@ import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
+
 
 import QLBH.Nhanvien;
 public class KiemtrahangController implements Initializable{
@@ -112,25 +116,57 @@ public class KiemtrahangController implements Initializable{
 	  //  ObservableList<String> CheckBoxList = FXCollections.observableArrayList();
 	    @FXML
 	    void TaoPhieuNhap(ActionEvent event) throws IOException {
+	    	 Alert alert = new Alert(AlertType.INFORMATION);
+				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+						.configure("hibernate.cfg.xml")
+						.build();
+				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+				Session session = sessionFactory.openSession();
+			Nhacungcap nhacungcap = new Nhacungcap();
 	    	int  mancc= Integer.parseInt(mancckt.getText());
+	    	nhacungcap = session.get(Nhacungcap.class, mancc);
+	    	int tongtienn =Integer.parseInt(tongtien.getText());
 	    	LocalDateTime dateTime = LocalDateTime.now();
-	    	Nhacungcap nhacungcap = new Nhacungcap();
-	
-			//nhacungcap = session.get(Nhacungcap.class,mancc);
-	    	Phieunhaphang phieunhaphang = new Phieunhaphang(dateTime, (Integer) null,null,null);
-	    	
-	    	//double tongtien = ct.getPhieudathang().getTongtien();
+	    	Phieunhaphang phieunhaphang= new Phieunhaphang(dateTime,tongtienn,nhacungcap,null);
+			 try{
+	    		 session.beginTransaction();
+	    		 session.save(phieunhaphang);
+	    		 session.getTransaction().commit();  
+	    		 alert.setContentText("them phieu nhap hang thanh cong " );
+	    		 alert.showAndWait();
+			 	}
+		    	catch (RuntimeException error){
+		    		 alert.setContentText("Lỗi " + error);
+		    		 alert.showAndWait();
+		    		session.getTransaction().rollback();
+		    	}
+	    
 	    	for (Chitietdathang ct : tableChitietKiemtra.getItems()) {
 	    		int soluong =ct.getSoluong();
-	    		String tenspString = ct.getSanpham().getTensanpham();
-	    		System.out.println("so luong :" +ct.getSoluong());
-	    		System.out.println("Ten sp :" +ct.getSanpham().getTensanpham());
-	    		int manhaphang = ct.getSanpham().getMasanpham();
-	    		System.out.println("ma sp: "+ manhaphang);
+	    		Sanpham sanpham = new Sanpham();
+	    		sanpham= session.get(Sanpham.class, ct.getSanpham().getMasanpham());
+	    		Chitietnhaphang chitietnhaphang= new Chitietnhaphang(phieunhaphang,sanpham,soluong);
+	    		//them so luong sp 
 	    		
-	    	//	int  mancc= Integer.parseInt(mancckt.getText());
-	    		System.out.println("tong tien"+ tongtien);
-	    		System.out.println("mancc:"+ mancc);
+	    		
+				 try {
+		    		 session.beginTransaction();
+		    		 sanpham.setMasanpham(ct.getSoluong());
+		    		 session.save(chitietnhaphang);
+		    		 session.save(sanpham);
+		    		 session.getTransaction().commit();
+		    		 alert.setContentText("them chi tiet nhap hang va cap nhat so luong thanh cong " );
+		    		 alert.showAndWait();
+		    		
+				 }
+			    	catch (RuntimeException error){
+			    		 System.out.println(error);
+			    		 alert.setContentText("Thêm  thất bại   !");
+			    		 alert.showAndWait();
+			    		 session.getTransaction().rollback();
+			    	} 
+	    		
 	    		}
 	    		
 	    		
