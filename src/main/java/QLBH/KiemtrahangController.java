@@ -143,16 +143,16 @@ public class KiemtrahangController implements Initializable{
 		    	}
 	    
 	    	for (Chitietdathang ct : tableChitietKiemtra.getItems()) {
-	    		int soluong =ct.getSoluong();
+	    		int soluongnhap =ct.getSoluong();
 	    		Sanpham sanpham = new Sanpham();
 	    		sanpham= session.get(Sanpham.class, ct.getSanpham().getMasanpham());
-	    		Chitietnhaphang chitietnhaphang= new Chitietnhaphang(phieunhaphang,sanpham,soluong);
+	    		Chitietnhaphang chitietnhaphang= new Chitietnhaphang(phieunhaphang,sanpham,soluongnhap);
 	    		//them so luong sp 
-	    		
+	    		int soluong = ct.getSanpham().getDonvitinh() + soluongnhap;
 	    		
 				 try {
 		    		 session.beginTransaction();
-		    		 sanpham.setMasanpham(ct.getSoluong());
+		    		 sanpham.setMasanpham(soluong);
 		    		 session.save(chitietnhaphang);
 		    		 session.save(sanpham);
 		    		 session.getTransaction().commit();
