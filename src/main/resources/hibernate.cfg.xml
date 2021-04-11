@@ -5,12 +5,12 @@
  <session-factory>
   <!-- JDBC connection settings -->
   <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="connection.url">jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh</property>
+  <property name="connection.url">jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh</property>
   <property name="connection.username">root</property>
   <property name="connection.password"/>
   
   <!-- JDBC connection pool, use Hibernate internal connection pool -->
-  <property name="connection.pool_size">5</property>
+  <property name="connection.pool_size">20</property>
   <!-- Defines the SQL dialect used in Hibernate's application -->
   <property name="dialect">org.hibernate.dialect.MariaDBDialect</property>
   <!-- Enable Hibernate's automatic session context management -->
