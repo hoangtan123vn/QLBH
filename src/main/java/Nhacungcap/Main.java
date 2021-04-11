@@ -13,6 +13,8 @@ public class Main  extends Application {
 	//	Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
 		Parent root = FXMLLoader.load(getClass().getResource("nhacungcap.fxml"));
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.setTitle("Phan mem quan ly ban hang");
 		stage.show();	

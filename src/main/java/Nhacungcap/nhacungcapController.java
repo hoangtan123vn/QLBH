@@ -141,6 +141,7 @@ public class nhacungcapController implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Nhacungcap/taonhacungcap.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
+			stage.setResizable(false);
 			stage.setScene(new Scene(root1));
 			stage.setTitle("Tạo nhà cung cấp");
 			stage.show();

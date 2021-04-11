@@ -97,7 +97,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 			thongbao1.setText("Mời bạn gặp nhân viên A");
 			tfthanhtoan.setVisible(false);
 		}
-		else {
+		else if (cbb.getValue() == "Chuyển Khoản"){
 			thongbao1.setVisible(true);
 			thongbao1.setText("Mời bạn nhập vào ô thanh toán");
 			tfthanhtoan.setVisible(true);
@@ -182,7 +182,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 					"Trực Tiếp",
 					"Chuyển Khoản"
 				);
-		
+		cbb.setValue("Chuyển Khoản");
 	
 						
 //					if (cbb.getValue()=="Chuyển Khoản") {
