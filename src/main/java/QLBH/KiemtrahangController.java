@@ -110,7 +110,45 @@ public class KiemtrahangController implements Initializable{
 	    
 	    @FXML
 	    private TableColumn choice;
+	    
+	    @FXML
+	    private TableColumn <Chitietdathang,Sanpham>mahang;
+	    
+	    @FXML
+	    private TableView tbtrahang;
+	    
+	    @FXML
+	    private TableView<Chitietnhaphang> tbnhaphang;
+	    
+	    @FXML
+	    private TableColumn idtensp2;
 
+	    @FXML
+	    private TableColumn idmasp2;
+
+	    @FXML
+	    private TableColumn idsoluong2;
+
+	    @FXML
+	    private TableColumn iddongia2;
+
+	    @FXML
+	    private TableColumn <Chitietnhaphang,Sanpham>idtensp1;
+
+	    @FXML
+	    private TableColumn idmasp1;
+	    
+	    @FXML
+	    private TableColumn idthanhtien1;
+
+	    @FXML
+	    private TableColumn xoasp;
+
+	    @FXML
+	    private TableColumn idsoluong1;
+
+	    @FXML
+	    private TableColumn iddongia1;
 
 	    
 	  //  ObservableList<String> CheckBoxList = FXCollections.observableArrayList();
@@ -142,11 +180,12 @@ public class KiemtrahangController implements Initializable{
 		    		session.getTransaction().rollback();
 		    	}
 	    
-	    	for (Chitietdathang ct : tableChitietKiemtra.getItems()) {
+	    	for (Chitietnhaphang ct : tbnhaphang.getItems()) {
 	    		int soluongnhap =ct.getSoluong();
+	    		double thanhtien = ct.getThanhtien();
 	    		Sanpham sanpham = new Sanpham();
 	    		sanpham= session.get(Sanpham.class, ct.getSanpham().getMasanpham());
-	    		Chitietnhaphang chitietnhaphang= new Chitietnhaphang(phieunhaphang,sanpham,soluongnhap);
+	    		Chitietnhaphang chitietnhaphang= new Chitietnhaphang(phieunhaphang,sanpham,soluongnhap,thanhtien);
 	    		//them so luong sp 
 	    		int soluong = ct.getSanpham().getDonvitinh() + soluongnhap;
 	    		
@@ -225,8 +264,149 @@ public class KiemtrahangController implements Initializable{
 		mancckt.setText(String.valueOf(phieudathang.getNhacungcap().toString()));
 		tongtien.setText(String.valueOf(phieudathang.getTongtien()));
 		IntitlizeChitietdathang(phieudathang);
+		
+		
+		
+		
 	}
+	private void ButtonXoaSP() {
+	      
+
+        Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>> cellFactory = new Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>>() {
+            @Override
+            public TableCell<Chitietnhaphang, Void> call(final TableColumn<Chitietnhaphang, Void> param) {
+                final TableCell<Chitietnhaphang, Void> cell = new TableCell<Chitietnhaphang, Void>() {
+
+                    private final Button btn = new Button("Xóa Sản Phẩm");
+
+                    {
+                    	///////////////////////////
+                    btn.setOnAction((ActionEvent event) -> {
+                    	Chitietnhaphang chitietnhaphang = getTableView().getItems().get(getIndex());
+                    	 if(tbnhaphang.getItems().contains(chitietnhaphang)) {
+                    		tbnhaphang.getItems().remove(chitietnhaphang);
+               			 tbnhaphang.refresh();
+               			 if(chitietnhaphang.getSoluong()==0) {
+               				 tbnhaphang.getItems().remove(chitietnhaphang);
+               				 tbnhaphang.refresh();
+               			 }
+               		 }
+                        });
+                    }
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+//                int sum = 0;
+//                for (Chitietnhaphang chitietnhaphang : tbnhaphang.getItems()) {
+//                    sum = sum + (chitietnhaphang.getSanpham().getGiatien()*chitietnhaphang.getSoluong());
+//                }
+//                tongtien.setText(String.valueOf(sum));
+                return cell;
+            }
+        };
+        xoasp.setCellFactory(cellFactory);
+ }
+	private void setCellValue()  {
+        tableChitietKiemtra.setOnMouseClicked(event -> {
+            //
+            event();
+           // Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
+       //     System.out.println(sp.getDonvitinh());
+           //tongtien.setText(Integer.toString(sp.getGiatien()));
+
+
+
+        });
+//        hoadon.setOnMouseClicked(event -> {
+//            //
+//
+//            Sanpham sp = hoadon.getItems().get(hoadon.getSelectionModel().getSelectedIndex());
+//            tongtien.setText(Integer.toString(sp.getGiatien()));
+//
+//
+//        });
+    }
+	private void event() {
+        Chitietdathang sp = tableChitietKiemtra.getItems().get(tableChitietKiemtra.getSelectionModel().getSelectedIndex());
+        int masanpham = sp.getSanpham().getMasanpham();
+        String tensanpham = sp.getSanpham().getTensanpham();
+        String loaisanpham = sp.getSanpham().getLoaisanpham();
+        int soluong = sp.getSoluong();
+        String donvi = sp.getSanpham().getDonvi();
+        int giatien = sp.getSanpham().getGiatien();
+         Sanpham sp1 = new Sanpham(masanpham, tensanpham, loaisanpham, donvi, giatien, soluong);
+        addItem(soluong,sp1, 0.0);
+        tableChitietKiemtra.refresh();
+   }
+
+   public void addItem(int soluong,Sanpham sanpham,double thanhtien) {
+       Chitietnhaphang entry = tbnhaphang.getItems().stream()
+           .filter(item -> item.getSanpham().equals(sanpham))
+           .findAny()
+           .orElseGet(()-> {
+              //  Sanpham newItem = new Sanpham(masanpham,tensanpham, loaisanpham,donvi,0, 0);
+               Chitietnhaphang newItem = new Chitietnhaphang(sanpham, soluong, thanhtien);
+              tbnhaphang.getItems().add(newItem);
+               return newItem ;
+           });
+       entry.setThanhtien(entry.getSanpham().getGiatien()*entry.getSoluong());
+      
+   }
+	public void IntitlizeChitietnhaphang () {
+		
+		idtensp1.setCellFactory(tbnhaphang ->new TableCell<Chitietnhaphang, Sanpham>(){
+    		@Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(item.getTensanpham());
+ 		        }
+ 		    }
+    	});
+    	
+    	idtensp1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+    	idmasp1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+    	idmasp1.setCellFactory(tbnhaphang ->new TableCell<Chitietnhaphang, Sanpham>(){
+    		@Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getMasanpham()));
+ 		        }
+ 		    }
+    	});
+    	idsoluong1.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("soluong"));
+    	iddongia1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+    	iddongia1.setCellFactory(tbnhaphang ->new TableCell<Chitietnhaphang, Sanpham>(){
+    		@Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(String.valueOf(item.getGiatien()));
+ 		        }
+ 		    }
+    	});
+    	idthanhtien1.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
+    	ButtonXoaSP();
+    	
+    	
+	}
+	
 	 public void IntitlizeChitietdathang(Phieudathang phieudathang) {
+		 	setCellValue();
 	    	tenhang.setCellFactory(tableChitietKiemtra ->new TableCell<Chitietdathang, Sanpham>(){
 	    		@Override
 	 		    protected void updateItem(Sanpham item, boolean empty) {
@@ -255,14 +435,34 @@ public class KiemtrahangController implements Initializable{
 	    	});
 	    	
 	    	
-	   // 	TableColumn<Chitietdathang,Boolean> choice = new TableColumn<Chitietdathang,Boolean>("Membership");
+	    	TableColumn<Chitietdathang,Boolean> choice = new TableColumn<Chitietdathang,Boolean>("Membership");
+	    	mahang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+	    	mahang.setCellFactory(tableChitietKiemtra ->new TableCell<Chitietdathang, Sanpham>(){
+	    		@Override
+	 		    protected void updateItem(Sanpham item, boolean empty) {
+	 		        super.updateItem(item, empty);
+	 		        if (empty || item == null) {
+	 		            setText(null);
+	 		        } else {
+	 		            setText(String.valueOf(item.getMasanpham()));
+	 		        }
+	 		    }
+	    	});
+	    	
+	    	 
+		    	
 	     	choice.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Boolean>("check"));
 	    	choice.setCellFactory(column -> new CheckBoxTableCell());
 	    	tableChitietKiemtra.setEditable(true);
 	    	tableChitietKiemtra.getColumns().add(choice);
 	    	tableChitietKiemtra.setItems(getChitietdathang(phieudathang));
 	    //	tableChitietKiemtra.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+	    	
+	    	/////////table nhập hàng
+	    	
 	    }
+	
+	 
 	 /*
 	 private void Edit() {
 		 tableChitietKiemtra.setOnMouseClicked(event -> {
@@ -273,6 +473,7 @@ public class KiemtrahangController implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		IntitlizeChitietnhaphang();
 		// TODO Auto-generated method stub
 		
 	}
