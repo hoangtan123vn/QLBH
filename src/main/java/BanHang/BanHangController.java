@@ -65,6 +65,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import QLBH.Chitiethoadon;
+import QLBH.Hoadon;
+import QLBH.KhachHang;
+import QLBH.Nhanvien;
+import QLBH.Sanpham;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 
@@ -181,83 +186,99 @@ public class BanHangController implements Initializable{
 				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 				Session session = sessionFactory.openSession();*/
-				int makh = Integer.parseInt(khachhangg.getText());
-				int tongtienmua = Integer.parseInt(tongtien.getText());
-				KhachHang khachhang = new KhachHang();
-				khachhang = session.get(KhachHang.class, makh);
-				Nhanvien nhanvien = new Nhanvien();
-				nhanvien = session.get(Nhanvien.class,taikhoan.getNhanvien().getManv());
-				LocalDateTime dateTime = LocalDateTime.now();
-				//Nhanvien nhanvien = new Nhanvien();
-				//nhanvien = session.get(Nhanvien.class, 12);
-				Hoadon hoadonn = new Hoadon(dateTime, tongtienmua, nhanvien,khachhang);
+
+			 for (Sanpham spp1 : TableSP.getItems()) {
+					for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
+						if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
+						 if (chitiethoadon123.getSoluong() > spp1.getDonvitinh()) {
+								 alert.setContentText(spp1.getTensanpham()+ "Da het Hang");
+					    		 alert.showAndWait();
+					    		 
+					    		 return;
+							}}}}
+							
+			
+			int tongtienmua = Integer.parseInt(tongtien.getText());
+			KhachHang khachhang = new KhachHang();
+			Nhanvien nhanvien = new Nhanvien();
+			LocalDateTime dateTime = LocalDateTime.now();
+			
+			Hoadon hoadonn = new Hoadon(dateTime, tongtienmua, null,null);
+			 try{
+	    		 session.beginTransaction();
+	    		 session.save(hoadonn);
+	    		 session.getTransaction().commit();  
+			 	}
+		    	catch (RuntimeException error){
+		    		 alert.setContentText("Lỗi " + error);
+		    		 alert.showAndWait();
+		    		session.getTransaction().rollback();
+		    	}
+			
+			
+			 for (Sanpham spp1 : TableSP.getItems()) {
+			for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
+				if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
+					if (chitiethoadon123.getSoluong() <= spp1.getDonvitinh()) {
+				Sanpham capnhatSanpham = new Sanpham();
+				
+				capnhatSanpham= session.get(Sanpham.class, spp1.getMasanpham());
+				Sanpham spp= new Sanpham();
+				int masp = chitiethoadon123.getSanpham().getMasanpham();
+				spp= session.get(Sanpham.class, masp);
+				int soluong = chitiethoadon123.getSoluong();
+				double thanhtien = chitiethoadon123.getThanhtien();
+				int soluongconlai = capnhatSanpham.getDonvitinh()-soluong;
+				Chitiethoadon  chitiethoadon = new Chitiethoadon(soluong,hoadonn,spp,thanhtien);
 				 try {
 		    		 session.beginTransaction();
-		    		 session.save(hoadonn);
-		    	//	 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
-		    		 //session.save(chitiethoadon);
+		    		 capnhatSanpham.setDonvitinh(soluongconlai);
+		    		 session.save(capnhatSanpham);
+		    		 System.out.println(hoadonn.getMahoadon());
+		    		 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
+		    		 session.save(chitiethoadon);
 		    		// session.save(spp);
 		    		 session.getTransaction().commit();
-		    		// alert.setContentText("Thêm hoa don thành công !");
-		    	//	 alert.showAndWait();   
+		    		
 				 }
 			    	catch (RuntimeException error){
-			    		System.out.println(error);
-			    		 alert.setContentText("Lỗi " + error);
-			    		 alert.showAndWait();
-			    		session.getTransaction().rollback();
-			    	}
-				 for (Sanpham spp1 : TableSP.getItems()) {
-				for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
-					if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
-						if (chitiethoadon123.getSoluong() <= spp1.getDonvitinh()) {
-					Sanpham capnhatSanpham = new Sanpham();
-					capnhatSanpham= session.get(Sanpham.class, spp1.getMasanpham());
-					Sanpham spp= new Sanpham();
-					int masp = chitiethoadon123.getSanpham().getMasanpham();
-					spp= session.get(Sanpham.class, masp);
-					int soluong = chitiethoadon123.getSoluong();
-					double thanhtien = chitiethoadon123.getThanhtien();
-					int soluongconlai = capnhatSanpham.getDonvitinh()-soluong;
-					Chitiethoadon  chitiethoadon = new Chitiethoadon(soluong,hoadonn,spp,thanhtien);
-					 try {
-			    		 session.beginTransaction();
-			    		 capnhatSanpham.setDonvitinh(soluongconlai);
-			    		 session.save(capnhatSanpham);
-			    		 System.out.println(hoadonn.getMahoadon());
-			    		 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
-			    		 session.save(chitiethoadon);
-			    		// session.save(spp);
-			    		 session.getTransaction().commit();
-			    		
-					 }
-				    	catch (RuntimeException error){
-				    		 System.out.println(error);
-				    	//	 alert.setContentText("Thêm chi tiet thất bại   !");
-				    	//	 alert.showAndWait();
-				    		 session.getTransaction().rollback();
-				    	}  
+			    		 System.out.println(error);
+			    	//	 alert.setContentText("Thêm chi tiet thất bại   !");
+			    	//	 alert.showAndWait();
+			    		 session.getTransaction().rollback();
+			    	}  
+			}
+					
+				
+				
 				}
-						
-					
-					
-					}
-		 }
-				 }
-				 alert.setContentText("Tạo hóa đơn thành công !");
-	    		 alert.showAndWait(); 
-				 try {
-	    			 	int tichdiem = Integer.parseInt(tongtien.getText())/10000;
-						//int tichluy = Integer.parseInt(diemtichluy.getText());
-						//int makhh = Integer.parseInt(khachhangg.getText());
+	 }
+			 }
+			 alert.setContentText("Tạo hóa đơn thành công !");
+    		 alert.showAndWait(); 
+			 try {
+    			 	
+    			 	
+    			 	 if(khachhangg.getText() !=null) {
+    			 	
+    			 		int makh = Integer.parseInt(khachhangg.getText());
+    					khachhang = session.get(KhachHang.class, makh);
+    					
+    					int tichdiem = Integer.parseInt(tongtien.getText())/10000;
 	    			 	int tongg = khachhang.getDiemtichluy() +tichdiem ;
-	    			 	 session.beginTransaction();
+    			 		 session.beginTransaction();
+    			 		 hoadonn.setKhachhang(khachhang);
 	    			 	 khachhang.setDiemtichluy(tongg);
 	    			 	 session.save(khachhang);
 	    			 	 session.getTransaction().commit();
-	    		 }catch (Exception e) {
-	    			 System.out.println(e);
-				}
+    			 	 }
+    			 	 else {
+    			 		 
+    			 	 }
+    			 	 
+    		 }catch (Exception e) {
+    			 System.out.println(e);
+    		 }
 			});
 		 
 		   
