@@ -21,6 +21,7 @@ public class Chitietnhaphang implements Serializable{
 	private Sanpham sanpham;
 	
 	private int soluong;
+	private double thanhtien;
 	
 
 	
@@ -28,13 +29,31 @@ public class Chitietnhaphang implements Serializable{
 		super();
 		}
 	
-	public Chitietnhaphang(Phieunhaphang phieunhaphang, Sanpham sanpham, int soluong) {
+	public Chitietnhaphang(Phieunhaphang phieunhaphang, Sanpham sanpham, int soluong, double thanhtien) {
 		super();
 		this.phieunhaphang = phieunhaphang;
 		this.sanpham = sanpham;
 		this.soluong = soluong;
+		this.thanhtien = thanhtien;
 	}
 	
+	
+	public Chitietnhaphang( Sanpham sanpham, int soluong, double thanhtien) {
+		super();
+		
+		this.sanpham = sanpham;
+		this.soluong = soluong;
+		this.thanhtien = thanhtien;
+	}
+	
+	public double getThanhtien() {
+		return thanhtien;
+	}
+
+	public void setThanhtien(double thanhtien) {
+		this.thanhtien = thanhtien;
+	}
+
 	public Sanpham getSanpham() {
 		return sanpham;
 	}
