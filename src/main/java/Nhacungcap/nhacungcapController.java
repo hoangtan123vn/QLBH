@@ -48,6 +48,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
@@ -141,6 +142,8 @@ public class nhacungcapController implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Nhacungcap/taonhacungcap.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
+			root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+			stage.getIcons().add(new Image(nhacungcapController.class.getResourceAsStream("backgroundSGU.png")));
 			stage.setResizable(false);
 			stage.setScene(new Scene(root1));
 			stage.setTitle("Tạo nhà cung cấp");
@@ -160,6 +163,8 @@ public class nhacungcapController implements Initializable{
 			Stage stage = new Stage();
 			ThanhtoanCNcontroller controller = loader.getController();
 			Nhacungcap selected = tableNhacungcap.getSelectionModel().getSelectedItem();
+			root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+			stage.getIcons().add(new Image(nhacungcapController.class.getResourceAsStream("backgroundSGU.png")));
 			controller.setThanhtoan(selected);
 			stage.setScene(new Scene(root1));
 			stage.setTitle("thanh toán công nợ");
