@@ -6,33 +6,99 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="666.0" prefWidth="1082.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.nhacungcapController">
+<AnchorPane prefHeight="616.0" prefWidth="1305.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.nhacungcapController">
    <children>
-      <Label alignment="CENTER" layoutX="328.0" layoutY="72.0" prefHeight="70.0" prefWidth="426.0" text="Nhà Cung Cấp">
+      <Label alignment="CENTER" layoutX="571.0" layoutY="99.0" prefHeight="70.0" prefWidth="328.0" text="Nhà Cung Cấp" textFill="#8b96fa">
          <font>
             <Font name="System Bold Italic" size="48.0" />
          </font>
       </Label>
-      <TableView fx:id="tableNhacungcap" layoutX="46.0" layoutY="220.0" opacity="0.98" prefHeight="422.0" prefWidth="992.0" style="fx: 1;" styleClass="tbview" stylesheets="@nhacungcap.css" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="216.0">
+      <TableView fx:id="tableNhacungcap" layoutX="242.0" layoutY="217.0" opacity="0.98" prefHeight="372.0" prefWidth="988.0" styleClass="tbview" AnchorPane.bottomAnchor="27.0" AnchorPane.leftAnchor="242.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="217.0">
          <columns>
-            <TableColumn fx:id="tenncc" prefWidth="200.00003051757812"  styleClass="tbcolumn" text="Tên NCC" />
-            <TableColumn fx:id="diachi1" prefWidth="180.79998779296875"  styleClass="tbcolumn" text="Địa Chỉ" />
-            <TableColumn fx:id="sotienno" minWidth="0.0" prefWidth="148.79998779296875"  styleClass="tbcolumn" text="Công Nợ" />
-            <TableColumn fx:id="email" prefWidth="151.99993896484375"  styleClass="tbcolumn" text="Email" />
-            <TableColumn fx:id="sodienthoai" prefWidth="143.2000732421875"  styleClass="tbcolumn" text="SĐT" />
-            <TableColumn fx:id="deleteNCC" prefWidth="162.40004882812502"  styleClass="tbcolumn" text="Xóa Nhà Cung Cấp" />
+            <TableColumn fx:id="tenncc" prefWidth="151.20004272460938" styleClass="ncc" text="Tên NCC">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@nameicon.png" />
+                     </image>
+                  </ImageView>
+               </graphic></TableColumn>
+            <TableColumn fx:id="diachi1" prefWidth="200.00003051757812" styleClass="diachi" text="Địa Chỉ">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@address.png" />
+                     </image>
+                  </ImageView>
+               </graphic></TableColumn>
+            <TableColumn fx:id="sotienno" minWidth="0.0" prefWidth="148.79998779296875" styleClass="cn" text="Công Nợ">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@congno.png" />
+                     </image>
+                  </ImageView>
+               </graphic></TableColumn>
+            <TableColumn fx:id="email" prefWidth="151.99993896484375" styleClass="email" text="Email">
+               <graphic>
+                  <ImageView fitHeight="69.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@email.png" />
+                     </image>
+                  </ImageView>
+               </graphic></TableColumn>
+            <TableColumn fx:id="sodienthoai" prefWidth="143.2000732421875" styleClass="sdt" text="SĐT">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@phone.png" />
+                     </image>
+                  </ImageView>
+               </graphic></TableColumn>
+            <TableColumn fx:id="deleteNCC" prefWidth="188.7999267578125" styleClass="xoa" text="Xóa Nhà Cung Cấp">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="9.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic></TableColumn>
          </columns>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </TableView>
-      <Button fx:id="idreloadncc" layoutX="979.0" layoutY="181.0" mnemonicParsing="false" onAction="#Reloadncc" text="Reload" />
+      <Button fx:id="idreloadncc" alignment="TOP_LEFT" layoutX="82.0" layoutY="496.0" mnemonicParsing="false" onAction="#Reloadncc" prefHeight="38.0" prefWidth="100.0" style="-fx-background-radius: 4em;" text="Reload">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@reload.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Button fx:id="idluuncc" layoutX="939.0" layoutY="349.0" mnemonicParsing="false" text="Lưu" visible="false" />
-      <Button fx:id="taonhacungcap" layoutX="803.0" layoutY="181.0" mnemonicParsing="false" onAction="#Taonhacungcap" prefHeight="13.0" prefWidth="165.0" text="Tạo Nhà Cung Cấp" />
-      <Button fx:id="thanhtoancongno" layoutX="663.0" layoutY="181.0" mnemonicParsing="false" onAction="#Thanhtoancongno" text="Thanh Toán Công Nợ" />
-      <TextField fx:id="timkiem" layoutX="50.0" layoutY="181.0" prefHeight="25.0" prefWidth="188.0" promptText="Tìm kiếm theo tên,email" style="-fx-border-width: 1; -fx-border-color: black; -fx-prompt-text-fill: red;" styleClass="timkiem" />
+      <Button fx:id="taonhacungcap" alignment="TOP_LEFT" layoutX="41.0" layoutY="428.0" mnemonicParsing="false" onAction="#Taonhacungcap" prefHeight="25.0" prefWidth="165.0" style="-fx-background-radius: 4em;" text="Tạo Nhà Cung Cấp">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@sign-add-icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="thanhtoancongno" alignment="TOP_LEFT" layoutX="41.0" layoutY="362.0" mnemonicParsing="false" onAction="#Thanhtoancongno" prefHeight="25.0" prefWidth="165.0" style="-fx-background-radius: 4em;" text="Thanh Toán Công Nợ">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@payment.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <TextField fx:id="timkiem" layoutX="40.0" layoutY="286.0" prefHeight="38.0" prefWidth="166.0" promptText="Tìm kiếm theo tên,email" style="-fx-background-radius: 4em;" styleClass="timkiem" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="41.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@backgroundSGU.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

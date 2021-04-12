@@ -213,9 +213,11 @@ public class nhacungcapController implements Initializable{
 				final TableCell<Nhacungcap, Void> cell = new TableCell<Nhacungcap, Void>() {
 
 					private final Button btncc = new Button("Xóa Nhà Cung Cấp");
+				
 
 					{
 						///////////////////////////
+					
 						btncc.setOnAction((ActionEvent event) -> {
 							Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 							Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
