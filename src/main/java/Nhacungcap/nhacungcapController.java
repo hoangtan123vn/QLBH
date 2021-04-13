@@ -341,7 +341,11 @@ public class nhacungcapController implements Initializable{
 				Nhacungcap person = new Nhacungcap();
 				person = event.getRowValue();
 				person = session.get(Nhacungcap.class, person.getMancc());
-				person.setSodienthoai(event.getNewValue());
+				String s =  "84" + event.getNewValue().toString() ;
+				int sdt = Integer.parseInt(s);
+				person.setSodienthoai(sdt);
+				
+				
 				session.save(person);
 				session.getTransaction().commit();
 				ReloadNHACUNGCAP();
