@@ -1,34 +1,35 @@
 package QLBH;
 
-import java.io.Serializable;
+
+
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.sun.xml.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
 
 
 @Entity
 @Table(name="khachhang")
-public class KhachHang implements Serializable{
+public class KhachHang {
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@OneToMany(mappedBy="khachhang",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="khachhang")
 	private List<Hoadon> hoadon;
 	@Id 
 	private int makh;
 	private String tenkh;
 	private String diachi;
 	private int sodienthoai;
-	private int ngaysinh;
+	private LocalDate ngaysinh;
 	private	String gioitinh;
 	private int diemtichluy;
 	private String email;
@@ -37,18 +38,28 @@ public class KhachHang implements Serializable{
 		super();
 	}
 	
-	public KhachHang(int makh,String tenkh,String diachi,int sodienthoai,int ngaysinh,String gioitinh,int diemtichluy,String email) {
+//	public KhachHang(int makh,String tenkh,String diachi,int sodienthoai,LocalDate ngaysinh,String gioitinh,int diemtichluy,String email) {
+//		super();
+//		this.makh = makh;
+//		this.tenkh = tenkh;
+//		this.diachi = diachi;
+//		this.sodienthoai = sodienthoai;
+//		this.ngaysinh = ngaysinh;
+//		this.gioitinh = gioitinh;
+//		this.diemtichluy = diemtichluy;
+//		this.email = email;
+//	}
+	public KhachHang(String tenkh,String diachi,int sodienthoai,LocalDate ngaysinh,String gioitinh,String email) {
 		super();
-		this.makh = makh;
+		
 		this.tenkh = tenkh;
 		this.diachi = diachi;
 		this.sodienthoai = sodienthoai;
 		this.ngaysinh = ngaysinh;
 		this.gioitinh = gioitinh;
-		this.diemtichluy = diemtichluy;
+		
 		this.email = email;
 	}
-	
 	public int getMakh() {
 		return makh;
 	}
@@ -73,10 +84,10 @@ public class KhachHang implements Serializable{
 	public void setSodienthoai(int sodienthoai) {
 		this.sodienthoai = sodienthoai;
 	}
-	public int getNgaysinh() {
+	public LocalDate getNgaysinh() {
 		return ngaysinh;
 	}
-	public void setNgaysinh(int ngaysinh) {
+	public void setNgaysinh(LocalDate ngaysinh) {
 		this.ngaysinh = ngaysinh;
 	}
 	public String getGioitinh() {
