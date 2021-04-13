@@ -1590,7 +1590,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 		// KIỂM TRA NHẬP HÀNG
 		madathangkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
-		thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
+		thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
 		tongtienkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
 		mancckt.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
 		mancckt.setCellFactory(phieudathangkt -> new TableCell<Phieudathang, Nhacungcap>() {
@@ -1710,7 +1710,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 		// QL danh mục phiếu đặt hàng //Nhi
 		madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
-		thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigiandat"));
+		thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
 		tongtien1.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
 		mancc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
 		mancc.setCellFactory(tablePhieuDatHang -> new TableCell<Phieudathang, Nhacungcap>() {
@@ -1739,7 +1739,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 		// QL danh mục phiếu nhập hàng // Nhi
 		manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manhaphang"));
-		thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigiannhap"));
+		thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigian"));
 		tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
 		mancc2.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
 		mancc2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhacungcap>() {
@@ -1777,7 +1777,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 		// QL danh mục phiếu trả hàng //Nhi
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
-		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
+		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigian"));
 		// mancc3.setCellValueFactory(new PropertyValueFactory<Phieutrahang,
 		// Integer>("mancc"));
 		mancc3.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
