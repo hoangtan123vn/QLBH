@@ -64,7 +64,8 @@ public class LoginController implements  Initializable{
     private Taikhoannv taikhoan;
      
    @FXML
-    void login(ActionEvent event) throws IOException {
+    void login(ActionEvent event)  {
+	   try {
 	 Window owner = submitButton.getScene().getWindow();
 
       System.out.println(emailIdField.getText());
@@ -94,7 +95,7 @@ public class LoginController implements  Initializable{
 //		Nhanvien nhanvien = new Nhanvien(username, password);
 	
 	//Nhanvien nhanvien = new Nhanvien (chucvu);
-	try {
+	
 	//	taikhoan = new Taikhoannv(username,password);
 		session.getTransaction().begin();
 		String hql = "FROM Taikhoannv A WHERE A.username = :username and A.password = :password";
@@ -205,7 +206,10 @@ public class LoginController implements  Initializable{
         catch(HibernateException e) {
     		e.printStackTrace();
        
-        }
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
    } 		
 
 
