@@ -184,9 +184,14 @@ public class KiemtrahangController implements Initializable{
 			Nhacungcap nhacungcap = new Nhacungcap();
 	    	int  mancc= Integer.parseInt(mancckt.getText());
 	    	nhacungcap = session.get(Nhacungcap.class, mancc);
-	    	int tongtienn =Integer.parseInt(tongtien.getText());
+	    	int tongtien =0;
+	    	for(Chitietnhaphang ct : tbnhaphang.getItems() ) {
+	    	 tongtien = (int) (tongtien+ct.getThanhtien());
+	    	}
+	    	
+	    	//int tongtienn =Integer.parseInt(tongtien.getText());
 	    	LocalDateTime dateTime = LocalDateTime.now();
-	    	Phieunhaphang phieunhaphang= new Phieunhaphang(dateTime,tongtienn,nhacungcap,null);
+	    	Phieunhaphang phieunhaphang= new Phieunhaphang(dateTime,tongtien,nhacungcap,null);
 			 try{
 	    		 session.beginTransaction();
 	    		 session.save(phieunhaphang);
@@ -200,37 +205,66 @@ public class KiemtrahangController implements Initializable{
 		    		session.getTransaction().rollback();
 		    	}
 	    
-	    	for (Chitietnhaphang ct : tbnhaphang.getItems()) {
-	    		int soluongnhap =ct.getSoluong();
-	    		double thanhtien = ct.getThanhtien();
-	    		Sanpham sanpham = new Sanpham();
-	    		sanpham= session.get(Sanpham.class, ct.getSanpham().getMasanpham());
-	    		Chitietnhaphang chitietnhaphang= new Chitietnhaphang(phieunhaphang,sanpham,soluongnhap,thanhtien);
-	    		//them so luong sp 
-	    		int soluong = ct.getSanpham().getDonvitinh() + soluongnhap;
-	    		
-				 try {
-		    		 session.beginTransaction();
-		    		 sanpham.setMasanpham(soluong);
-		    		 session.save(chitietnhaphang);
-		    		 session.save(sanpham);
-		    		 session.getTransaction().commit();
-		    		 alert.setContentText("them chi tiet nhap hang va cap nhat so luong thanh cong " );
-		    		 alert.showAndWait();
-	
-				 }
-			    	catch (RuntimeException error){
-			    		 System.out.println(error);
-			    		 alert.setContentText("Thêm  thất bại   !");
-			    		 alert.showAndWait();
-			    		 session.getTransaction().rollback();
-			    	} 	    		
-	    		}	
+//	    	for (Chitietnhaphang ct : tbnhaphang.getItems()) {
+//	    		int soluongnhap =ct.getSoluong();
+//	    		double thanhtien = ct.getThanhtien();
+//	    		Sanpham sanpham = new Sanpham();
+//	    		sanpham= session.get(Sanpham.class, ct.getSanpham().getMasanpham());
+//	    		Chitietnhaphang chitietnhaphang= new Chitietnhaphang(phieunhaphang,sanpham,soluongnhap,thanhtien);
+//	    		//them so luong sp 
+//	    		int soluong = ct.getSanpham().getDonvitinh() + soluongnhap;
+//	    		
+//				 try {
+//		    		 session.beginTransaction();
+//		    		 sanpham.setMasanpham(soluong);
+//		    		 session.save(chitietnhaphang);
+//		    		 session.save(sanpham);
+//		    		 session.getTransaction().commit();
+//		    		 alert.setContentText("them chi tiet nhap hang va cap nhat so luong thanh cong " );
+//		    		 alert.showAndWait();
+//	
+//				 }
+//			    	catch (RuntimeException error){
+//			    		 System.out.println(error);
+//			    		 alert.setContentText("Thêm  thất bại   !");
+//			    		 alert.showAndWait();
+//			    		 session.getTransaction().rollback();
+//			    	} 	    		
+//	    		}	
 	    	}
 
 	    @FXML
 	    void TaoPhieuTra(ActionEvent event) {
-
+	    	 Alert alert = new Alert(AlertType.INFORMATION);
+				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+						.configure("hibernate.cfg.xml")
+						.build();
+				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
+				Session session = sessionFactory.openSession();
+			Nhacungcap nhacungcap = new Nhacungcap();
+	    	int  mancc= Integer.parseInt(mancckt.getText());
+	    	nhacungcap = session.get(Nhacungcap.class, mancc);
+	    	int tongtien =0;
+	    	for(Chitietphieutra ct : tbtrahang.getItems() ) {
+	    	 tongtien = (int) (tongtien+ct.getThanhtien());
+	    	}
+	    	
+	    	//int tongtienn =Integer.parseInt(tongtien.getText());
+	    	LocalDateTime dateTime = LocalDateTime.now();
+	    	Phieutrahang phieutrahang= new Phieutrahang(dateTime,tongtien,nhacungcap,null);
+			 try{
+	    		 session.beginTransaction();
+	    		 session.save(phieutrahang);
+	    		 session.getTransaction().commit();  
+	    		 alert.setContentText("them phieu tra hang thanh cong " );
+	    		 alert.showAndWait();
+			 	}
+		    	catch (RuntimeException error){
+		    		 alert.setContentText("Lỗi " + error);
+		    		 alert.showAndWait();
+		    		session.getTransaction().rollback();
+		    	}
 	    }
 	    
 	    @FXML
@@ -378,6 +412,7 @@ public class KiemtrahangController implements Initializable{
         int giatien = sp.getSanpham().getGiatien();
          Sanpham sp1 = new Sanpham(masanpham, tensanpham, loaisanpham, donvi, giatien, soluong);
         addItem(soluong,sp1, 0.0);
+        tableChitietKiemtra.getItems().remove(sp);
         tableChitietKiemtra.refresh();
    }
 
@@ -404,6 +439,7 @@ public class KiemtrahangController implements Initializable{
         int giatien = sp.getSanpham().getGiatien();
          Sanpham sp1 = new Sanpham(masanpham, tensanpham, loaisanpham, donvi, giatien, soluong);
         addItem2(soluong,sp1, 0.0);
+        tableChitietKiemtra.getItems().remove(sp);
         tableChitietKiemtra.refresh();
    }
 

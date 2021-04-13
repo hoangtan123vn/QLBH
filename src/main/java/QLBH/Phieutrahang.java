@@ -12,7 +12,8 @@ import javax.persistence.*;
 public class Phieutrahang implements Serializable{
 	
 	@Id 
-	private String maphieutra;
+	@GeneratedValue
+	private int maphieutra;
 	private LocalDateTime thoigian;
 	//private int mancc;
 	//private int manv;
@@ -27,8 +28,9 @@ public class Phieutrahang implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "manv")
 	private Nhanvien nhanvien;
+	private int tongtien;
 	
-	public Phieutrahang(String maphieutra,LocalDateTime thoigian, Nhacungcap nhacungcap, Nhanvien nhanvien) {
+	public Phieutrahang(int maphieutra,LocalDateTime thoigian, Nhacungcap nhacungcap, Nhanvien nhanvien) {
 		super();
 		this.maphieutra = maphieutra;
 		this.thoigian = thoigian;
@@ -36,19 +38,19 @@ public class Phieutrahang implements Serializable{
 		this.nhanvien = nhanvien;
 	}
 
-	public String getMaphieutra() {
+	public int getMaphieutra() {
 		return maphieutra;
 	}
 
-	public void setMaphieutra(String maphieutra) {
+	public void setMaphieutra(int maphieutra) {
 		this.maphieutra = maphieutra;
 	}
 
-	public LocalDateTime getThoigiantra() {
+	public LocalDateTime getThoigian() {
 		return thoigian;
 	}
 
-	public void setThoigiantra(LocalDateTime thoigian) {
+	public void setThoigian(LocalDateTime thoigian) {
 		this.thoigian = thoigian;
 	}
 
@@ -95,5 +97,22 @@ public class Phieutrahang implements Serializable{
 	public void setNhanvien(Nhanvien nhanvien) {
 		this.nhanvien = nhanvien;
 	}
+	public Phieutrahang(LocalDateTime thoigian,int tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien) {
+		super();
+		//this.maphieutra = maphieutra;
+		this.thoigian = thoigian;
+		this.nhacungcap = nhacungcap;
+		this.nhanvien = nhanvien;
+		this.tongtien = tongtien;
+	}
+
+	public int getTongtien() {
+		return tongtien;
+	}
+
+	public void setTongtien(int tongtien) {
+		this.tongtien = tongtien;
+	}
+	
 
 }

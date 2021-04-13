@@ -412,7 +412,7 @@ public class danhmucController implements Initializable {
 				}
 				String lowerCaseFilter = newValue.toLowerCase();
 
-				if (phieutrahang.getMaphieutra().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				if (String.valueOf(phieutrahang.getMaphieutra()).toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true;
 				} else
 					return false; // Does not match.
