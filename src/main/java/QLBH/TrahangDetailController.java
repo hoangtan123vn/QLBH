@@ -72,14 +72,14 @@ public class TrahangDetailController implements Serializable{
     
     public void setPhieutrahang(Phieutrahang phieutrahang) {
     	lbMaphieutra.setText(String.valueOf(phieutrahang.getMaphieutra()));
-    	lbThoigiantra.setText(String.valueOf(phieutrahang.getThoigiantra()));
+    	lbThoigiantra.setText(String.valueOf(phieutrahang.getThoigian()));
     	lbMancc.setText(phieutrahang.getNhacungcap().toString());
     	lbManv.setText(phieutrahang.getNhanvien().toString());
     	IntitlizeChitietphieutra(phieutrahang);
     }
     
     public ObservableList<Chitietphieutra> getChitietphieutra(Phieutrahang phieutrahang) {
-    	String Phieutrahang = phieutrahang.getMaphieutra();
+    	int Phieutrahang = phieutrahang.getMaphieutra();
     	ObservableList<Chitietphieutra> tablePhieuTraHang = FXCollections.observableArrayList();
     	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure("hibernate.cfg.xml")
