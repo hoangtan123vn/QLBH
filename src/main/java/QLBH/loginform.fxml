@@ -22,8 +22,8 @@
                      </font>
                   </Label>
                   <Button fx:id="submitButton" layoutX="144.0" layoutY="301.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #CCCCCC; -fx-border-color: blue; -fx-border-radius: 1em; -fx-text-fill: black; -fx-background-radius: 1em;" text="Đăng Nhập" textFill="#393232" />
-                  <PasswordField fx:id="passwordField" layoutX="71.0" layoutY="229.0" prefHeight="35.0" prefWidth="222.0" promptText="Mật Khẩu" style="-fx-background-radius: 1em; -fx-border-color: blue; -fx-border-radius: 1em;" />
-                  <TextField fx:id="emailIdField" layoutX="71.0" layoutY="174.0" prefHeight="35.0" prefWidth="222.0" promptText="Tài Khoản" style="-fx-background-radius: 1em; -fx-border-color: blue; -fx-border-radius: 1em;" />
+                  <PasswordField fx:id="passwordField" layoutX="71.0" layoutY="229.0" prefHeight="35.0" prefWidth="222.0" promptText="Mật Khẩu" style="-fx-background-color: #66CCFF; -fx-prompt-text-fill: gray;" />
+                  <TextField fx:id="emailIdField" layoutX="71.0" layoutY="174.0" prefHeight="35.0" prefWidth="222.0" promptText="Tài Khoản" style="-fx-background-color: #66CCFF; -fx-prompt-text-fill: gray;" />
                   <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="262.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Nhacungcap/nameicon.png" />
@@ -34,6 +34,8 @@
                         <Image url="@../Nhacungcap/iconkey.png" />
                      </image>
                   </ImageView>
+                  <Line endX="100.0" endY="0.20001220703125" layoutX="172.0" layoutY="209.0" startX="-90.0" startY="0.20001220703125" />
+                  <Line endX="100.0" layoutX="171.0" layoutY="264.0" startX="-90.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="46.0" layoutY="24.0" prefHeight="527.0" prefWidth="358.0" style="-fx-background-color: white; -fx-border-color: blue;">

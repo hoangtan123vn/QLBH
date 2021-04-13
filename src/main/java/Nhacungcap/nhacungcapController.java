@@ -49,6 +49,8 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
@@ -155,7 +157,7 @@ public class nhacungcapController implements Initializable{
 	}
 
 	@FXML
-	void Thanhtoancongno(ActionEvent event) {
+	void Thanhtoancongno(ActionEvent event)  {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/Nhacungcap/thanhtoancongno.fxml"));
@@ -212,18 +214,26 @@ public class nhacungcapController implements Initializable{
     
     private void ButtonXoaNCC() {
 
+    	
+        
 		Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>> cellFactory = new Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>>() {
 			@Override
 			public TableCell<Nhacungcap, Void> call(final TableColumn<Nhacungcap, Void> param) {
-				final TableCell<Nhacungcap, Void> cell = new TableCell<Nhacungcap, Void>() {
-
-					private final Button btncc = new Button("Xóa Nhà Cung Cấp");
 				
+				final TableCell<Nhacungcap, Void> cell = new TableCell<Nhacungcap, Void>() {
+					
+					Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
+					//	private ImageView imageView = new ImageView(img);
+					private  Button btncc = new Button("Xóa",new ImageView(imageOk));
+					
+					
 
 					{
+						
 						///////////////////////////
-					
+						
 						btncc.setOnAction((ActionEvent event) -> {
+							
 							Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 							Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
 							alert.setTitle("Xóa Nhà Cung Cấp");
@@ -264,17 +274,28 @@ public class nhacungcapController implements Initializable{
 							});
 						});
 					}
-
+					//Image img = new Image(getClass().getResourceAsStream("icondelete.png"));
+				//	private ImageView imageView = new ImageView(img);
+					//	Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
+		                
 					@Override
 					public void updateItem(Void item, boolean empty) {
 						super.updateItem(item, empty);
-						if (empty) {
+						if ( empty) {
 							setGraphic(null);
 						} else {
+							//setGraphic(btncc);
+						//	Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
+							//imageView.setImage(getImageFromBytes(item));
+							//imageView.setFitWidth(50);
+							//imageView.setFitWidth(50);
 							setGraphic(btncc);
+							 
 						}
 					}
+					 
 				};
+				
 				return cell;
 			}
 		};

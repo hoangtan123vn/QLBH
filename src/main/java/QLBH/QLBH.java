@@ -13,7 +13,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class QLBH extends Application {
 	@Override
@@ -26,6 +28,9 @@ public class QLBH extends Application {
 		stage.getIcons().add(new Image(QLBH.class.getResourceAsStream("backgroundSGU.png")));
 		stage.setScene(scene);
 		stage.setResizable(false);
+		stage.initStyle(StageStyle.UNDECORATED);
+	//	stage.initModality(Modality.APPLICATION_MODAL);
+		stage.resizableProperty().setValue(Boolean.FALSE);
 		stage.setTitle("Phần mềm quản lý cửa hàng tiện lợi");
 		stage.show();	
 
