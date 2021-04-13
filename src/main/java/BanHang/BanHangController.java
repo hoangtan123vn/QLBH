@@ -62,6 +62,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -202,8 +203,9 @@ public class BanHangController implements Initializable{
 			KhachHang khachhang = new KhachHang();
 			Nhanvien nhanvien = new Nhanvien();
 			LocalDateTime dateTime = LocalDateTime.now();
+			nhanvien = session.get(Nhanvien.class,taikhoan.getNhanvien().getManv());
 			
-			Hoadon hoadonn = new Hoadon(dateTime, tongtienmua, null,null);
+			Hoadon hoadonn = new Hoadon(dateTime, tongtienmua, nhanvien,null);
 			 try{
 	    		 session.beginTransaction();
 	    		 session.save(hoadonn);
@@ -662,6 +664,14 @@ public class BanHangController implements Initializable{
 			giamgia.setText("5");
 		}
 		else giamgia.setText("0");
+	}
+	@FXML
+	public void imageClicked(MouseEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("themkhachhang.fxml"));
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 	}
 	/*void trusanpham() {
 		 Alert alert = new Alert(AlertType.INFORMATION);
