@@ -43,7 +43,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="btquaylai" layoutX="19.0" layoutY="288.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="189.0" text="Quay lại">
+            <Button fx:id="btquaylai" layoutX="19.0" layoutY="288.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="190.0" text="Quay lại">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
