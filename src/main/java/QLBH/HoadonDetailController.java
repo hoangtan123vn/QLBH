@@ -196,6 +196,7 @@ void read() {
  		    }
   	    });
     	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+    //	thanhtien.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Double>("thanhtien"));
      	//dongia.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Sanpham>("sanpham"));
     	tbChitietHoaDon.setItems(getChitietHoadon(hoadon));
     }
