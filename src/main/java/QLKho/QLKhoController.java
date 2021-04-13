@@ -63,6 +63,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
@@ -176,6 +177,7 @@ public class QLKhoController implements Initializable {
 					private final Button btn = new Button("Xóa Sản Phẩm");
 
 					{
+						
 						///////////////////////////
 						btn.setOnAction((ActionEvent event) -> {
 							Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -301,6 +303,7 @@ public class QLKhoController implements Initializable {
 		imageSp.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
 
 			private ImageView imageView = new ImageView();
+			
 
 			@Override
 			protected void updateItem(byte[] item, boolean empty) {
@@ -310,7 +313,7 @@ public class QLKhoController implements Initializable {
 					setGraphic(null);
 				} else {
 					imageView.setImage(getImageFromBytes(item));
-					imageView.setFitHeight(150);
+					imageView.setFitWidth(150);
 					imageView.setFitWidth(250);
 					setGraphic(imageView);
 				}
@@ -415,8 +418,8 @@ public class QLKhoController implements Initializable {
 		ButtonXoaSP();
 		ButtonChinhSuaAnh();
 		imageSp.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
-		// imageSp.setPrefWidth(120);
-		// imageSp.set
+	//	imageSp.setPrefWidth(50);
+//		imageSp.setPrefWidth
 		imageSp.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
 
 			private ImageView imageView = new ImageView();
@@ -429,9 +432,12 @@ public class QLKhoController implements Initializable {
 					setGraphic(null);
 				} else {
 					imageView.setImage(getImageFromBytes(item));
-					imageView.setFitHeight(150);
-					imageView.setFitWidth(250);
-					setGraphic(imageView);
+					imageView.setFitHeight(65);
+					imageView.setFitWidth(65);
+					
+					BorderPane pane = new BorderPane();
+					pane.setCenter(imageView);
+					setGraphic(pane);
 				}
 				this.setItem(item);
 			}

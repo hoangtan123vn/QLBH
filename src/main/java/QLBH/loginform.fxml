@@ -7,47 +7,63 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="609.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.LoginController">
    <children>
-      <AnchorPane layoutX="29.0" layoutY="17.0" prefHeight="574.0" prefWidth="726.0" style="-fx-background-color: Silver;">
+      <AnchorPane layoutX="29.0" layoutY="17.0" prefHeight="574.0" prefWidth="726.0" styleClass="login" stylesheets="@QLBH.css">
          <children>
-            <AnchorPane layoutX="380.0" layoutY="58.0" prefHeight="438.0" prefWidth="321.0" style="-fx-background-color: #66CCFF;">
+            <AnchorPane layoutX="376.0" layoutY="68.0" prefHeight="438.0" prefWidth="320.0" style="-fx-background-color: #66CCFF; -fx-border-color: blue;">
                <children>
-                  <Label layoutX="63.0" layoutY="81.0" text="Sign In">
+                  <Label layoutX="109.0" layoutY="95.0" text="ĐĂNG NHẬP" textFill="#777272">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="submitButton" layoutX="134.0" layoutY="265.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: white; -fx-text-fill: black; -fx-background-radius: 1em;" text="Đăng Nhập" textFill="#0b0b0b" />
-                  <PasswordField fx:id="passwordField" layoutX="58.0" layoutY="219.0" prefHeight="26.0" prefWidth="227.0" promptText="Password" />
-                  <TextField fx:id="emailIdField" layoutX="63.0" layoutY="155.0" prefHeight="26.0" prefWidth="222.0" promptText="Username" />
+                  <Button fx:id="submitButton" layoutX="144.0" layoutY="301.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #CCCCCC; -fx-border-color: blue; -fx-border-radius: 1em; -fx-text-fill: black; -fx-background-radius: 1em;" text="Đăng Nhập" textFill="#393232" />
+                  <PasswordField fx:id="passwordField" layoutX="71.0" layoutY="229.0" prefHeight="35.0" prefWidth="222.0" promptText="Mật Khẩu" style="-fx-background-radius: 1em; -fx-border-color: blue; -fx-border-radius: 1em;" />
+                  <TextField fx:id="emailIdField" layoutX="71.0" layoutY="174.0" prefHeight="35.0" prefWidth="222.0" promptText="Tài Khoản" style="-fx-background-radius: 1em; -fx-border-color: blue; -fx-border-radius: 1em;" />
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="262.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Nhacungcap/nameicon.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="262.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Nhacungcap/iconkey.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="46.0" layoutY="24.0" prefHeight="506.0" prefWidth="357.0" style="-fx-background-color: white;">
+            <AnchorPane layoutX="46.0" layoutY="24.0" prefHeight="527.0" prefWidth="358.0" style="-fx-background-color: white; -fx-border-color: blue;">
                <children>
-                  <ImageView fitHeight="227.0" fitWidth="235.0" layoutX="40.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="227.0" fitWidth="235.0" layoutX="61.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@backgroundSGU.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="65.0" layoutY="273.0" style="-fx-text-fill: red;" text="Kiểm Thử Phần Mềm" textFill="#ea0909">
+                  <Label layoutX="73.0" layoutY="288.0" style="-fx-text-fill: red;" text="KIỂM THỬ PHẦN MỀM" textFill="#ea0909">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="40.0" layoutY="351.0" text="Lê Hoàng Tân" />
-                  <Label layoutX="43.0" layoutY="389.0" text="Lê Quang Sang" />
-                  <Label layoutX="43.0" layoutY="429.0" text="Hồng Thái" />
-                  <Label layoutX="159.0" layoutY="351.0" text="Trương Nguyễn Yến Nhi" />
-                  <Label layoutX="160.0" layoutY="389.0" text="Từ Chí Huy" />
-                  <Label layoutX="79.0" layoutY="303.0" text="TS.Nguyễn Thành Huy">
+                  <Label layoutX="67.0" layoutY="415.0" text="Lê Hoàng Tân" />
+                  <Label layoutX="51.0" layoutY="453.0" text="Lê Quang Sang" />
+                  <Label layoutX="251.0" layoutY="453.0" text="Hồng Thái" />
+                  <Label layoutX="163.0" layoutY="415.0" text="Trương Nguyễn Yến Nhi" />
+                  <Label layoutX="163.0" layoutY="453.0" text="Từ Chí Huy" />
+                  <Label layoutX="100.0" layoutY="336.0" text="TS.Nguyễn Thành Huy">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
+                  <Line endX="100.0" layoutX="185.0" layoutY="504.0" startX="-100.0" />
+                  <ImageView fitHeight="44.0" fitWidth="49.0" layoutX="152.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Capture1.PNG" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </children>
