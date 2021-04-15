@@ -154,10 +154,17 @@ public class GiaoDienQLController implements Initializable{
 		danhmuc.setOnMouseClicked(event ->  {
 			SceneDanhMuc();
 		});
-		
+		thongke.setOnMouseClicked(event ->  {
+			SceneThongKe();
+		});
 
 		
    }
+		
+
+		
+   
+   
    
    
    
@@ -277,6 +284,20 @@ public class GiaoDienQLController implements Initializable{
 			//e.printStackTrace();
 		}
    }
+   
+   public void SceneThongKe() {
+	   try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ThongKe/thongkedoanhthutheongay.fxml"));
+			AnchorPane pane = loader.load();
+			
+			mainpane.getChildren().setAll(pane);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+			//e.printStackTrace();
+		}
+   }
+   
    
    
    

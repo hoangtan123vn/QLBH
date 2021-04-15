@@ -80,106 +80,41 @@ public class LoginController implements  Initializable{
            return ;
        }
       
-
- /*  	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-			.configure("hibernate.cfg.xml")
-			.build();
-	Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-	SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-	Session session = sessionFactory.openSession();*/
-       Session session = HibernateUtils.getSessionFactory().openSession();
+    Session session = HibernateUtils.getSessionFactory().openSession();
 	String username = emailIdField.getText();
 	String password =passwordField.getText();
-	//String hql = "SELECT u.username, u.password FROM taikhoannv u WHERE u.username = :username, u.password= :password";	
-	//String hql = "SELECT u.username FROM Taikhoannv u WHERE u.username = :username";
 	Taikhoannv taikhoannv = new Taikhoannv (username,password);
-//		Nhanvien nhanvien = new Nhanvien(username, password);
-	
-	//Nhanvien nhanvien = new Nhanvien (chucvu);
-	
-	//	taikhoan = new Taikhoannv(username,password);
 		session.getTransaction().begin();
 		String hql = "FROM Taikhoannv A WHERE A.username = :username and A.password = :password";
-      //  String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.manv=B.manv and A.username = :username and A.password = :password and B.chucvu='Quản lý' ";
-        String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A INNER JOIN A.nhanvien B WHERE A.username = :username and A.password = :password and B.chucvu='Quản lý' ";
-     //   String hql2 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A,Nhanvien B WHERE A.manv=B.manv and A.username = :username and A.password = :password and B.chucvu='Nhân viên' ";
-        String hql2 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A INNER JOIN A.nhanvien B WHERE A.username = :username and A.password = :password and B.chucvu='Nhân viên' ";
+        String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A INNER JOIN A.nhanvien B WHERE A.username = :username and A.password = :password ";
         Query query = session.createQuery(hql);
         query.setParameter("username", username);
         query.setParameter("password", password);
         Query query1 = session.createQuery(hql1);
         query1.setParameter("username", username);
         query1.setParameter("password", password);
-        Query query2 = session.createQuery(hql2);
-        query2.setParameter("username", username);
-        query2.setParameter("password", password);
         List<Object[]> tk1 = query1.list();
-        List<Object[]> tk2 = query2.list();
         List<Taikhoannv> checktaikhoan = query.list(); 
-    //    Taikhoannv taikhoannv = new Taikhoannv(username,password);
         for(Taikhoannv checktk1 : checktaikhoan) {
-        	//KIEM TRA XEM DANG NHAP DUOC HAY KHONG
         	if(checktk1.getusername().contains(taikhoannv.getusername()) && checktk1.getpassword().contains(taikhoannv.getpassword())) {
-        	//	System.out.println("Thanh cong?");
-        		
-        		//KIEM TRA XEM CHUC VU == QUAN LY
         		for(Object[] singleRowValues : tk1 ) {
         			String tentaikhoan = (String)singleRowValues[0];
                 	String matkhau = (String)singleRowValues[1];
                 	String cvString = (String)singleRowValues[2];
-                //	System.out.println(tentaikhoan);
-                //	System.out.println(matkhau);
-                //	System.out.println(cvString);
                 if(tentaikhoan.contains(checktk1.getusername())&& matkhau.contains(checktk1.getpassword()) && cvString.contains("Quản lý")) {
-             //   	Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml")) ; 
-              //  	Scene scene = new Scene(sampleparent);
-              //  	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-                 	//  Stage stage = (Stage) (() event.getSource()).getScence().getWindow();
-                   	//   FXMLLoader loader = new FXMLLoader();
-                   	//   loader.setLocation(getClass().getResource("chucnangquanly.fxml"));
-                   	  // Parent sampleparent =loader.load();
                 	String tk = checktk1.getusername();
                 	String mk = checktk1.getpassword();
-                //	Taikhoannv taikhoan1 = new Taikhoannv();
                 	taikhoan = session.get(Taikhoannv.class,tk);
                 	FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
                     Parent tmp = loader.load();
                     Scene scene = new Scene(tmp);
                     Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
                     GiaoDienQLController quanly = loader.getController();
-              //      NhanvienController nvcontroller = loader.getController();
-            /*        System.out.println(checktk1.getusername());
-                    System.out.println(checktk1.getpassword());*/
-                  // quanly.ChangeThongKe(event);
-                   quanly.LoadData(taikhoan);
-                		//GiaoDienQLController changeQl = 
+                    quanly.LoadData(taikhoan);
                 	   stage.hide();
                    	   stage.setScene(scene);
                    	   stage.show();
-                	}else {
-                		thongbao.setText(" đăng nhập thất bại !!  ");
-                		break;
-                	}
-                	 break;
-        		}
-        		
-  
-        }
-
-   }
-        
-        for(Taikhoannv checktk1 : checktaikhoan) {
-        	//KIEM TRA XEM DANG NHAP DUOC HAY KHONG
-        	if(checktk1.getusername().contains(taikhoannv.getusername()) && checktk1.getpassword().contains(taikhoannv.getpassword())) {
-        		
-        		//KIEM TRA  XEM CHUC VU == NHANVIEN
-        		for(Object[] singleRowValues1 : tk2 ) {
-        		//	System.out.println("thanh cong");
-        			
-        			String tentaikhoan1 = (String)singleRowValues1[0];
-                	String matkhau1 = (String)singleRowValues1[1];
-                	String cvString1 = (String)singleRowValues1[2];
-                	if(tentaikhoan1.contains(checktk1.getusername())&& matkhau1.contains(checktk1.getpassword()) &&cvString1.contains("Nhân viên")) {
+                	}else if(tentaikhoan.contains(checktk1.getusername())&& matkhau.contains(checktk1.getpassword()) &&cvString.contains("Nhân viên")) {
                 		Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml")) ; 
                     	Scene scene = new Scene(sampleparent);
                     	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
@@ -187,27 +122,21 @@ public class LoginController implements  Initializable{
                     	stage.hide();
                     	stage.setScene(scene);
                     	stage.show();
-                   	  
-                   	   //stage.setFullScreen(true);
-                   	 //  stage.setMaximized(true);
-                   	  // stage.setResizable(true);
-                   	   
                 	}
-                	 break; 
         		}
         		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    			 alert.setTitle("Đăng nhập");
-    		     alert.setContentText("Đăng nhập thành công");
+        		alert.setTitle("Đăng nhập");
+   		     	alert.setContentText("Đăng nhập thành công");
                 alert.showAndWait();
-        	}
+                break;
         }
-        thongbao.setText(" đăng nhập thất bại !!  ");	
+
+   }
+        thongbao.setText("Đăng nhập thất bại");
+        
 	}
         
-        catch(HibernateException e) {
-    		e.printStackTrace();
-       
-        } catch (Exception e) {
+        catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

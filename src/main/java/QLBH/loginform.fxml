@@ -10,13 +10,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="609.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.LoginController">
+<AnchorPane prefHeight="609.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.LoginController">
    <children>
       <AnchorPane layoutX="29.0" layoutY="17.0" prefHeight="574.0" prefWidth="726.0" styleClass="login" stylesheets="@QLBH.css">
          <children>
             <AnchorPane layoutX="376.0" layoutY="68.0" prefHeight="438.0" prefWidth="320.0" style="-fx-background-color: #66CCFF; -fx-border-color: blue;">
                <children>
-                  <Label layoutX="109.0" layoutY="95.0" text="ĐĂNG NHẬP" textFill="#777272">
+                  <Label layoutX="104.0" layoutY="68.0" text="ĐĂNG NHẬP" textFill="#777272">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -36,6 +36,11 @@
                   </ImageView>
                   <Line endX="100.0" endY="0.20001220703125" layoutX="172.0" layoutY="209.0" startX="-90.0" startY="0.20001220703125" />
                   <Line endX="100.0" layoutX="171.0" layoutY="264.0" startX="-90.0" />
+                  <Label fx:id="thongbao" layoutX="76.0" layoutY="130.0" prefHeight="30.0" prefWidth="233.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <AnchorPane layoutX="46.0" layoutY="24.0" prefHeight="527.0" prefWidth="358.0" style="-fx-background-color: white; -fx-border-color: blue;">
