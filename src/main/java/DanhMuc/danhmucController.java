@@ -309,28 +309,34 @@ public class danhmucController implements Initializable {
 	ObservableList<Phieunhaphang> listPNH;
 
 	@FXML
-	/*
-	 * void searchPNH() { ObservableList<Phieunhaphang> tbPhieuNhapHang =
-	 * FXCollections.observableArrayList(getPhieunhaphang());
-	 * 
-	 * FilteredList<Phieunhaphang> filteredData = new
-	 * FilteredList<>(tbPhieuNhapHang, b -> true);
-	 * searchPNH.textProperty().addListener((observable, oldValue, newValue) -> {
-	 * filteredData.setPredicate(phieunhaphang -> { if (newValue == null ||
-	 * newValue.isEmpty()) { return true; } String lowerCaseFilter =
-	 * newValue.toLowerCase(); // if
-	 * (phieunhaphang.getManhaphang().toLowerCase().indexOf(lowerCaseFilter) != -1)
-	 * { // return true; // Filter matches username
-	 * if(phieunhaphang.getThoigiannhap().toLowerCase().indexOf(lowerCaseFilter) !=
-	 * -1) { return true; // Filter matches password } else return false; // Does
-	 * not match. }); });
-	 * 
-	 * SortedList<Phieunhaphang> sortedData = new SortedList<>(filteredData);
-	 * sortedData.comparatorProperty().bind(tablePhieuNhapHang.comparatorProperty())
-	 * ; tablePhieuNhapHang.setItems(sortedData);
-	 * 
-	 * }
-	 */
+	
+	  void searchPNH() { 
+		ObservableList<Phieunhaphang> tbPhieuNhapHang = FXCollections.observableArrayList(getPhieunhaphang());
+
+		FilteredList<Phieunhaphang> filteredData = new FilteredList<>(tbPhieuNhapHang, b -> true);
+		searchPNH.textProperty().addListener((observable, oldValue, newValue) -> {
+			filteredData.setPredicate(phieudathang -> {
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				String lowerCaseFilter = newValue.toLowerCase();
+				if (String.valueOf(phieudathang.getManhaphang()).indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches username
+
+			/*	} else if (phieudathang.getThoigiandat().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+					return true; // Filter matches password*/
+				} else
+					return false; // Does not match.
+
+			});
+
+			SortedList<Phieunhaphang> sortedData = new SortedList<>(filteredData);
+			sortedData.comparatorProperty().bind(tablePhieuNhapHang.comparatorProperty());
+			tablePhieuNhapHang.setItems(sortedData);
+
+		});
+	}
+	 
 
 	public ObservableList<Phieunhaphang> getPhieunhaphang() {
 		ObservableList<Phieunhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
@@ -582,6 +588,6 @@ public class danhmucController implements Initializable {
 
 		});
 		tablePhieuTraHang.setItems(getPhieutrahang());
-		searchPTH();
+		searchPNH();
 	}
 }

@@ -2,99 +2,104 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="709.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DanhMuc.danhmucController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="711.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DanhMuc.danhmucController">
    <children>
-      <TabPane fx:id="tabPaneQLDM" layoutY="123.0" prefHeight="454.0" prefWidth="681.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPaneQLDM" layoutY="123.0" prefHeight="591.0" prefWidth="1333.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
-            <Tab fx:id="sTab_PhieuHoaDon" text="Danh mục phiếu hóa đơn">
+            <Tab fx:id="sTab_PhieuHoaDon" text="     Danh mục phiếu hóa đơn">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="896.0">
                      <children>
-                        <TableView fx:id="tableHoaDon" layoutX="21.0" layoutY="113.0" prefHeight="200.0" prefWidth="621.0">
+                        <TableView fx:id="tableHoaDon" layoutX="304.0" layoutY="160.0" prefHeight="258.0" prefWidth="750.0">
                            <columns>
                               <TableColumn fx:id="mahoadon" prefWidth="111.19998741149902" text="Mã hóa đơn " />
                               <TableColumn fx:id="thoigianmua" prefWidth="152.79998779296875" text="Thời gian mua " />
-                              <TableColumn fx:id="tonggia" prefWidth="117.5999755859375" text="Tổng giá " />
-                              <TableColumn fx:id="makh" minWidth="0.0" prefWidth="123.19998168945312" text="Mã khách hàng " />
-                              <TableColumn fx:id="manv1" prefWidth="134.4000244140625" text="Mã nhân viên " />
+                              <TableColumn fx:id="tonggia" prefWidth="175.0" text="Tổng giá " />
+                              <TableColumn fx:id="makh" minWidth="0.0" prefWidth="159.0" text="Mã khách hàng " />
+                              <TableColumn fx:id="manv1" prefWidth="150.0" text="Mã nhân viên " />
                            </columns>
                         </TableView>
-                        <TextField fx:id="searchPHD" layoutX="383.0" layoutY="48.0" promptText="Tìm theo mã hóa đơn" />
-                        <Label fx:id="lbDanhMucPHD" layoutX="113.0" layoutY="30.0" text="DANH MỤC PHIẾU HÓA ĐƠN " />
-                        <ScrollBar fx:id="verticalPHD" layoutX="643.0" layoutY="113.0" orientation="VERTICAL" prefHeight="197.0" prefWidth="14.0" />
-                        <Button layoutX="267.0" layoutY="324.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" text="Chi tiết hóa đơn" />
+                        <TextField fx:id="searchPHD" layoutX="867.0" layoutY="90.0" promptText="Tìm theo mã hóa đơn" />
+                        <Label fx:id="lbDanhMucPHD" layoutX="537.0" layoutY="25.0" text="DANH MỤC PHIẾU HÓA ĐƠN ">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font></Label>
+                        <Button layoutX="630.0" layoutY="454.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" text="Chi tiết hóa đơn" />
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="sTab_PhieuDatHang" text="Danh mục phiếu đặt hàng ">
+            <Tab fx:id="sTab_PhieuDatHang" text="     Danh mục phiếu đặt hàng ">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lbDanhMucPDH" layoutX="113.0" layoutY="24.0" text="DANH MỤC PHIẾU ĐẶT HÀNG " />
-                        <TextField fx:id="searchPDH" layoutX="408.0" layoutY="65.0" promptText="Tìm theo mã hóa đơn " />
-                        <TableView fx:id="tablePhieuDatHang" layoutX="37.0" layoutY="143.0" prefHeight="200.0" prefWidth="603.0">
+                        <Label fx:id="lbDanhMucPDH" layoutX="507.0" layoutY="36.0" text="DANH MỤC PHIẾU ĐẶT HÀNG ">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font></Label>
+                        <TextField fx:id="searchPDH" layoutX="876.0" layoutY="92.0" promptText="Tìm theo mã đặt hàng" />
+                        <TableView fx:id="tablePhieuDatHang" layoutX="312.0" layoutY="173.0" prefHeight="248.0" prefWidth="751.0">
                            <columns>
-                              <TableColumn fx:id="madathang" prefWidth="102.39997100830078" text="Mã đặt hàng " />
-                              <TableColumn fx:id="mancc" prefWidth="124.0" text="Mã NCC" />
-                              <TableColumn fx:id="thoigiandat" prefWidth="157.0" text="Thời gian đặt " />
-                              <TableColumn fx:id="tongtien1" prefWidth="210.0" text="Tổng tiền " />
+                              <TableColumn fx:id="madathang" prefWidth="177.0" text="Mã đặt hàng " />
+                              <TableColumn fx:id="mancc" prefWidth="183.0" text="Mã NCC" />
+                              <TableColumn fx:id="thoigiandat" prefWidth="234.0" text="Thời gian đặt " />
+                              <TableColumn fx:id="tongtien1" prefWidth="156.0" text="Tổng tiền " />
                            </columns>
                         </TableView>
-                        <ScrollBar fx:id="verticalPDH" layoutX="633.0" layoutY="144.0" orientation="VERTICAL" prefHeight="198.0" prefWidth="14.0" />
-                        <Button layoutX="286.0" layoutY="371.0" mnemonicParsing="false" onAction="#changeSceneDathangDetail" text="Chi tiết đặt hàng" />
+                        <Button layoutX="622.0" layoutY="466.0" mnemonicParsing="false" onAction="#changeSceneDathangDetail" text="Chi tiết đặt hàng" />
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="sTab_PhieuNhapHang" text="Danh mục phiếu nhập hàng">
+            <Tab fx:id="sTab_PhieuNhapHang" text="     Danh mục phiếu nhập hàng">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="741.0">
                      <children>
-                        <Label fx:id="lbDanhMucPNH" layoutX="163.0" layoutY="48.0" text="DANH MỤC PHIẾU NHẬP HÀNG " />
-                        <TextField fx:id="searchPNH" layoutX="410.0" layoutY="82.0" promptText="Tìm theo mã hóa đơn" />
-                        <TableView fx:id="tablePhieuNhapHang" layoutX="47.0" layoutY="134.0" prefHeight="200.0" prefWidth="567.0">
+                        <Label fx:id="lbDanhMucPNH" layoutX="498.0" layoutY="32.0" text="DANH MỤC PHIẾU NHẬP HÀNG ">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font></Label>
+                        <TextField fx:id="searchPNH" layoutX="860.0" layoutY="81.0" onAction="#searchPNH" promptText="Tìm theo mã nhập hàng" />
+                        <TableView fx:id="tablePhieuNhapHang" layoutX="317.0" layoutY="152.0" prefHeight="266.0" prefWidth="731.0">
                            <columns>
-                              <TableColumn fx:id="manhaphang" prefWidth="113.60004425048828" text="Mã phiếu nhập " />
-                              <TableColumn fx:id="mancc2" prefWidth="88.800048828125" text="Mã NCC " />
-                              <TableColumn fx:id="thoigiannhap" prefWidth="102.39996337890625" text="Thời gian nhập " />
-                              <TableColumn fx:id="tongtien" prefWidth="88.79998779296875" text="Tổng tiền " />
-                              <TableColumn fx:id="manv2" prefWidth="171.19996948242192" text="Nhân viên " />
+                              <TableColumn fx:id="manhaphang" prefWidth="162.0" text="Mã phiếu nhập " />
+                              <TableColumn fx:id="mancc2" prefWidth="106.0" text="Mã NCC " />
+                              <TableColumn fx:id="thoigiannhap" prefWidth="147.0" text="Thời gian nhập " />
+                              <TableColumn fx:id="tongtien" prefWidth="152.0" text="Tổng tiền " />
+                              <TableColumn fx:id="manv2" prefWidth="163.0" text="Nhân viên " />
                            </columns>
                         </TableView>
-                        <ScrollBar fx:id="verticalPNH" layoutX="614.0" layoutY="134.0" orientation="VERTICAL" prefHeight="199.0" prefWidth="14.0" />
-                        <Button layoutX="265.0" layoutY="360.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" text="Chi tiết phiếu nhập hàng" />
+                        <Button layoutX="590.0" layoutY="451.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" text="Chi tiết phiếu nhập hàng" />
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab fx:id="sTab_PhieuTraHang" text="Danh mục phiếu trả hàng ">
+            <Tab fx:id="sTab_PhieuTraHang" text="     Danh mục phiếu trả hàng ">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="254.0" prefWidth="678.0">
                      <children>
-                        <TableView fx:id="tablePhieuTraHang" layoutX="49.0" layoutY="114.0" prefHeight="200.0" prefWidth="565.0">
+                        <TableView fx:id="tablePhieuTraHang" layoutX="290.0" layoutY="164.0" prefHeight="256.0" prefWidth="727.0">
                            <columns>
-                              <TableColumn fx:id="maphieutra" prefWidth="163.0" text="Mã phiếu trả " />
-                              <TableColumn fx:id="mancc3" prefWidth="128.0" text="Mã NCC " />
-                              <TableColumn fx:id="thoigiantra" prefWidth="273.0" text="Thời gian trả " />
+                              <TableColumn fx:id="maphieutra" prefWidth="199.0" text="Mã phiếu trả " />
+                              <TableColumn fx:id="mancc3" prefWidth="287.0" text="Mã NCC " />
+                              <TableColumn fx:id="thoigiantra" prefWidth="240.0" text="Thời gian trả " />
                            </columns>
                         </TableView>
-                        <TextField fx:id="searchPTH" layoutX="380.0" layoutY="65.0" promptText="Tìm theo mã phiếu trả " />
-                        <Label fx:id="lbDanhMucPTH" layoutX="142.0" layoutY="47.0" text="DANH MỤC PHIẾU TRẢ HÀNG " />
-                        <ScrollBar fx:id="verticalPTH" layoutX="615.0" layoutY="114.0" orientation="VERTICAL" prefHeight="198.0" prefWidth="14.0" />
-                        <Button layoutX="301.0" layoutY="332.0" mnemonicParsing="false" onAction="#changeSceneTrahangDetail" prefHeight="29.0" prefWidth="159.0" text="Chi tiết trả hàng" />
+                        <TextField fx:id="searchPTH" layoutX="830.0" layoutY="102.0" promptText="Tìm theo mã phiếu trả " />
+                        <Label fx:id="lbDanhMucPTH" layoutX="508.0" layoutY="36.0" text="DANH MỤC PHIẾU TRẢ HÀNG ">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font></Label>
+                        <Button layoutX="602.0" layoutY="468.0" mnemonicParsing="false" onAction="#changeSceneTrahangDetail" prefHeight="29.0" prefWidth="159.0" text="Chi tiết trả hàng" />
                      </children>
                   </AnchorPane>
                </content>
@@ -102,20 +107,10 @@
          </tabs>
       </TabPane>
       <Text fx:id="txtTitle_store" layoutX="167.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Label fx:id="lbTitleStore" contentDisplay="CENTER" layoutX="193.0" layoutY="46.0" text="CỬA HÀNG TIỆN LỢI  " textAlignment="JUSTIFY" textFill="#0e0000" textOverrun="CENTER_ELLIPSIS">
+      <Label fx:id="lbTitleStore" contentDisplay="CENTER" layoutX="513.0" layoutY="47.0" text="QUẢN LÝ DANH MỤC" textAlignment="JUSTIFY" textFill="#0e0000" textOverrun="CENTER_ELLIPSIS">
          <font>
-            <Font name="Arial Bold" size="14.0" />
+            <Font name="Arial Bold" size="30.0" />
          </font>
       </Label>
-      <ImageView fx:id="logo" fitHeight="86.0" fitWidth="93.0" layoutX="36.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../QLBHH/src/main/java/QLBH/logo.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="avata" fitHeight="92.0" fitWidth="89.0" layoutX="581.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../QLBHH/src/main/java/QLBH/avata.jpg" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
