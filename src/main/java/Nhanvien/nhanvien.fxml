@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" prefHeight="711.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhanvien.NhanvienController">
+<AnchorPane fx:id="anchorpane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhanvien.NhanvienController">
    <children>
       <Label alignment="CENTER" layoutX="101.0" layoutY="41.0" prefHeight="36.0" prefWidth="303.0" text="CỬA HÀNG TIỆN LỢI SGU">
          <font>
