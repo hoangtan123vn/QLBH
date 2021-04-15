@@ -29,12 +29,13 @@ public class Chitietphieutra implements Serializable {
 	
 	
 	
-	public Chitietphieutra(Phieutrahang phieutrahang, Sanpham sanpham, int soluong, String lydo) {
+	public Chitietphieutra(Phieutrahang phieutrahang, Sanpham sanpham, int soluong, String lydo,double thanhtien) {
 		super();
 		this.phieutrahang = phieutrahang;
 		this.sanpham = sanpham;
 		this.soluong = soluong;
 		this.lydo = lydo;
+		this.thanhtien = thanhtien;
 	}
 /*	public int getMaphieutra() {
 		return maphieutra;

@@ -11,6 +11,7 @@ public class Chitietnhaphang implements Serializable{
 //	private int masanpham;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn (name="manhaphang")
 	private Phieunhaphang phieunhaphang;

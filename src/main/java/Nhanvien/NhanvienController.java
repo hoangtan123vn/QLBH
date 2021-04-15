@@ -154,7 +154,7 @@ public class NhanvienController implements Initializable{
 	@FXML
 	private ComboBox<String> Listnhanvien;
 
-	ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
+	
 
 	@FXML
 	void Reset(ActionEvent event) {
@@ -262,6 +262,7 @@ public class NhanvienController implements Initializable{
 
 	@FXML
 	void search() {
+		//reloadNHANVIEN();
 		ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
 		FilteredList<Nhanvien> filterData = new FilteredList<>(table, p -> true);
 		search.textProperty().addListener((observable, oldvalue, newvalue) -> {
@@ -312,11 +313,7 @@ public class NhanvienController implements Initializable{
 		alert.showAndWait().ifPresent(type -> {
 			if (type == okButton) {
 				int t1 = (Integer.parseInt(id_nv.getText()));
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+				Session session = HibernateUtils.getSessionFactory().openSession();
 				Nhanvien nv = new Nhanvien(t1);
 				nv = session.get(Nhanvien.class, t1);
 				try {
@@ -345,7 +342,7 @@ public class NhanvienController implements Initializable{
 			} else if (type == ButtonType.NO) {
 				alert.close();
 			}
-			ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
+			//ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
 		});
 	}
 
@@ -358,24 +355,9 @@ public class NhanvienController implements Initializable{
 		sdt.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("sdt"));
 		cmnd.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("cmnd"));
 		diachi.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("diachi"));
-		// ObservableList<Nhanvien> table = FXCollections.observableArrayList(
-		/// getNhanvien()
-
-		// );
 		tableNV.setItems(getNhanvien());
 		search();
 	}
-	/*void LoadData(Taikhoannv taikhoan) {
-		username.setText(data.getUsername());
-        user = data;
-        if (user.getAvatar() == null) {
-            avatar.setImage(new javafx.scene.image.Image("/img/avatar.png"));
-        } else {
-            File file = new File("src/main/resources/img/" + M_Image.getImageById(user.getAvatar()).getHashname() + ".png");
-            avatar.setImage(new Image(file.toURI().toString()));
-        }
-        listView(conferences);
-	}*/
 
 	public ObservableList<Nhanvien> getNhanvien() {
 		ObservableList<Nhanvien> TableNV = FXCollections.observableArrayList();
@@ -397,25 +379,16 @@ public class NhanvienController implements Initializable{
 
 	}
 
-//	 public void setNhanviendata(ObservableList<Nhanvien> TableNV) {
-	// this.TableNV = TableNV;
-	// }
 	void reloadNHANVIEN() {
-		//
 		initializeNHANVIEN();
-		getNhanvien();
+		//getNhanvien();
 	}
 
 	@FXML
 	void reload(ActionEvent event) {
-		//
-		initializeNHANVIEN();
-		// ObservableList<Nhanvien> table = FXCollections.observableArrayList(
-		// getNhanvien()
 
-		// );
-//	123212
-		getNhanvien();
+		initializeNHANVIEN();
+	//	getNhanvien();
 	}
 
 	private void setCellValueFromTabletoTexfField() {
@@ -447,15 +420,7 @@ public class NhanvienController implements Initializable{
 			}
 
 		});
-		// Nhà cung cấp
-		/*
-		  tableNhacungcap.setOnMouseClicked(event -> { 
-		  Nocong ncc = tableNhacungcap.getItems().get(tableNhacungcap.getSelectionModel().getSelectedIndex());
-		  //tfncc.setText(Integer.toString(ncc.getMancc()));
-		  tftenncc.setText(ncc.getTenncc());
-		  tfsdt.setText(Integer.toString(ncc.getSodienthoai()));
-		  tfdiachi1.setText(ncc.getDiachi()); tfemail.setText(ncc.getEmail()); }); 
-		 */
+	
 
 	}
 
