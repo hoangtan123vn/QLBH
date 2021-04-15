@@ -99,6 +99,8 @@ public class danhmucController implements Initializable {
 
 	@FXML
 	private Label lbDanhMucPHD;
+	@FXML
+	private Label thongbaoHD;
 
 	@FXML
 	private ScrollBar verticalPHD;
@@ -165,7 +167,18 @@ public class danhmucController implements Initializable {
 		Scene scene = new Scene(hoadonViewParent);
 		Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
 		HoadonDetailController DSNVController = loader.getController();
-		DSNVController.setHoadon(selected);
+	//	DSNVController.setHoadon(selected);
+		if(selected == null) {
+			 thongbaoHD.setVisible(true);
+			 thongbaoHD.setText("Không có phiếu hóa đơn được chọn!!!");
+			 System.out.print("Không có phiếu hóa đơn được chọn!!!");
+			 return;
+		 }
+		 else if(selected != null){
+			 DSNVController.setHoadon(selected);
+			 thongbaoHD.setVisible(false);
+			 
+		 }
 		stage.setTitle("Chi tiet hoa don");
 		stage.setScene(scene);
 		stage.show();
@@ -189,6 +202,9 @@ public class danhmucController implements Initializable {
 
 	@FXML
 	private TableColumn madathang;
+	
+	@FXML
+	private Label thongbaoDH;
 
 	@FXML
 	private TableColumn mancc;
@@ -262,12 +278,16 @@ public class danhmucController implements Initializable {
 		Phieudathang selected = tablePhieuDatHang.getSelectionModel().getSelectedItem();
 		DathangDetailController Dathang = loader.getController();
 	//	Dathang.setPhieudathang(selected);
-		 if(selected == null) {
-			 System.out.println("khong co phieu dat hang");
+		if(selected == null) {
+			 thongbaoDH.setVisible(true);
+			 thongbaoDH.setText("Không có phiếu đặt hàng được chọn!!!");
+			 System.out.print("Không có phiếu đặt hàng được chọn!!!");
 			 return;
 		 }
 		 else if(selected != null){
 			 Dathang.setPhieudathang(selected);
+			 thongbaoDH.setVisible(false);
+			 
 		 }
 		stage1.setTitle("Chi tiet dat hang");
 		stage1.setScene(scene1);
@@ -306,6 +326,9 @@ public class danhmucController implements Initializable {
 
 	@FXML
 	private TableColumn tongtien;
+	
+	@FXML
+	private Label thongbaoNH;
 
 	@FXML
 	private TableColumn manv2;
@@ -368,7 +391,18 @@ public class danhmucController implements Initializable {
 		Scene scene1 = new Scene(nhaphangViewParent);
 		Phieunhaphang selected = tablePhieuNhapHang.getSelectionModel().getSelectedItem();
 		NhaphangDetailController Nhaphang = loader.getController();
-		Nhaphang.setPhieunhaphang(selected);
+//		Nhaphang.setPhieunhaphang(selected);
+		if(selected == null) {
+			 thongbaoNH.setVisible(true);
+			 thongbaoNH.setText("Không có phiếu nhập hàng được chọn!!!");
+			 System.out.print("Không có phiếu nhập hàng được chọn!!!");
+			 return;
+		 }
+		 else if(selected != null){
+			 Nhaphang.setPhieunhaphang(selected);
+			 thongbaoNH.setVisible(false);
+			 
+		 }
 		stage1.setTitle("Chi tiet nhap hang");
 		stage1.setScene(scene1);
 		stage1.show();
@@ -407,6 +441,9 @@ public class danhmucController implements Initializable {
 
 	@FXML
 	private Label lbDanhMucPTH;
+	
+	@FXML
+	private Label thongbaoTH;
 
 	@FXML
 	private ScrollBar verticalPTH;
@@ -446,7 +483,18 @@ public class danhmucController implements Initializable {
 		Scene scene1 = new Scene(trahangViewParent);
 		Phieutrahang selected = tablePhieuTraHang.getSelectionModel().getSelectedItem();
 		TrahangDetailController Trahang = loader.getController();
-		Trahang.setPhieutrahang(selected);
+	//	Trahang.setPhieutrahang(selected);
+		if(selected == null) {
+			 thongbaoTH.setVisible(true);
+			 thongbaoTH.setText("Không có phiếu trả hàng được chọn!!!");
+			 System.out.print("Không có phiếu trả hàng được chọn!!!");
+			 return;
+		 }
+		 else if(selected != null){
+			 Trahang.setPhieutrahang(selected);
+			 thongbaoTH.setVisible(false);
+			 
+		 }
 		stage1.setTitle("Chi tiet phieu tra");
 		stage1.setScene(scene1);
 		stage1.show();
@@ -580,7 +628,7 @@ public class danhmucController implements Initializable {
 
 		tablePhieuNhapHang.setItems(getPhieunhaphang());
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
-		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigiantra"));
+		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigian"));
 		mancc3.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
 		mancc3.setCellFactory(tablePhieuTraHang -> new TableCell<Phieutrahang, Nhacungcap>() {
 			@Override

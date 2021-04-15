@@ -34,6 +34,11 @@
                               <Font name="System Bold" size="20.0" />
                            </font></Label>
                         <Button layoutX="630.0" layoutY="454.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" text="Chi tiết hóa đơn" />
+                        <Label fx:id="thongbaoHD" layoutX="403.0" layoutY="111.0" text="Label" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
@@ -79,6 +84,11 @@
                            </columns>
                         </TableView>
                         <Button layoutX="590.0" layoutY="451.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" text="Chi tiết phiếu nhập hàng" />
+                        <Label fx:id="thongbaoNH" layoutX="405.0" layoutY="102.0" text="Label" textFill="#e80303" visible="false">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
@@ -100,6 +110,11 @@
                               <Font name="System Bold" size="20.0" />
                            </font></Label>
                         <Button layoutX="602.0" layoutY="468.0" mnemonicParsing="false" onAction="#changeSceneTrahangDetail" prefHeight="29.0" prefWidth="159.0" text="Chi tiết trả hàng" />
+                        <Label fx:id="thongbaoTH" layoutX="382.0" layoutY="123.0" text="Label" textFill="#ee0404" visible="false">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </content>
