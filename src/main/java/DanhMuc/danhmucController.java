@@ -261,7 +261,14 @@ public class danhmucController implements Initializable {
 		Scene scene1 = new Scene(dathangViewParent);
 		Phieudathang selected = tablePhieuDatHang.getSelectionModel().getSelectedItem();
 		DathangDetailController Dathang = loader.getController();
-		Dathang.setPhieudathang(selected);
+	//	Dathang.setPhieudathang(selected);
+		 if(selected == null) {
+			 System.out.println("khong co phieu dat hang");
+			 return;
+		 }
+		 else if(selected != null){
+			 Dathang.setPhieudathang(selected);
+		 }
 		stage1.setTitle("Chi tiet dat hang");
 		stage1.setScene(scene1);
 		stage1.show();
