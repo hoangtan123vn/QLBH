@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.KiemtrahangController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="KiemTraHang.NhapHangvaTraHang">
    <children>
-      <AnchorPane layoutX="3.0" layoutY="-7.0" prefHeight="830.0" prefWidth="1260.0">
+      <AnchorPane layoutX="6.0" layoutY="-14.0" prefHeight="830.0" prefWidth="1260.0">
          <children>
             <TableView fx:id="tableChitietKiemtra" layoutX="339.0" layoutY="127.0" prefHeight="254.0" prefWidth="670.0">
               <columns>
@@ -31,8 +31,8 @@
             <Label fx:id="mancckt" layoutX="198.0" layoutY="140.0" text="Mã NCC" />
             <Label layoutX="71.0" layoutY="116.0" text="Thời gian đặt" />
             <Label fx:id="thoigiandatkt" layoutX="198.0" layoutY="116.0" text="Thời gian đặt" />
-            <Button fx:id="btphieunhap" layoutX="913.0" layoutY="746.0" mnemonicParsing="false" onAction="#TaoPhieuNhap" text="Tạo phiếu nhập" />
-            <Button fx:id="btphieutra" layoutX="286.0" layoutY="746.0" mnemonicParsing="false" onAction="#TaoPhieuTra" prefHeight="31.0" prefWidth="124.0" text="Tạo phiếu trả" />
+            <Button fx:id="btphieunhap" layoutX="913.0" layoutY="746.0" mnemonicParsing="false" text="Tạo phiếu nhập" />
+            <Button fx:id="btphieutra" layoutX="286.0" layoutY="746.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="124.0" text="Tạo phiếu trả" />
             <Label layoutX="71.0" layoutY="169.0" text="Tổng tiền " />
             <Label fx:id="tongtien" layoutX="198.0" layoutY="169.0" text="Tổng tiền " />
             <TableView fx:id="tbtrahang" layoutX="18.0" layoutY="496.0" prefHeight="200.0" prefWidth="594.0">
@@ -55,18 +55,18 @@
                   <TableColumn prefWidth="61.0" text="Xóa " fx:id="xoasp1" />
               </columns>
             </TableView>
-            <Label layoutX="189.0" layoutY="426.0" text="Trả hàng">
+            <Label layoutX="194.0" layoutY="405.0" text="Trả hàng">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="924.0" layoutY="426.0" text="Nhập hàng">
+            <Label layoutX="942.0" layoutY="405.0" text="Nhập hàng">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-            <Button fx:id="btntra" layoutX="521.0" layoutY="424.0" mnemonicParsing="false" onAction="#tra" text="Trả" />
-            <Button fx:id="btnnhap" layoutX="776.0" layoutY="424.0" mnemonicParsing="false" onAction="#nhap" text="Nhập" />
-            <TextField fx:id="lydo" layoutX="259.0" layoutY="459.0" prefHeight="31.0" prefWidth="352.0" promptText="Nhập lý do ......." />
+            <Button fx:id="btntra" layoutX="525.0" layoutY="403.0" mnemonicParsing="false" onAction="#tra" text="Trả" />
+            <Button fx:id="btnnhap" layoutX="759.0" layoutY="403.0" mnemonicParsing="false" onAction="#nhap" text="Nhập" />
+            <TextField fx:id="lydo" layoutX="20.0" layoutY="458.0" prefHeight="31.0" prefWidth="584.0" promptText="Nhập lý do ......." />
          </children>
       </AnchorPane>
    </children>

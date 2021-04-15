@@ -18,7 +18,7 @@ public class Phieutrahang implements Serializable{
 	//private int mancc;
 	//private int manv;
 	
-	@OneToMany(mappedBy = "phieutrahang")
+	@OneToMany(mappedBy = "phieutrahang",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Chitietphieutra> chitietphieutra;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

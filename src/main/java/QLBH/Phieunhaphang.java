@@ -13,9 +13,10 @@ import javax.persistence.*;
 public class Phieunhaphang implements Serializable{
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int manhaphang;
 	
-	@OneToMany (mappedBy = "phieunhaphang")
+	@OneToMany (mappedBy = "phieunhaphang",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Chitietnhaphang> chitietnhaphang;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

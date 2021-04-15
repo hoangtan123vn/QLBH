@@ -13,6 +13,7 @@ import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import BanHang.BanHangController;
+import DanhMuc.HoadonDetailController;
 import KhachHang.khachhangController;
 import Nhanvien.NhanvienController;
 import QLKho.QLKhoController;
@@ -27,8 +28,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-
+import KiemTraHang.KiemTraHangController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -157,8 +157,9 @@ public class GiaoDienQLController implements Initializable{
 		thongke.setOnMouseClicked(event ->  {
 			SceneThongKe();
 		});
-
-		
+		kiemtrahang.setOnMouseClicked(event ->  {
+			SceneKiemTraHang(taikhoan);
+		});
    }
 		
 
@@ -298,13 +299,20 @@ public class GiaoDienQLController implements Initializable{
 		}
    }
    
-   
-   
-   
-   
-   
-   
-
+   public void SceneKiemTraHang(Taikhoannv taikhoan) {
+	   try {
+		   FXMLLoader loader = new FXMLLoader(getClass().getResource("/KiemTraHang/Kiemtrahang.fxml"));
+			AnchorPane pane = loader.load();
+			//KiemtrahangController ktController = 
+			//Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+			KiemTraHangController KTHang= loader.getController();
+			KTHang.loadData(taikhoan);
+			mainpane.getChildren().setAll(pane);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   }
    
     @FXML
     void DangXuat(ActionEvent event) throws IOException {
