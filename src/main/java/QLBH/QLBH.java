@@ -25,6 +25,7 @@ public class QLBH extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("loginform.fxml"));
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
+	//	Scene scene = new Scene(root,337,408);
 		stage.getIcons().add(new Image(QLBH.class.getResourceAsStream("backgroundSGU.png")));
 		stage.setScene(scene);
 		stage.setResizable(false);

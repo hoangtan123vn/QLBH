@@ -111,6 +111,7 @@ public class HoadonDetailController implements Initializable {
     	lbMakh.setText((hoadon.getKhachhang()).toString());
     	lbManv.setText((hoadon.getNhanvien()).toString());
    // 	int mahoadon = hoadon.getMahoadon();
+    	lbTonggia.setText(String.valueOf(hoadon.getTonggia()));
     	IntilizeChitietHoadon(hoadon);
     	getChitietHoadon(hoadon);
     }
