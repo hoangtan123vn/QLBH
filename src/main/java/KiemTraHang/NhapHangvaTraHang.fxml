@@ -67,6 +67,7 @@
             <Button fx:id="btntra" layoutX="525.0" layoutY="403.0" mnemonicParsing="false" onAction="#tra" text="Trả" />
             <Button fx:id="btnnhap" layoutX="759.0" layoutY="403.0" mnemonicParsing="false" onAction="#nhap" text="Nhập" />
             <TextField fx:id="lydo" layoutX="20.0" layoutY="458.0" prefHeight="31.0" prefWidth="584.0" promptText="Nhập lý do ......." />
+            <Label fx:id="thongbaoSP" layoutX="462.0" layoutY="92.0" text="Label" />
          </children>
       </AnchorPane>
    </children>
