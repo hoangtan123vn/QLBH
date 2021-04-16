@@ -96,13 +96,7 @@ public class HoadonDetailController implements Initializable {
     @FXML
     private TableColumn thanhtien;
     
-  /*  ObservableList<Object[]> tableHoadon = FXCollections.observableArrayList(
-    		new Object(tensanpham,soluong,giatien));*/
-   
-    
-  /*  public String toString() {
-        return QLBH.Khachhang()+"@"+Integer.toHexString(hashCode());
-    }*/
+  
     
     public void setHoadon (Hoadon hoadon) {
     	

@@ -53,6 +53,9 @@ import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
+
+import com.google.protobuf.StringValue;
+
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
@@ -110,6 +113,7 @@ public class NhaphangDetailController implements Initializable {
     	lbThoigiannhap.setText(String.valueOf(phieunhaphang.getThoigian()));
     	lbMancc.setText((phieunhaphang.getNhacungcap().toString()));
     	lbManv.setText((phieunhaphang.getNhanvien().toString()));
+    	lbTongtien.setText(String.valueOf(phieunhaphang.getTongtien()));
   //  	IntitlizeChitietnhaphang(phieunhaphang);
     	IntitlizeChitietnhaphang(phieunhaphang);
     }
@@ -147,6 +151,7 @@ public class NhaphangDetailController implements Initializable {
 		    }
 	});
 	soluong.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("soluong"));
+	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
 	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 	dongia.setCellFactory(tbChitietNhapHang ->new TableCell<Chitietnhaphang, Sanpham>(){
