@@ -135,6 +135,8 @@ public class QLKhoController implements Initializable {
 	@FXML
 	private TableView<Sanpham> tableSP;
 	
+
+	
 	 public static QLKhoController instance;
 
 		public QLKhoController() {
@@ -148,7 +150,9 @@ public class QLKhoController implements Initializable {
 
 	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
  
-
+	
+	
+	
     @FXML
     void LichSuDatHang(ActionEvent event) throws IOException {
     	Parent root = FXMLLoader.load(getClass().getResource("/QLKho/lichsudathang.fxml"));
@@ -293,17 +297,19 @@ public class QLKhoController implements Initializable {
 		// setCellValueFromTabletoTexfFieldd();
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		// loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham,
-		// String>("loai"));
-		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
+		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
+		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+		ButtonXoaSP();
+		ButtonChinhSuaAnh();
 		imageSp.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
+	//	imageSp.setPrefWidth(50);
+//		imageSp.setPrefWidth
 		imageSp.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
 
 			private ImageView imageView = new ImageView();
-			
 
 			@Override
 			protected void updateItem(byte[] item, boolean empty) {
@@ -313,13 +319,19 @@ public class QLKhoController implements Initializable {
 					setGraphic(null);
 				} else {
 					imageView.setImage(getImageFromBytes(item));
-					imageView.setFitWidth(150);
-					imageView.setFitWidth(250);
-					setGraphic(imageView);
+					imageView.setFitHeight(65);
+					imageView.setFitWidth(65);
+					
+					BorderPane pane = new BorderPane();
+					pane.setCenter(imageView);
+					setGraphic(pane);
 				}
 				this.setItem(item);
 			}
 		});
+		// imageSp.setPrefWidth(70);
+		tableSP.setItems(getSanpham());
+		Timkiem();
 
 	}
 
@@ -408,43 +420,7 @@ public class QLKhoController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
-		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
-		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
-		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
-		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
-		ButtonXoaSP();
-		ButtonChinhSuaAnh();
-		imageSp.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
-	//	imageSp.setPrefWidth(50);
-//		imageSp.setPrefWidth
-		imageSp.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
-
-			private ImageView imageView = new ImageView();
-
-			@Override
-			protected void updateItem(byte[] item, boolean empty) {
-				super.updateItem(item, empty);
-				if (item == null || empty) {
-					setText(null);
-					setGraphic(null);
-				} else {
-					imageView.setImage(getImageFromBytes(item));
-					imageView.setFitHeight(65);
-					imageView.setFitWidth(65);
-					
-					BorderPane pane = new BorderPane();
-					pane.setCenter(imageView);
-					setGraphic(pane);
-				}
-				this.setItem(item);
-			}
-		});
-		// imageSp.setPrefWidth(70);
-		tableSP.setItems(getSanpham());
-		Timkiem();
+		initialize1();
 	}
 
 }

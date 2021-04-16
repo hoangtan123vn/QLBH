@@ -182,7 +182,7 @@ public class detailsanphamcontroller implements Initializable{
 			        	 stage.close();
 					}
 					session.getTransaction().commit();
-					QLKhoController.getInstance().ReloadSANPHAM();
+					QLKhoController.getInstance().initialize1();
 					alert.setContentText("Cập nhật sản phẩm thành công");
 					alert.showAndWait();
 				} catch (RuntimeException error) {

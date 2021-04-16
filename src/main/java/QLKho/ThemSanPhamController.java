@@ -11,14 +11,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -110,7 +113,7 @@ public class ThemSanPhamController extends Application implements Initializable{
     		 alert.showAndWait();   
     		 Stage stage = (Stage) luusp.getScene().getWindow();
         	 stage.close();
-        	 QLKhoController.getInstance().ReloadSANPHAM();
+        	 QLKhoController.getInstance().initialize1();
 		 }
 	    	catch (RuntimeException error){
 	    		
@@ -143,8 +146,41 @@ public class ThemSanPhamController extends Application implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		ObservableList<String> list=FXCollections.observableArrayList("Cái ","Chai ","Bình ","Bịch","Hộp","Ly","Nắm","123");
-		ObservableList<String> list1=FXCollections.observableArrayList("nước giải khát","snack","thức ăn nhanh");
-		loaisanpham.setItems(list1);
+	//	ObservableList<String> list1=FXCollections.observableArrayList("nước giải khát","snack","thức ăn nhanh");
+		
+		loaisanpham.getItems().addAll("nước giải khát", "snack", "thức ăn nhanh", "");
+        loaisanpham.setCellFactory(lv -> {
+            ListCell<String> cell = new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        if (item.isEmpty()) {
+                            setText("Thêm loại sản phẩm...");
+                        } else {
+                            setText(item);
+                        }
+                    }
+                }
+            };
+
+            cell.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
+                if (cell.getItem().isEmpty() && ! cell.isEmpty()) {
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setContentText("Nhập loại sản phẩm");
+                    dialog.showAndWait().ifPresent(text -> {
+                        int index = loaisanpham.getItems().size()-1;
+                        loaisanpham.getItems().add(index, text);
+                        loaisanpham.getSelectionModel().select(index);
+                    });
+                    evt.consume();
+                }
+            });
+
+            return cell ;
+        });
 		donvi.setItems(list);
 		
 	}
