@@ -42,6 +42,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -62,6 +64,24 @@ public class LoginController implements  Initializable{
     private Label thongbao;
     
     private Taikhoannv taikhoan;
+    
+
+    @FXML
+    private ImageView close;
+    
+    @FXML
+    private ImageView minimize;
+    
+    @FXML
+    void close(MouseEvent event) {
+    	 Stage stage = (Stage) close.getScene().getWindow();
+    	 stage.close();
+    }
+    @FXML
+    void minimize(MouseEvent event) {
+    	 Stage stage = (Stage) minimize.getScene().getWindow();
+    	 stage.setIconified(true);
+    }
      
    @FXML
     void login(ActionEvent event)  {
