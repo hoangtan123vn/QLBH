@@ -9,9 +9,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="616.0" prefWidth="1305.0" style="-fx-background-size: 1305;" styleClass="background" stylesheets="@nhacungcap.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.nhacungcapController">
+<AnchorPane prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="background" stylesheets="@nhacungcap.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.nhacungcapController">
    <children>
-      <TableView fx:id="tableNhacungcap" layoutX="251.0" layoutY="176.0" opacity="0.98" prefHeight="372.0" prefWidth="987.0" styleClass="tbview" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="176.0">
+      <TableView fx:id="tableNhacungcap" layoutX="251.0" layoutY="176.0" opacity="0.98" prefHeight="570.0" prefWidth="1010.0" styleClass="tbview" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="176.0">
          <columns>
             <TableColumn fx:id="tenncc" prefWidth="151.20004272460938" styleClass="ncc" text="Tên NCC">
                <graphic>
@@ -53,7 +53,7 @@
                      </image>
                   </ImageView>
                </graphic></TableColumn>
-            <TableColumn fx:id="deleteNCC" prefWidth="144.0" styleClass="xoa" text="Xóa Nhà Cung Cấp">
+            <TableColumn fx:id="deleteNCC" prefWidth="165.0" styleClass="xoa" text="Xóa Nhà Cung Cấp">
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="9.0" pickOnBounds="true" preserveRatio="true" />
                </graphic></TableColumn>
@@ -62,7 +62,7 @@
             <Insets />
          </opaqueInsets>
       </TableView>
-      <Button fx:id="idreloadncc" alignment="TOP_LEFT" layoutX="41.0" layoutY="426.0" mnemonicParsing="false" onAction="#Reloadncc" prefHeight="40.0" prefWidth="180.0" style="-fx-background-radius: 4em; -fx-border-color: red; -fx-border-radius: 4em;" text="Reload">
+      <Button fx:id="idreloadncc" alignment="TOP_LEFT" layoutX="41.0" layoutY="455.0" mnemonicParsing="false" onAction="#Reloadncc" prefHeight="40.0" prefWidth="180.0" style="-fx-background-radius: 4em; -fx-border-color: red; -fx-border-radius: 4em;" text="Reload">
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -1,4 +1,5 @@
 package QLBH;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,311 +54,317 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class GiaoDienQLController implements Initializable{
+public class GiaoDienQLController implements Initializable {
 
-    @FXML
-    private Button banhang;
+	@FXML
+	private Button banhang;
 
-    @FXML
-    private Button nhanvien;
+	@FXML
+	private Button nhanvien;
 
-    @FXML
-    private Button thongke;
+	@FXML
+	private Button thongke;
 
-    @FXML
-    private Button kho;
+	@FXML
+	private Button kho;
 
-    @FXML
-    private Button kiemtrahang;
+	@FXML
+	private Button kiemtrahang;
 
-    @FXML
-    private Button danhmuc;
+	@FXML
+	private Button danhmuc;
 
-    @FXML
-    private Button nhacungcap;
+	@FXML
+	private Button nhacungcap;
 
-    @FXML
-    private Button khachhang;
-    
-    @FXML
-    private AnchorPane mainpane;
-    
-    @FXML
-    private Label username;
-    
-    
-    
-    @FXML
-    private ImageView imgnhanvien;
+	@FXML
+	private Button khachhang;
 
-        
-    void setNhanvien(Nhanvien nhanvien) {
-    	
-    }
-    
-    
+	@FXML
+	private AnchorPane mainpane;
 
-    @FXML
-    void ChangeNhacungcap(ActionEvent event) {
+	@FXML
+	private Label username;
 
-    }
-    @FXML
-    private Button dangxuat;
-    
-    
-    
+	@FXML
+	private ImageView imgnhanvien;
 
-    @FXML
-    void ChangeNhanvien(ActionEvent event) throws IOException {
- //   	Scene scene = new Scene(login); 
-    	AnchorPane pane = FXMLLoader.load(getClass().getResource("/Nhanvien/nhanvien.fxml"));
-    	mainpane.getChildren().setAll(pane);
-    	if(mainpane.getChildren().setAll(pane)) {
-    		//nhanvien.setClickable(false);
-    	}
-    }
-    
-   public void LoadData(Taikhoannv taikhoan) {
-    	
-		username.setText("Xin chào " +taikhoan.getusername());
+	@FXML
+	private ImageView close;
+
+	@FXML
+	private ImageView minimize;
+
+	@FXML
+	void close(MouseEvent event) {
+		Stage stage = (Stage) close.getScene().getWindow();
+		stage.close();
+	}
+
+	@FXML
+	void minimize(MouseEvent event) {
+		Stage stage = (Stage) minimize.getScene().getWindow();
+		stage.setIconified(true);
+	}
+
+	void setNhanvien(Nhanvien nhanvien) {
+
+	}
+
+	@FXML
+	void ChangeNhacungcap(ActionEvent event) {
+
+	}
+
+	@FXML
+	private Button dangxuat;
+
+	@FXML
+	void ChangeNhanvien(ActionEvent event) throws IOException {
+		// Scene scene = new Scene(login);
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("/Nhanvien/nhanvien.fxml"));
+		mainpane.getChildren().setAll(pane);
+		if (mainpane.getChildren().setAll(pane)) {
+			// nhanvien.setClickable(false);
+		}
+	}
+
+	public void LoadData(Taikhoannv taikhoan) {
+
+		username.setText("Xin chào " + taikhoan.getusername());
 		username.setUnderline(true);
-		//tennhanvien.setText("Xin chao" + taikhoan.getNhanvien().getHovaten());
+		// tennhanvien.setText("Xin chao" + taikhoan.getNhanvien().getHovaten());
 		byte[] getImageInBytes = taikhoan.getNhanvien().getImage();
 		try {
 			FileOutputStream fos = new FileOutputStream(new File("photo1.jpg"));
 			fos.write(getImageInBytes);
 			fos.close();
-			Image image = new Image("file:photo1.jpg", imgnhanvien.getFitHeight(), imgnhanvien.getFitHeight(), true, true);
+			Image image = new Image("file:photo1.jpg", imgnhanvien.getFitHeight(), imgnhanvien.getFitHeight(), true,
+					true);
 			imgnhanvien.setImage(image);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		username.setOnMouseClicked(event ->  {
+		username.setOnMouseClicked(event -> {
 			profileNhanvien(taikhoan);
 
 		});
-		
-		banhang.setOnMouseClicked(event ->  {
+
+		banhang.setOnMouseClicked(event -> {
 			SceneBanHang(taikhoan);
 		});
-		
-		kho.setOnMouseClicked(event ->  {
+
+		kho.setOnMouseClicked(event -> {
 			SceneQLKho(taikhoan);
 		});
-		
-		khachhang.setOnMouseClicked(event ->  {
+
+		khachhang.setOnMouseClicked(event -> {
 			SceneKhachHang();
 		});
-		nhacungcap.setOnMouseClicked(event ->  {
+		nhacungcap.setOnMouseClicked(event -> {
 			SceneNhaCungCap();
 		});
-		danhmuc.setOnMouseClicked(event ->  {
+		danhmuc.setOnMouseClicked(event -> {
 			SceneDanhMuc();
 		});
-		thongke.setOnMouseClicked(event ->  {
+		thongke.setOnMouseClicked(event -> {
 			SceneThongKe();
 		});
-		kiemtrahang.setOnMouseClicked(event ->  {
+		kiemtrahang.setOnMouseClicked(event -> {
 			SceneKiemTraHang(taikhoan);
 		});
-   }
-		
+	}
 
-		
-   
-   
-   
-   
-   
-   public void profileNhanvien(Taikhoannv taikhoan) {
-	   try {
+	public void profileNhanvien(Taikhoannv taikhoan) {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("profilenhanvien.fxml"));
-           Parent tmp;
+			Parent tmp;
 			tmp = loader.load();
 			Scene scene = new Scene(tmp);
 			Stage stage = new Stage();
-		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-           ProfilesNhanvienController profiles = loader.getController();
-           profiles.loadData(taikhoan);
-           stage.hide();
-       	stage.setScene(scene);
-       	stage.show();
+			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+			ProfilesNhanvienController profiles = loader.getController();
+			profiles.loadData(taikhoan);
+			stage.hide();
+			stage.setScene(scene);
+			stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   }
-   public void SceneBanHang(Taikhoannv taikhoan) {
-	   try {
+	}
+
+	public void SceneBanHang(Taikhoannv taikhoan) {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/BanHang/banhang.fxml"));
 			AnchorPane pane = loader.load();
 			mainpane.getChildren().setAll(pane);
-	   /* 	if(mainpane.getChildren().setAll(pane)) {
-	    		//nhanvien.setClickable(false);
-	    	}*/
-          BanHangController banHangController = loader.getController();
-          banHangController.loadData(taikhoan);
-          System.out.println(taikhoan);
-      /*    stage.hide();
-      	stage.setScene(scene);
-      	stage.show();*/
+			/*
+			 * if(mainpane.getChildren().setAll(pane)) { //nhanvien.setClickable(false); }
+			 */
+			BanHangController banHangController = loader.getController();
+			banHangController.loadData(taikhoan);
+			System.out.println(taikhoan);
+			/*
+			 * stage.hide(); stage.setScene(scene); stage.show();
+			 */
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println(e);
 		}
-   }
-   
-   public void SceneQLKho(Taikhoannv taikhoan) {
-	   try {
+	}
+
+	public void SceneQLKho(Taikhoannv taikhoan) {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/QLKho/QLKho.fxml"));
 			AnchorPane pane = loader.load();
-			
+
 			mainpane.getChildren().setAll(pane);
-	    /*	if(mainpane.getChildren().setAll(pane)) {
-	    		//nhanvien.setClickable(false);
-	    	}*/
-			//Parent tmp;
-		//	tmp = loader.load();
-		//	Scene scene = new Scene(tmp);
-		//	Stage stage = new Stage();
-		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-	    	QLKhoController qlKhoController = loader.getController();
-	        qlKhoController.loadData(taikhoan);
-	        System.out.println(taikhoan);
-      /*    stage.hide();
-      	stage.setScene(scene);
-      	stage.show();*/
+			/*
+			 * if(mainpane.getChildren().setAll(pane)) { //nhanvien.setClickable(false); }
+			 */
+			// Parent tmp;
+			// tmp = loader.load();
+			// Scene scene = new Scene(tmp);
+			// Stage stage = new Stage();
+			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+			QLKhoController qlKhoController = loader.getController();
+			qlKhoController.loadData(taikhoan);
+			System.out.println(taikhoan);
+			/*
+			 * stage.hide(); stage.setScene(scene); stage.show();
+			 */
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
-   }
-   public void SceneKhachHang() {
-	   try {
+	}
+
+	public void SceneKhachHang() {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/KhachHang/khachhang.fxml"));
 			AnchorPane pane = loader.load();
-			
+
 			mainpane.getChildren().setAll(pane);
-	    /*	if(mainpane.getChildren().setAll(pane)) {
-	    		//nhanvien.setClickable(false);
-	    	}*/
-			//Parent tmp;
-		//	tmp = loader.load();
-		//	Scene scene = new Scene(tmp);
-		//	Stage stage = new Stage();
-		//	Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-	    /*	khachhangController khachhangController = loader.getController();
-	        khachhangController.loadData(taikhoan);
-	        System.out.println(taikhoan);*/
-      /*    stage.hide();
-      	stage.setScene(scene);
-      	stage.show();*/
+			/*
+			 * if(mainpane.getChildren().setAll(pane)) { //nhanvien.setClickable(false); }
+			 */
+			// Parent tmp;
+			// tmp = loader.load();
+			// Scene scene = new Scene(tmp);
+			// Stage stage = new Stage();
+			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
+			/*
+			 * khachhangController khachhangController = loader.getController();
+			 * khachhangController.loadData(taikhoan); System.out.println(taikhoan);
+			 */
+			/*
+			 * stage.hide(); stage.setScene(scene); stage.show();
+			 */
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
-   }
-   
-   public void SceneNhaCungCap() {
-	   try {
+	}
+
+	public void SceneNhaCungCap() {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/Nhacungcap/nhacungcap.fxml"));
 			AnchorPane pane = loader.load();
-			
+
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
-   }
-   public void SceneDanhMuc() {
-	   try {
+	}
+
+	public void SceneDanhMuc() {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/danhmuc.fxml"));
 			AnchorPane pane = loader.load();
-			
+
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
-   }
-   
-   public void SceneThongKe() {
-	   try {
+	}
+
+	public void SceneThongKe() {
+		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ThongKe/thongkedoanhthutheongay.fxml"));
 			AnchorPane pane = loader.load();
-			
+
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
-   }
-   
-   public void SceneKiemTraHang(Taikhoannv taikhoan) {
-	   try {
-		   FXMLLoader loader = new FXMLLoader(getClass().getResource("/KiemTraHang/Kiemtrahang.fxml"));
+	}
+
+	public void SceneKiemTraHang(Taikhoannv taikhoan) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/KiemTraHang/Kiemtrahang.fxml"));
 			AnchorPane pane = loader.load();
-			//KiemtrahangController ktController = 
-			//Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
-			KiemTraHangController KTHang= loader.getController();
+			// KiemtrahangController ktController =
+			// Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+			KiemTraHangController KTHang = loader.getController();
 			KTHang.loadData(taikhoan);
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   }
-   
-    @FXML
-    void DangXuat(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("loginform.fxml"));
-        Parent tmp;
+	}
+
+	@FXML
+	void DangXuat(ActionEvent event) throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("loginform.fxml"));
+		Parent tmp;
 		tmp = loader.load();
 		Scene scene = new Scene(tmp);
-	//	Stage stage = new Stage();
-		Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-    	stage.setScene(scene);
-    	stage.show();
-    }
- 
-    @FXML
-    void ChangeThongKe(ActionEvent event) throws IOException {
-   
-    }
+		// Stage stage = new Stage();
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.hide();
+		stage.setScene(scene);
+		stage.show();
+	}
 
-    @FXML
-    void changeBanHang(ActionEvent event) throws Exception {
+	@FXML
+	void ChangeThongKe(ActionEvent event) throws IOException {
 
-    }
+	}
 
-    @FXML
-    void changeDanhmuc(ActionEvent event) {
+	@FXML
+	void changeBanHang(ActionEvent event) throws Exception {
 
-    }
+	}
 
-    @FXML
-    void changeKTH(ActionEvent event) {
+	@FXML
+	void changeDanhmuc(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void changekho(ActionEvent event) {
+	@FXML
+	void changeKTH(ActionEvent event) {
 
-    }
+	}
+
+	@FXML
+	void changekho(ActionEvent event) {
+
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		
+
 	}
 
 }
-
-
