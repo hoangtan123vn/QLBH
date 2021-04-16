@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -124,11 +125,6 @@ public class ThemNVController extends Application implements Initializable{
     	}
     }
     
-    
-    
-    
-    
-
 
     @FXML
      void HuyThemNV(ActionEvent event) {
@@ -136,76 +132,82 @@ public class ThemNVController extends Application implements Initializable{
     	 Stage stage = (Stage) huy.getScene().getWindow();
     	 stage.close();
     }
- //  chucnangquanly cnql = new chucnangquanly();
- //   public static chucnangquanly instance;
-
- //   public chucnangquanly() {
- //       instance = this;
- //   }
-
-/*    public static chucnangquanly getInstance() {
-        return instance;
-    }*/
     
 
     @FXML
      void ThemNVButton(ActionEvent event) throws IOException  {
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Them nhan vien");
-		 
-  //  	int id = Integer.parseInt(tfid.getText());
-    	String t1 = tfhovaten.getText();
-    	//int t2 = Integer.parseInt(tfns.getText());
-    	LocalDate t2 = tfns.getValue();
-    	String t3 = tfcv.getValue();
-    	String t4 = tfgt.getValue();
-    	int t5 = Integer.parseInt(tfsdt.getText());
-    	int t6 = Integer.parseInt(tfcmnd.getText());
-    	String t7 = tfdc.getText();
-    	LocalDate t8 = tfngayvaolam.getValue();
-    	String taikhoan = user.getText();
-    	String matkhau = pass.getText();
-    	String xacnhanmatkhau = xacnhanpass.getText();
-    	if (taikhoan.isEmpty()) {
-            thongbao.setText("Bạn chưa nhập tài khoản !");
-            return;
-        }
-        else if (matkhau.isEmpty()) {
-            thongbao.setText("Bạn chưa nhập mật khẩu !");
-            return ;
-        }
-        else if (!xacnhanmatkhau.equals(matkhau)) {
-        	thongbao.setText("Mật khẩu của bạn k đúng  !");
-            return ;
-        }
-    	 Session session = HibernateUtils.getSessionFactory().openSession();
+		int t5 ,t6;
+		//KIỂM TRA HỌ VÀ TÊN 
+		String t1 = tfhovaten.getText();
+		if(t1.isEmpty()) {
+			alert.setContentText("Bạn chưa nhập Họ và tên nhân viên");
+			alert.showAndWait();
+			return;
+		}
+		//KIỂM TRA SỐ ĐIỆN THOẠI
+		try {
+	//	int id = Integer.parseInt(tfid.getText());
+			t5 = Integer.parseInt(tfsdt.getText());
+			if(String.valueOf(tfsdt.getText()).length() <10) {
+				alert.setContentText("SĐT phải có 10 số ! " + (String.valueOf(tfsdt.getText()).length()));
+				alert.showAndWait();
+				return;
+			}
+
+		}catch (NumberFormatException e) {
+			alert.setContentText("SĐT phải là số");
+			alert.showAndWait();
+			return;
+		}
+		//KIỂM TRA CHỨNG MINH NHÂN DÂN
+		try {
+			//	int id = Integer.parseInt(tfid.getText());
+			t6 = Integer.parseInt(tfcmnd.getText());
+				
+		}catch (NumberFormatException e) {
+			alert.setContentText("CMND phải là số");
+			alert.showAndWait();
+			return;
+		}
 		
-	//	chucnangquanly ds = new chucnangquanly();
+		
+		
+		//int t2 = Integer.parseInt(tfns.getText());
+		LocalDate t2 = tfns.getValue();
+		String t3 = tfcv.getValue();
+		String t4 = tfgt.getValue();
+	
+		
+		String t7 = tfdc.getText();
+		LocalDate t8 = tfngayvaolam.getValue();
+		String taikhoan = user.getText();
+		String matkhau = pass.getText();
+		String xacnhanmatkhau = xacnhanpass.getText();
+		if (taikhoan.isEmpty()) {
+        thongbao.setText("Bạn chưa nhập tài khoản !");
+        return;
+		}
+		else if (matkhau.isEmpty()) {
+        thongbao.setText("Bạn chưa nhập mật khẩu !");
+        return ;
+		}
+		else if (!xacnhanmatkhau.equals(matkhau)) {
+    	thongbao.setText("Mật khẩu của bạn k đúng  !");
+        return ;
+		}
+    
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		 FileInputStream fis = new FileInputStream(file);
 		 byte[] bFile = new byte[(int) (file.length())];
 		 fis.read(bFile);
 		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
 		Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
-		//THÊM DỮ LIỆU
-		//Sanpham sanpham123 = new Sanpham(90,"chai nuoc ","nuoc giai khat","chai",20,"123");
-		//Sanpham sanpham1234 = new Sanpham(91,"nuoc aquaria ","nuoc giai khat","chai",20,"123");
-	//	KhachHang khachHang = new KhachHang(9,"123","123",123,2711,"Nam",123,"@email");
-		
-	//	Hoadon hoadon = new Hoadon("01","2711",123,nv,khachHang);
-	//	Chitiethoadon cthd = new Chitiethoadon(12,hoadon,sanpham123);
-	//	Chitiethoadon cthd2 = new Chitiethoadon(1,hoadon,sanpham1234);
-		//taikhoannv.setNhanvien(nv);
-    	
 		try {
     		 session.beginTransaction();
     		 session.save(nv);
     		 session.save(tk);
-    //		 session.save(sanpham123);
-    //		 session.save(sanpham1234);
-    //		 session.save(khachHang);
-    	//	 session.save(hoadon);
-    	//	 session.save(cthd);
-    	//	 session.save(cthd2);
     		 session.getTransaction().commit();
     		 Stage stage = (Stage) ap.getScene().getWindow();
         	 stage.close();
@@ -216,12 +218,14 @@ public class ThemNVController extends Application implements Initializable{
         	 alert.showAndWait();    	
     	}
     	catch (RuntimeException error){
-
+    		 System.out.println(error);
     		 alert.setContentText("Them nhan vien that bai  !");
     		 alert.showAndWait();
     		session.getTransaction().rollback();
     	}
 		 NhanvienController.getInstance().reloadNHANVIEN();
+  //  	
+    	 
     }
 
 	@Override
@@ -241,6 +245,8 @@ public class ThemNVController extends Application implements Initializable{
 		ObservableList<String> list1=FXCollections.observableArrayList("Nam","Nữ");
 		tfcv.setItems(list);
 		tfgt.setItems(list1);
+		//RequiredFielDValidator validator = new RequiredFieldValidator();
+		
 		
 	}
 

@@ -61,6 +61,7 @@
                            </columns>
                         </TableView>
                         <Button layoutX="622.0" layoutY="466.0" mnemonicParsing="false" onAction="#changeSceneDathangDetail" text="Chi tiết đặt hàng" />
+                        <Label fx:id="thongbaoDH" layoutX="521.0" layoutY="133.0" prefHeight="29.0" prefWidth="280.0" />
                      </children>
                   </AnchorPane>
                </content>

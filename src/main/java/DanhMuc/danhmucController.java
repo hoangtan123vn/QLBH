@@ -279,14 +279,14 @@ public class danhmucController implements Initializable {
 		DathangDetailController Dathang = loader.getController();
 	//	Dathang.setPhieudathang(selected);
 		if(selected == null) {
-			 thongbaoDH.setVisible(true);
+			// thongbaoDH.setVisible(true);
 			 thongbaoDH.setText("Không có phiếu đặt hàng được chọn!!!");
 			 System.out.print("Không có phiếu đặt hàng được chọn!!!");
 			 return;
 		 }
 		 else if(selected != null){
 			 Dathang.setPhieudathang(selected);
-			 thongbaoDH.setVisible(false);
+		//	 thongbaoDH.setVisible(false);
 			 
 		 }
 		stage1.setTitle("Chi tiet dat hang");

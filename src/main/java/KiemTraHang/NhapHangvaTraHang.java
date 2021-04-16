@@ -79,6 +79,7 @@ import QLBH.Nhanvien;
 import QLBH.Phieudathang;
 import QLBH.Chitietnhaphang;
 import QLBH.Chitietphieutra;
+import QLBH.HibernateUtils;
 import QLBH.Phieutrahang;
 import QLBH.Chitietdathang;
 import QLBH.Nhacungcap;
@@ -239,12 +240,7 @@ public class NhapHangvaTraHang implements Initializable{
 	public void loadData(Taikhoannv taikhoan) {
 		btphieunhap.setOnMouseClicked(event ->  {
 			Alert alert = new Alert(AlertType.INFORMATION);
-			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
+			Session session = HibernateUtils.getSessionFactory().openSession();
 		Nhacungcap nhacungcap = new Nhacungcap();
     	int  mancc= Integer.parseInt(mancckt.getText());
     	nhacungcap = session.get(Nhacungcap.class, mancc);
