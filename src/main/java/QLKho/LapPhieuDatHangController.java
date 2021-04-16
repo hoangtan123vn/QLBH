@@ -88,9 +88,6 @@ public class LapPhieuDatHangController implements Initializable{
 
 	@FXML
 	private TableColumn donvi;
-
-	@FXML
-	private TableColumn giatien;
 	
 	@FXML
 	private TableColumn tensanpham;
@@ -172,6 +169,9 @@ public class LapPhieuDatHangController implements Initializable{
 
     @FXML
     private Text id_ncc;
+    
+    @FXML
+	private TableColumn<Chitietdathang, Void> xoasp;
 	
 	
 	 @FXML
@@ -251,7 +251,7 @@ public class LapPhieuDatHangController implements Initializable{
 			 tf1.setText(sp.getTensanpham());
 			 tf2.setText(Integer.toString(sp.getMasanpham()));
 			 tf3.setText(sp.getDonvi());
-			 tf5.setText(Integer.toString(sp.getGiatien()));
+			 //tf5.setText(Integer.toString(sp.getGiatien()));
 			 //tf5.setText(sp.getDonvitinh()); 
 			 tf6.setText(sp.getLoaisanpham());
 		 });
@@ -274,7 +274,45 @@ public class LapPhieuDatHangController implements Initializable{
 		 }
 		 return tbNCC;				 
 	 }	*/
-	 
+	
+	 private void ButtonXoaSP() {
+	      
+
+		 Callback<TableColumn<Chitietdathang, Void>, TableCell<Chitietdathang, Void>> cellFactory = new Callback<TableColumn<Chitietdathang, Void>, TableCell<Chitietdathang, Void>>() {
+	            @Override
+	            public TableCell<Chitietdathang, Void> call(final TableColumn<Chitietdathang, Void> param) {
+	                final TableCell<Chitietdathang, Void> cell = new TableCell<Chitietdathang, Void>() {
+	                    private final Button btn = new Button("Xóa");
+
+	                    {
+	                    	///////////////////////////
+	                    btn.setOnAction((ActionEvent event) -> {
+	                    	Chitietdathang chitietdathang = getTableView().getItems().get(getIndex());
+	                    	 if(tableSP1.getItems().contains(chitietdathang)) {
+	                    	 chitietdathang.setSoluong(chitietdathang.getSoluong() - chitietdathang.getSoluong());
+	               			 tableSP1.refresh();
+	               			 if(chitietdathang.getSoluong()==0) {
+	               				 tableSP1.getItems().remove(chitietdathang);
+	               				 tableSP1.refresh();
+	               			 }
+	               		 }
+	                        });
+	                    }
+	                    @Override
+	                    public void updateItem(Void item, boolean empty) {
+	                        super.updateItem(item, empty);
+	                        if (empty) {
+	                            setGraphic(null);
+	                        } else {
+	                            setGraphic(btn);
+	                        }
+	                    }
+	                };
+	                return cell;
+	            }
+	        };
+	        xoasp.setCellFactory(cellFactory);
+	 }
 	 
 	 @FXML
 	    void DatHang(ActionEvent event) {
@@ -286,51 +324,11 @@ public class LapPhieuDatHangController implements Initializable{
 		 String loaisanpham = tf6.getText();
 		 int donvitinh = Integer.parseInt(tf4.getText());
 		 int giatien = Integer.parseInt(tf5.getText());
-		// Sanpham sp = new Sanpham(masanpham,tensanpham,loaisanpham,donvi,giatien);
-	//	 double thanhtien = donvitinh*giatien;
-	//	 Chitietdathang ctdh = new Chitietdathang(donvitinh,sp,thanhtien);
-	/*	 if(!tableSP1.getItems().contains(ctdh)) {
-			// sp.setSoluong();
-			 tableSP1.getItems().add(ctdh);
-			// thanhtien.setOnEditCommit(String.valueOf(sp.getDonvitinh() * sp.getGiatien()));
-			tableSP1.refresh();
-			// Callback cellFactory = null;
-			// xoaSP.setCellFactory(cellFactory);
-			// tinhtongtien();
-		
-		 }
-		 
-		 else if(tableSP1.getItems().contains(sp)) {
-			 ctdh.setSoluong(ctdh.getSoluong()+donvitinh);
-			 tableSP1.refresh();
-		//	 tinhtongtien();
-
-		 }*/
-		
-		 //addItem(0, sp, 0);
 		 addItem(donvitinh,sp,0.0);
 		 tableSP1.refresh();
-	//	 tableSP1.refresh();
-		// Sanpham sp = new Sanpham(tensanpham1,masanpham1,donvi1,donvitinh1,giatien1,loaisanpham1);
-		// tableSP1.getItems().add(sp);
-	//	 System.out.println(sp);
-		 
+		 tf4.setText(null);
+		 tf5.setText(null);
 	    }
-/*	 	public void addItem(int masanpham,String tensanpham, String loaisanpham, String donvi,int giatien,int donvitinh) {
-		    Sanpham entry = tableSP1.getItems().stream()
-		        .filter(item -> item.getTensanpham().equals(tensanpham))
-		        .findAny()
-		        .orElseGet(()-> {
-		             Sanpham newItem = new Sanpham(masanpham,tensanpham, loaisanpham,donvi,0, 0);
-		             tableSP1.getItems().add(newItem);
-		             return newItem ;
-		        });
-		    
-		    entry.setDonvitinh(entry.getDonvitinh() + donvitinh);
-	 	    entry.setGiatien(entry.g etGiatien() + giatien);
-	 	   // TableSP.refresh();
-		   // entry.s
-		}*/
 	 public void addItem(int soluong,Sanpham sanpham,double thanhtien) {
 		    Chitietdathang entry = tableSP1.getItems().stream()
 		        .filter(item -> item.getSanpham().equals(sanpham))
@@ -341,8 +339,9 @@ public class LapPhieuDatHangController implements Initializable{
 		        	tableSP1.getItems().add(newItem);
 		            return newItem;
 		        });
-		    
+		    int giatien = Integer.parseInt(tf5.getText());
 		    entry.setSoluong(soluong + entry.getSoluong());
+		    entry.getSanpham().setGiatien(giatien);
 		    entry.setThanhtien(entry.getSanpham().getGiatien()*entry.getSoluong());
 		    int sum = 0;
 	        for (Chitietdathang chitietdathang : tableSP1.getItems()) {
@@ -474,7 +473,7 @@ public void loadData(Taikhoannv taikhoan) {
 				masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 				//loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 				donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
-				giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+				//giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 				donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("donvitinh"));
 			//	comboboxNCC();
 				
@@ -550,6 +549,7 @@ public void loadData(Taikhoannv taikhoan) {
 				Tongtien.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Double>("thanhtien"));
 				tableSP.setItems(getSanpham());
 				Timkiem();
+				ButtonXoaSP();
 			}
 	
 	}	

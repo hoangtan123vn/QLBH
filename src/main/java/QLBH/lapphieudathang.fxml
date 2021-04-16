@@ -71,6 +71,7 @@
             <TextField fx:id="tftongtien" layoutX="467.0" layoutY="633.0" prefHeight="25.0" prefWidth="467.0" />
             <Text layoutX="396.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tổng tiền" />
             <Button layoutX="656.0" layoutY="663.0" mnemonicParsing="false" onAction="#xacnhan" text="Xác nhận" />
+            <Text layoutX="842.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VNĐ" />
          </children>
       </AnchorPane>
    </children>
