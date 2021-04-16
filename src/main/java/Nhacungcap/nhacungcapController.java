@@ -224,7 +224,7 @@ public class nhacungcapController implements Initializable{
 					
 					Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
 					//	private ImageView imageView = new ImageView(img);
-					private  Button btncc = new Button("Xóa",new ImageView(imageOk));
+					private  Button btncc = new Button("Xóa Nhà Cung Cấp",new ImageView(imageOk));
 					
 					
 
