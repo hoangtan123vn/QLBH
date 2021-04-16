@@ -180,6 +180,7 @@ public class NhapHangvaTraHang implements Initializable{
 	    @FXML
 	    void tra(ActionEvent event) {
 	    	event2();
+	    
 	    }
 
 	    
@@ -231,10 +232,6 @@ public class NhapHangvaTraHang implements Initializable{
 		mancckt.setText(String.valueOf(phieudathang.getNhacungcap().toString()));
 		tongtien.setText(String.valueOf(phieudathang.getTongtien()));
 		IntitlizeChitietdathang(phieudathang);
-		
-		
-		
-		
 	}
 	
 	public void loadData(Taikhoannv taikhoan) {
@@ -258,7 +255,7 @@ public class NhapHangvaTraHang implements Initializable{
     		 session.beginTransaction();
     		 session.save(phieunhaphang);
     		 session.getTransaction().commit();  
-    		 alert.setContentText("them phieu nhap hang thanh cong " );
+    		 alert.setContentText("Thêm phiếu nhập hàng thành công!" );
     		 alert.showAndWait();
 		 	}
 	    	catch (RuntimeException error){
@@ -283,13 +280,13 @@ public class NhapHangvaTraHang implements Initializable{
     		 session.save(chitietnhaphang);
     		 session.save(sanpham);
     		 session.getTransaction().commit();
-	         alert.setContentText("them chi tiet nhap hang va cap nhat so luong thanh cong " );
+	         alert.setContentText("Thêm chi tiết nhập hàng và cập nhật số lượng thành công!" );
     		 alert.showAndWait();
 
 			 }
 	    	catch (RuntimeException error){
 		    		 System.out.println(error);
-		    		 alert.setContentText("Thêm  thất bại   !");
+		    		 alert.setContentText("Thêm  thất bại!");
 		    		 alert.showAndWait();
 		    		 session.getTransaction().rollback();
 		    	} 	    		
@@ -320,7 +317,7 @@ public class NhapHangvaTraHang implements Initializable{
     		 session.beginTransaction();
     		 session.save(phieutrahang);
     		 session.getTransaction().commit();  
-    		 alert.setContentText("them phieu tra hang thanh cong " );
+    		 alert.setContentText("Thêm phiếu trả hàng thành công!" );
     		 alert.showAndWait();
 		 	}
 	    	catch (RuntimeException error){
@@ -346,7 +343,7 @@ public class NhapHangvaTraHang implements Initializable{
 	    		 session.save(chitietphieutra);
 	    	//	 session.save(sanpham);
 	    		 session.getTransaction().commit();
-		         alert.setContentText("them chi tiet tra hang thanh cong" );
+		         alert.setContentText("Thêm chi tiết trả hàng thành công!" );
 	    		 alert.showAndWait();
 
 				 }
@@ -360,9 +357,7 @@ public class NhapHangvaTraHang implements Initializable{
 		});
 	}
 	private void ButtonXoaSP() {
-	      
-
-        Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>> cellFactory = new Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>>() {
+		Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>> cellFactory = new Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>>() {
             @Override
             public TableCell<Chitietnhaphang, Void> call(final TableColumn<Chitietnhaphang, Void> param) {
                 final TableCell<Chitietnhaphang, Void> cell = new TableCell<Chitietnhaphang, Void>() {
@@ -399,8 +394,6 @@ public class NhapHangvaTraHang implements Initializable{
  }
 	//
 	private void ButtonXoaSP2() {
-	      
-
         Callback<TableColumn<Chitietphieutra, Void>, TableCell<Chitietphieutra, Void>> cellFactory = new Callback<TableColumn<Chitietphieutra, Void>, TableCell<Chitietphieutra, Void>>() {
             @Override
             public TableCell<Chitietphieutra, Void> call(final TableColumn<Chitietphieutra, Void> param) {
@@ -445,6 +438,7 @@ public class NhapHangvaTraHang implements Initializable{
 //    }
 	private void event() {
         Chitietdathang sp = tableChitietKiemtra.getItems().get(tableChitietKiemtra.getSelectionModel().getSelectedIndex());
+        
         int masanpham = sp.getSanpham().getMasanpham();
         String tensanpham = sp.getSanpham().getTensanpham();
         String loaisanpham = sp.getSanpham().getLoaisanpham();
