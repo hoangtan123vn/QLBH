@@ -122,6 +122,7 @@ public class TrahangDetailController implements Initializable{
     	});
     	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	soluong.setCellValueFactory(new PropertyValueFactory<Chitietphieutra,Integer>("soluong"));
+    	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Double>("thanhtien"));
     	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	dongia.setCellFactory(tbChitietPhieuTra ->new TableCell<Chitietphieutra, Sanpham>(){
     		@Override
