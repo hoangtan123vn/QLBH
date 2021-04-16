@@ -186,6 +186,7 @@ void read() {
   	    });
     	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Integer>("soluong"));
+    	thanhtien.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Double>("thanhtien"));
     	dongia.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon,Sanpham>(){
   	    	 @Override
  		    protected void updateItem(Sanpham item, boolean empty) {
