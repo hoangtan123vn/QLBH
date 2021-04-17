@@ -81,7 +81,7 @@ public class TrahangDetailController implements Initializable{
     	lbThoigiantra.setText(String.valueOf(phieutrahang.getThoigian()));
     	lbMancc.setText(phieutrahang.getNhacungcap().toString());
     	lbManv.setText(phieutrahang.getNhanvien().toString());
-    	//lbTongtien.setText(String.valueOf(phieutrahang.getTongtien()));
+    	lbTongtien.setText(String.valueOf(phieutrahang.getTongtien()));
     	IntitlizeChitietphieutra(phieutrahang);
     	getChitietphieutra(phieutrahang);
     }
