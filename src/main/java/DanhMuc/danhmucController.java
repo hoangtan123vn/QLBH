@@ -643,6 +643,7 @@ public class danhmucController implements Initializable {
 
 		});
 		tablePhieuTraHang.setItems(getPhieutrahang());
+		searchPTH();
 		searchPNH();
 	}
 }

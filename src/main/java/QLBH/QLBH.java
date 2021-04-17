@@ -27,7 +27,7 @@ public class QLBH extends Application {
 		stage.getIcons().add(new Image(QLBH.class.getResourceAsStream("backgroundSGU.png")));
 		stage.setScene(scene);
 		stage.setResizable(false);
-	//	stage.initStyle(StageStyle.UNDECORATED);
+		stage.initStyle(StageStyle.UNDECORATED);
 	//	stage.initModality(Modality.APPLICATION_MODAL);
 		//stage.resizableProperty().setValue(Boolean.FALSE);
 		stage.setTitle("Phần mềm quản lý cửa hàng tiện lợi");

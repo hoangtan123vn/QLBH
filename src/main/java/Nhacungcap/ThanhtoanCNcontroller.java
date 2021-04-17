@@ -89,6 +89,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	void close(ActionEvent event) {
 		Stage stage = (Stage) btquaylai.getScene().getWindow();
 		stage.close();
+		nhacungcapController.getInstance().falsedisable();
 	}
 	@FXML
 	public void actionComboBox() {

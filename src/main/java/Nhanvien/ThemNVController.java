@@ -27,6 +27,8 @@ import javafx.stage.FileChooser;
 
 import java.util.List;
 import java.awt.Desktop;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,11 +37,16 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.*;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
@@ -112,6 +119,43 @@ public class ThemNVController extends Application implements Initializable{
     
     @FXML
     private PasswordField pass;
+    
+    @FXML
+    private Label check_hoten;
+
+    @FXML
+    private Label check_ngaysinh;
+
+    @FXML
+    private Label check_chucvu;
+
+    @FXML
+    private Label check_gioitinh;
+
+    @FXML
+    private Label check_sdt;
+
+    @FXML
+    private Label check_cmnd;
+
+    @FXML
+    private Label check_diachi;
+
+    @FXML
+    private Label check_ngayvaolam;
+
+    @FXML
+    private Label check_anhdaidien;
+    
+    @FXML
+    private Label check_matkhau;
+
+    @FXML
+    private Label check_xacnhanmk;
+    
+    @FXML
+    private Label check_taikhoan;
+    
     @FXML
      void AddImage(ActionEvent event) {
     	 Stage stage = (Stage) ap.getScene().getWindow();
@@ -133,100 +177,195 @@ public class ThemNVController extends Application implements Initializable{
     	 stage.close();
     }
     
-
-    @FXML
-     void ThemNVButton(ActionEvent event) throws IOException  {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Them nhan vien");
-		int t5 ,t6;
-		//KIỂM TRA HỌ VÀ TÊN 
-		String t1 = tfhovaten.getText();
-		if(t1.isEmpty()) {
-			alert.setContentText("Bạn chưa nhập Họ và tên nhân viên");
-			alert.showAndWait();
-			return;
+    private boolean KiemTraTenTaiKhoan() {
+    	Pattern p = Pattern.compile("^[a-zA-Z0-9]*$");
+    	Matcher m = p.matcher(user.getText());
+    	if(user.getText().isEmpty()) {
+			check_taikhoan.setText("Vui lòng điền tài khoản hợp lệ");
+			return false;
 		}
-		//KIỂM TRA SỐ ĐIỆN THOẠI
-		try {
-	//	int id = Integer.parseInt(tfid.getText());
-			t5 = Integer.parseInt(tfsdt.getText());
-			if(String.valueOf(tfsdt.getText()).length() <10) {
-				alert.setContentText("SĐT phải có 10 số ! " + (String.valueOf(tfsdt.getText()).length()));
-				alert.showAndWait();
-				return;
-			}
-
-		}catch (NumberFormatException e) {
-			alert.setContentText("SĐT phải là số");
-			alert.showAndWait();
-			return;
+    	else if(m.find() && m.group().equals(user.getText())){
+			check_taikhoan.setText(null);
+			return true;
 		}
-		//KIỂM TRA CHỨNG MINH NHÂN DÂN
-		try {
-			//	int id = Integer.parseInt(tfid.getText());
-			t6 = Integer.parseInt(tfcmnd.getText());
-				
-		}catch (NumberFormatException e) {
-			alert.setContentText("CMND phải là số");
-			alert.showAndWait();
-			return;
+    	else {
+			check_taikhoan.setText("Vui lòng điền tài khoản hợp lệ");
+			return false;
 		}
+    }
+    private boolean KiemTraMatKhau() {
+    	Pattern p = Pattern.compile("^[a-zA-Z0-9]*$");
+    	Matcher m = p.matcher(pass.getText());
+    	if(pass.getText().isEmpty()) {
+			check_matkhau.setText("Vui lòng điền mật khẩu hợp lệ");
+			return false;
+		} else if (m.find() && m.group().equals(pass.getText())){
+			check_matkhau.setText(null);
+			return true;
+		}
+    	return true;
+    }
+    private boolean SosanhMatKhau() {
+    	if(xacnhanpass.getText().equals(pass.getText())) {
+    		check_xacnhanmk.setText(null);
+    		return true;
+    	}else {
+    		check_xacnhanmk.setText("Xác nhận mật khẩu không đúng mật khẩu");
+			return false;
+    	}
+    }
+    
+    private boolean KiemTraTenKH() {
+		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
+		Matcher m = p.matcher(tfhovaten.getText());
+		if(m.find() && m.group().equals(tfhovaten.getText())){
+			check_hoten.setText(null);
+			return true;
+		}
+		else {
+			check_hoten.setText("Vui lòng điền tên hợp lệ");
+			return false;
+		}
+	}
+    private boolean KiemTraNgaySinh() {
+		if(tfns.getValue() == null){
+			check_ngaysinh.setText("Vui lòng điền số ngày ở hợp lệ");
+			return false;
+		}
+		check_ngaysinh.setText(null);
+		return true;
 		
-		
-		
-		//int t2 = Integer.parseInt(tfns.getText());
-		LocalDate t2 = tfns.getValue();
-		String t3 = tfcv.getValue();
-		String t4 = tfgt.getValue();
-	
-		
-		String t7 = tfdc.getText();
-		LocalDate t8 = tfngayvaolam.getValue();
-		String taikhoan = user.getText();
-		String matkhau = pass.getText();
-		String xacnhanmatkhau = xacnhanpass.getText();
-		if (taikhoan.isEmpty()) {
-        thongbao.setText("Bạn chưa nhập tài khoản !");
-        return;
+	}
+    private boolean KiemTraChucVu() {
+		if(tfcv.getValue() == null){
+			check_chucvu.setText("Vui lòng chọn chức vụ nhân viên");
+			return false;
 		}
-		else if (matkhau.isEmpty()) {
-        thongbao.setText("Bạn chưa nhập mật khẩu !");
-        return ;
+		check_chucvu.setText(null);
+		return true;
+		
+	}
+    private boolean KiemTraGioiTinh() {
+		if(tfgt.getValue() == null){
+			check_gioitinh.setText("Vui lòng chọn giới tính nhân viên");
+			return false;
 		}
-		else if (!xacnhanmatkhau.equals(matkhau)) {
-    	thongbao.setText("Mật khẩu của bạn k đúng  !");
-        return ;
+		check_gioitinh.setText(null);
+		return true;
+		
+	}
+    
+    private boolean KiemTraSDT() {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(tfsdt.getText());
+		if(m.find() && m.group().equals(tfsdt.getText())){
+			check_sdt.setText(null);
+			return true;
+		}
+		else {
+			check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
+			return false;
+		}
+	}
+    private boolean KiemTraCMND() {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(tfcmnd.getText());
+		if(m.find() && m.group().equals(tfcmnd.getText())){
+			check_cmnd.setText(null);
+			return true;
+		}
+		else {
+			check_cmnd.setText("Vui lòng điền cmnd hợp lệ");
+			return false;
+		}
+	}
+    private boolean KiemTraDiaChi() {
+    	//System.out.println(tfdc.getText());
+		if(tfdc.getText().isEmpty()){
+			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
+			return false;
+		}
+		return true;
 		}
     
-		Session session = HibernateUtils.getSessionFactory().openSession();
-		 FileInputStream fis = new FileInputStream(file);
-		 byte[] bFile = new byte[(int) (file.length())];
-		 fis.read(bFile);
-		 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
-		Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
-		try {
-    		 session.beginTransaction();
-    		 session.save(nv);
-    		 session.save(tk);
-    		 session.getTransaction().commit();
-    		 Stage stage = (Stage) ap.getScene().getWindow();
-        	 stage.close();
-        	
-        	 alert.setContentText("Them nhan vien thanh cong !");
-        	 
-        //	 System.out.println();
-        	 alert.showAndWait();    	
-    	}
-    	catch (RuntimeException error){
-    		 System.out.println(error);
-    		 alert.setContentText("Them nhan vien that bai  !");
-    		 alert.showAndWait();
-    		session.getTransaction().rollback();
-    	}
-		 NhanvienController.getInstance().reloadNHANVIEN();
-  //  	
+    private boolean KiemTraNgayVaoLam() {
+  		if(tfngayvaolam.getValue() == null){
+  			check_ngayvaolam.setText("Vui lòng điền số ngày ở hợp lệ");
+  			return false;
+  		}
+  		check_ngayvaolam.setText(null);
+  		return true;
+  		
+  	}
+    
+    private boolean KiemTraAnhDaiDien() throws Exception {
+			 if(imgview.getImage() == null) {
+				 check_anhdaidien.setText("Vui lòng thêm ảnh đại diện");
+			 return false;
+		}
+		check_anhdaidien.setText(null);
+		return true;
+    }
+
+    @FXML
+     void ThemNVButton(ActionEvent event) throws Exception  {
+    	Session session = HibernateUtils.getSessionFactory().openSession();
+    	if(KiemTraTenKH() & KiemTraNgaySinh() & KiemTraChucVu() & KiemTraCMND() &
+    			KiemTraDiaChi() & KiemTraGioiTinh() & KiemTraSDT() & KiemTraNgayVaoLam() & KiemTraAnhDaiDien() &KiemTraTenTaiKhoan()
+    			 &KiemTraMatKhau() & SosanhMatKhau()) {
+    		try {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Them nhan vien");
+    			
+    			LocalDate t2 = tfns.getValue();
+    			String t3 = tfcv.getValue();
+    			String t4 = tfgt.getValue();
+    			String t1 = tfhovaten.getText();
+    			int t5 = Integer.parseInt(tfsdt.getText());
+    			int t6 = Integer.parseInt(tfcmnd.getText());
+    			String t7 = tfdc.getText();
+    			LocalDate t8 = tfngayvaolam.getValue();
+    			String taikhoan = user.getText();
+    			String matkhau = pass.getText();
+    			String xacnhanmatkhau = xacnhanpass.getText();
+    			//KIỂM TRA HỌ VÀ TÊN 
+    			
+    			
+    			 FileInputStream fis = new FileInputStream(file);
+    			 byte[] bFile = new byte[(int) (file.length())];
+    			 fis.read(bFile);
+    			 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
+    			 Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
+        		 session.beginTransaction();
+        		 session.save(nv);
+        		 session.save(tk);
+        		 session.getTransaction().commit();
+        		 Stage stage = (Stage) ap.getScene().getWindow();
+            	 stage.close();
+            	
+            	 alert.setContentText("Them nhan vien thanh cong !");
+            	 
+            //	 System.out.println();
+            	 alert.showAndWait();    	
+        	}
+        	catch (RuntimeException error){
+        		Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Them nhan vien");
+        		 System.out.println(error);
+        		 alert.setContentText("Them nhan vien that bai  !");
+        		 alert.showAndWait();
+        		 session.getTransaction().rollback();
+        		 return;
+        	}
+    	
+    		 NhanvienController.getInstance().reloadNHANVIEN();
+      //  	
+			}
+    
+		
     	 
     }
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {

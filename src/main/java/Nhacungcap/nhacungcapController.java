@@ -50,6 +50,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -94,6 +95,9 @@ public class nhacungcapController implements Initializable{
     
     @FXML
 	private ComboBox<String> cbb;
+    
+    @FXML
+    private AnchorPane ncc;
 
 	private ObservableList<Nhacungcap> nhacungcapdata;
 	
@@ -150,12 +154,19 @@ public class nhacungcapController implements Initializable{
 			stage.setScene(new Scene(root1));
 			stage.setTitle("Tạo nhà cung cấp");
 			stage.show();
+			truedisable();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 
 		}
 	}
-
+	public void falsedisable() {
+		ncc.setDisable(false);
+	}
+	public void truedisable() {
+		ncc.setDisable(true);
+	}
 	@FXML
 	void Thanhtoancongno(ActionEvent event)  {
 		try {
@@ -171,7 +182,7 @@ public class nhacungcapController implements Initializable{
 			stage.setScene(new Scene(root1));
 			stage.setTitle("thanh toán công nợ");
 			stage.show();
-
+			truedisable();
 			//
 
 		} catch (Exception e) {
@@ -224,7 +235,7 @@ public class nhacungcapController implements Initializable{
 					
 					Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
 					//	private ImageView imageView = new ImageView(img);
-					private  Button btncc = new Button("Xóa",new ImageView(imageOk));
+					private  Button btncc = new Button("Xóa Nhà Cung Cấp",new ImageView(imageOk));
 					
 					
 
