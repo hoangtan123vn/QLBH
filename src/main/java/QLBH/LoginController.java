@@ -113,13 +113,13 @@ public class LoginController implements Initializable {
 			List<Object[]> tk1 = query1.list();
 			List<Taikhoannv> checktaikhoan = query.list();
 			for (Taikhoannv checktk1 : checktaikhoan) {
-				if (checktk1.getusername().contains(taikhoannv.getusername())
-						&& checktk1.getpassword().contains(taikhoannv.getpassword())) {
+				if (checktk1.getusername().contains(taikhoannv.getusername().trim())
+						&& checktk1.getpassword().contains(taikhoannv.getpassword().trim())) {
 					for (Object[] singleRowValues : tk1) {
 						String tentaikhoan = (String) singleRowValues[0];
 						String matkhau = (String) singleRowValues[1];
 						String cvString = (String) singleRowValues[2];
-						if (tentaikhoan.contains(checktk1.getusername()) && matkhau.contains(checktk1.getpassword())
+						if (tentaikhoan.contains(checktk1.getusername().trim()) && matkhau.contains(checktk1.getpassword().trim())
 								&& cvString.contains("Quản lý")) {
 							String tk = checktk1.getusername();
 							String mk = checktk1.getpassword();
@@ -133,8 +133,8 @@ public class LoginController implements Initializable {
 							stage.hide();
 							stage.setScene(scene);
 							stage.show();
-						} else if (tentaikhoan.contains(checktk1.getusername())
-								&& matkhau.contains(checktk1.getpassword()) && cvString.contains("Nhân viên")) {
+						} else if (tentaikhoan.contains(checktk1.getusername().trim())
+								&& matkhau.contains(checktk1.getpassword().trim()) && cvString.contains("Nhân viên")) {
 							Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml"));
 							Scene scene = new Scene(sampleparent);
 							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -144,15 +144,15 @@ public class LoginController implements Initializable {
 							stage.show();
 						}
 					}
-					Alert alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setTitle("Đăng nhập");
-					alert.setContentText("Đăng nhập thành công");
-					alert.showAndWait();
-					break;
+//					Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//					alert.setTitle("Đăng nhập");
+//					alert.setContentText("Đăng nhập thành công");
+//					alert.showAndWait();
+//					break;
 				}
 
 			}
-			thongbao.setText("Đăng nhập thất bại");
+			//thongbao.setText("Đăng nhập thất bại");
 
 		}
 

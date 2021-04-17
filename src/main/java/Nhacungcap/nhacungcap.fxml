@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="background" stylesheets="@nhacungcap.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.nhacungcapController">
+<AnchorPane fx:id="ncc" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="background" stylesheets="@nhacungcap.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.nhacungcapController">
    <children>
       <TableView fx:id="tableNhacungcap" layoutX="251.0" layoutY="176.0" opacity="0.98" prefHeight="570.0" prefWidth="1010.0" styleClass="tbview" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="251.0" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="176.0">
          <columns>
