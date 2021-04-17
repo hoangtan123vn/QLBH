@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
@@ -37,6 +38,9 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.criteria.CriteriaQuery;
 
 import javafx.application.Application;
@@ -83,24 +87,77 @@ public class ThemSanPhamController extends Application implements Initializable{
     private AnchorPane ap;
     
     @FXML
+    private Label thongbao;
+	
+    @FXML
+    private Label thongbao1;
+    
+    @FXML
+    private Label thongbao2;
+    
+    @FXML
+    private Label thongbao3;
+    
+    @FXML
+    private Label thongbao4;
+    
+    @FXML
+    private Label thongbao5;
+    
+    @FXML
     private ComboBox<String> loaisanpham;
     
 
     @FXML
     private ComboBox<String> donvi;
+    
+    
 
 
     @FXML
-    void LuuSP(ActionEvent event) throws IOException {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Them san pham");
+    void LuuSP(ActionEvent event) throws Exception {
+    	if(KiemTraTen()& KiemTraSL()&KiemTraDonVi()& KiemTraHinh()& KiemTraGia()& KiemTraLoai()) {
+    			
+    	}
     	
-    	String tensp = tensanpham.getText();
-    	int slsp = Integer.parseInt(soluong.getText());
+    	
+    	/*String tensp = tensanpham.getText();
+    	if(tensp.isEmpty()) {
+			alert.setContentText("Bạn chưa nhập tên sản phẩm");
+			alert.showAndWait();
+			return;
+		}
+    	if(!soluong.getText().isEmpty()){
+
+    		Integer.parseInt(soluong.getText());
+    		alert.setContentText("Bạn chưa nhập số lượng sản phẩm");
+			alert.showAndWait();
+    		}
+    	try {
+			//	int id = Integer.parseInt(tfid.getText());
+			slsp = Integer.parseInt(soluong.getText());
+				
+		}catch (NumberFormatException e) {
+			alert.setContentText("Số lượng phải là số");
+			alert.showAndWait();
+			return;
+		}
+    	try {
+			//	int id = Integer.parseInt(tfid.getText());
+			giatiensp = Integer.parseInt(giatien.getText());
+				
+		}catch (NumberFormatException e) {
+			alert.setContentText("Giá tiền phải là số");
+			alert.showAndWait();
+			return;
+		}*/
     	int giatiensp = Integer.parseInt(giatien.getText());
+    	int slsp = Integer.parseInt(soluong.getText());
+    	String tensp = tensanpham.getText();
     	String donvisp = donvi.getValue();
     	String loaisp = loaisanpham.getValue();
-    	 Session session = HibernateUtils.getSessionFactory().openSession();
+    
+    	Session session = HibernateUtils.getSessionFactory().openSession();
 		FileInputStream fis = new FileInputStream(file);
 		 byte[] bFile = new byte[(int) (file.length())];
 		 fis.read(bFile);
@@ -109,22 +166,87 @@ public class ThemSanPhamController extends Application implements Initializable{
     		 session.beginTransaction();
     		 session.save(sp);
     		 session.getTransaction().commit();
-    		 alert.setContentText("Thêm sản phẩm thành công !");
-    		 alert.showAndWait();   
+    		 //alert.setContentText("Thêm sản phẩm thành công !");
+    		 //alert.showAndWait();   
     		 Stage stage = (Stage) luusp.getScene().getWindow();
         	 stage.close();
         	 QLKhoController.getInstance().initialize1();
 		 }
 	    	catch (RuntimeException error){
 	    		
-	    		 alert.setContentText("Thêm sản phẩm thất bại   !");
-	    		 alert.showAndWait();
+	    		// alert.setContentText("Thêm sản phẩm thất bại   !");
+	    		 //alert.showAndWait();
 	    		session.getTransaction().rollback();
 	    	}
 		 
     }
+    private boolean KiemTraHinh() throws Exception {
+        if(imageSP.getImage() == null) {
+            thongbao5.setText("Vui lòng thêm ảnh");
+        return false;
+   }
+  thongbao5.setText(null);
+   return true;
+}
+    private boolean KiemTraTen() {
+        Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
+        Matcher m = p.matcher(tensanpham.getText());
+		if(m.find() && m.group().equals(tensanpham.getText())){
+            thongbao.setText(null);
+            return true;
+        }
+        else {
+            thongbao.setText("Vui lòng điền tên sản phẩm");
+            return false;
+        }
+    }
+    
+    private boolean KiemTraGia() {
+        Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(giatien.getText());
+        if(m.find() && m.group().equals(giatien.getText())){
+            thongbao3.setText(null);
+            return true;
+        }
+        else {
+            thongbao3.setText("Vui lòng điền số");
+            return false;
+        }
+    }
 
-    @FXML
+    private boolean KiemTraSL() {
+        Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(soluong.getText());
+        if(m.find() && m.group().equals(soluong.getText())){
+            thongbao2.setText(null);
+            return true;
+        }
+        else {
+            thongbao2.setText("Vui lòng điền số");
+            return false;
+        }
+    }
+    private boolean KiemTraDonVi() {
+        if(donvi.getValue() == null){
+            thongbao1.setText("Chưa chọn đơn vị");
+            return false;
+        }
+        	thongbao1.setText(null);
+        return true;
+
+    }
+    
+    private boolean KiemTraLoai() {
+        if(loaisanpham.getValue() == null){
+            thongbao4.setText("Chưa chọn loại");
+            return false;
+        }
+        	thongbao4.setText(null);
+        return true;
+
+    }
+    
+	@FXML
     void ThemAnhSP(ActionEvent event) {
     	Stage stage = (Stage) ap.getScene().getWindow();
    	 FileChooser fileChooser = new FileChooser();

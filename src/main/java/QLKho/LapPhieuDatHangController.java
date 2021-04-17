@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -45,12 +46,14 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.criteria.CriteriaQuery;
 
 
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -140,6 +143,17 @@ public class LapPhieuDatHangController implements Initializable{
 	@FXML
 	private TextField Timkiem;
 	
+	@FXML
+    private Label thongbao4;
+	
+	@FXML
+    private Label thongbao5;
+	
+	@FXML
+    private Label thongbao6;
+	
+	@FXML
+    private Label thongbaoo;
 	 
 	 @FXML
 	 private Button idDatHang;
@@ -316,6 +330,10 @@ public class LapPhieuDatHangController implements Initializable{
 	 
 	 @FXML
 	    void DatHang(ActionEvent event) {
+		 if(KiemTraGia()&KiemTraSL()) {
+ 			
+	    	}
+		
 		// String nhacungcap = cbnhacungcap.getValue();
 		 Sanpham sp = tableSP.getItems().get(tableSP.getSelectionModel().getSelectedIndex());
 		 String tensanpham = tf1.getText();
@@ -354,6 +372,8 @@ public class LapPhieuDatHangController implements Initializable{
 public void loadData(Taikhoannv taikhoan) {
 		 int manhanvien = taikhoan.getNhanvien().getManv();
 		 lapphieu.setOnMouseClicked(event ->  {
+			 if(KiemTraPT()& KiemTraNCC()) {
+			 }
 			 Alert alert = new Alert(AlertType.INFORMATION);
 			 Session session = HibernateUtils.getSessionFactory().openSession();
 			int manv = taikhoan.getNhanvien().getManv();
@@ -459,11 +479,54 @@ public void loadData(Taikhoannv taikhoan) {
 				 alert.showAndWait();
 			}
 			
-			
-			
 		 });
 	 }
+private boolean KiemTraNCC() {
+    Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
+    Matcher m = p.matcher(name_ncc.getText());
+	if(m.find() && m.group().equals(name_ncc.getText())){
+        thongbaoo.setText(null);
+        return true;
+    }
+    else {
+        thongbaoo.setText("Vui lòng chọn nhà cung cấp");
+        return false;
+    }
+}
+private boolean KiemTraPT() {
+    if( cbbthanhtoan.getValue() == null){
+        thongbao6.setText("Chưa chọn phương thức thanh toán");
+        return false;
+    }
+    	thongbao6.setText(null);
+    return true;
 
+}
+
+private boolean KiemTraSL() {
+    Pattern p = Pattern.compile("[0-9]+");
+    Matcher m = p.matcher(tf4.getText());
+    if(m.find() && m.group().equals(tf4.getText())){
+        thongbao4.setText(null);
+        return true;
+    }
+    else {
+        thongbao4.setText("Vui lòng điền số");
+        return false;
+    }
+}
+private boolean KiemTraGia() {
+    Pattern p = Pattern.compile("[0-9]+");
+    Matcher m = p.matcher(tf5.getText());
+    if(m.find() && m.group().equals(tf5.getText())){
+        thongbao5.setText(null);
+        return true;
+    }
+    else {
+        thongbao5.setText("Vui lòng điền số");
+        return false;
+    }
+}
 			@Override
 			public void initialize(URL url, ResourceBundle rb) {
 				ObservableList<String> list = FXCollections.observableArrayList("Trực tiếp", "Tạo công nợ");

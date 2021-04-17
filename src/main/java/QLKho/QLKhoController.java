@@ -121,15 +121,11 @@ public class QLKhoController implements Initializable {
 	ObservableList<Sanpham> listM;
 
 	@FXML
-	private Button lichsudathang;
-
-	@FXML
 	private Button lapphieudathang;
 
 	@FXML
 	private TextField tfloaisanpham;
-	
-	
+
 	@FXML
 	private Text idsanpham;
 	@FXML
@@ -150,17 +146,6 @@ public class QLKhoController implements Initializable {
 
 	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
  
-	
-	
-	
-    @FXML
-    void LichSuDatHang(ActionEvent event) throws IOException {
-    	Parent root = FXMLLoader.load(getClass().getResource("/QLKho/lichsudathang.fxml"));
-		Scene scene = new Scene(root);
-		Stage stage = new Stage();
-		stage.setScene(scene);
-		stage.show();
-    }
     
     @FXML
 	void ThemSP(ActionEvent event) throws IOException {
