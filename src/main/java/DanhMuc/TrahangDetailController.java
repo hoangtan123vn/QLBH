@@ -2,7 +2,9 @@ package DanhMuc;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -21,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -32,7 +35,7 @@ import QLBH.Phieutrahang;
 import QLBH.Chitietphieutra;
 import QLBH.HibernateUtils;
 import QLBH.Sanpham;
-public class TrahangDetailController implements Serializable{
+public class TrahangDetailController implements Initializable{
 
     @FXML
     private Label lbMaphieutra;
@@ -53,7 +56,7 @@ public class TrahangDetailController implements Serializable{
     private Button backPT;
 
     @FXML
-    private TableView tbChitietPhieuTra;
+    private TableView <Chitietphieutra>tbChitietPhieuTra;
 
     @FXML
     private TableColumn<Chitietphieutra, Sanpham> tenhang;
@@ -78,11 +81,13 @@ public class TrahangDetailController implements Serializable{
     	lbThoigiantra.setText(String.valueOf(phieutrahang.getThoigian()));
     	lbMancc.setText(phieutrahang.getNhacungcap().toString());
     	lbManv.setText(phieutrahang.getNhanvien().toString());
+    	//lbTongtien.setText(String.valueOf(phieutrahang.getTongtien()));
     	IntitlizeChitietphieutra(phieutrahang);
+    	getChitietphieutra(phieutrahang);
     }
     
     public ObservableList<Chitietphieutra> getChitietphieutra(Phieutrahang phieutrahang) {
-    	int Phieutrahang = phieutrahang.getMaphieutra();
+    	int maphieutra = phieutrahang.getMaphieutra();
     	ObservableList<Chitietphieutra> tablePhieuTraHang = FXCollections.observableArrayList();
     	 Session session = HibernateUtils.getSessionFactory().openSession();
 			
@@ -92,7 +97,7 @@ public class TrahangDetailController implements Serializable{
 			Root<Chitietphieutra> root = query.from(Chitietphieutra.class); // FROM
 			Join<Chitietphieutra, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
 			Join<Chitietphieutra, Phieutrahang> PhieutraJoin = root.join("phieutrahang",JoinType.INNER);
-			query.where(builder.equal(PhieutraJoin.get("maphieutra"), Phieutrahang));
+			query.where(builder.equal(PhieutraJoin.get("maphieutra"), maphieutra));
 			List<Chitietphieutra> ctpt = session.createQuery(query).getResultList();
 		 for(Chitietphieutra b : ctpt) {
 			 tablePhieuTraHang.add(b);
@@ -117,6 +122,7 @@ public class TrahangDetailController implements Serializable{
     	});
     	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	soluong.setCellValueFactory(new PropertyValueFactory<Chitietphieutra,Integer>("soluong"));
+    	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Double>("thanhtien"));
     	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	dongia.setCellFactory(tbChitietPhieuTra ->new TableCell<Chitietphieutra, Sanpham>(){
     		@Override
@@ -131,4 +137,8 @@ public class TrahangDetailController implements Serializable{
     	});
     	tbChitietPhieuTra.setItems(getChitietphieutra(phieutrahang));
 	}
+	public void initialize(URL arg0, ResourceBundle arg1) {
+	}
+
 }
+

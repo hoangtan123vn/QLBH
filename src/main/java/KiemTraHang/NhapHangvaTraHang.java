@@ -173,13 +173,33 @@ public class NhapHangvaTraHang implements Initializable{
 	    private Button btnnhap;
 	    
 	    @FXML
+	    private Label thongbaoSP;
+	    
+	    @FXML
 	    void nhap(ActionEvent event) {
-	    	event();
+	    	try {
+	    		event();
+	    		thongbaoSP.setVisible(false);
+			} catch (Exception e) {
+				// TODO: handle exception
+				thongbaoSP.setVisible(true);
+	    		thongbaoSP.setText("Bạn phải chọn vào sản phẩm");
+			}
+	    	
 	    }
 
 	    @FXML
 	    void tra(ActionEvent event) {
-	    	event2();
+	    	try {
+	    		event2();
+	    		thongbaoSP.setVisible(false);
+			} catch (Exception e) {
+				// TODO: handle exception
+				thongbaoSP.setVisible(true);
+	    		thongbaoSP.setText("Bạn phải chọn vào sản phẩm");
+				
+			}
+	    	
 	    
 	    }
 

@@ -84,6 +84,7 @@ public class ThemNCCController extends Application implements Initializable{
     void close(ActionEvent event) {
     	 Stage stage = (Stage) idclose.getScene().getWindow();
     	 stage.close();
+    	 nhacungcapController.getInstance().falsedisable();
     }
 
     @FXML
@@ -117,6 +118,7 @@ public class ThemNCCController extends Application implements Initializable{
         	 
         	 
         	nhacungcapController.getInstance().ReloadNHACUNGCAP();
+        	nhacungcapController.getInstance().falsedisable();
         	
     	}
     	catch (RuntimeException error){

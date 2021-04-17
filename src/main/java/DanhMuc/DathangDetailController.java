@@ -142,6 +142,7 @@ public class DathangDetailController implements Initializable{
     	});
     	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Integer>("soluong"));
+    	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietdathang, Double>("thanhtien"));
     	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	dongia.setCellFactory(tbChitietDatHang ->new TableCell<Chitietdathang, Sanpham>(){
     		@Override
@@ -172,7 +173,7 @@ public class DathangDetailController implements Initializable{
 	 public void setPhieudathang (Phieudathang phieudathang) {
 	    	lbMadathang.setText(String.valueOf((phieudathang.getMadathang())));
 	    	lbThoigiandat.setText(String.valueOf(phieudathang.getThoigian()));
-	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
+	    	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
 	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
 	   // 	lbManv.setText(phieudathang.getNhanvien().toString());
 	    	IntitlizeChitietdathang(phieudathang);

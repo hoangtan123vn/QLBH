@@ -10,40 +10,56 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="609.0" prefWidth="785.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.LoginController">
+<AnchorPane prefHeight="539.0" prefWidth="678.0" style="-fx-background-color: #66CCFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.LoginController">
    <children>
-      <AnchorPane layoutX="29.0" layoutY="17.0" prefHeight="574.0" prefWidth="726.0" styleClass="login" stylesheets="@QLBH.css">
+      <AnchorPane layoutX="1.0" prefHeight="538.0" prefWidth="675.0" style="-fx-background-color: #66CCFF;" styleClass="login">
          <children>
-            <AnchorPane layoutX="376.0" layoutY="68.0" prefHeight="438.0" prefWidth="320.0" style="-fx-background-color: #66CCFF; -fx-border-color: blue;">
+            <AnchorPane layoutX="356.0" layoutY="-1.0" prefHeight="539.0" prefWidth="321.0" style="-fx-background-color: #66CCFF; -fx-border-color: blue;">
                <children>
-                  <Label layoutX="104.0" layoutY="68.0" text="ĐĂNG NHẬP" textFill="#777272">
+                  <Label layoutX="96.0" layoutY="178.0" text="ĐĂNG NHẬP" textFill="#777272">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="submitButton" layoutX="144.0" layoutY="301.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #CCCCCC; -fx-border-color: blue; -fx-border-radius: 1em; -fx-text-fill: black; -fx-background-radius: 1em;" text="Đăng Nhập" textFill="#393232" />
-                  <PasswordField fx:id="passwordField" layoutX="71.0" layoutY="229.0" prefHeight="35.0" prefWidth="222.0" promptText="Mật Khẩu" style="-fx-background-color: #66CCFF; -fx-prompt-text-fill: gray;" />
-                  <TextField fx:id="emailIdField" layoutX="71.0" layoutY="174.0" prefHeight="35.0" prefWidth="222.0" promptText="Tài Khoản" style="-fx-background-color: #66CCFF; -fx-prompt-text-fill: gray;" />
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="262.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+                  <Button fx:id="submitButton" layoutX="137.0" layoutY="387.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #CCCCCC; -fx-border-color: blue; -fx-border-radius: 1em; -fx-text-fill: black; -fx-background-radius: 1em;" text="Đăng Nhập" textFill="#393232" />
+                  <PasswordField fx:id="passwordField" layoutX="64.0" layoutY="315.0" prefHeight="35.0" prefWidth="222.0" promptText="Mật Khẩu" style="-fx-background-color: #66CCFF; -fx-prompt-text-fill: gray;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></PasswordField>
+                  <TextField fx:id="emailIdField" layoutX="64.0" layoutY="260.0" prefHeight="35.0" prefWidth="222.0" promptText="Tài Khoản" style="-fx-background-color: #66CCFF; -fx-prompt-text-fill: gray;">
+                     <font>
+                        <Font size="16.0" />
+                     </font></TextField>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="255.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Nhacungcap/nameicon.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="262.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="255.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Nhacungcap/iconkey.png" />
                      </image>
                   </ImageView>
-                  <Line endX="100.0" endY="0.20001220703125" layoutX="172.0" layoutY="209.0" startX="-90.0" startY="0.20001220703125" />
-                  <Line endX="100.0" layoutX="171.0" layoutY="264.0" startX="-90.0" />
-                  <Label fx:id="thongbao" layoutX="76.0" layoutY="130.0" prefHeight="30.0" prefWidth="233.0">
+                  <Line endX="100.0" endY="0.20001220703125" layoutX="165.0" layoutY="295.0" startX="-90.0" startY="0.20001220703125" />
+                  <Line endX="100.0" layoutX="164.0" layoutY="350.0" startX="-90.0" />
+                  <ImageView fx:id="minimize" fitHeight="27.0" fitWidth="36.0" layoutX="225.0" layoutY="28.0" onMouseClicked="#minimize" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@minimize.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="thongbaologin" layoutX="75.0" layoutY="363.0" text="Label" textFill="#f20808" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="thongbao" layoutX="74.0" layoutY="365.0" text="Label" textFill="#f80808" visible="false">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="46.0" layoutY="24.0" prefHeight="527.0" prefWidth="358.0" style="-fx-background-color: white; -fx-border-color: blue;">
+            <AnchorPane layoutY="-5.0" prefHeight="544.0" prefWidth="381.0" style="-fx-background-color: white; -fx-border-color: blue;">
                <children>
                   <ImageView fitHeight="227.0" fitWidth="235.0" layoutX="61.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -66,13 +82,13 @@
                      </font>
                   </Label>
                   <Line endX="100.0" layoutX="185.0" layoutY="504.0" startX="-100.0" />
-                  <ImageView fitHeight="44.0" fitWidth="49.0" layoutX="152.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Capture1.PNG" />
-                     </image>
-                  </ImageView>
                </children>
             </AnchorPane>
+            <ImageView fx:id="close" fitHeight="27.0" fitWidth="38.0" layoutX="635.0" layoutY="7.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@close.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

@@ -96,13 +96,7 @@ public class HoadonDetailController implements Initializable {
     @FXML
     private TableColumn thanhtien;
     
-  /*  ObservableList<Object[]> tableHoadon = FXCollections.observableArrayList(
-    		new Object(tensanpham,soluong,giatien));*/
-   
-    
-  /*  public String toString() {
-        return QLBH.Khachhang()+"@"+Integer.toHexString(hashCode());
-    }*/
+  
     
     public void setHoadon (Hoadon hoadon) {
     	
@@ -186,6 +180,7 @@ void read() {
   	    });
     	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Integer>("soluong"));
+    	thanhtien.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Double>("thanhtien"));
     	dongia.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon,Sanpham>(){
   	    	 @Override
  		    protected void updateItem(Sanpham item, boolean empty) {
