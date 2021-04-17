@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="458.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="qlbhh.qlbhh.themkhachhangController">
+<AnchorPane prefHeight="458.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BanHang.themkhachhangController">
    <children>
-      <ImageView fitHeight="458.0" fitWidth="538.0" layoutX="1.0" pickOnBounds="true" smooth="false">
+      <ImageView fitHeight="458.0" fitWidth="538.0" pickOnBounds="true" smooth="false">
          <image>
             <Image url="@background1.jpeg" />
          </image>
@@ -35,7 +35,7 @@
             <Font name="Apple Braille" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="64.0" layoutY="288.0" text="Sex">
+      <Label layoutX="64.0" layoutY="288.0" text="Gender">
          <font>
             <Font name="Apple Braille" size="20.0" />
          </font>
@@ -58,5 +58,11 @@
       <Button fx:id="them" layoutX="128.0" layoutY="388.0" mnemonicParsing="false" onAction="#themkhachhang" text="ADD" />
       <Button fx:id="quaylai" layoutX="325.0" layoutY="388.0" mnemonicParsing="false" onAction="#quaylai" text="Exit" />
       <ComboBox fx:id="sex" layoutX="210.0" layoutY="287.0" prefHeight="27.0" prefWidth="161.0" />
+      <Label fx:id="checkname" layoutX="413.0" layoutY="111.0" prefHeight="33.0" prefWidth="117.0" textFill="#d71313" />
+      <Label fx:id="checkaddress" layoutX="413.0" layoutY="160.0" prefHeight="17.0" prefWidth="107.0" textFill="#dd0f0f" />
+      <Label fx:id="checkbirth" layoutX="413.0" layoutY="238.0" prefHeight="33.0" prefWidth="117.0" textFill="#ee0707" />
+      <Label fx:id="checknumber" layoutX="413.0" layoutY="193.0" prefHeight="33.0" prefWidth="107.0" textFill="#e41111" />
+      <Label fx:id="checkgender" layoutX="413.0" layoutY="284.0" prefHeight="33.0" prefWidth="117.0" textFill="#da0e0e" />
+      <Label fx:id="checkmail" layoutX="413.0" layoutY="329.0" prefHeight="33.0" prefWidth="117.0" textFill="#e80f0f" />
    </children>
 </AnchorPane>
