@@ -47,6 +47,16 @@
                         <Image url="@minimize.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="thongbaologin" layoutX="75.0" layoutY="363.0" text="Label" textFill="#f20808" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="thongbao" layoutX="74.0" layoutY="365.0" text="Label" textFill="#f80808" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <AnchorPane layoutY="-5.0" prefHeight="544.0" prefWidth="381.0" style="-fx-background-color: white; -fx-border-color: blue;">

@@ -68,6 +68,9 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private ImageView minimize;
+	
+	@FXML
+	private Label thongbaologin;
 
 	@FXML
 	void close(MouseEvent event) {
@@ -90,11 +93,21 @@ public class LoginController implements Initializable {
 			System.out.println(passwordField.getText());
 
 			if (emailIdField.getText().isEmpty()) {
+				thongbaologin.setVisible(false);
+				thongbao.setVisible(true);
 				thongbao.setText("Bạn chưa nhập tài khoản !");
 				return;
 			} else if (passwordField.getText().isEmpty()) {
+				thongbaologin.setVisible(false);
+				thongbao.setVisible(true);
 				thongbao.setText("Bạn chưa nhập mật khẩu !");
 				return;
+			
+			}
+			else {
+				thongbao.setVisible(false);
+				thongbaologin.setVisible(true);
+				thongbaologin.setText("Kiểm tra lại tài khoản,mật khẩu");
 			}
 
 			Session session = HibernateUtils.getSessionFactory().openSession();
@@ -143,6 +156,7 @@ public class LoginController implements Initializable {
 							stage.setScene(scene);
 							stage.show();
 						}
+						
 					}
 //					Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //					alert.setTitle("Đăng nhập");
@@ -159,6 +173,8 @@ public class LoginController implements Initializable {
 		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+//			thongbaologin.setVisible(true);
+//			thongbaologin.setText("Kiểm tra lại tài khoản,mật khẩu");
 		}
 	}
 
