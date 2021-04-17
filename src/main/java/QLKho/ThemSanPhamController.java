@@ -107,6 +107,8 @@ public class ThemSanPhamController extends Application implements Initializable{
     @FXML
     private ComboBox<String> loaisanpham;
     
+    @FXML
+    private Label thongbao;
 
     @FXML
     private ComboBox<String> donvi;
@@ -115,6 +117,7 @@ public class ThemSanPhamController extends Application implements Initializable{
 
 
     @FXML
+<<<<<<< Updated upstream
     void LuuSP(ActionEvent event) throws Exception {
     	if(KiemTraTen()& KiemTraSL()&KiemTraDonVi()& KiemTraHinh()& KiemTraGia()& KiemTraLoai()) {
     			
@@ -135,12 +138,27 @@ public class ThemSanPhamController extends Application implements Initializable{
     		}
     	try {
 			//	int id = Integer.parseInt(tfid.getText());
+=======
+    void LuuSP(ActionEvent event) throws IOException {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Thêm sản phẩm");
+    	
+    	String tensp = tensanpham.getText();
+    	if (tensp.isEmpty()) {
+            alert.setContentText("Bạn chưa nhập tên sản phẩm");
+			alert.showAndWait();
+			return;
+    		}
+    	int slsp = Integer.parseInt(soluong.getText());
+    	try {
+>>>>>>> Stashed changes
 			slsp = Integer.parseInt(soluong.getText());
 				
 		}catch (NumberFormatException e) {
 			alert.setContentText("Số lượng phải là số");
 			alert.showAndWait();
 			return;
+<<<<<<< Updated upstream
 		}
     	try {
 			//	int id = Integer.parseInt(tfid.getText());
@@ -158,6 +176,23 @@ public class ThemSanPhamController extends Application implements Initializable{
     	String loaisp = loaisanpham.getValue();
     
     	Session session = HibernateUtils.getSessionFactory().openSession();
+=======
+	}
+    	int giatiensp = Integer.parseInt(giatien.getText());
+    	try {
+			//	int id = Integer.parseInt(tfid.getText());
+			giatiensp = Integer.parseInt(giatien.getText());
+				
+		}catch (NumberFormatException e) {
+			alert.setContentText("Giá tiền phải là số");
+			alert.showAndWait();
+			return;
+	}
+    	String donvisp = donvi.getValue();
+    	String loaisp = loaisanpham.getValue();
+
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
+>>>>>>> Stashed changes
 		FileInputStream fis = new FileInputStream(file);
 		 byte[] bFile = new byte[(int) (file.length())];
 		 fis.read(bFile);
@@ -261,7 +296,8 @@ public class ThemSanPhamController extends Application implements Initializable{
 
     @FXML
     void huySP(ActionEvent event) {
-
+    	Stage stage = (Stage) huySP.getScene().getWindow();
+      	 stage.close();	
     }
 
 	@Override

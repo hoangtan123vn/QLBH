@@ -146,6 +146,10 @@ public class QLKhoController implements Initializable {
 
 	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
  
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     
     @FXML
 	void ThemSP(ActionEvent event) throws IOException {
