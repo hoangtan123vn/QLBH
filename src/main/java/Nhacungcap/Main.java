@@ -14,7 +14,7 @@ public class Main  extends Application {
 	//	Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
 		Parent root = FXMLLoader.load(getClass().getResource("nhacungcap.fxml"));
 		Scene scene = new Scene(root);
-		scene.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+	//	scene.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
 		stage.getIcons().add(new Image(Main.class.getResourceAsStream("backgroundSGU.png")));
 		stage.setResizable(false);
 		stage.setScene(scene);

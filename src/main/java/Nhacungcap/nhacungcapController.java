@@ -53,6 +53,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 public class nhacungcapController implements Initializable{
@@ -148,7 +149,8 @@ public class nhacungcapController implements Initializable{
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Nhacungcap/taonhacungcap.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
-			root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+		//	root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+			stage.initStyle(StageStyle.UNDECORATED);
 			stage.getIcons().add(new Image(nhacungcapController.class.getResourceAsStream("backgroundSGU.png")));
 			stage.setResizable(false);
 			stage.setScene(new Scene(root1));

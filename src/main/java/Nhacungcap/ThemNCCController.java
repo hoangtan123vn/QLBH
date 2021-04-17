@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -79,6 +80,16 @@ public class ThemNCCController extends Application implements Initializable{
 
     @FXML
     private Button idclose;
+    
+    @FXML
+    private ImageView exit;
+    
+    @FXML
+    void exit(MouseEvent event) {
+    	Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		nhacungcapController.getInstance().falsedisable();
+    }
 
     @FXML
     void close(ActionEvent event) {
