@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -31,6 +32,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.criteria.CriteriaQuery;
 
 import javafx.application.Application;
@@ -100,7 +104,7 @@ public class ThemNCCController extends Application implements Initializable{
 
     @FXML
     void save(ActionEvent event) {
-    	
+    	if(KiemTraSDT() & KiemTraTenNCC()& KiemTraEmail()&KiemTraDiaChi()&KiemTraTien()) {
     	Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Them Nha cung cap");
 		 
@@ -110,9 +114,11 @@ public class ThemNCCController extends Application implements Initializable{
     	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
     	String email = tfemail.getText();
     	Integer sotienno = Integer.parseInt(tfsotienno.getText());
-    	
     
-    	 Session session = HibernateUtils.getSessionFactory().openSession();
+    	Session session = HibernateUtils.getSessionFactory().openSession();
+    	 
+    	
+    	 
 		
     	try {
     		
@@ -138,6 +144,80 @@ public class ThemNCCController extends Application implements Initializable{
     		session.getTransaction().rollback();
     	}
     }
+    }
+    @FXML
+    private Label check_sdt;
+    
+    private boolean KiemTraSDT() {
+        Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(tfsdt.getText());
+        if(m.find() && m.group().equals(tfsdt.getText())){
+            check_sdt.setText(null);
+            return true;
+        }
+        else {
+            check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
+            return false;
+        }
+    }
+    
+    @FXML
+    private Label check_sotienno;
+    private boolean KiemTraTien() {
+        Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(tfsotienno.getText());
+        if(m.find() && m.group().equals(tfsotienno.getText())){
+            check_sotienno.setText(null);
+            return true;
+        }
+        else {
+            check_sotienno.setText("Vui lòng điền số tiền hợp lệ");
+            return false;
+        }
+    }
+    
+    @FXML
+    private Label check_hoten;
+    
+    private boolean KiemTraTenNCC() {
+		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
+		Matcher m = p.matcher(tftenncc.getText());
+		if(m.find() && m.group().equals(tftenncc.getText())){
+			check_hoten.setText(null);
+			return true;
+		}
+		else {
+			check_hoten.setText("Vui lòng điền tên hợp lệ");
+			return false;
+		}
+	}
+    
+    @FXML
+    private Label check_email;
+    private boolean KiemTraEmail() {
+    	Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    	Matcher m = p.matcher(tfemail.getText());
+    	if(m.find() && m.group().equals(tfemail.getText())){
+			check_email.setText(null);
+			return true;
+		}
+    	else {
+			check_email.setText("Vui lòng điền email hợp lệ");
+			return false;
+		}
+    }
+    
+    @FXML
+    private Label check_diachi;
+    private boolean KiemTraDiaChi() {
+    	//System.out.println(tfdc.getText());
+		if(tfdiachi.getText().isEmpty()){
+			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
+			return false;
+		}
+		return true;
+		}
    
 	@Override
 	public void start(Stage primaryStage) throws Exception {

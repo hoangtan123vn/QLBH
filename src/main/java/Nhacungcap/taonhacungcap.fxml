@@ -11,31 +11,31 @@
 
 <AnchorPane prefHeight="473.0" prefWidth="646.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: #00CCFF;" styleClass="backgroundncc" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.ThemNCCController">
    <children>
-      <Label layoutX="232.0" layoutY="193.0" text="Email" AnchorPane.bottomAnchor="210.0">
+      <Label layoutX="232.0" layoutY="198.0" text="Email" AnchorPane.bottomAnchor="260.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="237.0" layoutY="343.0" text="Địa Chỉ" AnchorPane.bottomAnchor="60.0">
+      <Label fx:id="check_diachi" layoutX="232.0" layoutY="407.0" text="Địa Chỉ" AnchorPane.bottomAnchor="51.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="232.0" layoutY="142.0" text="Tên NCC" AnchorPane.bottomAnchor="260.0">
+      <Label layoutX="232.0" layoutY="138.0" text="Tên NCC" AnchorPane.bottomAnchor="320.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="236.0" layoutY="294.0" text="Số điện thoại" AnchorPane.bottomAnchor="112.70000610351565">
+      <Label layoutX="232.0" layoutY="335.0" text="Số điện thoại" AnchorPane.bottomAnchor="123.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tftenncc" layoutX="337.0" layoutY="141.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="260.0" />
-      <TextField fx:id="tfemail" layoutX="337.0" layoutY="187.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="210.0" />
-      <TextField fx:id="tfsotienno" layoutX="337.0" layoutY="241.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="160.0" />
-      <TextField fx:id="tfsdt" layoutX="337.0" layoutY="291.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="109.30000610351567" />
-      <TextField fx:id="tfdiachi" layoutX="337.0" layoutY="337.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="60.0" />
+      <TextField fx:id="tftenncc" layoutX="337.0" layoutY="132.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="320.0" />
+      <TextField fx:id="tfemail" layoutX="337.0" layoutY="192.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="260.0" />
+      <TextField fx:id="tfsotienno" layoutX="337.0" layoutY="257.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="195.0" />
+      <TextField fx:id="tfsdt" layoutX="333.0" layoutY="333.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="119.0" />
+      <TextField fx:id="tfdiachi" layoutX="332.0" layoutY="401.0" prefHeight="26.0" prefWidth="200.0" style="-fx-background-radius: 1em;" AnchorPane.bottomAnchor="51.0" />
       <Button fx:id="idsave" layoutX="11.0" layoutY="185.0" mnemonicParsing="false" onAction="#save" prefHeight="40.0" prefWidth="105.0" text="Lưu">
          <font>
             <Font size="16.0" />
@@ -60,7 +60,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="232.0" layoutY="244.0" text="Số tiền nợ " AnchorPane.bottomAnchor="160.0">
+      <Label layoutX="232.0" layoutY="263.0" text="Số tiền nợ " AnchorPane.bottomAnchor="195.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -82,5 +82,30 @@
             <Image url="@../QLBH/close.png" />
          </image>
       </ImageView>
+      <Label fx:id="check_hoten" layoutX="340.0" layoutY="165.0" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="check_email" layoutX="340.0" layoutY="227.0" textFill="#ff0404">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="check_sotienno" layoutX="340.0" layoutY="290.0" textFill="#f20404">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="check_sdt" layoutX="340.0" layoutY="367.0" textFill="#e10707">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="check_diachi" layoutX="340.0" layoutY="431.0" textFill="#f20000">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

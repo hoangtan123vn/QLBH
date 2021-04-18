@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -74,8 +75,6 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	@FXML
 	private Button btquaylai;
 
-	@FXML
-	private ComboBox<String> cbb;
 
 	@FXML
 	private Label tenncc;
@@ -86,30 +85,41 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	private Label thongbao1;
 
 	@FXML
+    private ImageView exit;
+	
+	  @FXML
+	    void exit(MouseEvent event) {
+		  Stage stage = (Stage) exit.getScene().getWindow();
+			stage.close();
+			nhacungcapController.getInstance().falsedisable();
+	    }
+	
+	@FXML
 	void close(ActionEvent event) {
 		Stage stage = (Stage) btquaylai.getScene().getWindow();
 		stage.close();
 		nhacungcapController.getInstance().falsedisable();
 	}
-	@FXML
-	public void actionComboBox() {
-		if(cbb.getValue() == "Trực Tiếp") {
-			thongbao1.setVisible(true);
-			thongbao1.setText("Mời bạn gặp nhân viên A");
-			tfthanhtoan.setVisible(false);
-		}
-		else if (cbb.getValue() == "Chuyển Khoản"){
-			thongbao1.setVisible(true);
-			thongbao1.setText("Mời bạn nhập vào ô thanh toán");
-			tfthanhtoan.setVisible(true);
-		}
-	}
+//	@FXML
+//	public void actionComboBox() {
+//		if(cbb.getValue() == "Trực Tiếp") {
+//			thongbao1.setVisible(true);
+//			thongbao1.setText("Mời bạn gặp nhân viên A");
+//			tfthanhtoan.setVisible(false);
+//		}
+//		else if (cbb.getValue() == "Chuyển Khoản"){
+//			thongbao1.setVisible(true);
+//			thongbao1.setText("Mời bạn nhập vào ô thanh toán");
+//			tfthanhtoan.setVisible(true);
+//		}
+//	}
 
 	public void setThanhtoan(Nhacungcap nhacungcap) {
 		tenncc.setText(nhacungcap.getTenncc());
 		tfnoht.setText(String.valueOf(nhacungcap.getSotienno()));
 		java.util.Date date = new java.util.Date();
 		tfdate.setText(String.valueOf(date));
+	
 		tfthanhtoan.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
 			
 				try {
@@ -126,18 +136,22 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 							tfnoconlai.setText(String
 									.valueOf(Integer.parseInt(tfnoht.getText()) - Integer.parseInt(tfthanhtoan.getText())));
 							tfnoconlai.setVisible(true);
-							thongbao.setVisible(false);
-							thongbao1.setVisible(false);
+							thongbao.setText(" ");
+							
 						}
-						
+						else if(tfthanhtoan.getText().isEmpty()) {
+							thongbao.setText("Bạn không được bỏ trống ");
+							
+						}
 						
 					}
 				} catch (Exception e2) {
 					// TODO: handle exception
-					thongbao.setVisible(true);
 					thongbao.setText("Bạn không được bỏ trống ");
+					
 				}
-			
+				
+				
 		});
 		bttaophieu.setOnMouseClicked(event ->  {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -169,6 +183,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	        	 
 	        	 
 	        	nhacungcapController.getInstance().ReloadNHACUNGCAP();
+	        	nhacungcapController.getInstance().falsedisable();
 	        	
 	    	}
 	    	catch (RuntimeException error){
@@ -179,11 +194,11 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	    	}
         });
 		
-		cbb.getItems().addAll(
-					"Trực Tiếp",
-					"Chuyển Khoản"
-				);
-		cbb.setValue("Chuyển Khoản");
+//		cbb.getItems().addAll(
+//					"Trực Tiếp",
+//					"Chuyển Khoản"
+//				);
+//		cbb.setValue("Chuyển Khoản");
 	
 						
 //					if (cbb.getValue()=="Chuyển Khoản") {

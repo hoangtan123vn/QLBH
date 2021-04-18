@@ -178,7 +178,8 @@ public class nhacungcapController implements Initializable{
 			Stage stage = new Stage();
 			ThanhtoanCNcontroller controller = loader.getController();
 			Nhacungcap selected = tableNhacungcap.getSelectionModel().getSelectedItem();
-			root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+		//	root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+			stage.initStyle(StageStyle.UNDECORATED);
 			stage.getIcons().add(new Image(nhacungcapController.class.getResourceAsStream("backgroundSGU.png")));
 			controller.setThanhtoan(selected);
 			stage.setScene(new Scene(root1));
