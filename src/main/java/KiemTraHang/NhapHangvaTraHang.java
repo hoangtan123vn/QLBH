@@ -389,7 +389,13 @@ public class NhapHangvaTraHang implements Initializable{
                     	Chitietnhaphang chitietnhaphang = getTableView().getItems().get(getIndex());
                     	 if(tbnhaphang.getItems().contains(chitietnhaphang)) {
                     		tbnhaphang.getItems().remove(chitietnhaphang);
-               			 tbnhaphang.refresh();
+                    		int soluongsp = chitietnhaphang.getSoluong();
+             				 int dongia = chitietnhaphang.getSanpham().getGiatien();
+             				 Chitietdathang ctdh = new Chitietdathang(soluongsp,chitietnhaphang.getSanpham(),dongia);
+             				 
+             				 tableChitietKiemtra.getItems().addAll(ctdh);
+             				 tableChitietKiemtra.refresh();
+             				 tbnhaphang.refresh();
                			 if(chitietnhaphang.getSoluong()==0) {
                				 tbnhaphang.getItems().remove(chitietnhaphang);
                				 tbnhaphang.refresh();
@@ -426,9 +432,18 @@ public class NhapHangvaTraHang implements Initializable{
                     	Chitietphieutra chitietphieutra = getTableView().getItems().get(getIndex());
                     	 if(tbtrahang.getItems().contains(chitietphieutra)) {
                     		tbtrahang.getItems().remove(chitietphieutra);
-               			 tbnhaphang.refresh();
+                    		int soluongsp = chitietphieutra.getSoluong();
+              				 int dongia = chitietphieutra.getSanpham().getGiatien();
+              				 Chitietdathang ctdh = new Chitietdathang(soluongsp,chitietphieutra.getSanpham(),dongia);
+              				 
+              				 tableChitietKiemtra.getItems().addAll(ctdh);
+              				 tableChitietKiemtra.refresh();
+                    		tbnhaphang.refresh();
                			 if(chitietphieutra.getSoluong()==0) {
                				 tbtrahang.getItems().remove(chitietphieutra);
+               				/* String tensp= chitietphieutra.getSanpham().getTensanpham();
+               				 int masp = chitietphieutra.getSanpham().getMasanpham();*/
+               				 
                				 tbtrahang.refresh();
                			 }
                		 }

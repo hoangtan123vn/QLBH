@@ -331,21 +331,21 @@ public class LapPhieuDatHangController implements Initializable{
 	 @FXML
 	    void DatHang(ActionEvent event) {
 		 if(KiemTraGia()&KiemTraSL()) {
- 			
+			 Sanpham sp = tableSP.getItems().get(tableSP.getSelectionModel().getSelectedIndex());
+			 String tensanpham = tf1.getText();
+			 int masanpham = Integer.parseInt(tf2.getText());
+			 String donvi = tf3.getText();
+			 String loaisanpham = tf6.getText();
+			 int donvitinh = Integer.parseInt(tf4.getText());
+			 int giatien = Integer.parseInt(tf5.getText());
+			 addItem(donvitinh,sp,0.0);
+			 tableSP1.refresh();
+			 tf4.setText(null);
+			 tf5.setText(null);
 	    	}
 		
 		// String nhacungcap = cbnhacungcap.getValue();
-		 Sanpham sp = tableSP.getItems().get(tableSP.getSelectionModel().getSelectedIndex());
-		 String tensanpham = tf1.getText();
-		 int masanpham = Integer.parseInt(tf2.getText());
-		 String donvi = tf3.getText();
-		 String loaisanpham = tf6.getText();
-		 int donvitinh = Integer.parseInt(tf4.getText());
-		 int giatien = Integer.parseInt(tf5.getText());
-		 addItem(donvitinh,sp,0.0);
-		 tableSP1.refresh();
-		 tf4.setText(null);
-		 tf5.setText(null);
+		 
 	    }
 	 public void addItem(int soluong,Sanpham sanpham,double thanhtien) {
 		    Chitietdathang entry = tableSP1.getItems().stream()

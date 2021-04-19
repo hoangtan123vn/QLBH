@@ -118,84 +118,37 @@ public class ThemSanPhamController extends Application implements Initializable{
     @FXML
     void LuuSP(ActionEvent event) throws Exception {
     	if(KiemTraTen()& KiemTraSL()&KiemTraDonVi()& KiemTraHinh()& KiemTraGia()& KiemTraLoai()) {
-    			
+    		int giatiensp = Integer.parseInt(giatien.getText());
+        	int slsp = Integer.parseInt(soluong.getText());
+        	String tensp = tensanpham.getText();
+        	String donvisp = donvi.getValue();
+        	String loaisp = loaisanpham.getValue();
+        
+        	Session session = HibernateUtils.getSessionFactory().openSession();
+
+        	 
+    		FileInputStream fis = new FileInputStream(file);
+    		 byte[] bFile = new byte[(int) (file.length())];
+    		 fis.read(bFile);
+    		 Sanpham sp= new Sanpham(tensp,loaisp,donvisp,giatiensp,slsp,bFile);
+    		 try {
+        		 session.beginTransaction();
+        		 session.save(sp);
+        		 session.getTransaction().commit();
+        		 //alert.setContentText("Thêm sản phẩm thành công !");
+        		 //alert.showAndWait();   
+        		 Stage stage = (Stage) luusp.getScene().getWindow();
+            	 stage.close();
+            	 QLKhoController.getInstance().initialize1();
+    		 }
+    	    	catch (RuntimeException error){
+    	    		
+    	    		// alert.setContentText("Thêm sản phẩm thất bại   !");
+    	    		 //alert.showAndWait();
+    	    		session.getTransaction().rollback();
+    	    	}	
     	}
     	
-    	
-    	/*String tensp = tensanpham.getText();
-    	if(tensp.isEmpty()) {
-			alert.setContentText("Bạn chưa nhập tên sản phẩm");
-			alert.showAndWait();
-			return;
-		}
-    	if(!soluong.getText().isEmpty()){
-
-    		Integer.parseInt(soluong.getText());
-    		alert.setContentText("Bạn chưa nhập số lượng sản phẩm");
-			alert.showAndWait();
-    		}
-    	try {
-			//	int id = Integer.parseInt(tfid.getText());
-=======
-    void LuuSP(ActionEvent event) throws IOException {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("Thêm sản phẩm");
-    	
-    	String tensp = tensanpham.getText();
-    	if (tensp.isEmpty()) {
-            alert.setContentText("Bạn chưa nhập tên sản phẩm");
-			alert.showAndWait();
-			return;
-    		}
-    	int slsp = Integer.parseInt(soluong.getText());
-    	try {
->>>>>>> Stashed changes
-			slsp = Integer.parseInt(soluong.getText());
-				
-		}catch (NumberFormatException e) {
-			alert.setContentText("Số lượng phải là số");
-			alert.showAndWait();
-			return;
-<<<<<<< Updated upstream
-		}
-    	try {
-			//	int id = Integer.parseInt(tfid.getText());
-			giatiensp = Integer.parseInt(giatien.getText());
-				
-		}catch (NumberFormatException e) {
-			alert.setContentText("Giá tiền phải là số");
-			alert.showAndWait();
-			return;
-		}*/
-    	int giatiensp = Integer.parseInt(giatien.getText());
-    	int slsp = Integer.parseInt(soluong.getText());
-    	String tensp = tensanpham.getText();
-    	String donvisp = donvi.getValue();
-    	String loaisp = loaisanpham.getValue();
-    
-    	Session session = HibernateUtils.getSessionFactory().openSession();
-
-    	 
-		FileInputStream fis = new FileInputStream(file);
-		 byte[] bFile = new byte[(int) (file.length())];
-		 fis.read(bFile);
-		 Sanpham sp= new Sanpham(tensp,loaisp,donvisp,giatiensp,slsp,bFile);
-		 try {
-    		 session.beginTransaction();
-    		 session.save(sp);
-    		 session.getTransaction().commit();
-    		 //alert.setContentText("Thêm sản phẩm thành công !");
-    		 //alert.showAndWait();   
-    		 Stage stage = (Stage) luusp.getScene().getWindow();
-        	 stage.close();
-        	 QLKhoController.getInstance().initialize1();
-		 }
-	    	catch (RuntimeException error){
-	    		
-	    		// alert.setContentText("Thêm sản phẩm thất bại   !");
-	    		 //alert.showAndWait();
-	    		session.getTransaction().rollback();
-	    	}
 		 
     }
     private boolean KiemTraHinh() throws Exception {
