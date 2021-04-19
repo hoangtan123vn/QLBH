@@ -95,8 +95,10 @@ public class LoginController implements Initializable {
 		      //  stage.show();
 		       
 		        PauseTransition delay = new PauseTransition(Duration.seconds(5));
-		        delay.setOnFinished( event1 -> stage.close() );
+		        delay.setOnFinished( event1 -> stage.close());
 		        delay.play();
+		        
+		        
 			 
 		        
 		} catch (Exception e) {

@@ -62,7 +62,7 @@
                         <Image url="@close.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="load" layoutX="151.0" layoutY="446.0" mnemonicParsing="false" onAction="#load" text="Button" />
+                  <Button fx:id="load" layoutX="149.0" layoutY="428.0" mnemonicParsing="false" onAction="#load" text="Button" visible="false" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="626.0" prefWidth="381.0" style="-fx-background-color: white; -fx-background-radius: 4em; -fx-border-radius: 4em; -fx-border-color: blue;">
