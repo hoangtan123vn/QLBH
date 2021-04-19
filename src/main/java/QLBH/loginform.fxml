@@ -10,11 +10,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="539.0" prefWidth="678.0" style="-fx-background-color: #66CCFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.LoginController">
+<AnchorPane prefHeight="718.0" prefWidth="854.0" style="-fx-background-color: transparenttransparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.LoginController">
    <children>
-      <AnchorPane layoutX="1.0" prefHeight="538.0" prefWidth="675.0" style="-fx-background-color: #66CCFF;" styleClass="login">
+      <AnchorPane layoutX="107.0" layoutY="46.0" prefHeight="610.0" prefWidth="677.0" style="-fx-background-color: transparent;" styleClass="login">
          <children>
-            <AnchorPane layoutX="356.0" layoutY="-1.0" prefHeight="539.0" prefWidth="321.0" style="-fx-background-color: #66CCFF; -fx-border-color: blue;">
+            <AnchorPane layoutX="339.0" layoutY="44.0" prefHeight="539.0" prefWidth="321.0" style="-fx-background-color: #66CCFF; -fx-background-radius: 2em; -fx-border-color: blue; -fx-border-radius: 2em;">
                <children>
                   <Label layoutX="96.0" layoutY="178.0" text="ĐĂNG NHẬP" textFill="#777272">
                      <font>
@@ -57,38 +57,38 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <ImageView fx:id="close" fitHeight="27.0" fitWidth="38.0" layoutX="272.0" layoutY="14.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@close.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutY="-5.0" prefHeight="544.0" prefWidth="381.0" style="-fx-background-color: white; -fx-border-color: blue;">
+            <AnchorPane prefHeight="626.0" prefWidth="381.0" style="-fx-background-color: white; -fx-background-radius: 4em; -fx-border-radius: 4em; -fx-border-color: blue;">
                <children>
-                  <ImageView fitHeight="227.0" fitWidth="235.0" layoutX="61.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="227.0" fitWidth="235.0" layoutX="73.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@backgroundSGU.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="73.0" layoutY="288.0" style="-fx-text-fill: red;" text="KIỂM THỬ PHẦN MỀM" textFill="#ea0909">
+                  <Label layoutX="85.0" layoutY="289.0" style="-fx-text-fill: red;" text="KIỂM THỬ PHẦN MỀM" textFill="#ea0909">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label layoutX="67.0" layoutY="415.0" text="Lê Hoàng Tân" />
-                  <Label layoutX="51.0" layoutY="453.0" text="Lê Quang Sang" />
-                  <Label layoutX="251.0" layoutY="453.0" text="Hồng Thái" />
-                  <Label layoutX="163.0" layoutY="415.0" text="Trương Nguyễn Yến Nhi" />
-                  <Label layoutX="163.0" layoutY="453.0" text="Từ Chí Huy" />
-                  <Label layoutX="100.0" layoutY="336.0" text="TS.Nguyễn Thành Huy">
+                  <Label layoutX="79.0" layoutY="416.0" text="Lê Hoàng Tân" />
+                  <Label layoutX="63.0" layoutY="454.0" text="Lê Quang Sang" />
+                  <Label layoutX="263.0" layoutY="454.0" text="Hồng Thái" />
+                  <Label layoutX="175.0" layoutY="416.0" text="Trương Nguyễn Yến Nhi" />
+                  <Label layoutX="175.0" layoutY="454.0" text="Từ Chí Huy" />
+                  <Label layoutX="112.0" layoutY="337.0" text="TS.Nguyễn Thành Huy">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Line endX="100.0" layoutX="185.0" layoutY="504.0" startX="-100.0" />
+                  <Line endX="100.0" layoutX="197.0" layoutY="505.0" startX="-100.0" />
                </children>
             </AnchorPane>
-            <ImageView fx:id="close" fitHeight="27.0" fitWidth="38.0" layoutX="635.0" layoutY="7.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@close.png" />
-               </image>
-            </ImageView>
          </children>
       </AnchorPane>
    </children>

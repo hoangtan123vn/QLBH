@@ -13,17 +13,17 @@
    <children>
       <AnchorPane layoutX="3.0" layoutY="4.0" prefHeight="515.0" prefWidth="837.0" style="-fx-background-color: #00CCFF;" styleClass="thanhtoan">
          <children>
-            <Label layoutX="257.0" layoutY="247.0" text="Nợ Hiện Tại            " AnchorPane.bottomAnchor="248.0">
+            <Label layoutX="235.0" layoutY="245.0" text="Nợ Hiện Tại            " AnchorPane.bottomAnchor="245.0">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="16.0" />
                </font></Label>
             <Label layoutX="399.0" layoutY="369.0" text="Số Nợ Còn Lại">
                <font>
-                  <Font size="23.0" />
+                  <Font name="System Bold Italic" size="23.0" />
                </font></Label>
-            <Label layoutX="258.0" layoutY="297.0" text="Thanh Toán" AnchorPane.bottomAnchor="198.0">
+            <Label layoutX="236.0" layoutY="295.0" text="Thanh Toán" AnchorPane.bottomAnchor="195.0">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="16.0" />
                </font></Label>
             <TextField fx:id="tfthanhtoan" layoutX="438.0" layoutY="285.0" AnchorPane.bottomAnchor="205.0" />
             <Button fx:id="bttaophieu" layoutX="19.0" layoutY="210.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="189.0" text="Tạo phiếu thanh toán và in">
@@ -42,9 +42,9 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Label layoutX="258.0" layoutY="197.0" text="Tên Nhà Cung Cấp " AnchorPane.bottomAnchor="298.0">
+            <Label layoutX="236.0" layoutY="195.0" text="Tên Nhà Cung Cấp " AnchorPane.bottomAnchor="295.0">
                <font>
-                  <Font name="System Bold" size="14.0" />
+                  <Font name="System Bold" size="16.0" />
                </font></Label>
             <Label fx:id="tenncc" layoutX="439.0" layoutY="182.0" text="Label" AnchorPane.bottomAnchor="313.0">
                <font>

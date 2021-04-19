@@ -22,16 +22,19 @@ public class QLBH extends Application {
 		//Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
 		Parent root = FXMLLoader.load(getClass().getResource("loginform.fxml"));
 		Scene scene = new Scene(root);
+		scene.setFill(null);
 		scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
+	//	scene.addEventHandler(null, null);
 	//	Scene scene = new Scene(root,337,408);
 		stage.getIcons().add(new Image(QLBH.class.getResourceAsStream("backgroundSGU.png")));
 		stage.setScene(scene);
 		stage.setResizable(false);
-		stage.initStyle(StageStyle.UNDECORATED);
+		stage.initStyle(StageStyle.TRANSPARENT);
 	//	stage.initModality(Modality.APPLICATION_MODAL);
 		//stage.resizableProperty().setValue(Boolean.FALSE);
 		stage.setTitle("Phần mềm quản lý cửa hàng tiện lợi");
 		stage.show();	
+		
 
 	}
 	public static void main(String[] args) {
