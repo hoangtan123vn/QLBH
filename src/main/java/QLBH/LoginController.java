@@ -29,6 +29,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -83,10 +84,13 @@ public class LoginController implements Initializable {
 		Stage stage = (Stage) minimize.getScene().getWindow();
 		stage.setIconified(true);
 	}
-
+	private static double xoffset =0; 
+	private static double yoffset =0;
 	@FXML
 	void login(ActionEvent event) {
+		
 		try {
+			  
 			Window owner = submitButton.getScene().getWindow();
 
 			System.out.println(emailIdField.getText());
@@ -140,7 +144,21 @@ public class LoginController implements Initializable {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);
+							
 							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+							scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+								  @Override public void handle(MouseEvent mouseEvent) {
+								    // record a delta distance for the drag and drop operation.
+								    xoffset = stage.getX() - mouseEvent.getScreenX();
+								    yoffset = stage.getY() - mouseEvent.getScreenY();
+								  }
+								});
+								scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+								  @Override public void handle(MouseEvent mouseEvent) {
+								    stage.setX(mouseEvent.getScreenX() + xoffset);
+								    stage.setY(mouseEvent.getScreenY() + yoffset);
+								  }
+								});
 							GiaoDienQLController quanly = loader.getController();
 							quanly.LoadData(taikhoan);
 							stage.hide();
