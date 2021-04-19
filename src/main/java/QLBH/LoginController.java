@@ -26,6 +26,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +47,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 import QLBH.GiaoDienQLController;
 import QLBH.Taikhoannv;
 
@@ -72,6 +74,37 @@ public class LoginController implements Initializable {
 	
 	@FXML
 	private Label thongbaologin;
+	
+	
+	  @FXML
+	    private Button load;
+	  
+	  
+	 @FXML
+	    void load(ActionEvent event)  {
+		 try {
+			
+			 Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+		        FXMLLoader loader = new FXMLLoader();
+		        loader.setLocation(getClass().getResource("load.fxml"));
+		        Parent sampleParent = loader.load();
+		        Scene scene = new Scene(sampleParent);
+		        
+		        stage.setScene(scene);
+		     //   try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
+		      //  stage.show();
+		       
+		        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+		        delay.setOnFinished( event1 -> stage.close() );
+		        delay.play();
+			 
+		        
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+		}
+		 
+	    }
 
 	@FXML
 	void close(MouseEvent event) {
@@ -91,6 +124,7 @@ public class LoginController implements Initializable {
 		
 		try {
 			  
+			
 			Window owner = submitButton.getScene().getWindow();
 
 			System.out.println(emailIdField.getText());
@@ -113,7 +147,9 @@ public class LoginController implements Initializable {
 				thongbaologin.setVisible(true);
 				thongbaologin.setText("Kiểm tra lại tài khoản,mật khẩu");
 			}
-
+			
+			
+	        
 			Session session = HibernateUtils.getSessionFactory().openSession();
 			String username = emailIdField.getText();
 			String password = passwordField.getText();
@@ -136,6 +172,8 @@ public class LoginController implements Initializable {
 						String tentaikhoan = (String) singleRowValues[0];
 						String matkhau = (String) singleRowValues[1];
 						String cvString = (String) singleRowValues[2];
+						
+						
 						if (tentaikhoan.contains(checktk1.getusername().trim()) && matkhau.contains(checktk1.getpassword().trim())
 								&& cvString.contains("Quản lý")) {
 							String tk = checktk1.getusername();
