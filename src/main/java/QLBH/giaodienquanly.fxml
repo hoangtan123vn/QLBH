@@ -111,7 +111,14 @@
             <Line endX="-490.0" endY="718.0" layoutX="489.0" layoutY="174.0" startX="-185.00003051757812" startY="718.0" style="-fx-stroke-width: 2px;" />
 			</children>
 		</AnchorPane>
-		<AnchorPane fx:id="mainpane" layoutX="303.0" layoutY="45.0" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2px;" />
+		<AnchorPane fx:id="mainpane" layoutX="303.0" layoutY="45.0" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2px;">
+         <children>
+            <ImageView fx:id="load" fitHeight="276.0" fitWidth="283.0" layoutX="550.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@unnamed.gif" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
 		<ImageView fx:id="close" fitHeight="25.0" fitWidth="25.0" layoutX="1573.0" layoutY="9.0" onMouseClicked="#close" pickOnBounds="true" preserveRatio="true">
 			<image>
 				<Image url="@close.png" />

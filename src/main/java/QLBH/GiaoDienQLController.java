@@ -30,6 +30,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import KiemTraHang.KiemTraHangController;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,11 +54,17 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 public class GiaoDienQLController implements Initializable {
 
 	@FXML
 	private Button banhang;
+	
+	@FXML
+    private ImageView load;
+	
+	
 
 	@FXML
 	private Button nhanvien;
@@ -130,6 +137,13 @@ public class GiaoDienQLController implements Initializable {
 	}
 
 	public void LoadData(Taikhoannv taikhoan) {
+		PauseTransition visiblePause = new PauseTransition(
+		        Duration.seconds(3)
+		);
+		visiblePause.setOnFinished(
+		        event -> load.setVisible(false)
+		);
+		visiblePause.play();
 
 		username.setText("Xin chào " + taikhoan.getusername());
 		username.setUnderline(true);

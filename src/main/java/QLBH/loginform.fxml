@@ -22,7 +22,7 @@
                      </font>
                   </Label>
                   <Button fx:id="submitButton" layoutX="137.0" layoutY="387.0" mnemonicParsing="false" onAction="#login" style="-fx-background-color: #CCCCCC; -fx-border-color: blue; -fx-border-radius: 1em; -fx-text-fill: black; -fx-background-radius: 1em;" text="Đăng Nhập" textFill="#393232" />
-                  <PasswordField fx:id="passwordField" layoutX="64.0" layoutY="315.0" prefHeight="35.0" prefWidth="222.0" promptText="Mật Khẩu" style="-fx-background-color: #66CCFF; -fx-prompt-text-fill: gray;">
+                  <PasswordField fx:id="passwordField" layoutX="64.0" layoutY="315.0" onKeyPressed="#pw" prefHeight="35.0" prefWidth="222.0" promptText="Mật Khẩu" style="-fx-background-color: #66CCFF; -fx-prompt-text-fill: gray;">
                      <font>
                         <Font size="16.0" />
                      </font></PasswordField>

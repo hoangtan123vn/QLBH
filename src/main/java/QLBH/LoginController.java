@@ -27,6 +27,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,6 +51,8 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import QLBH.GiaoDienQLController;
 import QLBH.Taikhoannv;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class LoginController implements Initializable {
 
@@ -61,6 +64,122 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private PasswordField passwordField;
+	
+	@FXML public void pw(KeyEvent event) {
+		if(event.getCode() == KeyCode.ENTER) {
+			try {
+				  
+				
+				Window owner = submitButton.getScene().getWindow();
+
+				System.out.println(emailIdField.getText());
+				System.out.println(passwordField.getText());
+
+				if (emailIdField.getText().isEmpty()) {
+					thongbaologin.setVisible(false);
+					thongbao.setVisible(true);
+					thongbao.setText("Bạn chưa nhập tài khoản !");
+					return;
+				} else if (passwordField.getText().isEmpty()) {
+					thongbaologin.setVisible(false);
+					thongbao.setVisible(true);
+					thongbao.setText("Bạn chưa nhập mật khẩu !");
+					return;
+				
+				}
+				else {
+					thongbao.setVisible(false);
+					thongbaologin.setVisible(true);
+					thongbaologin.setText("Kiểm tra lại tài khoản,mật khẩu");
+				}
+				
+				
+		        
+				Session session = HibernateUtils.getSessionFactory().openSession();
+				String username = emailIdField.getText();
+				String password = passwordField.getText();
+				Taikhoannv taikhoannv = new Taikhoannv(username, password);
+				session.getTransaction().begin();
+				String hql = "FROM Taikhoannv A WHERE A.username = :username and A.password = :password";
+				String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A INNER JOIN A.nhanvien B WHERE A.username = :username and A.password = :password ";
+				Query query = session.createQuery(hql);
+				query.setParameter("username", username);
+				query.setParameter("password", password);
+				Query query1 = session.createQuery(hql1);
+				query1.setParameter("username", username);
+				query1.setParameter("password", password);
+				List<Object[]> tk1 = query1.list();
+				List<Taikhoannv> checktaikhoan = query.list();
+				for (Taikhoannv checktk1 : checktaikhoan) {
+					if (checktk1.getusername().contains(taikhoannv.getusername().trim())
+							&& checktk1.getpassword().contains(taikhoannv.getpassword().trim())) {
+						for (Object[] singleRowValues : tk1) {
+							String tentaikhoan = (String) singleRowValues[0];
+							String matkhau = (String) singleRowValues[1];
+							String cvString = (String) singleRowValues[2];
+							
+							
+							if (tentaikhoan.contains(checktk1.getusername().trim()) && matkhau.contains(checktk1.getpassword().trim())
+									&& cvString.contains("Quản lý")) {
+								String tk = checktk1.getusername();
+								String mk = checktk1.getpassword();
+								taikhoan = session.get(Taikhoannv.class, tk);
+								FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
+								Parent tmp = loader.load();
+								Scene scene = new Scene(tmp);
+								
+								Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+								scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+									  @Override public void handle(MouseEvent mouseEvent) {
+									    // record a delta distance for the drag and drop operation.
+									    xoffset = stage.getX() - mouseEvent.getScreenX();
+									    yoffset = stage.getY() - mouseEvent.getScreenY();
+									  }
+									});
+									scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+									  @Override public void handle(MouseEvent mouseEvent) {
+									    stage.setX(mouseEvent.getScreenX() + xoffset);
+									    stage.setY(mouseEvent.getScreenY() + yoffset);
+									  }
+									});
+								GiaoDienQLController quanly = loader.getController();
+								quanly.LoadData(taikhoan);
+								stage.hide();
+								stage.setScene(scene);
+								stage.show();
+							} else if (tentaikhoan.contains(checktk1.getusername().trim())
+									&& matkhau.contains(checktk1.getpassword().trim()) && cvString.contains("Nhân viên")) {
+								Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml"));
+								Scene scene = new Scene(sampleparent);
+								Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+								stage.hide();
+								stage.setScene(scene);
+								stage.show();
+							}
+							
+						}
+//						Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//						alert.setTitle("Đăng nhập");
+//						alert.setContentText("Đăng nhập thành công");
+//						alert.showAndWait();
+//						break;
+					}
+
+				}
+				//thongbao.setText("Đăng nhập thất bại");
+
+			}
+
+			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+//				thongbaologin.setVisible(true);
+//				thongbaologin.setText("Kiểm tra lại tài khoản,mật khẩu");
+			}
+		}
+	}
+	
 	@FXML
 	private Label thongbao;
 
@@ -78,6 +197,8 @@ public class LoginController implements Initializable {
 	
 	  @FXML
 	    private Button load;
+	 
+	  
 	  
 	  
 	 @FXML
@@ -91,12 +212,17 @@ public class LoginController implements Initializable {
 		        Scene scene = new Scene(sampleParent);
 		        
 		        stage.setScene(scene);
-		     //   try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
-		      //  stage.show();
-		       
-		        PauseTransition delay = new PauseTransition(Duration.seconds(5));
-		        delay.setOnFinished( event1 -> stage.close());
-		        delay.play();
+//		     //   try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
+//		      //  stage.show();
+		 //       stage.setOnCloseRequest(e -> System.out.println("Close Requested")
+		   //     		);
+			/*
+			 * PauseTransition delay = new PauseTransition(Duration.seconds(5));
+			 * delay.setOnFinished( event1 -> stage.close()); delay.play();
+			 * stage.setOnCloseRequest(e -> System.out.println("Close Requested") );
+			 */
+		        
+		      
 		        
 		        
 			 
@@ -107,6 +233,7 @@ public class LoginController implements Initializable {
 		}
 		 
 	    }
+	 
 
 	@FXML
 	void close(MouseEvent event) {
@@ -122,6 +249,7 @@ public class LoginController implements Initializable {
 	private static double xoffset =0; 
 	private static double yoffset =0;
 	@FXML
+
 	void login(ActionEvent event) {
 		
 		try {
@@ -239,5 +367,8 @@ public class LoginController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 
 	}
+
+
+	
 
 }
