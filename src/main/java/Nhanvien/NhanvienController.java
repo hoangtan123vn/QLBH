@@ -179,6 +179,7 @@ public class NhanvienController implements Initializable{
 		stage.setScene(scene);
 		stage.setTitle("Them nhan vien");
 		stage.show();
+		truedisable();
 	}
 
 	@FXML
@@ -301,7 +302,15 @@ public class NhanvienController implements Initializable{
 		reset.setVisible(true);
 	}
 
-//a
+	public void falsedisable() {
+		anchorpane.setDisable(false);
+	}
+	public void truedisable() {
+		anchorpane.setDisable(true);
+	}
+	
+	
+	
 	@FXML
 	void XoaNhanvien(ActionEvent event) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

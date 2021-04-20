@@ -175,6 +175,8 @@ public class ThemNVController extends Application implements Initializable{
     	//System.exit(0);
     	 Stage stage = (Stage) huy.getScene().getWindow();
     	 stage.close();
+    	 NhanvienController.getInstance().falsedisable();
+    	 
     }
     
     private boolean KiemTraTenTaiKhoan() {
@@ -359,6 +361,7 @@ public class ThemNVController extends Application implements Initializable{
         	}
     	
     		 NhanvienController.getInstance().reloadNHANVIEN();
+    		 NhanvienController.getInstance().truedisable();
       //  	
 			}
     

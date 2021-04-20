@@ -116,10 +116,7 @@ public class ThemNCCController extends Application implements Initializable{
     	Integer sotienno = Integer.parseInt(tfsotienno.getText());
     
     	Session session = HibernateUtils.getSessionFactory().openSession();
-    	 
-    	
-    	 
-		
+
     	try {
     		
     		 Nhacungcap nv = new Nhacungcap(tenncc,diachi,sodienthoai,email,sotienno);

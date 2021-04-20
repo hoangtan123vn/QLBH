@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 
 import com.sun.xml.bind.v2.util.QNameMap.Entry;
 
+import Nhacungcap.nhacungcapController;
 import QLBH.*;
 
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -79,7 +81,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class BanHangController implements Initializable{
-	
+	public static BanHangController instance;
+
+	public BanHangController() {
+		instance = this;
+	}
+
+	public static BanHangController getInstance() {
+		return instance;
+	}
 	
 	@FXML
 	private Label thongbao;
@@ -151,6 +161,15 @@ public class BanHangController implements Initializable{
     @FXML
     private Button chinhsachkhuyenmai;
     
+    @FXML
+    private AnchorPane ap;
+    
+    public void falsedisable() {
+		ap.setDisable(false);
+	}
+	public void truedisable() {
+		ap.setDisable(true);
+	}
    //
  
     
@@ -641,6 +660,7 @@ public class BanHangController implements Initializable{
 
         // Show the new stage/window
         controller2.showStage();
+        
 	}
 	
 	

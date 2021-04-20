@@ -17,7 +17,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-
 import QLBH.Chitiethoadon;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
@@ -41,6 +40,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -99,7 +99,12 @@ public class nhacungcapController implements Initializable{
     
     @FXML
     private AnchorPane ncc;
+   
+    @FXML
+    private Label thongbao;
 
+    
+    
 	private ObservableList<Nhacungcap> nhacungcapdata;
 	
 	public static nhacungcapController instance;
@@ -181,7 +186,19 @@ public class nhacungcapController implements Initializable{
 		//	root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.getIcons().add(new Image(nhacungcapController.class.getResourceAsStream("backgroundSGU.png")));
-			controller.setThanhtoan(selected);
+			//controller.setThanhtoan(selected);
+			if(selected == null) {
+				 thongbao.setVisible(true);
+				 thongbao.setText("Không có nhà cung cấp được chọn!!!");
+				// thongbaoTH.setText("Không có phiếu trả hàng được chọn!!!");
+				// System.out.print("Không có phiếu trả hàng được chọn!!!");
+				 return;
+			 }
+			 else if(selected != null){
+				 controller.setThanhtoan(selected);
+				thongbao.setVisible(false);
+				 
+			 }
 			stage.setScene(new Scene(root1));
 			stage.setTitle("thanh toán công nợ");
 			stage.show();

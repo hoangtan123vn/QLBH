@@ -209,7 +209,8 @@ public class LapPhieuDatHangController implements Initializable{
 	@FXML
 	void CanCel(ActionEvent event) {
 		Stage stage = (Stage) huy.getScene().getWindow();
-   	 stage.close();
+   	   	stage.close();
+   	   	QLKhoController.getInstance().falsedisable();
 	}
 	void Timkiem() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList(getSanpham());

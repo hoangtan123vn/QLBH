@@ -118,6 +118,8 @@ public class ThemSanPhamController extends Application implements Initializable{
     @FXML
     void LuuSP(ActionEvent event) throws Exception {
     	if(KiemTraTen()& KiemTraSL()&KiemTraDonVi()& KiemTraHinh()& KiemTraGia()& KiemTraLoai()) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Thêm sản phẩm");
     		int giatiensp = Integer.parseInt(giatien.getText());
         	int slsp = Integer.parseInt(soluong.getText());
         	String tensp = tensanpham.getText();
@@ -135,11 +137,12 @@ public class ThemSanPhamController extends Application implements Initializable{
         		 session.beginTransaction();
         		 session.save(sp);
         		 session.getTransaction().commit();
-        		 //alert.setContentText("Thêm sản phẩm thành công !");
-        		 //alert.showAndWait();   
+        		 alert.setContentText("Thêm sản phẩm thành công !");
+        		 alert.showAndWait();   
         		 Stage stage = (Stage) luusp.getScene().getWindow();
             	 stage.close();
             	 QLKhoController.getInstance().initialize1();
+            	 QLKhoController.getInstance().falsedisable();
     		 }
     	    	catch (RuntimeException error){
     	    		
@@ -234,6 +237,8 @@ public class ThemSanPhamController extends Application implements Initializable{
     void huySP(ActionEvent event) {
     	Stage stage = (Stage) huySP.getScene().getWindow();
       	 stage.close();	
+      	 QLKhoController.getInstance().falsedisable();
+      	 
     }
 
 	@Override

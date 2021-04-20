@@ -1,5 +1,6 @@
 package QLBH;
 
+import java.awt.Checkbox;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Phieudathang implements Serializable {
 	private int madathang;
 	private LocalDateTime thoigian;
 	private int tongtien;
+	private Boolean kiemtrahang;
 	
 	@OneToMany(mappedBy = "phieudathang",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Chitietdathang> chitietdathang;
@@ -41,6 +43,16 @@ public class Phieudathang implements Serializable {
 		this.thoigian = thoigian;
 		this.tongtien = tongtien;
 		this.nhacungcap=nhacungcap;
+		//this.nhanvien=nhanvien;
+		
+	}
+	public Phieudathang(int madathang, LocalDateTime thoigian, int tongtien, Nhacungcap nhacungcap,Boolean kiemtrahang) {
+		super();
+		this.madathang = madathang;
+		this.thoigian = thoigian;
+		this.tongtien = tongtien;
+		this.nhacungcap=nhacungcap;
+		this.kiemtrahang = kiemtrahang;
 		//this.nhanvien=nhanvien;
 		
 	}
@@ -74,11 +86,19 @@ public class Phieudathang implements Serializable {
 	public void setTongtien(int tongtien) {
 		this.tongtien = tongtien;
 	}
+	
 
 
-
-
-
+	public void setThoigian(LocalDateTime thoigian) {
+		this.thoigian = thoigian;
+	}
+	
+	public Boolean getKiemtrahang() {
+		return kiemtrahang;
+	}
+	public void setKiemtrahang(Boolean kiemtrahang) {
+		this.kiemtrahang = kiemtrahang;
+	}
 	public Phieudathang() {
 		// TODO Auto-generated constructor stub
 	}

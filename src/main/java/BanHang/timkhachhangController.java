@@ -117,6 +117,7 @@ public class timkhachhangController implements Initializable{
 
 	            // Setup the window/stage
 	            thisStage.setTitle("Chon khach hang");
+	            BanHangController.getInstance().truedisable();
 
 	        } catch (IOException e) {
 	            e.printStackTrace();
@@ -176,6 +177,7 @@ public class timkhachhangController implements Initializable{
 		 banHangController.setkhachhang(selected);
 		 Stage stage1 = (Stage) ap.getScene().getWindow();
     	 stage1.close();
+    	 BanHangController.getInstance().falsedisable();
 
 	 }
 	

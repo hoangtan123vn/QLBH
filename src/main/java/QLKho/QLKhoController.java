@@ -131,6 +131,13 @@ public class QLKhoController implements Initializable {
 	@FXML
 	private TableView<Sanpham> tableSP;
 	
+	public void falsedisable() {
+		anchorpane1.setDisable(false);
+	}
+	public void truedisable() {
+		anchorpane1.setDisable(true);
+	}
+	
 
 	
 	 public static QLKhoController instance;
@@ -155,6 +162,7 @@ public class QLKhoController implements Initializable {
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+		truedisable();
 	}
     
     private void ButtonXoaSP() {
@@ -397,6 +405,7 @@ public class QLKhoController implements Initializable {
 		stage1.setTitle("Lap phieu dat hang");
 		stage1.setScene(scene1);
 		stage1.show();
+		truedisable();
 	} catch (Exception e) {
 		System.out.println(e);
 	}

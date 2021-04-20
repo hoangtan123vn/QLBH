@@ -18,6 +18,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
+import Nhacungcap.nhacungcapController;
 import QLBH.Chitiethoadon;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
@@ -26,6 +27,8 @@ import QLBH.Nhacungcap;
 import QLBH.Phieudathang;
 import QLBH.Sanpham;
 import QLBH.Taikhoannv;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -43,14 +46,28 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 
 public class KiemTraHangController implements Initializable {
 
+	public static KiemTraHangController instance;
+
+	public KiemTraHangController() {
+		instance = this;
+	}
+
+	public static KiemTraHangController getInstance() {
+		return instance;
+	}
+	
 	@FXML
 	private TableView<Phieudathang> phieudathangkt;
 	@FXML
@@ -64,6 +81,9 @@ public class KiemTraHangController implements Initializable {
 
 	@FXML
 	private TableColumn tongtienkt;
+	
+    @FXML
+	 private TableColumn<Phieudathang,Boolean> select;
 
 	@FXML
 	private TableColumn<Phieudathang, Nhacungcap> mancckt;
@@ -73,15 +93,20 @@ public class KiemTraHangController implements Initializable {
 
 
 	ObservableList<Phieudathang> listPDHkt;
+	
+	@FXML
+    private AnchorPane ap;
+	
+	public void falsedisable() {
+		ap.setDisable(false);
+	}
+	public void truedisable() {
+		ap.setDisable(true);
+	}
 
 	public ObservableList<Phieudathang> getPhieudathangkt() {
 		ObservableList<Phieudathang> phieudathangkt = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		CriteriaQuery<Phieudathang> pdhkt = session.getCriteriaBuilder().createQuery(Phieudathang.class);
 		pdhkt.from(Phieudathang.class);
 		List<Phieudathang> eList = session.createQuery(pdhkt).getResultList();
@@ -112,8 +137,10 @@ public class KiemTraHangController implements Initializable {
 				 }
 				 else if(selected != null){
 					 Dathang1.setKiemtrahang(selected);
-				//	 Dathang.setPhieudathang(selected);
 					 thongbaoKT.setVisible(false);
+					 truedisable();
+					 
+					 
 					 
 				 }
 				Dathang1.loadData(taikhoan);
@@ -130,6 +157,7 @@ public class KiemTraHangController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		//phieudathangkt.setEditable(true);
 		madathangkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
 		thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
 		tongtienkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
@@ -146,7 +174,16 @@ public class KiemTraHangController implements Initializable {
 			}
 
 		});
+		
+		 
+		  
+		//final TableColumn<Os, Boolean> loadedColumn = new TableColumn<>( "Delete" );
+		select.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().getKiemtrahang()));
+		select.setCellFactory(tc -> new CheckBoxTableCell<>());
+	    //  select.setCellFactory( column -> new CheckBoxTableCell<>());
+	     // bookMarks.addValueChangeListener(event -> contact.setBookMarks(bookMarks.getValue()));
 		phieudathangkt.setItems(getPhieudathangkt());
+		//phieudathangkt.setEditable(true);
 	}
 
 }
