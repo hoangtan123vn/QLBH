@@ -300,31 +300,24 @@ public class BanHangController implements Initializable{
     		 }catch (Exception e) {
     			 System.out.println(e);
     		 }
+			 //reset	
+		 initialize(null, null);
+		 for ( int i = 0; i<hoadon.getItems().size(); i++) {
+			    hoadon.getItems().clear();
+			}
+		 tongtien.setText(null);
+		 khachtra.setText(null);
+		 giamgia.setText("0");
+		 tienthua.setText(null);
+		 khachhangg.setText(null);
+		 diemtichluy.setText(null);
+		 thongbao.setText(null);
 			});
 		 
 		   
 	 }
 //
-	/* private void thanhtien() {
-	      
 
-	        Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
-	            @Override
-	            public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
-	                final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
-	           		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-	           		 String thanhtien;
-	           		 
-	                  
-	                   
-	               
-	                };
-	                return cell;
-	            }
-	        };
-	        xoaSP.setCellFactory(cellFactory);
-	 }*/
-	 
 	 
 	 private void ButtonXoaSP() {
 	      
@@ -412,6 +405,7 @@ public class BanHangController implements Initializable{
 	        }
 	    });
 		TableSP.setItems(getSanpham());
+		Timkiem();
 		
 	// 
 	//	masanpham1.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Sanpham>("sanpham"));
@@ -535,70 +529,11 @@ public class BanHangController implements Initializable{
 	private void event() {
 		 Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
 		 
-		 /*	 int soluong = sp.getDonvitinh();
-		 Chitiethoadon chitiethoadon = new Chitiethoadon(soluong,sp,0.0);
-	//	int masanpham = sp.getMasanpham();
-		
-		// Sanpham sp1 = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		 if(!hoadon.getItems().contains(sp.getTensanpham())) {
-			 chitiethoadon.setSoluong(1);
-			 hoadon.getItems().add(chitiethoadon);
-			// thanhtien.setOnEditCommit(String.valueOf(sp.getDonvitinh() * sp.getGiatien()));
-			 hoadon.refresh();
-			// Callback cellFactory = null;
-			// xoaSP.setCellFactory(cellFactory);
-			// tinhtongtien();
-		
-		 }
-		 
-		 
-		 else if(hoadon.getItems().contains(chitiethoadon)) {
-			chitiethoadon.setSoluong(chitiethoadon.getSoluong()+1);
-			 hoadon.refresh();
-			// tinhtongtien();
 
-		 }*/
 		 addItem(0, sp, 0.0);
 		 hoadon.refresh();
 	}
-/*	public void tinhtongtien() {
-		Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		 thanhtien.setCellFactory(new Callback<TableColumn, TableCell>() {
-	            @Override
-	            public TableCell call(TableColumn p) {
-	                return new TableCell() {
-	                    @Override
-	                    protected void updateItem(Object item, boolean empty) {
-	                        super.updateItem(item, empty);
-	                        if (this.getTableRow() != null && item != null) {
-//	                            System.out.println(this.getTableRow().getItem().toString());
-//	                            setText((this.getTableRow().getIndex() + 1) + "");
-//	                              System.out.println(this.getTableRow().getIndex());
-//	                            System.out.println(getTableView().getItems().get(getTableRow().getIndex() -1));
-//	                            System.out.println();
-	                           
-	                            System.out.println("");
-//	                            setText(String.valueOf(Integer.parseInt(getTableRow().getItem().toString()) + Integer.parseInt(getTableView().getItems().get(pre).toString())));
-	                            Integer totalValue = new Integer(0);
-	                            totalValue = sp.getDonvitinh() * sp.getGiatien();
-	                            setText(String.valueOf(totalValue));
-	                            int sum = 0;
-	                            for (Sanpham thanhtien : hoadon.getItems()) {
-	                                sum = sum + (thanhtien.getGiatien()* thanhtien.getDonvitinh());
-	                            }
-	                            tongtien.setText(String.valueOf(sum));
-	                           
-	                           //int tientrakhach = Integer.parseInt(khachtra.getText())- Integer.parseInt(tongtien.getText());
-	                         //    System.out.print(tientrakhach);
-//	                            setText(this.getTableRow().getItem().toString());
-	                        } else {
-	                            setText("");
-	                        }
-	                    }
-	                };
-	            }
-	        }); 
-	}*/
+
 	public void addItem(int soluong,Sanpham sanpham,double thanhtien) {
 	    Chitiethoadon entry = hoadon.getItems().stream()
 	        .filter(item -> item.getSanpham().equals(sanpham))
@@ -628,9 +563,9 @@ public class BanHangController implements Initializable{
 	@FXML
 	private TextField Timkiem;
 	void Timkiem() {
-		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList(getSanpham());
+		ObservableList<Sanpham> tableSP = FXCollections.observableArrayList(getSanpham());
 
-		FilteredList<Sanpham> filteredData = new FilteredList<>(TableSP, b -> true);
+		FilteredList<Sanpham> filteredData = new FilteredList<>(tableSP, b -> true);
 		Timkiem.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(sanpham -> {
 				if (newValue == null || newValue.isEmpty()) {
@@ -647,8 +582,8 @@ public class BanHangController implements Initializable{
 			});
 		});
 		SortedList<Sanpham> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(((TableView<Sanpham>) TableSP).comparatorProperty());
-		((TableView<Sanpham>) TableSP).setItems(sortedData);
+		sortedData.comparatorProperty().bind(TableSP.comparatorProperty());
+		TableSP.setItems(sortedData);
 
 	}
 	/// thanh toan
@@ -693,59 +628,5 @@ public class BanHangController implements Initializable{
 		stage.setScene(scene);
 		stage.show();
 	}
-	/*void trusanpham() {
-		 Alert alert = new Alert(AlertType.INFORMATION);
-			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
-			try {
-			session.beginTransaction();
-			String hql2 = "update Sanpham sp set sp.donvitinh =:soluongconlai where sp.masanpham =:masanpham ";
-		for (Sanpham spp : TableSP.getItems()) {
-         for (Chitiethoadon sp : hoadon.getItems()) {
 
-       	  	if(spp.getMasanpham() == sp.getSanpham().getMasanpham()) {
-            // 	System.out.println(spp.getDonvitinh());
-            // 	System.out.println(sp.getSoluong());
-             	int soluongtrongkho = spp.getDonvitinh();
-            	int soluongban = sp.getSoluong();
-            	int masanphamm = sp.getSanpham().getMasanpham();
-             	int soluongconlai = soluongtrongkho - soluongban;
-             	System.out.println("masp: "+masanphamm);
-             	System.out.println("soluongban: "+soluongban);
-             	System.out.println("soluongtrongkho: "+soluongtrongkho);
-             	System.out.println("soluongconlai: "+soluongconlai);
-             	if (soluongban <= soluongtrongkho) {
-	                    	try{
-	            	    		 Query query1 = session.createQuery(hql2);
-	            	    		 query1.setParameter("soluongconlai", soluongconlai);
-	            	    	     query1.setParameter("masanpham",masanphamm);
-	            	    	     int result1 = query1.executeUpdate();
-	            	    	     
-	            	    	     System.out.println("tru san pham thanh cong !");
-	            	    	     
-	            				}
-	            		        catch(HibernateException e) {
-	            		    		e.printStackTrace();		       
-	            		        }
-             	}
-             	else {
-             		 alert.setContentText("het hang roi du me may");
-			    		 alert.showAndWait();
-             	}
-            }
-         }
-
-    }
-		 session.getTransaction().commit();
-	     session.clear();
-	     session.close();
-	     }
-			catch(HibernateException e){
-				System.out.print(e);
-			}
-}*/
 }
