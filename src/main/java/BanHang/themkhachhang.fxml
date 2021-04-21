@@ -15,32 +15,32 @@
             <Image url="@background1.jpeg" />
          </image>
       </ImageView>
-      <Label layoutX="155.0" layoutY="65.0" text="New Customer" textFill="#1a1818">
+      <Label layoutX="155.0" layoutY="65.0" text="Khách hàng mới" textFill="#1a1818">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
-      <Label layoutX="64.0" layoutY="115.0" text="Name">
+      <Label layoutX="64.0" layoutY="115.0" text="Tên KH">
          <font>
             <Font name="Apple Braille" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="62.0" layoutY="156.0" text="Address">
+      <Label layoutX="62.0" layoutY="156.0" text="Địa chỉ">
          <font>
             <Font name="Apple Braille" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="61.0" layoutY="197.0" text="Number phone">
+      <Label layoutX="61.0" layoutY="197.0" text="SĐT">
          <font>
             <Font name="Apple Braille" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="64.0" layoutY="288.0" text="Gender">
+      <Label layoutX="64.0" layoutY="288.0" text="Giới tính">
          <font>
             <Font name="Apple Braille" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="61.0" layoutY="242.0" text="Birth">
+      <Label layoutX="61.0" layoutY="242.0" text="Ngày sinh">
          <font>
             <Font name="Apple Braille" size="20.0" />
          </font>
@@ -55,8 +55,8 @@
       <TextField fx:id="numberphone" layoutX="210.0" layoutY="195.0" prefHeight="27.0" prefWidth="161.0" />
       <TextField fx:id="mail" layoutX="210.0" layoutY="332.0" />
       <DatePicker fx:id="birth" layoutX="210.0" layoutY="241.0" />
-      <Button fx:id="them" layoutX="128.0" layoutY="388.0" mnemonicParsing="false" onAction="#themkhachhang" text="ADD" />
-      <Button fx:id="quaylai" layoutX="325.0" layoutY="388.0" mnemonicParsing="false" onAction="#quaylai" text="Exit" />
+      <Button fx:id="them" layoutX="128.0" layoutY="388.0" mnemonicParsing="false" onAction="#themkhachhang" text="THÊM" />
+      <Button fx:id="quaylai" layoutX="325.0" layoutY="388.0" mnemonicParsing="false" onAction="#quaylai" text="Thoát" />
       <ComboBox fx:id="sex" layoutX="210.0" layoutY="287.0" prefHeight="27.0" prefWidth="161.0" />
       <Label fx:id="checkname" layoutX="413.0" layoutY="111.0" prefHeight="33.0" prefWidth="117.0" textFill="#d71313" />
       <Label fx:id="checkaddress" layoutX="413.0" layoutY="160.0" prefHeight="17.0" prefWidth="107.0" textFill="#dd0f0f" />
