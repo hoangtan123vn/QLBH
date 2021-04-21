@@ -31,6 +31,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -83,6 +84,9 @@ public class khachhangController implements Initializable {
 
     @FXML
     private TableColumn tongtien;
+    
+    @FXML
+    private Label thongbao;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -131,6 +135,9 @@ public class khachhangController implements Initializable {
 	private void SearchLichSuBanHang()  {
 		 tableKH.setOnMouseClicked(event -> {
 			 event();
+			 if(event == null) {
+				 System.out.println("Thah cong");
+			 }
 		 });
 	 }
 	
@@ -146,7 +153,14 @@ public class khachhangController implements Initializable {
 	}
 	
 	private void event() {
+		if(tableKH.getSelectionModel().getSelectedIndex() == -1) {
+			thongbao.setText("Chưa có khách hàng nào được chọn");
+			return;
+		}
+		else {
+		thongbao.setText(null);
 		KhachHang khachHang = tableKH.getItems().get(tableKH.getSelectionModel().getSelectedIndex());
+		//KhachHang khachHang = tableKH.getItems().get(tableKH.getSelectionModel().getSelectedIndex());
 		int makh = khachHang.getMakh();
 	//	int mahoadon = hoadon.getMahoadon();
     	ObservableList<Hoadon> TableHD = FXCollections.observableArrayList();
@@ -167,25 +181,8 @@ public class khachhangController implements Initializable {
 		 tb_LSMH.setItems(TableHD);
 		
 	}
-/*	public ObservableList<Hoadon> getHoadon() {
-		ObservableList<Hoadon> TableKH = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-		
-	//	CriteriaQuery<KhachHang> kh = session.getCriteriaBuilder().createQuery(KhachHang.class);
-	//	kh.from(KhachHang.class);
-		List<KhachHang> eList = session.createQuery(kh).getResultList();
-		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
-		for (KhachHang ent : eList) {
-			TableKH.add(ent);
-		}
-		return TableKH;
+	}
 
-	}*/
 	
 	
 	
