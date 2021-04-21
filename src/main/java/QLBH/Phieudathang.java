@@ -145,4 +145,12 @@ public class Phieudathang implements Serializable {
 		this.nhacungcap=nhacungcap;
 		this.nhanvien=nhanvien;
 	}
+	public Phieudathang(LocalDateTime thoigian, int tongtien, Nhacungcap nhacungcap, Nhanvien nhanvien,boolean kiemtrahang) {
+		super();
+		this.thoigian = thoigian;
+		this.tongtien = tongtien;
+		this.nhacungcap=nhacungcap;
+		this.nhanvien=nhanvien;
+		this.kiemtrahang = kiemtrahang;
+	}
 }
