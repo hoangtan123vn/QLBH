@@ -138,6 +138,7 @@ public class KiemTraHangController implements Initializable {
 				 else if(selected != null){
 					 Dathang1.setKiemtrahang(selected);
 					 if(selected.getKiemtrahang()== true) {
+						 thongbaoKT.setVisible(true);
 						 thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra ! ! ! ");
 						 return;
 					 }
