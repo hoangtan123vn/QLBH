@@ -93,6 +93,10 @@ public class NhapHangvaTraHang implements Initializable{
 
 	    @FXML
 	    private Label mancckt;
+	    
+	    
+	    @FXML
+	    private Label kiemtra;
 
 	    @FXML
 	    private Label thoigiandatkt;
@@ -176,14 +180,21 @@ public class NhapHangvaTraHang implements Initializable{
 	    private Label thongbaoSP;
 	    
 	    @FXML
+	    private Label kiemtratrahang;
+
+	    @FXML
+	    private Label kiemtranhaphang;
+
+	    
+	    @FXML
 	    void nhap(ActionEvent event) {
 	    	try {
 	    		event();
-	    		thongbaoSP.setVisible(false);
+	    		//kiemtra.setVisible(false);
 			} catch (Exception e) {
 				// TODO: handle exception
-				thongbaoSP.setVisible(true);
-	    		thongbaoSP.setText("Bạn phải chọn vào sản phẩm");
+				//kiemtra.setVisible(true);
+	    		kiemtra.setText("Bạn phải chọn vào sản phẩm");
 			}
 	    	
 	    }
@@ -192,15 +203,57 @@ public class NhapHangvaTraHang implements Initializable{
 	    void tra(ActionEvent event) {
 	    	try {
 	    		event2();
-	    		thongbaoSP.setVisible(false);
+	    		//kiemtra.setVisible(false);
 			} catch (Exception e) {
 				// TODO: handle exception
-				thongbaoSP.setVisible(true);
-	    		thongbaoSP.setText("Bạn phải chọn vào sản phẩm");
+				//kiemtra.setVisible(true);
+	    		kiemtra.setText("Bạn phải chọn vào sản phẩm");
 				
 			}
 	    	
 	    
+	    }
+	    public boolean Kiemtra() {
+	    	if(tableChitietKiemtra.getItems().isEmpty()) {
+	    		Session session = HibernateUtils.getSessionFactory().openSession();
+	    		try {
+	    			int madathang = Integer.parseInt(madathangkt.getText());
+	    			Phieudathang pdh = new Phieudathang();
+	    			pdh = session.get(Phieudathang.class, madathang);
+	    			session.beginTransaction();
+	    			pdh.setKiemtrahang(true);
+	    			session.save(pdh);
+	    			session.getTransaction().commit();
+	    			kiemtra.setText(null);
+	    		}catch (Exception e) {
+					// TODO: handle exception
+	    			System.out.println(e);
+				}
+	    		return true;
+	    	}
+	    		kiemtra.setText("Kiểm tra sản phẩm vẫn chưa xong");
+	    		return false;
+	    	
+	    	//return true;
+	    }
+	    
+	    public boolean KiemTraTraHang() {
+	    	if(tbtrahang.getItems().isEmpty()) {
+	    		kiemtratrahang.setText("Phiếu trả không có hàng được trả");
+	    		return false;
+	    	}
+	    	kiemtratrahang.setText(null);
+	    	return true;
+	    	
+	    }
+	    
+	    public boolean KiemTraNhapHang() {
+	    	if(tbnhaphang.getItems().isEmpty()) {
+	    		kiemtranhaphang.setText("Phiếu nhập không có hàng được nhập");
+	    		return false;
+	    	}
+	    	kiemtranhaphang.setText(null);
+	    	return true;
 	    }
 
 	    
@@ -223,12 +276,7 @@ public class NhapHangvaTraHang implements Initializable{
 	    public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
 	    	int Phieudathang = phieudathang.getMadathang();
 	    	ObservableList<Chitietdathang> tableChitietkiemtra = FXCollections.observableArrayList();
-	    	 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml")
-						.build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+	    	Session session = HibernateUtils.getSessionFactory().openSession();
 				
 				CriteriaBuilder builder = session.getCriteriaBuilder();
 				//SELECT C.soluong,SP.tensanpham,SP.giatien FROM chitietdathang C,sanpham SP WHERE C.masanpham = SP.masanpham
@@ -255,7 +303,9 @@ public class NhapHangvaTraHang implements Initializable{
 	}
 	
 	public void loadData(Taikhoannv taikhoan) {
+		
 		btphieunhap.setOnMouseClicked(event ->  {
+			if(Kiemtra()&KiemTraNhapHang()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			Session session = HibernateUtils.getSessionFactory().openSession();
 		Nhacungcap nhacungcap = new Nhacungcap();
@@ -277,6 +327,7 @@ public class NhapHangvaTraHang implements Initializable{
     		 session.getTransaction().commit();  
     		 alert.setContentText("Thêm phiếu nhập hàng thành công!" );
     		 alert.showAndWait();
+    		
 		 	}
 	    	catch (RuntimeException error){
 	    		 alert.setContentText("Lỗi " + error);
@@ -309,71 +360,77 @@ public class NhapHangvaTraHang implements Initializable{
 		    		 alert.setContentText("Thêm  thất bại!");
 		    		 alert.showAndWait();
 		    		 session.getTransaction().rollback();
-		    	} 	    		
-    		}	
+		    	} 	
+			 KiemTraHangController.getInstance().khoitao();
+    		}
+    	
+		}
 		});
 		
+		
+		
 		btphieutra.setOnMouseClicked(event ->  {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					.configure("hibernate.cfg.xml")
-					.build();
-			Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-			Session session = sessionFactory.openSession();
-		Nhacungcap nhacungcap = new Nhacungcap();
-    	int  mancc= Integer.parseInt(mancckt.getText());
-    	nhacungcap = session.get(Nhacungcap.class, mancc);
-    	int tongtien =0;
-    	for(Chitietphieutra ct : tbtrahang.getItems() ) {
-    	 tongtien = (int) (tongtien+ct.getThanhtien());
-    	}
-    	Nhanvien nhanvien = new Nhanvien();
-    	nhanvien = session.get(Nhanvien.class,taikhoan.getNhanvien().getManv());
-    	//int tongtienn =Integer.parseInt(tongtien.getText());
-    	LocalDateTime dateTime = LocalDateTime.now();
-    	Phieutrahang phieutrahang= new Phieutrahang(dateTime,tongtien,nhacungcap,nhanvien);
-		 try{
-    		 session.beginTransaction();
-    		 session.save(phieutrahang);
-    		 session.getTransaction().commit();  
-    		 alert.setContentText("Thêm phiếu trả hàng thành công!" );
-    		 alert.showAndWait();
-		 	}
-	    	catch (RuntimeException error){
-	    		 alert.setContentText("Lỗi " + error);
-	    		 alert.showAndWait();
-	    		session.getTransaction().rollback();
+			if(Kiemtra()&KiemTraTraHang()) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				Session session = HibernateUtils.getSessionFactory().openSession();
+			Nhacungcap nhacungcap = new Nhacungcap();
+	    	int  mancc= Integer.parseInt(mancckt.getText());
+	    	nhacungcap = session.get(Nhacungcap.class, mancc);
+	    	int tongtien =0;
+	    	for(Chitietphieutra ct : tbtrahang.getItems() ) {
+	    	 tongtien = (int) (tongtien+ct.getThanhtien());
 	    	}
-		 
-		 for (Chitietphieutra ct : tbtrahang.getItems()) {
-			    String lydo1 = lydo.getText();
-	    		int soluongnhap =ct.getSoluong();
-	    		double thanhtien = ct.getThanhtien();
-	    		Sanpham sanpham = new Sanpham();
-	    		sanpham= session.get(Sanpham.class, ct.getSanpham().getMasanpham());
-	    		
-	    		Chitietphieutra chitietphieutra= new Chitietphieutra(phieutrahang,sanpham,soluongnhap,lydo1,thanhtien);
-    		//them so luong sp 
-	    	//	int soluong = ct.getSanpham().getDonvitinh() + sanpham.getDonvitinh();
-	    		
-				 try {
-		    	 session.beginTransaction();
-		    	// sanpham.setDonvitinh(soluong);
-	    		 session.save(chitietphieutra);
-	    	//	 session.save(sanpham);
-	    		 session.getTransaction().commit();
-		         alert.setContentText("Thêm chi tiết trả hàng thành công!" );
+	    	Nhanvien nhanvien = new Nhanvien();
+	    	nhanvien = session.get(Nhanvien.class,taikhoan.getNhanvien().getManv());
+	    	//int tongtienn =Integer.parseInt(tongtien.getText());
+	    	LocalDateTime dateTime = LocalDateTime.now();
+	    	Phieutrahang phieutrahang= new Phieutrahang(dateTime,tongtien,nhacungcap,nhanvien);
+			 try{
+	    		 session.beginTransaction();
+	    		 session.save(phieutrahang);
+	    		 session.getTransaction().commit();  
+	    		 alert.setContentText("Thêm phiếu trả hàng thành công!" );
 	    		 alert.showAndWait();
-
-				 }
+			 	}
 		    	catch (RuntimeException error){
-			    		 System.out.println(error);
-			    		 alert.setContentText("Thêm  thất bại   !");
-			    		 alert.showAndWait();
-			    		 session.getTransaction().rollback();
-			    	} 	    		
-	    		}	
+		    		 alert.setContentText("Lỗi " + error);
+		    		 alert.showAndWait();
+		    		session.getTransaction().rollback();
+		    	}
+			 
+			 for (Chitietphieutra ct : tbtrahang.getItems()) {
+				    String lydo1 = lydo.getText();
+		    		int soluongnhap =ct.getSoluong();
+		    		double thanhtien = ct.getThanhtien();
+		    		Sanpham sanpham = new Sanpham();
+		    		sanpham= session.get(Sanpham.class, ct.getSanpham().getMasanpham());
+		    		
+		    		Chitietphieutra chitietphieutra= new Chitietphieutra(phieutrahang,sanpham,soluongnhap,lydo1,thanhtien);
+	    		//them so luong sp 
+		    	//	int soluong = ct.getSanpham().getDonvitinh() + sanpham.getDonvitinh();
+		    		
+					 try {
+			    	 session.beginTransaction();
+			    	// sanpham.setDonvitinh(soluong);
+		    		 session.save(chitietphieutra);
+		    	//	 session.save(sanpham);
+		    		 session.getTransaction().commit();
+			         alert.setContentText("Thêm chi tiết trả hàng thành công!" );
+		    		 alert.showAndWait();
+		    		 
+
+					 }
+			    	catch (RuntimeException error){
+				    		 System.out.println(error);
+				    		 alert.setContentText("Thêm  thất bại   !");
+				    		 alert.showAndWait();
+				    		 session.getTransaction().rollback();
+				    	} 	    		
+		    		}
+			
+			 KiemTraHangController.getInstance().khoitao();
+			}
+			
 		});
 	}
 	private void ButtonXoaSP() {

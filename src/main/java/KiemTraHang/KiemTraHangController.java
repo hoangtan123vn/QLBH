@@ -138,7 +138,7 @@ public class KiemTraHangController implements Initializable {
 				 else if(selected != null){
 					 Dathang1.setKiemtrahang(selected);
 					 thongbaoKT.setVisible(false);
-					 truedisable();
+					// truedisable();
 					 
 					 
 					 
@@ -153,37 +153,41 @@ public class KiemTraHangController implements Initializable {
 		});
 		
 	}
+	
+	public void khoitao() {
+		// TODO Auto-generated method stub
+				//phieudathangkt.setEditable(true);
+				madathangkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
+				thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
+				tongtienkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
+				mancckt.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+				mancckt.setCellFactory(phieudathangkt -> new TableCell<Phieudathang, Nhacungcap>() {
+					@Override
+					protected void updateItem(Nhacungcap item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty || item == null) {
+							setText(null);
+						} else {
+							setText(String.valueOf(item.getMancc()));
+						}
+					}
+
+				});
+				
+				 
+				  
+				//final TableColumn<Os, Boolean> loadedColumn = new TableColumn<>( "Delete" );
+				select.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().getKiemtrahang()));
+				select.setCellFactory(tc -> new CheckBoxTableCell<>());
+			    //  select.setCellFactory( column -> new CheckBoxTableCell<>());
+			     // bookMarks.addValueChangeListener(event -> contact.setBookMarks(bookMarks.getValue()));
+				phieudathangkt.setItems(getPhieudathangkt());
+				//phieudathangkt.setEditable(true);
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		//phieudathangkt.setEditable(true);
-		madathangkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
-		thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
-		tongtienkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
-		mancckt.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancckt.setCellFactory(phieudathangkt -> new TableCell<Phieudathang, Nhacungcap>() {
-			@Override
-			protected void updateItem(Nhacungcap item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getMancc()));
-				}
-			}
-
-		});
-		
-		 
-		  
-		//final TableColumn<Os, Boolean> loadedColumn = new TableColumn<>( "Delete" );
-		select.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().getKiemtrahang()));
-		select.setCellFactory(tc -> new CheckBoxTableCell<>());
-	    //  select.setCellFactory( column -> new CheckBoxTableCell<>());
-	     // bookMarks.addValueChangeListener(event -> contact.setBookMarks(bookMarks.getValue()));
-		phieudathangkt.setItems(getPhieudathangkt());
-		//phieudathangkt.setEditable(true);
+		khoitao();
 	}
 
 }
