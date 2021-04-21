@@ -137,12 +137,18 @@ public class KiemTraHangController implements Initializable {
 				 }
 				 else if(selected != null){
 					 Dathang1.setKiemtrahang(selected);
-					 thongbaoKT.setVisible(false);
+					 if(selected.getKiemtrahang()== true) {
+						 thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra ! ! ! ");
+						 return;
+					 }
+					 
 					// truedisable();
+					
 					 
 					 
 					 
 				 }
+				thongbaoKT.setText(null);
 				Dathang1.loadData(taikhoan);
 				stage1.setTitle("Kiem tra hang");
 				stage1.setScene(scene1);
