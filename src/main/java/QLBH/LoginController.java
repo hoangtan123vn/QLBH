@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
+
 import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
@@ -40,6 +42,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -64,12 +67,12 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private PasswordField passwordField;
-	
-	@FXML public void pw(KeyEvent event) {
-		if(event.getCode() == KeyCode.ENTER) {
+
+	@FXML
+	public void pw(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
 			try {
-				  
-				
+
 				Window owner = submitButton.getScene().getWindow();
 
 				System.out.println(emailIdField.getText());
@@ -85,16 +88,13 @@ public class LoginController implements Initializable {
 					thongbao.setVisible(true);
 					thongbao.setText("Bạn chưa nhập mật khẩu !");
 					return;
-				
-				}
-				else {
+
+				} else {
 					thongbao.setVisible(false);
 					thongbaologin.setVisible(true);
 					thongbaologin.setText("Kiểm tra lại tài khoản,mật khẩu");
 				}
-				
-				
-		        
+
 				Session session = HibernateUtils.getSessionFactory().openSession();
 				String username = emailIdField.getText();
 				String password = passwordField.getText();
@@ -117,9 +117,9 @@ public class LoginController implements Initializable {
 							String tentaikhoan = (String) singleRowValues[0];
 							String matkhau = (String) singleRowValues[1];
 							String cvString = (String) singleRowValues[2];
-							
-							
-							if (tentaikhoan.contains(checktk1.getusername().trim()) && matkhau.contains(checktk1.getpassword().trim())
+
+							if (tentaikhoan.contains(checktk1.getusername().trim())
+									&& matkhau.contains(checktk1.getpassword().trim())
 									&& cvString.contains("Quản lý")) {
 								String tk = checktk1.getusername();
 								String mk = checktk1.getpassword();
@@ -127,28 +127,31 @@ public class LoginController implements Initializable {
 								FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
 								Parent tmp = loader.load();
 								Scene scene = new Scene(tmp);
-								
+
 								Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 								scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-									  @Override public void handle(MouseEvent mouseEvent) {
-									    // record a delta distance for the drag and drop operation.
-									    xoffset = stage.getX() - mouseEvent.getScreenX();
-									    yoffset = stage.getY() - mouseEvent.getScreenY();
-									  }
-									});
-									scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-									  @Override public void handle(MouseEvent mouseEvent) {
-									    stage.setX(mouseEvent.getScreenX() + xoffset);
-									    stage.setY(mouseEvent.getScreenY() + yoffset);
-									  }
-									});
+									@Override
+									public void handle(MouseEvent mouseEvent) {
+										// record a delta distance for the drag and drop operation.
+										xoffset = stage.getX() - mouseEvent.getScreenX();
+										yoffset = stage.getY() - mouseEvent.getScreenY();
+									}
+								});
+								scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+									@Override
+									public void handle(MouseEvent mouseEvent) {
+										stage.setX(mouseEvent.getScreenX() + xoffset);
+										stage.setY(mouseEvent.getScreenY() + yoffset);
+									}
+								});
 								GiaoDienQLController quanly = loader.getController();
 								quanly.LoadData(taikhoan);
 								stage.hide();
 								stage.setScene(scene);
 								stage.show();
 							} else if (tentaikhoan.contains(checktk1.getusername().trim())
-									&& matkhau.contains(checktk1.getpassword().trim()) && cvString.contains("Nhân viên")) {
+									&& matkhau.contains(checktk1.getpassword().trim())
+									&& cvString.contains("Nhân viên")) {
 								Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml"));
 								Scene scene = new Scene(sampleparent);
 								Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -157,7 +160,7 @@ public class LoginController implements Initializable {
 								stage.setScene(scene);
 								stage.show();
 							}
-							
+
 						}
 //						Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //						alert.setTitle("Đăng nhập");
@@ -167,7 +170,7 @@ public class LoginController implements Initializable {
 					}
 
 				}
-				//thongbao.setText("Đăng nhập thất bại");
+				// thongbao.setText("Đăng nhập thất bại");
 
 			}
 
@@ -179,7 +182,7 @@ public class LoginController implements Initializable {
 			}
 		}
 	}
-	
+
 	@FXML
 	private Label thongbao;
 
@@ -190,50 +193,43 @@ public class LoginController implements Initializable {
 
 	@FXML
 	private ImageView minimize;
-	
+
 	@FXML
 	private Label thongbaologin;
-	
-	
-	  @FXML
-	    private Button load;
-	 
-	  
-	  
-	  
-	 @FXML
-	    void load(ActionEvent event)  {
-		 try {
-			
-			 Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-		        FXMLLoader loader = new FXMLLoader();
-		        loader.setLocation(getClass().getResource("load.fxml"));
-		        Parent sampleParent = loader.load();
-		        Scene scene = new Scene(sampleParent);
-		        
-		        stage.setScene(scene);
+
+	@FXML
+	private Button load;
+
+	@FXML
+	private CheckBox ghinho;
+
+	@FXML
+	void load(ActionEvent event) {
+		try {
+
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("load.fxml"));
+			Parent sampleParent = loader.load();
+			Scene scene = new Scene(sampleParent);
+
+			stage.setScene(scene);
 //		     //   try {Thread.sleep(2000);} catch (InterruptedException ex) { ex.printStackTrace();}
 //		      //  stage.show();
-		 //       stage.setOnCloseRequest(e -> System.out.println("Close Requested")
-		   //     		);
+			// stage.setOnCloseRequest(e -> System.out.println("Close Requested")
+			// );
 			/*
 			 * PauseTransition delay = new PauseTransition(Duration.seconds(5));
 			 * delay.setOnFinished( event1 -> stage.close()); delay.play();
 			 * stage.setOnCloseRequest(e -> System.out.println("Close Requested") );
 			 */
-		        
-		      
-		        
-		        
-			 
-		        
+
 		} catch (Exception e) {
 			// TODO: handle exception
-			
+
 		}
-		 
-	    }
-	 
+
+	}
 
 	@FXML
 	void close(MouseEvent event) {
@@ -246,14 +242,33 @@ public class LoginController implements Initializable {
 		Stage stage = (Stage) minimize.getScene().getWindow();
 		stage.setIconified(true);
 	}
-	private static double xoffset =0; 
-	private static double yoffset =0;
-	@FXML
+	public Preferences pref = Preferences.userRoot().node("Rememberme");
+	private static double xoffset = 0;
+	private static double yoffset = 0;
+	public void savenmailpass(String Email, String Pass) {
+		if (Email == null || Pass == null) {
+			System.out.println("Loi khong luu duoc email passs trong refrenrences");
 
+		} else {
+			String user = Email;
+			pref.put("Email", Email);
+			String pass = Pass;
+			pref.put("Password", pass);
+
+		}
+	}
+
+	public void checked(boolean remember) {
+		if (remember) {
+			savenmailpass(emailIdField.getText(), passwordField.getText());
+		} else {
+			System.out.println("null");
+		}
+	}
+	@FXML
 	void login(ActionEvent event) {
-		
+
 		try {
-			  
 			
 			Window owner = submitButton.getScene().getWindow();
 
@@ -270,16 +285,17 @@ public class LoginController implements Initializable {
 				thongbao.setVisible(true);
 				thongbao.setText("Bạn chưa nhập mật khẩu !");
 				return;
-			
-			}
-			else {
+
+			} else {
 				thongbao.setVisible(false);
 				thongbaologin.setVisible(true);
 				thongbaologin.setText("Kiểm tra lại tài khoản,mật khẩu");
 			}
-			
-			
-	        
+			if(ghinho.isSelected()) {
+				pref.put("Email", emailIdField.getText());
+
+				pref.put("Password", passwordField.getText());
+			}
 			Session session = HibernateUtils.getSessionFactory().openSession();
 			String username = emailIdField.getText();
 			String password = passwordField.getText();
@@ -302,31 +318,32 @@ public class LoginController implements Initializable {
 						String tentaikhoan = (String) singleRowValues[0];
 						String matkhau = (String) singleRowValues[1];
 						String cvString = (String) singleRowValues[2];
-						
-						
-						if (tentaikhoan.contains(checktk1.getusername().trim()) && matkhau.contains(checktk1.getpassword().trim())
-								&& cvString.contains("Quản lý")) {
+
+						if (tentaikhoan.contains(checktk1.getusername().trim())
+								&& matkhau.contains(checktk1.getpassword().trim()) && cvString.contains("Quản lý")) {
 							String tk = checktk1.getusername();
 							String mk = checktk1.getpassword();
 							taikhoan = session.get(Taikhoannv.class, tk);
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);
-							
+
 							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 							scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-								  @Override public void handle(MouseEvent mouseEvent) {
-								    // record a delta distance for the drag and drop operation.
-								    xoffset = stage.getX() - mouseEvent.getScreenX();
-								    yoffset = stage.getY() - mouseEvent.getScreenY();
-								  }
-								});
-								scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-								  @Override public void handle(MouseEvent mouseEvent) {
-								    stage.setX(mouseEvent.getScreenX() + xoffset);
-								    stage.setY(mouseEvent.getScreenY() + yoffset);
-								  }
-								});
+								@Override
+								public void handle(MouseEvent mouseEvent) {
+									// record a delta distance for the drag and drop operation.
+									xoffset = stage.getX() - mouseEvent.getScreenX();
+									yoffset = stage.getY() - mouseEvent.getScreenY();
+								}
+							});
+							scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+								@Override
+								public void handle(MouseEvent mouseEvent) {
+									stage.setX(mouseEvent.getScreenX() + xoffset);
+									stage.setY(mouseEvent.getScreenY() + yoffset);
+								}
+							});
 							GiaoDienQLController quanly = loader.getController();
 							quanly.LoadData(taikhoan);
 							stage.hide();
@@ -342,7 +359,7 @@ public class LoginController implements Initializable {
 							stage.setScene(scene);
 							stage.show();
 						}
-						
+
 					}
 //					Alert alert = new Alert(Alert.AlertType.INFORMATION);
 //					alert.setTitle("Đăng nhập");
@@ -352,7 +369,7 @@ public class LoginController implements Initializable {
 				}
 
 			}
-			//thongbao.setText("Đăng nhập thất bại");
+			// thongbao.setText("Đăng nhập thất bại");
 
 		}
 
@@ -363,12 +380,14 @@ public class LoginController implements Initializable {
 //			thongbaologin.setText("Kiểm tra lại tài khoản,mật khẩu");
 		}
 	}
-
-	public void initialize(URL url, ResourceBundle rb) {
-
-	}
-
-
 	
+	public void initialize(URL url, ResourceBundle rb) {
+		String usr = null;
+		usr = pref.get("Email", usr);
+		String pass = null;
+		pass = pref.get("Password", pass);
+		emailIdField.setText(usr);
+		passwordField.setText(pass);
+	}
 
 }
