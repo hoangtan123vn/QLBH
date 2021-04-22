@@ -27,6 +27,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,9 +40,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import QLBH.HibernateUtils;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class timkhachhangController implements Initializable{
 
@@ -81,6 +85,16 @@ public class timkhachhangController implements Initializable{
     
     private final BanHangController banHangController;
     
+    @FXML
+    private ImageView exit;
+    
+    @FXML
+    void exit(MouseEvent event) {
+    	Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		banHangController.falsedisable();
+    }
+    
     
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -98,12 +112,14 @@ public class timkhachhangController implements Initializable{
 		
 		
 	}
-	
+	private static double xoffset =0; 
+	private static double yoffset =0; 
 	public timkhachhangController(BanHangController banHangController ) {
 		 this.banHangController = banHangController;
 
 	        // Create the new stage
 	        thisStage = new Stage();
+	        
 
 	        // Load the FXML file
 	        try {
@@ -113,11 +129,29 @@ public class timkhachhangController implements Initializable{
 	            loader.setController(this);
 
 	            // Load the scene
-	            thisStage.setScene(new Scene(loader.load()));
+	            Scene scene = new Scene(loader.load());
+	            thisStage.setScene(scene);
 
 	            // Setup the window/stage
 	            thisStage.setTitle("Chon khach hang");
 	            BanHangController.getInstance().truedisable();
+	            
+	            // xóa viền window
+	            thisStage.initStyle(StageStyle.UNDECORATED);
+	            
+	            scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+	  			  @Override public void handle(MouseEvent mouseEvent) {
+	  			    // record a delta distance for the drag and drop operation.
+	  			    xoffset = thisStage.getX() - mouseEvent.getScreenX();
+	  			    yoffset = thisStage.getY() - mouseEvent.getScreenY();
+	  			  }
+	  			});
+	  			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	  			  @Override public void handle(MouseEvent mouseEvent) {
+	  			    thisStage.setX(mouseEvent.getScreenX() + xoffset);
+	  			    thisStage.setY(mouseEvent.getScreenY() + yoffset);
+	  			  }
+	  			});
 
 	        } catch (IOException e) {
 	            e.printStackTrace();

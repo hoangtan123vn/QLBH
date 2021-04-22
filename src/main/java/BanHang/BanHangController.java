@@ -592,9 +592,9 @@ public class BanHangController implements Initializable{
 	@FXML
 	void timkhachhang(ActionEvent event){
 		timkhachhangController controller2 = new timkhachhangController(this);
-
         // Show the new stage/window
         controller2.showStage();
+        
         
 	}
 	
