@@ -12,27 +12,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="1333.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhanvien.NhanvienController">
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="background" stylesheets="@../Nhacungcap/nhacungcap.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhanvien.NhanvienController">
    <children>
-      <Label alignment="CENTER" layoutX="101.0" layoutY="41.0" prefHeight="36.0" prefWidth="303.0" text="CỬA HÀNG TIỆN LỢI SGU">
-         <font>
-            <Font name="System Bold Italic" size="24.0" />
-         </font>
-      </Label>
       <ImageView fitHeight="89.0" fitWidth="124.0" layoutX="440.0" layoutY="15.0">
          <image>
             <Image url="file:/C:/Users/Admin/Desktop/ảnh%20chế/unnamed.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="Listnhanvien" layoutX="178.0" layoutY="77.0" onAction="#ListNhanvien" prefHeight="23.0" prefWidth="179.0" />
-      <TextField fx:id="search" layoutX="126.0" layoutY="135.0" prefHeight="30.0" prefWidth="231.0" />
-      <Label layoutX="25.0" layoutY="134.0" prefHeight="30.0" prefWidth="114.0" text="Tìm kiếm nhân viên">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Label>
-      <Button fx:id="idaddNV" alignment="BASELINE_LEFT" layoutX="362.0" layoutY="134.0" mnemonicParsing="false" onAction="#ThemNV" prefHeight="32.0" prefWidth="152.0" text="Thêm nhân viên" />
-      <ImageView fitHeight="29.0" fitWidth="25.0" layoutX="489.0" layoutY="136.0">
+      <ComboBox fx:id="Listnhanvien" layoutX="566.0" layoutY="153.0" onAction="#ListNhanvien" prefHeight="23.0" prefWidth="179.0" />
+      <TextField fx:id="search" layoutX="14.0" layoutY="236.0" prefHeight="30.0" prefWidth="161.0" />
+      <Button fx:id="idaddNV" alignment="BASELINE_LEFT" layoutX="192.0" layoutY="235.0" mnemonicParsing="false" onAction="#ThemNV" prefHeight="32.0" prefWidth="126.0" text="Thêm nhân viên" />
+      <ImageView fitHeight="29.0" fitWidth="25.0" layoutX="489.0" layoutY="233.0">
          <image>
             <Image url="file:/C:/Users/Admin/Desktop/ảnh%20chế/addperson.png" />
          </image>
@@ -42,12 +32,12 @@
             <Image url="file:/C:/Users/Admin/Desktop/ảnh%20chế/download.png" />
          </image>
       </ImageView>
-      <Label layoutX="1110.0" layoutY="40.0" prefHeight="23.0" prefWidth="79.0" text="Lê Hoàng Tân">
+      <Label layoutX="1107.0" layoutY="154.0" prefHeight="23.0" prefWidth="102.0" text="Lê Hoàng Tân" textFill="WHITE">
          <font>
-            <Font size="10.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="tableNV" layoutX="57.0" layoutY="179.0" prefHeight="393.0" prefWidth="576.0">
+      <TableView fx:id="tableNV" layoutX="14.0" layoutY="281.0" prefHeight="536.0" prefWidth="576.0">
          <columns>
             <TableColumn fx:id="hovaten" prefWidth="115.0" text="Họ và tên" />
             <TableColumn fx:id="ngaysinh" minWidth="0.0" prefWidth="81.0" text="Năm sinh" />
@@ -57,94 +47,119 @@
             <TableColumn fx:id="diachi" minWidth="0.0" prefWidth="88.0" text="Địa chỉ" />
          </columns>
       </TableView>
-      <Button fx:id="idreload" layoutX="576.0" layoutY="153.0" mnemonicParsing="false" onAction="#reload" prefHeight="21.0" prefWidth="53.0" text="reload" />
-      <ImageView fx:id="imgnhanvien" fitHeight="110.0" fitWidth="221.0" layoutX="802.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="685.0" layoutY="223.0" prefHeight="36.0" prefWidth="126.0" text="Họ và tên ">
+      <Button fx:id="idreload" layoutX="535.0" layoutY="232.0" mnemonicParsing="false" onAction="#reload" prefHeight="40.0" prefWidth="54.0" />
+      <ImageView fx:id="imgnhanvien" fitHeight="110.0" fitWidth="191.0" layoutX="1063.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="617.0" layoutY="362.0" prefHeight="36.0" prefWidth="126.0" text="Họ và tên " textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="748.0" layoutY="14.0" prefHeight="37.0" prefWidth="337.0" text="HỒ SƠ CÁ NHÂN NHÂN VIÊN">
+      <Label layoutX="615.0" layoutY="422.0" prefHeight="39.0" prefWidth="116.0" text="Ngày sinh " textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="683.0" layoutY="273.0" prefHeight="39.0" prefWidth="116.0" text="Ngày sinh ">
+      <Label layoutX="616.0" layoutY="482.0" prefHeight="35.0" prefWidth="100.0" text="Chức vụ " textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="684.0" layoutY="327.0" prefHeight="35.0" prefWidth="100.0" text="Chức vụ ">
+      <Label layoutX="615.0" layoutY="602.0" prefHeight="26.0" prefWidth="76.0" text="SĐT " textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="683.0" layoutY="427.0" prefHeight="26.0" prefWidth="76.0" text="SĐT ">
+      <Label layoutX="615.0" layoutY="662.0" prefHeight="26.0" prefWidth="76.0" text="CMND" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="683.0" layoutY="478.0" prefHeight="26.0" prefWidth="76.0" text="CMND">
+      <Label layoutX="614.0" layoutY="722.0" prefHeight="39.0" prefWidth="119.0" text="Địa chỉ " textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="689.0" layoutY="527.0" prefHeight="39.0" prefWidth="119.0" text="Địa chỉ ">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <TextField fx:id="hovaten_nv" editable="false" layoutX="810.0" layoutY="224.0" prefHeight="36.0" prefWidth="350.0">
+      <TextField fx:id="hovaten_nv" editable="false" layoutX="742.0" layoutY="362.0" prefHeight="40.0" prefWidth="479.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="cv_nv" editable="false" layoutX="805.0" layoutY="328.0" prefHeight="38.0" prefWidth="353.0">
+      <TextField fx:id="cv_nv" editable="false" layoutX="737.0" layoutY="482.0" prefHeight="40.0" prefWidth="479.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="sdt_nv" editable="false" layoutX="805.0" layoutY="427.0" prefHeight="37.0" prefWidth="355.0">
+      <TextField fx:id="sdt_nv" editable="false" layoutX="737.0" layoutY="602.0" prefHeight="40.0" prefWidth="479.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="cmnd_nv" editable="false" layoutX="805.0" layoutY="474.0" prefHeight="44.0" prefWidth="354.0">
+      <TextField fx:id="cmnd_nv" editable="false" layoutX="737.0" layoutY="662.0" prefHeight="40.0" prefWidth="479.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="diachi_nv" editable="false" layoutX="804.0" layoutY="530.0" prefHeight="44.0" prefWidth="355.0">
+      <TextField fx:id="diachi_nv" editable="false" layoutX="737.0" layoutY="722.0" prefHeight="40.0" prefWidth="479.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button layoutX="1033.0" layoutY="77.0" mnemonicParsing="false" onAction="#XoaNhanvien" text="Xóa" fx:id="xoa_nv" />
-      <Button fx:id="capnhat_nv" layoutX="1085.0" layoutY="77.0" mnemonicParsing="false" onAction="#CapNhatNhanvien" text="Cập nhật" />
-      <Label layoutX="683.0" layoutY="179.0" prefHeight="26.0" prefWidth="76.0" text="id_nv">
+      <Button alignment="TOP_LEFT" layoutX="327.0" layoutY="237.0" mnemonicParsing="false" onAction="#XoaNhanvien" prefHeight="30.0" prefWidth="30.0" fx:id="xoa_nv" />
+      <Button fx:id="capnhat_nv" alignment="BASELINE_LEFT" layoutX="370.0" layoutY="236.0" mnemonicParsing="false" onAction="#CapNhatNhanvien" prefHeight="32.0" prefWidth="102.0" text="Cập nhật" />
+      <Label layoutX="617.0" layoutY="302.0" prefHeight="26.0" prefWidth="76.0" text="id_nv" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="id_nv" editable="false" layoutX="808.0" layoutY="179.0" prefHeight="29.0" prefWidth="126.0" />
-      <Button fx:id="luucapnhat" layoutX="878.0" layoutY="593.0" mnemonicParsing="false" onAction="#luucapnhat" prefHeight="38.0" prefWidth="122.0" text="Lưu" visible="false" />
-      <Button fx:id="reset" layoutX="1044.0" layoutY="141.0" mnemonicParsing="false" onAction="#Reset" text="reset to default" visible="false" />
-      <Label layoutX="683.0" layoutY="376.0" prefHeight="40.0" prefWidth="102.0" text="Giới tính">
+      <TextField fx:id="id_nv" editable="false" layoutX="743.0" layoutY="307.0" prefHeight="30.0" prefWidth="126.0" />
+      <Button fx:id="luucapnhat" layoutX="887.0" layoutY="779.0" mnemonicParsing="false" onAction="#luucapnhat" prefHeight="38.0" prefWidth="122.0" text="Lưu" visible="false" />
+      <Button fx:id="reset" layoutX="1046.0" layoutY="776.0" mnemonicParsing="false" onAction="#Reset" prefHeight="40.0" prefWidth="108.0" text="reset to default" visible="false" />
+      <Label layoutX="615.0" layoutY="542.0" prefHeight="40.0" prefWidth="102.0" text="Giới tính" textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="gt_nv" editable="false" layoutX="805.0" layoutY="380.0" prefHeight="37.0" prefWidth="357.0">
+      <TextField fx:id="gt_nv" editable="false" layoutX="737.0" layoutY="542.0" prefHeight="40.0" prefWidth="479.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <DatePicker fx:id="ns_nv" editable="false" layoutX="809.0" layoutY="280.0" prefHeight="35.0" prefWidth="351.0" />
-      <Label layoutX="949.0" layoutY="175.0" prefHeight="39.0" prefWidth="161.0" text="Ngày vào làm ">
+      <DatePicker fx:id="ns_nv" editable="false" layoutX="741.0" layoutY="422.0" prefHeight="40.0" prefWidth="479.0" />
+      <Label layoutX="869.0" layoutY="305.0" prefHeight="39.0" prefWidth="140.0" text="Ngày vào làm " textFill="WHITE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <DatePicker fx:id="ngayvaolam" editable="false" layoutX="1118.0" layoutY="178.0" prefHeight="35.0" prefWidth="215.0" />
+      <DatePicker fx:id="ngayvaolam" editable="false" layoutX="1009.0" layoutY="309.0" prefHeight="30.0" prefWidth="215.0" />
+      <ImageView fitHeight="23.0" fitWidth="25.0" layoutX="21.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Nhacungcap/search.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="291.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Nhacungcap/sign-add-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="36.0" fitWidth="76.0" layoutX="544.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Nhacungcap/reload.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="440.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Nhacungcap/iconupdate.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="331.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Nhacungcap/icondelete.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="104.0" fitWidth="413.0" layoutX="446.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@LOGO.PNG" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

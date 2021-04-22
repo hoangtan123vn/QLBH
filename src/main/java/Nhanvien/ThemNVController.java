@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -52,6 +53,9 @@ import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
+
+import Nhacungcap.nhacungcapController;
+
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 
@@ -68,6 +72,16 @@ public class ThemNVController extends Application implements Initializable{
 	//private final Desktop desktop = Desktop.getDesktop();
     @FXML
     private TextField tfhovaten;
+    
+    @FXML
+	private ImageView exit;
+	
+	 @FXML
+	    void exit(MouseEvent event) {
+		 Stage stage = (Stage) exit.getScene().getWindow();
+			stage.close();
+			NhanvienController.getInstance().falsedisable();
+	    }
     
     @FXML
     private AnchorPane ap;
