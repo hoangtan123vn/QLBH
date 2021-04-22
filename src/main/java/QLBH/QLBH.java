@@ -32,7 +32,6 @@ public class QLBH extends Application {
 		scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
 	//	scene.addEventHandler(null, null);
 	//	Scene scene = new Scene(root,337,408);
-		
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 			  @Override public void handle(MouseEvent mouseEvent) {
 			    // record a delta distance for the drag and drop operation.

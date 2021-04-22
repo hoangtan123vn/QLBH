@@ -356,7 +356,6 @@ public class NhanvienController implements Initializable{
 	}
 
 	public void initializeNHANVIEN() {
-
 		// id.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("id"));
 		hovaten.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("hovaten"));
 		ngaysinh.setCellValueFactory(new PropertyValueFactory<Nhanvien, Date>("ngaysinh"));
