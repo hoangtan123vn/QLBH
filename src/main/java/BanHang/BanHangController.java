@@ -203,17 +203,6 @@ public class BanHangController implements Initializable{
 			 return true;
 		 }
 	 }
-	 private boolean KiemTraKhachHang() {
-		 if(khachhangg.getText().isEmpty()) {
-			 thongbaokhachhang.setText("Chưa có khách hàng được chọn");
-			 return false;
-		 }
-		 else {
-			 thongbaokhachhang.setText(null);
-			 return true;
-		 }
-		
-	 }
    //
  
     
@@ -243,7 +232,7 @@ public class BanHangController implements Initializable{
 	 public void loadData(Taikhoannv taikhoan) throws IOException{
 		 thanhtoan.setOnMouseClicked(event ->  {
 			 
-				 if(KiemTraKhachHang() &KiemTraSanPhamHoaDon()&KiemTraTienKhachTra()) {
+				 if(KiemTraSanPhamHoaDon()&KiemTraTienKhachTra()) {
 			 Alert alert = new Alert(AlertType.INFORMATION);
 			 Session session = HibernateUtils.getSessionFactory().openSession();
 				/*StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
@@ -257,7 +246,7 @@ public class BanHangController implements Initializable{
 					for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
 						if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
 						 if (chitiethoadon123.getSoluong() > spp1.getDonvitinh()) {
-								 alert.setContentText(spp1.getTensanpham()+ "Da het Hang");
+								 alert.setContentText(spp1.getTensanpham()+ "Đã hết hàng");
 					    		 alert.showAndWait();
 					    		 
 					    		 return;
@@ -269,7 +258,6 @@ public class BanHangController implements Initializable{
 			Nhanvien nhanvien = new Nhanvien();
 			LocalDateTime dateTime = LocalDateTime.now();
 			nhanvien = session.get(Nhanvien.class,taikhoan.getNhanvien().getManv());
-			
 			Hoadon hoadonn = new Hoadon(dateTime, tongtienmua, nhanvien,null);
 			 try{
 	    		 session.beginTransaction();
@@ -288,7 +276,6 @@ public class BanHangController implements Initializable{
 				if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
 					if (chitiethoadon123.getSoluong() <= spp1.getDonvitinh()) {
 				Sanpham capnhatSanpham = new Sanpham();
-				
 				capnhatSanpham= session.get(Sanpham.class, spp1.getMasanpham());
 				Sanpham spp= new Sanpham();
 				int masp = chitiethoadon123.getSanpham().getMasanpham();
@@ -306,6 +293,17 @@ public class BanHangController implements Initializable{
 		    		 session.save(chitiethoadon);
 		    		// session.save(spp);
 		    		 session.getTransaction().commit();
+		    		 for ( int i = 0; i<hoadon.getItems().size(); i++) {
+		 			    hoadon.getItems().clear();
+		 			}
+		    		 tongtien.setText(null);
+		    		 khachtra.setText(null);
+		    		 giamgia.setText("0");
+		    		 tienthua.setText(null);
+		    		 khachhangg.setText(null);
+		    		 diemtichluy.setText(null);
+		    		 thongbao.setText(null);
+		    		 thongbaosanpham.setText(null);
 		    		
 				 }
 			    	catch (RuntimeException error){
@@ -315,8 +313,7 @@ public class BanHangController implements Initializable{
 			    		 session.getTransaction().rollback();
 			    	}  
 			}
-					
-				
+
 				
 				}
 	 }
@@ -324,8 +321,6 @@ public class BanHangController implements Initializable{
 			 alert.setContentText("Tạo hóa đơn thành công !");
     		 alert.showAndWait(); 
 			 try {
-    			 	
-    			 	
     			 	 if(khachhangg.getText() !=null) {
     			 	
     			 		int makh = Integer.parseInt(khachhangg.getText());
@@ -347,22 +342,15 @@ public class BanHangController implements Initializable{
     			 System.out.println(e);
     		 }
 			 //reset	
-		 initialize(null, null);
-		 for ( int i = 0; i<hoadon.getItems().size(); i++) {
-			    hoadon.getItems().clear();
-			}
-		 tongtien.setText(null);
-		 khachtra.setText(null);
-		 giamgia.setText("0");
-		 tienthua.setText(null);
-		 khachhangg.setText(null);
-		 diemtichluy.setText(null);
-		 thongbao.setText(null);
+		// initialize(null, null);
+		 
 		 }
+		 
 			});
+	 }
 		
 		   
-	 }
+	 
 //
 
 	 
@@ -546,9 +534,6 @@ public class BanHangController implements Initializable{
                  
                  khachtra.setText("");
                  thongbaokhachtra.setText("Không đủ tiền , nhập lại");
-                 
-
-                 
                  
 			}
 				else {
