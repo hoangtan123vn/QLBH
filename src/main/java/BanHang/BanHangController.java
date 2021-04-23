@@ -16,6 +16,8 @@ import QLBH.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
@@ -162,6 +164,15 @@ public class BanHangController implements Initializable{
     private Button chinhsachkhuyenmai;
     
     @FXML
+    private Label thongbaokhachhang;
+
+    @FXML
+    private Label thongbaokhachtra;
+    
+    @FXML
+    private Label thongbaosanpham;
+    
+    @FXML
     private AnchorPane ap;
     
     public void falsedisable() {
@@ -170,6 +181,39 @@ public class BanHangController implements Initializable{
 	public void truedisable() {
 		ap.setDisable(true);
 	}
+	
+	 private boolean KiemTraTienKhachTra() {
+			Pattern p = Pattern.compile("[0-9]+");
+			Matcher m = p.matcher(khachtra.getText());
+			if(m.find() && m.group().equals(khachtra.getText())){
+				thongbaokhachtra.setText(null);
+				return true;
+			}
+			else {
+				thongbaokhachtra.setText("Vui lòng điền số tiền khách trả hợp lệ");
+				return false;
+			}
+		}
+	 private boolean KiemTraSanPhamHoaDon() {
+		 if(hoadon.getItems().isEmpty()) {
+			 thongbaosanpham.setText("Chưa có sản phẩm trong hóa đơn");
+			 return false;
+		 }else {
+			 thongbaosanpham.setText(null);
+			 return true;
+		 }
+	 }
+	 private boolean KiemTraKhachHang() {
+		 if(khachhangg.getText().isEmpty()) {
+			 thongbaokhachhang.setText("Chưa có khách hàng được chọn");
+			 return false;
+		 }
+		 else {
+			 thongbaokhachhang.setText(null);
+			 return true;
+		 }
+		
+	 }
    //
  
     
@@ -198,6 +242,8 @@ public class BanHangController implements Initializable{
 	 
 	 public void loadData(Taikhoannv taikhoan) throws IOException{
 		 thanhtoan.setOnMouseClicked(event ->  {
+			 
+				 if(KiemTraKhachHang() &KiemTraSanPhamHoaDon()&KiemTraTienKhachTra()) {
 			 Alert alert = new Alert(AlertType.INFORMATION);
 			 Session session = HibernateUtils.getSessionFactory().openSession();
 				/*StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
@@ -312,8 +358,9 @@ public class BanHangController implements Initializable{
 		 khachhangg.setText(null);
 		 diemtichluy.setText(null);
 		 thongbao.setText(null);
+		 }
 			});
-		 
+		
 		   
 	 }
 //
@@ -327,7 +374,7 @@ public class BanHangController implements Initializable{
 	            public TableCell<Chitiethoadon, Void> call(final TableColumn<Chitiethoadon, Void> param) {
 	                final TableCell<Chitiethoadon, Void> cell = new TableCell<Chitiethoadon, Void>() {
 
-	                    private final Button btn = new Button("Xóa Sản Phẩm");
+	                    private final Button btn = new Button("Xóa");
 
 	                    {
 	                    	///////////////////////////
