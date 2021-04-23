@@ -387,7 +387,14 @@ public class BanHangController implements Initializable{
 	               				 hoadon.getItems().remove(chitiethoadon);
 	               				 hoadon.refresh();
 	               			 }
-	               		 }
+	               			int sum = 0;
+	               			for (Chitiethoadon chitiethoadon1 : hoadon.getItems()) {
+	               	            sum = sum + (chitiethoadon1.getSanpham().getGiatien()*chitiethoadon1.getSoluong());
+	               	            chitiethoadon1.setThanhtien(chitiethoadon1.getSanpham().getGiatien()*chitiethoadon1.getSoluong());
+	               	        }
+	               			
+	               	        tongtien.setText(String.valueOf(sum));
+	               		   }
 	                        });
 	                    }
 	                    @Override
@@ -538,7 +545,7 @@ public class BanHangController implements Initializable{
 				
                  
                  khachtra.setText("");
-                 thongbao.setText("Khong Du Tien, Nhap lai");
+                 thongbaokhachtra.setText("Không đủ tiền , nhập lại");
                  
 
                  
