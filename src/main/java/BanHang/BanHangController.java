@@ -182,18 +182,30 @@ public class BanHangController implements Initializable{
 		ap.setDisable(true);
 	}
 	
-	 private boolean KiemTraTienKhachTra() {
-			Pattern p = Pattern.compile("[0-9]+");
-			Matcher m = p.matcher(khachtra.getText());
-			if(m.find() && m.group().equals(khachtra.getText())){
-				thongbaokhachtra.setText(null);
-				return true;
-			}
-			else {
+	private boolean KiemTraTienKhachTra() {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(khachtra.getText());
+		if(m.find() && m.group().equals(khachtra.getText())){
+			thongbaokhachtra.setText(null);
+			return true;
+		}
+		else {
+			thongbaokhachtra.setText("Vui lòng điền số tiền khách trả hợp lệ");
+			return false;
+		}
+	}
+	 private boolean KiemTraTienKhachTra1() {
+			if(khachtra.getText().isEmpty()){
 				thongbaokhachtra.setText("Vui lòng điền số tiền khách trả hợp lệ");
 				return false;
 			}
+			else {
+				thongbaokhachtra.setText(null);
+				return true;
+			}
 		}
+	 
+	 
 	 private boolean KiemTraSanPhamHoaDon() {
 		 if(hoadon.getItems().isEmpty()) {
 			 thongbaosanpham.setText("Chưa có sản phẩm trong hóa đơn");
@@ -210,144 +222,138 @@ public class BanHangController implements Initializable{
     
 	 private void setCellValueFromTabletoTexfFieldd()  {
 		 TableSP.setOnMouseClicked(event -> {
-			 //
 			 event();
-			// Sanpham sp = TableSP.getItems().get(TableSP.getSelectionModel().getSelectedIndex());
-		//	 System.out.println(sp.getDonvitinh());
-			//tongtien.setText(Integer.toString(sp.getGiatien()));
-			 
 		
 			
 		 });
-//		 hoadon.setOnMouseClicked(event -> {
-//			 //
-//			
-//			 Sanpham sp = hoadon.getItems().get(hoadon.getSelectionModel().getSelectedIndex());
-//			 tongtien.setText(Integer.toString(sp.getGiatien()));
-//		
-//			
-//		 });
 	 }
 	 
 	 public void loadData(Taikhoannv taikhoan) throws IOException{
 		 thanhtoan.setOnMouseClicked(event ->  {
-			 
-				 if(KiemTraSanPhamHoaDon()&KiemTraTienKhachTra()) {
-			 Alert alert = new Alert(AlertType.INFORMATION);
-			 Session session = HibernateUtils.getSessionFactory().openSession();
-				/*StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml")
-						.build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();*/
-
-			 for (Sanpham spp1 : TableSP.getItems()) {
-					for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
-						if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
-						 if (chitiethoadon123.getSoluong() > spp1.getDonvitinh()) {
-								 alert.setContentText(spp1.getTensanpham()+ "Đã hết hàng");
-					    		 alert.showAndWait();
-					    		 
-					    		 return;
-							}}}}
-							
-			
-			int tongtienmua = Integer.parseInt(tongtien.getText());
-			KhachHang khachhang = new KhachHang();
-			Nhanvien nhanvien = new Nhanvien();
-			LocalDateTime dateTime = LocalDateTime.now();
-			nhanvien = session.get(Nhanvien.class,taikhoan.getNhanvien().getManv());
-			Hoadon hoadonn = new Hoadon(dateTime, tongtienmua, nhanvien,null);
-			 try{
-	    		 session.beginTransaction();
-	    		 session.save(hoadonn);
-	    		 session.getTransaction().commit();  
-			 	}
-		    	catch (RuntimeException error){
-		    		 alert.setContentText("Lỗi " + error);
-		    		 alert.showAndWait();
-		    		session.getTransaction().rollback();
-		    	}
-			
-			
-			 for (Sanpham spp1 : TableSP.getItems()) {
-			for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
-				if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
-					if (chitiethoadon123.getSoluong() <= spp1.getDonvitinh()) {
-				Sanpham capnhatSanpham = new Sanpham();
-				capnhatSanpham= session.get(Sanpham.class, spp1.getMasanpham());
-				Sanpham spp= new Sanpham();
-				int masp = chitiethoadon123.getSanpham().getMasanpham();
-				spp= session.get(Sanpham.class, masp);
-				int soluong = chitiethoadon123.getSoluong();
-				double thanhtien = chitiethoadon123.getThanhtien();
-				int soluongconlai = capnhatSanpham.getDonvitinh()-soluong;
-				Chitiethoadon  chitiethoadon = new Chitiethoadon(soluong,hoadonn,spp,thanhtien);
-				 try {
-		    		 session.beginTransaction();
-		    		 capnhatSanpham.setDonvitinh(soluongconlai);
-		    		 session.save(capnhatSanpham);
-		    		 System.out.println(hoadonn.getMahoadon());
-		    		 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
-		    		 session.save(chitiethoadon);
-		    		// session.save(spp);
-		    		 session.getTransaction().commit();
-		    		 for ( int i = 0; i<hoadon.getItems().size(); i++) {
-		 			    hoadon.getItems().clear();
-		 			}
-		    		 tongtien.setText(null);
-		    		 khachtra.setText(null);
-		    		 giamgia.setText("0");
-		    		 tienthua.setText(null);
-		    		 khachhangg.setText(null);
-		    		 diemtichluy.setText(null);
-		    		 thongbao.setText(null);
-		    		 thongbaosanpham.setText(null);
-		    		
-				 }
-			    	catch (RuntimeException error){
-			    		 System.out.println(error);
-			    	//	 alert.setContentText("Thêm chi tiet thất bại   !");
-			    	//	 alert.showAndWait();
-			    		 session.getTransaction().rollback();
-			    	}  
-			}
-
+			 System.out.println(khachtra.getText());
+				 if(KiemTraSanPhamHoaDon()&KiemTraTienKhachTra1()) {
+					 Alert alert = new Alert(AlertType.INFORMATION);
+					 Session session = HibernateUtils.getSessionFactory().openSession();
 				
-				}
-	 }
-			 }
-			 alert.setContentText("Tạo hóa đơn thành công !");
-    		 alert.showAndWait(); 
-			 try {
-    			 	 if(khachhangg.getText() !=null) {
-    			 	
-    			 		int makh = Integer.parseInt(khachhangg.getText());
-    					khachhang = session.get(KhachHang.class, makh);
-    					
-    					int tichdiem = Integer.parseInt(tongtien.getText())/10000;
-	    			 	int tongg = khachhang.getDiemtichluy() +tichdiem ;
-    			 		 session.beginTransaction();
-    			 		 hoadonn.setKhachhang(khachhang);
-	    			 	 khachhang.setDiemtichluy(tongg);
-	    			 	 session.save(khachhang);
-	    			 	 session.getTransaction().commit();
-    			 	 }
-    			 	 else {
-    			 		 
-    			 	 }
-    			 	 
-    		 }catch (Exception e) {
-    			 System.out.println(e);
-    		 }
-			 //reset	
-		// initialize(null, null);
+						 for (Sanpham spp1 : TableSP.getItems()) {
+								for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
+									if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
+									 if (chitiethoadon123.getSoluong() > spp1.getDonvitinh()) {
+											 alert.setContentText(spp1.getTensanpham()+ "Đã hết hàng");
+								    		 alert.showAndWait();
+								    		 
+								    		 return;
+										}}}}
+										
+						
+						int tongtienmua = Integer.parseInt(tongtien.getText());
+						KhachHang khachhang = new KhachHang();
+						Nhanvien nhanvien = new Nhanvien();
+						LocalDateTime dateTime = LocalDateTime.now();
+						nhanvien = session.get(Nhanvien.class, taikhoan.getNhanvien().getManv());
+						Hoadon hoadonn = new Hoadon(dateTime, tongtienmua, nhanvien,null);
+						 try{
+				    		 session.beginTransaction();
+				    		 session.save(hoadonn);
+				    		 session.getTransaction().commit();  
+						 	}
+					    	catch (RuntimeException error){
+					    		 alert.setContentText("Lỗi " + error);
+					    		 alert.showAndWait();
+					    		session.getTransaction().rollback();
+					    	}
+						
+						
+						 for (Sanpham spp1 : TableSP.getItems()) {
+						for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
+							if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
+								if (chitiethoadon123.getSoluong() <= spp1.getDonvitinh()) {
+							Sanpham capnhatSanpham = new Sanpham();
+							
+							capnhatSanpham= session.get(Sanpham.class, spp1.getMasanpham());
+							Sanpham spp= new Sanpham();
+							int masp = chitiethoadon123.getSanpham().getMasanpham();
+							spp= session.get(Sanpham.class, masp);
+							int soluong = chitiethoadon123.getSoluong();
+							double thanhtien = chitiethoadon123.getThanhtien();
+							int soluongconlai = capnhatSanpham.getDonvitinh()-soluong;
+							Chitiethoadon  chitiethoadon = new Chitiethoadon(soluong,hoadonn,spp,thanhtien);
+							 try {
+					    		 session.beginTransaction();
+					    		 capnhatSanpham.setDonvitinh(soluongconlai);
+					    		 session.save(capnhatSanpham);
+					    		 System.out.println(hoadonn.getMahoadon());
+					    		 hoadonn = session.get(Hoadon.class, hoadonn.getMahoadon());
+					    		 session.save(chitiethoadon);
+					    		// session.save(spp);
+					    		 session.getTransaction().commit();
+					    		
+							 }
+						    	catch (RuntimeException error){
+						    		 System.out.println(error);
+						    	//	 alert.setContentText("Thêm chi tiet thất bại   !");
+						    	//	 alert.showAndWait();
+						    		 session.getTransaction().rollback();
+						    	}  
+						}
+								
+							
+							
+							}
+				 }
+						 }
+						 alert.setContentText("Tạo hóa đơn thành công !");
+			    		 alert.showAndWait(); 
+						 try {
+							 if (khachhangg.getText().isEmpty()){
+								 for ( int i = 0; i<hoadon.getItems().size(); i++) {
+									    hoadon.getItems().clear();
+									}
+								 tongtien.setText(null);
+								 khachtra.setText("");
+								 giamgia.setText("0");
+								 tienthua.setText(null);
+								 khachhangg.setText(null);
+								 diemtichluy.setText(null);
+								 thongbao.setText(null);
+								 
+		    			 	 }
+			    			 	
+		                       else if(khachhangg.getText() != null) {
+			    			 		 
+			    			 		int makh = Integer.parseInt(khachhangg.getText());
+			    					khachhang = session.get(KhachHang.class, makh);
+			    					int tichdiem = Integer.parseInt(tongtien.getText())/10000;
+				    			 	int tongg = khachhang.getDiemtichluy() +tichdiem ;
+			    			 		 session.beginTransaction();
+			    			 		 hoadonn.setKhachhang(khachhang);
+				    			 	 khachhang.setDiemtichluy(tongg);
+				    			 	 session.save(khachhang);
+				    			 	 session.getTransaction().commit();
+				    			 	for ( int i = 0; i<hoadon.getItems().size(); i++) {
+									    hoadon.getItems().clear();
+									}
+								 tongtien.setText(null);
+								 khachtra.setText("");
+								 giamgia.setText("0");
+								 tienthua.setText(null);
+								 khachhangg.setText(null);
+								 diemtichluy.setText(null);
+								 thongbao.setText(null);
+			    			 	 }
+			    			 	 
+			    			 	 
+			    		 }catch (Exception e) {
+			    			 System.out.println(e);
+						}
+						 //reset
+						 
+						 
+				 }
+		 });
 		 
-		 }
 		 
-			});
-	 }
+	 			}
 		
 		   
 	 

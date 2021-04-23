@@ -59,6 +59,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import QLBH.Nhanvien;
 
@@ -237,7 +238,7 @@ public class NhanvienController implements Initializable{
 				/// person2.setAddress(t3);
 				session.save(nv2);
 
-				alert.setContentText("Cap nhat nhan vien thanh cong !");
+				alert.setContentText("Cập nhật nhân viên thành công !");
 				alert.showAndWait();
 
 				luucapnhat.setVisible(false);
@@ -348,6 +349,8 @@ public class NhanvienController implements Initializable{
 				gt_nv.setText("");
 				imgnhanvien.setImage(null);
 				ngayvaolam.setValue(null);
+				capnhat_nv.setVisible(false);
+				xoa_nv.setVisible(false);
 			} else if (type == ButtonType.NO) {
 				alert.close();
 			}
@@ -402,6 +405,8 @@ public class NhanvienController implements Initializable{
 	private void setCellValueFromTabletoTexfField() {
 		tableNV.setOnMouseClicked(event -> {
 			//
+			capnhat_nv.setVisible(true);
+			xoa_nv.setVisible(true);
 			Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 			id_nv.setText(Integer.toString(nv.getManv()));
 			hovaten_nv.setText(nv.getHovaten());
@@ -440,6 +445,8 @@ public class NhanvienController implements Initializable{
 		initializeNHANVIEN();
 		setCellValueFromTabletoTexfField();
 		search();
+		capnhat_nv.setVisible(false);
+		xoa_nv.setVisible(false);
 		
 	}
 

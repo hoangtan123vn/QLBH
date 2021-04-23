@@ -12,31 +12,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="background" stylesheets="@../Nhacungcap/nhacungcap.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhanvien.NhanvienController">
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="background" stylesheets="@../Nhacungcap/nhacungcap.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhanvien.NhanvienController">
    <children>
-      <ImageView fitHeight="89.0" fitWidth="124.0" layoutX="440.0" layoutY="15.0">
-         <image>
-            <Image url="file:/C:/Users/Admin/Desktop/ảnh%20chế/unnamed.png" />
-         </image>
-      </ImageView>
       <ComboBox fx:id="Listnhanvien" layoutX="566.0" layoutY="153.0" onAction="#ListNhanvien" prefHeight="23.0" prefWidth="179.0" />
       <TextField fx:id="search" layoutX="13.0" layoutY="236.0" prefHeight="32.0" prefWidth="173.0" promptText="Tìm kiếm nhân viên" />
       <Button fx:id="idaddNV" alignment="BASELINE_LEFT" layoutX="192.0" layoutY="235.0" mnemonicParsing="false" onAction="#ThemNV" prefHeight="32.0" prefWidth="126.0" text="Thêm nhân viên" />
-      <ImageView fitHeight="29.0" fitWidth="25.0" layoutX="489.0" layoutY="233.0">
-         <image>
-            <Image url="file:/C:/Users/Admin/Desktop/ảnh%20chế/addperson.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="29.0" fitWidth="30.0" layoutX="1128.0" layoutY="14.0">
-         <image>
-            <Image url="file:/C:/Users/Admin/Desktop/ảnh%20chế/download.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="1107.0" layoutY="154.0" prefHeight="23.0" prefWidth="102.0" text="Lê Hoàng Tân" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
       <TableView fx:id="tableNV" layoutX="14.0" layoutY="281.0" prefHeight="536.0" prefWidth="576.0">
          <columns>
             <TableColumn fx:id="hovaten" prefWidth="115.0" text="Họ và tên" />
@@ -48,7 +28,7 @@
          </columns>
       </TableView>
       <Button fx:id="idreload" layoutX="535.0" layoutY="232.0" mnemonicParsing="false" onAction="#reload" prefHeight="40.0" prefWidth="54.0" />
-      <ImageView fx:id="imgnhanvien" fitHeight="110.0" fitWidth="191.0" layoutX="1063.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgnhanvien" fitHeight="171.0" fitWidth="215.0" layoutX="824.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="617.0" layoutY="362.0" prefHeight="36.0" prefWidth="126.0" text="Họ và tên " textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -104,8 +84,8 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button alignment="TOP_LEFT" layoutX="327.0" layoutY="237.0" mnemonicParsing="false" onAction="#XoaNhanvien" prefHeight="30.0" prefWidth="30.0" fx:id="xoa_nv" />
-      <Button fx:id="capnhat_nv" alignment="BASELINE_LEFT" layoutX="370.0" layoutY="236.0" mnemonicParsing="false" onAction="#CapNhatNhanvien" prefHeight="32.0" prefWidth="102.0" text="Cập nhật" />
+      <Button alignment="TOP_LEFT" layoutX="1139.0" layoutY="123.0" mnemonicParsing="false" onAction="#XoaNhanvien" prefHeight="25.0" prefWidth="54.0" text="Xóa" fx:id="xoa_nv" />
+      <Button fx:id="capnhat_nv" alignment="BASELINE_LEFT" layoutX="1140.0" layoutY="81.0" mnemonicParsing="false" onAction="#CapNhatNhanvien" prefHeight="32.0" prefWidth="76.0" text="Cập nhật" />
       <Label layoutX="617.0" layoutY="302.0" prefHeight="26.0" prefWidth="76.0" text="id_nv" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -139,16 +119,6 @@
       <ImageView fitHeight="36.0" fitWidth="76.0" layoutX="544.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Nhacungcap/reload.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="440.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Nhacungcap/iconupdate.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="331.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Nhacungcap/icondelete.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="104.0" fitWidth="413.0" layoutX="446.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">

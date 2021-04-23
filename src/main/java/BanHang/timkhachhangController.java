@@ -35,6 +35,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -84,6 +85,9 @@ public class timkhachhangController implements Initializable{
     private Stage thisStage;
     
     private final BanHangController banHangController;
+    
+    @FXML
+    private Label thongbao;
     
     @FXML
     private ImageView exit;
@@ -202,13 +206,23 @@ public class timkhachhangController implements Initializable{
 			tableKH.setItems(sortedList);
 		});
 	}
+	
+	
 	//
 
 	 
 	 @FXML
 	 void them(ActionEvent event) throws IOException  {
 		 KhachHang selected = tableKH.getSelectionModel().getSelectedItem();
-		 banHangController.setkhachhang(selected);
+		 if(selected == null) {
+			 thongbao.setVisible(true);
+			 thongbao.setText("Không có khách hàng được chọn");
+			 return;
+		 }
+		 else if(selected != null){
+			 banHangController.setkhachhang(selected);
+			 thongbao.setText(null);
+		 }
 		 Stage stage1 = (Stage) ap.getScene().getWindow();
     	 stage1.close();
     	 BanHangController.getInstance().falsedisable();

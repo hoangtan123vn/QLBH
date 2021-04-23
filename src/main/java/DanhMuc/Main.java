@@ -11,7 +11,7 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 	//	Parent root = FXMLLoader.load(getClass().getResource("/Nhanvien/nhanvien.fxml"));
 	//	Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
-		Parent root = FXMLLoader.load(getClass().getResource("danhmuc.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("lichsubanhang.fxml"));
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Phan mem quan ly ban hang");

@@ -52,7 +52,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
-import QLBH.GiaoDienQLController;
 import QLBH.Taikhoannv;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -152,7 +151,7 @@ public class LoginController implements Initializable {
 							} else if (tentaikhoan.contains(checktk1.getusername().trim())
 									&& matkhau.contains(checktk1.getpassword().trim())
 									&& cvString.contains("Nhân viên")) {
-								Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml"));
+								Parent sampleparent = FXMLLoader.load(getClass().getResource("giaodiennhanvien.fxml"));
 								Scene scene = new Scene(sampleparent);
 								Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -351,10 +350,18 @@ public class LoginController implements Initializable {
 							stage.show();
 						} else if (tentaikhoan.contains(checktk1.getusername().trim())
 								&& matkhau.contains(checktk1.getpassword().trim()) && cvString.contains("Nhân viên")) {
-							Parent sampleparent = FXMLLoader.load(getClass().getResource("chucnangnhanvien.fxml"));
-							Scene scene = new Scene(sampleparent);
-							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodiennhanvien.fxml"));
+							Parent tmp = loader.load();
+							Scene scene = new Scene(tmp);
+							String tk = checktk1.getusername();
+							taikhoan = session.get(Taikhoannv.class, tk);
 
+							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+							//Parent sampleparent = FXMLLoader.load(getClass().getResource("giaodiennhanvien.fxml"));
+							//Scene scene = new Scene(sampleparent);
+							//Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+							GiaoDienNhanvienController quanly1 = loader.getController();
+							quanly1.LoadData(taikhoan);
 							stage.hide();
 							stage.setScene(scene);
 							stage.show();
