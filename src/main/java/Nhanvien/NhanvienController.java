@@ -183,25 +183,6 @@ public class NhanvienController implements Initializable{
 		truedisable();
 	}
 
-	@FXML
-	void ListNhanvien(ActionEvent event) throws IOException {
-		if (Listnhanvien.getValue() == "Danh sách nhân viên") {
-			Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
-
-			// Scene scene = new Scene(root);
-			// Stage stage = new Stage();
-			// stage.setScene(scene);
-			// stage.show();
-
-		} else if (Listnhanvien.getValue() == "Lịch làm") {
-			Parent calamnhanvien = FXMLLoader.load(getClass().getResource("calamnhanvien.fxml"));
-			Scene calam_scene = new Scene(calamnhanvien);
-			Stage calam_stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
-			calam_stage.setScene(calam_scene);
-			calam_stage.show();
-		}
-	}
-
 	
 	@FXML
 	void luucapnhat(ActionEvent event) {
@@ -328,7 +309,6 @@ public class NhanvienController implements Initializable{
 				nv = session.get(Nhanvien.class, t1);
 				try {
 					session.beginTransaction();
-
 					if (nv != null) {
 						session.delete(nv);
 
@@ -439,9 +419,6 @@ public class NhanvienController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<String> list = FXCollections.observableArrayList("Danh sách nhân viên ", "Lịch làm");
-		Listnhanvien.setItems(list);
-		Listnhanvien.getSelectionModel().select("Danh sách nhân viên");
 		initializeNHANVIEN();
 		setCellValueFromTabletoTexfField();
 		search();

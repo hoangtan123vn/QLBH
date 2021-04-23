@@ -166,18 +166,6 @@ public class ThongKeDoanhThuController implements Initializable{
     	}
     	
     }
-    @FXML
-    void doanhthutheongay(ActionEvent event) {
-    	if (cbb_doanhthu.getValue() == "Thống kê theo ngày") {
-    		//loadStackedBarChart(1);
-    	}else if(cbb_doanhthu.getValue() == "Thống kê theo tháng") {
-    		doanhthumotthangtheodothi();
-    	}
-    }
-    
-    
-
-
     
     void doanhthumotthangtheodothi() {
     	Session session = HibernateUtils.getSessionFactory().openSession();
@@ -340,8 +328,6 @@ public class ThongKeDoanhThuController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		ObservableList<String> combobox = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12");
-		ObservableList<String> combobox1 = FXCollections.observableArrayList("Thống kê theo ngày","Thống kê theo tháng");
-		cbb_doanhthu.setItems(combobox1);
 		cbb_thang.setItems(combobox);
 		ObservableList<String> combobox2 = FXCollections.observableArrayList("Thống kê theo ngày","Thống kê khác","Thống kê lợi nhuận");
 		listthongke.setItems(combobox2);
@@ -349,6 +335,7 @@ public class ThongKeDoanhThuController implements Initializable{
 		//doanhthumotthangtheodothi();
 		thongkesptrongkho();
 		loadCongNoNhaCungCap();
+		doanhthumotthangtheodothi();
 		//loadStackedBarChart(4);
 	}
 	

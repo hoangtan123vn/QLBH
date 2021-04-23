@@ -37,7 +37,6 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <ComboBox fx:id="cbb_doanhthu" layoutX="66.0" layoutY="40.0" onAction="#doanhthutheongay" prefWidth="150.0" />
       <ComboBox fx:id="listthongke" layoutX="410.0" layoutY="24.0" onAction="#ListThongKe" prefHeight="39.0" prefWidth="409.0" />
    </children>
 </AnchorPane>
