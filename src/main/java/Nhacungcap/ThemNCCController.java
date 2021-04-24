@@ -213,6 +213,7 @@ public class ThemNCCController extends Application implements Initializable{
 			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
 			return false;
 		}
+		check_diachi.setText(null);
 		return true;
 		}
    

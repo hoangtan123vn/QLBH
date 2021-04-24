@@ -2,7 +2,9 @@ package QLBH;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -20,11 +22,23 @@ public class Nhanvien implements Serializable{
 	@Id
 	private int manv;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true,mappedBy = "nhanvien")
-	private List<Hoadon> hoadon;
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhanvien")
+	private Set<Hoadon> hoadon = new HashSet<Hoadon>();
+	
+	/*@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "nhanvien")
+	private List<Hoadon> hoadon;*/
+	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true,mappedBy = "nhanvien")
 	private Taikhoannv taikhoannv;
 	
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhanvien")
+	private Set<Phieutrahang> phieutrahang = new HashSet<Phieutrahang>();
+	
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhanvien")
+	private Set<Phieunhaphang> phieunhaphang = new HashSet<Phieunhaphang>();
+	
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhanvien")
+	private Set<Phieudathang> phieudathang = new HashSet<Phieudathang>();
 	private String hovaten;
 	private LocalDate ngaysinh;
 	private String chucvu;
@@ -182,20 +196,31 @@ public class Nhanvien implements Serializable{
 	}
 
 
-	public List<Hoadon> getHoadon() {
+/*	public List<Hoadon> getHoadon() {
 		return hoadon;
 	}
 
 
 	public void setHoadon(List<Hoadon> hoadon) {
 		this.hoadon = hoadon;
-	}
+	}*/
 	
 	 public String toString() {
 	        return String.valueOf(manv);
 	    }
 	
+	 
 	
+
+	public Set<Hoadon> getHoadon() {
+		return hoadon;
+	}
+
+
+	public void setHoadon(Set<Hoadon> hoadon) {
+		this.hoadon = hoadon;
+	}
+
 
 	public Taikhoannv getTaikhoannv() {
 		return taikhoannv;
@@ -204,6 +229,38 @@ public class Nhanvien implements Serializable{
 	public void setTaikhoannv(Taikhoannv taikhoannv) {
 		this.taikhoannv = taikhoannv;
 	}
+
+
+	public Set<Phieutrahang> getPhieutrahang() {
+		return phieutrahang;
+	}
+
+
+	public void setPhieutrahang(Set<Phieutrahang> phieutrahang) {
+		this.phieutrahang = phieutrahang;
+	}
+
+
+	public Set<Phieunhaphang> getPhieunhaphang() {
+		return phieunhaphang;
+	}
+
+
+	public void setPhieunhaphang(Set<Phieunhaphang> phieunhaphang) {
+		this.phieunhaphang = phieunhaphang;
+	}
+
+
+	public Set<Phieudathang> getPhieudathang() {
+		return phieudathang;
+	}
+
+
+	public void setPhieudathang(Set<Phieudathang> phieudathang) {
+		this.phieudathang = phieudathang;
+	}
+	
+	
 	
  ;
 

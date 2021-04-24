@@ -81,6 +81,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 
 	@FXML
 	private Label thongbao;
+	
 	@FXML
 	private Label thongbao1;
 
@@ -147,7 +148,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 					}
 				} catch (Exception e2) {
 					// TODO: handle exception
-					thongbao.setText("Bạn không được bỏ trống ");
+					thongbao.setText("Vui lòng nhập số ");
 					
 				}
 				

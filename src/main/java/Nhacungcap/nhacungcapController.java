@@ -3,6 +3,7 @@ package Nhacungcap;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -23,6 +24,9 @@ import QLBH.Hoadon;
 import QLBH.KhachHang;
 import QLBH.Nhacungcap;
 import QLBH.Nhanvien;
+import QLBH.Phieudathang;
+import QLBH.Phieunhaphang;
+import QLBH.Phieutrahang;
 import QLBH.Sanpham;
 import QLBH.chucnangquanly;
 import javafx.collections.FXCollections;
@@ -244,9 +248,6 @@ public class nhacungcapController implements Initializable{
 	
     
     private void ButtonXoaNCC() {
-
-    	
-        
 		Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>> cellFactory = new Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>>() {
 			@Override
 			public TableCell<Nhacungcap, Void> call(final TableColumn<Nhacungcap, Void> param) {
@@ -285,6 +286,19 @@ public class nhacungcapController implements Initializable{
 									try {
 										session.beginTransaction();
 										if (ncc != null) {
+											
+											Set<Phieudathang> phieudathangs = ncc.getPhieudathang();
+											for(Phieudathang phieudathang : phieudathangs) {
+												phieudathang.setNhacungcap(null);
+											}
+											Set<Phieunhaphang> phieunhaphangs = ncc.getPhieunhaphang();
+											for(Phieunhaphang phieunhaphang : phieunhaphangs) {
+												phieunhaphang.setNhacungcap(null);
+											}
+											Set<Phieutrahang> phieutrahangs = ncc.getPhieutrahang();
+											for(Phieutrahang phieutrahang : phieutrahangs) {
+												phieutrahang.setNhacungcap(null);
+											}	
 											session.delete(ncc);
 
 										}

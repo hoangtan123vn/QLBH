@@ -1,7 +1,9 @@
 package QLBH;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,11 +29,14 @@ public class Nhacungcap implements Serializable{
 	private Integer sodienthoai;
 	private String email;
 	private Integer sotienno;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true,mappedBy = "nhacungcap")
-	private List<Phieudathang> phieudathang;
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhacungcap")
+	private Set<Phieutrahang> phieutrahang = new HashSet<Phieutrahang>();
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true,mappedBy = "nhacungcap")
-	private List<Phieunhaphang> phieunhaphang;
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhacungcap")
+	private Set<Phieunhaphang> phieunhaphang = new HashSet<Phieunhaphang>();
+	
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhacungcap")
+	private Set<Phieudathang> phieudathang = new HashSet<Phieudathang>();
 	//private Button xoa;
 	
 	public Nhacungcap() {
@@ -146,30 +151,40 @@ public class Nhacungcap implements Serializable{
 
 
 
-	public List<Phieudathang> getPhieudathang() {
-		return phieudathang;
+	public Set<Phieutrahang> getPhieutrahang() {
+		return phieutrahang;
 	}
 
 
 
-	public void setPhieudathang(List<Phieudathang> phieudathang) {
-		this.phieudathang = phieudathang;
+	public void setPhieutrahang(Set<Phieutrahang> phieutrahang) {
+		this.phieutrahang = phieutrahang;
 	}
 
 
 
-	public List<Phieunhaphang> getPhieunhaphang() {
+	public Set<Phieunhaphang> getPhieunhaphang() {
 		return phieunhaphang;
 	}
 
 
 
-	public void setPhieunhaphang(List<Phieunhaphang> phieunhaphang) {
+	public void setPhieunhaphang(Set<Phieunhaphang> phieunhaphang) {
 		this.phieunhaphang = phieunhaphang;
 	}
 
+
+
+	public Set<Phieudathang> getPhieudathang() {
+		return phieudathang;
+	}
 	
 	
 
+
+
+	public void setPhieudathang(Set<Phieudathang> phieudathang) {
+		this.phieudathang = phieudathang;
+	}
 
 }

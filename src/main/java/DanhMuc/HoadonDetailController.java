@@ -103,9 +103,21 @@ public class HoadonDetailController implements Initializable {
     	lbMahoadon.setText(String.valueOf((hoadon.getMahoadon())));
     	lbThoigianmua.setText(String.valueOf(hoadon.getThoigianmua()));
     //	lbTonggia.setText(String.valueOf(hoadon.getMahoadon()));
-    	lbMakh.setText((hoadon.getKhachhang()).toString());
+    	//System.out.println(hoadon.getKhachhang().toString());
+    	if(hoadon.getKhachhang() == null) {
+    		lbMakh.setText("[khách lẻ]");
+    	}
+    	else {
+    		lbMakh.setText((hoadon.getKhachhang()).getTenkh());
+    	}
+    	
+    	if(hoadon.getNhanvien() == null) {
+    		lbManv.setText("[Nhân viên đã bị xóa]");
+    	}
+    	else {
+    		lbManv.setText((hoadon.getNhanvien()).getHovaten());
+    	}
     	//lbManv.setText((hoadon.getKhachhang().getTenkh()));
-    	lbManv.setText((hoadon.getNhanvien()).toString());
    // 	int mahoadon = hoadon.getMahoadon();
     	lbTonggia.setText(String.valueOf(hoadon.getTonggia()));
     	IntilizeChitietHoadon(hoadon);

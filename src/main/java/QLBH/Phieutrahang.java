@@ -22,11 +22,11 @@ public class Phieutrahang implements Serializable{
 	private List<Chitietphieutra> chitietphieutra;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "mancc")
+	@JoinColumn(name = "mancc",nullable = true)
 	private Nhacungcap nhacungcap;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "manv")
+	@JoinColumn(name = "manv",nullable = true)
 	private Nhanvien nhanvien;
 	private int tongtien;
 	

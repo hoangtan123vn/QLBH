@@ -38,11 +38,11 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="33.0" layoutY="136.0" text="Mã NCC ">
+      <Label layoutX="33.0" layoutY="136.0" text="Tên nhà cung cấp">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font></Label>
-      <Label layoutX="30.0" layoutY="178.0" text="Mã NV">
+      <Label layoutX="30.0" layoutY="178.0" text="Tên nhân viên">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font></Label>

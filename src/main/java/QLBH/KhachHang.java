@@ -7,7 +7,9 @@ import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ import com.sun.xml.bind.v2.runtime.RuntimeUtil.ToStringAdapter;
 public class KhachHang {
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@OneToMany(mappedBy="khachhang")
+	@OneToMany(mappedBy="khachhang",cascade = {CascadeType.MERGE, CascadeType.PERSIST},fetch = FetchType.LAZY)
 	private List<Hoadon> hoadon;
 	@Id 
 	private int makh;

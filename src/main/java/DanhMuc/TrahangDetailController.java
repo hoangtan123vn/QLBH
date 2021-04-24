@@ -79,8 +79,17 @@ public class TrahangDetailController implements Initializable{
     public void setPhieutrahang(Phieutrahang phieutrahang) {
     	lbMaphieutra.setText(String.valueOf(phieutrahang.getMaphieutra()));
     	lbThoigiantra.setText(String.valueOf(phieutrahang.getThoigian()));
-    	lbMancc.setText(phieutrahang.getNhacungcap().toString());
-    	lbManv.setText(phieutrahang.getNhanvien().toString());
+    	if(phieutrahang.getNhacungcap() == null) {
+    		lbMancc.setText("[Nhà cung cấp đã bị xóa]");
+    	}else {
+    		lbMancc.setText(phieutrahang.getNhacungcap().getTenncc());
+    	}
+    	if(phieutrahang.getNhanvien() == null) {
+    		lbManv.setText("[Nhân viên đã bị xóa]");
+    	}else {
+    		lbManv.setText(phieutrahang.getNhanvien().getHovaten());
+    	}
+    	
     	lbTongtien.setText(String.valueOf(phieutrahang.getTongtien()));
     	IntitlizeChitietphieutra(phieutrahang);
     	getChitietphieutra(phieutrahang);

@@ -92,6 +92,9 @@ public class DathangDetailController implements Initializable{
 
     @FXML
     private TableColumn tongtien;
+    
+    @FXML
+    private Label lbManv;
 
     
     @FXML
@@ -170,7 +173,16 @@ public class DathangDetailController implements Initializable{
 	    	lbMadathang.setText(String.valueOf((phieudathang.getMadathang())));
 	    	lbThoigiandat.setText(String.valueOf(phieudathang.getThoigian()));
 	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
-	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
+	    	if(phieudathang.getNhacungcap() == null) {
+	    		lbMancc.setText("[Nhà cung cấp đã bị xóa]");
+	    	}else {
+	    		lbMancc.setText(phieudathang.getNhacungcap().getTenncc());
+	    	}
+	    	if(phieudathang.getNhanvien() == null) {
+	    		lbManv.setText("[Nhân viên đã bị xóa]");
+	    	}else {
+	    		lbManv.setText(phieudathang.getNhanvien().getHovaten());
+	    	}
 	   // 	lbManv.setText(phieudathang.getNhanvien().toString());
 	    	IntitlizeChitietdathang(phieudathang);
 	    }	

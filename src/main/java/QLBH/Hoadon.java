@@ -20,25 +20,23 @@ public class Hoadon implements Serializable{
 	//@PrimaryKeyJoinColumn(name=" manv")
 	//private Nhanvien nv;
 	//private KhachHang kh;
-	@OneToMany(mappedBy="hoadon",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="hoadon",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<Chitiethoadon> chitiethoadon;
 //	@JoinColumn()
 	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST},fetch = FetchType.LAZY)
 	@JoinColumn(name="makh")
 	@GeneratedValue
 	private KhachHang khachhang;
 	
 	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name="manv")
+	@JoinColumn(name="manv",nullable = true)
 	@GeneratedValue
 	private Nhanvien nhanvien;
 	
 	
 	private LocalDateTime thoigianmua;
 	private int tonggia;
-//	private int makh;
-//	private int manv;
 	
 	
 		
@@ -103,18 +101,6 @@ public class Hoadon implements Serializable{
 	public void setTonggia(int tonggia) {
 		this.tonggia = tonggia;
 	}
-/*	public int getMakh() {
-		return makh;
-	}
-	public void setMakh(int makh) {
-		this.makh = makh;
-	}*/
-/*	public int getManv() {
-		return manv;
-	}
-	public void setManv(int manv) {
-		this.manv = manv;
-	}*/
 
 	public List<Chitiethoadon> getChitiethoadon() {
 		return chitiethoadon;

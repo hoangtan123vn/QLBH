@@ -111,8 +111,16 @@ public class NhaphangDetailController implements Initializable {
     public void setPhieunhaphang(Phieunhaphang phieunhaphang) {
     	lbManhaphang.setText(String.valueOf(phieunhaphang.getManhaphang()));
     	lbThoigiannhap.setText(String.valueOf(phieunhaphang.getThoigian()));
-    	lbMancc.setText((phieunhaphang.getNhacungcap().toString()));
-    	lbManv.setText((phieunhaphang.getNhanvien().toString()));
+    	if(phieunhaphang.getNhacungcap() == null) {
+    		lbMancc.setText("[Nhà cung cấp đã bị xóa]");
+    	}else {
+    		lbMancc.setText(phieunhaphang.getNhacungcap().getTenncc());
+    	}
+    	if(phieunhaphang.getNhanvien() == null) {
+    		lbManv.setText("[Nhân viên đã bị xóa]");
+    	}else {
+    		lbManv.setText(phieunhaphang.getNhanvien().getHovaten());
+    	}
     	lbTongtien.setText(String.valueOf(phieunhaphang.getTongtien()));
   //  	IntitlizeChitietnhaphang(phieunhaphang);
     	IntitlizeChitietnhaphang(phieunhaphang);

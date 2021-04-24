@@ -11,11 +11,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
+
 import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import QLBH.HibernateUtils;
+import QLBH.Hoadon;
 import QLBH.Nhanvien;
+import QLBH.Phieudathang;
+import QLBH.Phieunhaphang;
+import QLBH.Phieutrahang;
 import QLBH.Taikhoannv;
 import QLBH.chucnangquanly;
 
@@ -310,11 +316,29 @@ public class NhanvienController implements Initializable{
 				try {
 					session.beginTransaction();
 					if (nv != null) {
+					//	nv.setHoadon(null);
+						Set<Hoadon> hoadons = nv.getHoadon();
+						for(Hoadon hoadon : hoadons) {
+							hoadon.setNhanvien(null);
+						}
+						Set<Phieudathang> phieudathangs = nv.getPhieudathang();
+						for(Phieudathang phieudathang : phieudathangs) {
+							phieudathang.setNhanvien(null);
+						}
+						Set<Phieunhaphang> phieunhaphangs = nv.getPhieunhaphang();
+						for(Phieunhaphang phieunhaphang : phieunhaphangs) {
+							phieunhaphang.setNhanvien(null);
+						}
+						Set<Phieutrahang> phieutrahangs = nv.getPhieutrahang();
+						for(Phieutrahang phieutrahang : phieutrahangs) {
+							phieutrahang.setNhanvien(null);
+						}	
+					//	nv.setHoadon(null);
 						session.delete(nv);
-
 					}
 					session.getTransaction().commit();
-				} catch (RuntimeException error) {
+				} catch (HibernateException error) {
+					System.out.println(error);
 					session.getTransaction().rollback();
 
 				}

@@ -25,12 +25,12 @@ public class Phieudathang implements Serializable {
 	private List<Chitietdathang> chitietdathang;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name="mancc")
+	@JoinColumn(name="mancc",nullable = true)
 	@GeneratedValue
 	private Nhacungcap nhacungcap;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name="manv")
+	@JoinColumn(name="manv",nullable = true)
 	@GeneratedValue
 	private Nhanvien nhanvien;
 	
