@@ -160,7 +160,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 			 
 	    	//Integer mancc = Integer.parseInt(tfncc.getText());
 	   // 	String ten = tenncc.getText();
-	    	Integer sotienno = Integer.parseInt(tfnoconlai.getText());
+	    	String sotienno = tfnoconlai.getText();
 	    //	String noio = diachi.getText();
 	    	//Integer sdt = Integer.parseInt(sodienthoai.getText());;
 	    	//String em = email.getText();

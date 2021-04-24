@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -38,24 +40,36 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
@@ -120,6 +134,51 @@ public class nhacungcapController implements Initializable{
 	public static nhacungcapController getInstance() {
 		return instance;
 	}
+	 private void showAlertSodienthoai() {
+	        Alert alert = new Alert(AlertType.INFORMATION);
+	        alert.setTitle("Error");
+	       
+	        alert.setContentText("Số điện thoại không hợp lệ!! Mời nhập lại");
+	 
+	        alert.showAndWait();
+	        ReloadNHACUNGCAP();
+	    }
+	 private void showAlertDiachi() {
+	        Alert alert = new Alert(AlertType.INFORMATION);
+	        alert.setTitle("Error");
+	       
+	        alert.setContentText("Địa chỉ không hợp lệ!! Mời nhập lại");
+	 
+	        alert.showAndWait();
+	        ReloadNHACUNGCAP();
+	    }
+	 private void showAlertTenncc() {
+	        Alert alert = new Alert(AlertType.INFORMATION);
+	        alert.setTitle("Error");
+	       
+	        alert.setContentText("Tên nhà cung cấp không hợp lệ!! Mời nhập lại");
+	 
+	        alert.showAndWait();
+	        ReloadNHACUNGCAP();
+	    }
+	 private void showAlertCongno() {
+	        Alert alert = new Alert(AlertType.INFORMATION);
+	        alert.setTitle("Error");
+	       
+	        alert.setContentText("Số tiền không hợp lệ!! Mời nhập lại");
+	 
+	        alert.showAndWait();
+	        ReloadNHACUNGCAP();
+	    }
+	 private void showAlertEmail() {
+	        Alert alert = new Alert(AlertType.INFORMATION);
+	        alert.setTitle("Error");
+	       
+	        alert.setContentText("Email không hợp lệ!! Mời nhập lại");
+	 
+	        alert.showAndWait();
+	        ReloadNHACUNGCAP();
+	    }
 	
 	
 	public ObservableList<Nhacungcap> getNhacungcap() {
@@ -144,7 +203,7 @@ public class nhacungcapController implements Initializable{
 
 		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
 
-		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sotienno"));
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sotienno"));
 
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("email"));
 		tableNhacungcap.setItems(getNhacungcap());
@@ -345,6 +404,7 @@ public class nhacungcapController implements Initializable{
 			}
 		};
 		deleteNCC.setCellFactory(cellFactory);
+		
 	}
 
 	@Override
@@ -362,12 +422,21 @@ public class nhacungcapController implements Initializable{
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
-				person = event.getRowValue();
-				person = session.get(Nhacungcap.class, person.getMancc());
-				person.setTenncc(event.getNewValue());
-				session.save(person);
-				session.getTransaction().commit();
-				ReloadNHACUNGCAP();
+				String s = event.getNewValue();
+				Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
+				Matcher m = p.matcher(s);
+				if(m.find() && m.group().equals(s)){
+					person = event.getRowValue();
+					person = session.get(Nhacungcap.class, person.getMancc());
+					person.setTenncc(s);
+					session.save(person);
+					session.getTransaction().commit();
+					ReloadNHACUNGCAP();
+				}
+				else {
+					showAlertTenncc();
+				}
+				
 			}
 		});
 
@@ -383,19 +452,30 @@ public class nhacungcapController implements Initializable{
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
-				person = event.getRowValue();
-				person = session.get(Nhacungcap.class, person.getMancc());
-				person.setDiachi(event.getNewValue());
-				session.save(person);
-				session.getTransaction().commit();
-				ReloadNHACUNGCAP();
+				String s = event.getNewValue();
+				Pattern p = Pattern.compile("[0-9]+");
+				Matcher m = p.matcher(s);
+				if(s.isEmpty()){
+					showAlertDiachi();
+					
+				}
+				else {
+					person = event.getRowValue();
+					person = session.get(Nhacungcap.class, person.getMancc());
+					person.setDiachi(s);
+					session.save(person);
+					session.getTransaction().commit();
+					ReloadNHACUNGCAP();
+				
+				}
+				
 			}
 		});
 
 		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
 
 		sodienthoai.setCellFactory(TextFieldTableCell.forTableColumn());
-		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
+		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {		   
 			@Override
 			public void handle(CellEditEvent<Nhacungcap, String> event) {
 				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
@@ -405,21 +485,32 @@ public class nhacungcapController implements Initializable{
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
-				person = event.getRowValue();
-				person = session.get(Nhacungcap.class, person.getMancc());				
-				person.setSodienthoai(event.getNewValue());								
-				session.save(person);
-				session.getTransaction().commit();
-				ReloadNHACUNGCAP();
+				String s = event.getNewValue();
+				Pattern p = Pattern.compile("[0-9]+");
+				Matcher m = p.matcher(s);
+				 if(m.find() && m.group().equals(s)){
+					 person = event.getRowValue();
+						person = session.get(Nhacungcap.class, person.getMancc());				
+						person.setSodienthoai(s);								
+						session.save(person);
+						session.getTransaction().commit();
+						ReloadNHACUNGCAP();
+		        }
+				 else {
+					showAlertSodienthoai();
+					
+				     
+				 }
+				
 			}
 		});
 
-		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sotienno"));
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sotienno"));
 
-		sotienno.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-		sotienno.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, Integer>>() {
+		sotienno.setCellFactory(TextFieldTableCell.forTableColumn());
+		sotienno.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
-			public void handle(CellEditEvent<Nhacungcap, Integer> event) {
+			public void handle(CellEditEvent<Nhacungcap, String> event) {
 				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 						.configure("hibernate.cfg.xml").build();
 				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
@@ -427,13 +518,23 @@ public class nhacungcapController implements Initializable{
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
-				person = event.getRowValue();
-				person = session.get(Nhacungcap.class, person.getMancc());
-				person.setSotienno(event.getNewValue());
-				Integer i = (Integer) session.save(person);
-				System.out.println("Mã định danh đã tạo:" + i);
-				session.getTransaction().commit();
-				ReloadNHACUNGCAP();
+				String s = event.getNewValue();
+				Pattern p = Pattern.compile("[0-9]+");
+				Matcher m = p.matcher(s);
+				 if(m.find() && m.group().equals(s)){
+					 person = event.getRowValue();
+						person = session.get(Nhacungcap.class, person.getMancc());
+						person.setSotienno(s);
+						session.save(person);
+						session.getTransaction().commit();
+						ReloadNHACUNGCAP();
+		        }
+				 else {
+					showAlertCongno();
+					
+				     
+				 }
+				
 			}
 		});
 
@@ -449,13 +550,23 @@ public class nhacungcapController implements Initializable{
 				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
 				Session session = sessionFactory.openSession();
 				session.beginTransaction();
+				String s = event.getNewValue();
 				Nhacungcap person = new Nhacungcap();
-				person = event.getRowValue();
-				person = session.get(Nhacungcap.class, person.getMancc());
-				person.setEmail(event.getNewValue());
-				session.save(person);
-				session.getTransaction().commit();
-				ReloadNHACUNGCAP();
+				Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		    	Matcher m = p.matcher(s);
+		    	if(m.find() && m.group().equals(s)){
+		    		person = event.getRowValue();
+					person = session.get(Nhacungcap.class, person.getMancc());
+					person.setEmail(s);
+					session.save(person);
+					session.getTransaction().commit();
+					ReloadNHACUNGCAP();
+				}
+		    	else {
+					showAlertEmail();
+				}
+				
 			}
 		});
 
