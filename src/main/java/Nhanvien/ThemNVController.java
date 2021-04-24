@@ -51,6 +51,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.*;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
+import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
@@ -332,7 +333,7 @@ public class ThemNVController extends Application implements Initializable{
     			 &KiemTraMatKhau() & SosanhMatKhau()) {
     		try {
     			Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setTitle("Them nhan vien");
+    			alert.setTitle("Thêm nhân viên");
     			
     			LocalDate t2 = tfns.getValue();
     			String t3 = tfcv.getValue();
@@ -346,30 +347,37 @@ public class ThemNVController extends Application implements Initializable{
     			String matkhau = pass.getText();
     			String xacnhanmatkhau = xacnhanpass.getText();
     			//KIỂM TRA HỌ VÀ TÊN 
-    			
-    			
     			 FileInputStream fis = new FileInputStream(file);
     			 byte[] bFile = new byte[(int) (file.length())];
     			 fis.read(bFile);
     			 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
     			 Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
-        		 session.beginTransaction();
-        		 session.save(nv);
-        		 session.save(tk);
-        		 session.getTransaction().commit();
-        		 Stage stage = (Stage) ap.getScene().getWindow();
-            	 stage.close();
-            	
-            	 alert.setContentText("Them nhan vien thanh cong !");
-            	 
+    			 session.beginTransaction();
+    			 String hql = "FROM Taikhoannv A WHERE A.username = :username";
+    			 Query query = session.createQuery(hql);
+    			 query.setParameter("username", taikhoan);
+    			 List<Taikhoannv> taikhoannv =query.getResultList();
+    			 for(Taikhoannv checkTaikhoannv : taikhoannv) {
+    				 if(checkTaikhoannv.getusername().equals(taikhoan)) {
+    					 check_taikhoan.setText("Tài khoản đã có");
+    					 return;
+    				 } 
+    			 }
+    			 session.save(nv);
+            	 session.save(tk);
+            	 session.getTransaction().commit();
+            	 Stage stage = (Stage) ap.getScene().getWindow();
+                 stage.close();
+                 alert.setContentText("Thêm nhân viên thành công !");
+                 alert.showAndWait(); 
             //	 System.out.println();
-            	 alert.showAndWait();    	
+            	   	
         	}
         	catch (RuntimeException error){
         		Alert alert = new Alert(AlertType.INFORMATION);
     			alert.setTitle("Them nhan vien");
         		 System.out.println(error);
-        		 alert.setContentText("Them nhan vien that bai  !");
+        		 alert.setContentText("Thêm nhân viên thất bại  !");
         		 alert.showAndWait();
         		 session.getTransaction().rollback();
         		 return;
