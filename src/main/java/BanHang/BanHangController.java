@@ -92,7 +92,8 @@ public class BanHangController implements Initializable{
 	public static BanHangController getInstance() {
 		return instance;
 	}
-	
+	@FXML
+	private Button xoakh;
 	@FXML
 	private Label thongbao;
 	 @FXML
@@ -672,6 +673,12 @@ public class BanHangController implements Initializable{
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+	}
+	@FXML
+	 void xoakh(ActionEvent event) {
+		khachhangg.setText(null);
+		diemtichluy.setText(null);
+		giamgia.setText("0");
 	}
 
 }
