@@ -42,7 +42,7 @@ public class Nhanvien implements Serializable{
 	private String hovaten;
 	private LocalDate ngaysinh;
 	private String chucvu;
-	private int sdt;
+	private String sdt;
 	private int cmnd;
 	private String gioitinh;
 	private String diachi;
@@ -53,7 +53,7 @@ public class Nhanvien implements Serializable{
 	}
 	
 	
-	public Nhanvien(int manv,String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image,LocalDate ngayvaolam) {
+	public Nhanvien(int manv,String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,String sdt,int cmnd,String diachi,byte[] image,LocalDate ngayvaolam) {
 		super();
 		this.manv=manv;
 		this.hovaten=hovaten;
@@ -66,7 +66,7 @@ public class Nhanvien implements Serializable{
 		this.image = image;
 		this.ngayvaolam = ngayvaolam;
 	}
-	public Nhanvien(int manv,String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,LocalDate ngayvaolam) {
+	public Nhanvien(int manv,String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,String sdt,int cmnd,String diachi,LocalDate ngayvaolam) {
 		super();
 		this.manv=manv;
 		this.hovaten=hovaten;
@@ -78,7 +78,7 @@ public class Nhanvien implements Serializable{
 		this.diachi=diachi;
 		this.ngayvaolam=ngayvaolam;
 	}
-	public Nhanvien(String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,int sdt,int cmnd,String diachi,byte[] image,LocalDate ngayvaolam) {
+	public Nhanvien(String hovaten,LocalDate ngaysinh,String chucvu,String gioitinh,String sdt,int cmnd,String diachi,byte[] image,LocalDate ngayvaolam) {
 		super();
 		this.hovaten=hovaten;
 		this.ngaysinh=ngaysinh;
@@ -96,7 +96,7 @@ public class Nhanvien implements Serializable{
 		this.manv=manv;
 	}
 			
-	public Nhanvien(String hovaten,LocalDate ngaysinh,String chucvu,int sdt,int cmnd,String diachi) {
+	public Nhanvien(String hovaten,LocalDate ngaysinh,String chucvu,String sdt,int cmnd,String diachi) {
 		super();
 		//this.id=id;
 		this.hovaten=hovaten;
@@ -182,10 +182,10 @@ public class Nhanvien implements Serializable{
 	public void setChucvu(String chucvu) {
 		this.chucvu = chucvu;
 	}
-	public int getSdt() {
+	public String getSdt() {
 		return sdt;
 	}
-	public void setSdt(int sdt) {
+	public void setSdt(String sdt) {
 		this.sdt = sdt;
 	}
 	public int getCmnd() {

@@ -275,11 +275,15 @@ public class ThemNVController extends Application implements Initializable{
     private boolean KiemTraSDT() {
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(tfsdt.getText());
-		if(m.find() && m.group().equals(tfsdt.getText())){
+		if(m.find() && m.group().equals(tfsdt.getText()) && tfsdt.getText().matches("\\d{10}|\\d{11}")){
 			check_sdt.setText(null);
 			return true;
 		}
-		else {
+		else if(tfsdt.getText().length()<10){
+			check_sdt.setText("Số điện thoại không đủ 10 số");
+			return false;
+		}
+		else{
 			check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
 			return false;
 		}
@@ -340,6 +344,7 @@ public class ThemNVController extends Application implements Initializable{
     			String t4 = tfgt.getValue();
     			String t1 = tfhovaten.getText();
     			int t5 = Integer.parseInt(tfsdt.getText());
+    			String sodienthoai =String.format("%010d", t5);
     			int t6 = Integer.parseInt(tfcmnd.getText());
     			String t7 = tfdc.getText();
     			LocalDate t8 = tfngayvaolam.getValue();
@@ -350,7 +355,7 @@ public class ThemNVController extends Application implements Initializable{
     			 FileInputStream fis = new FileInputStream(file);
     			 byte[] bFile = new byte[(int) (file.length())];
     			 fis.read(bFile);
-    			 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,t5,t6,t7,bFile,t8);
+    			 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,sodienthoai,t6,t7,bFile,t8);
     			 Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
     			 session.beginTransaction();
     			 String hql = "FROM Taikhoannv A WHERE A.username = :username";
@@ -375,7 +380,7 @@ public class ThemNVController extends Application implements Initializable{
         	}
         	catch (RuntimeException error){
         		Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setTitle("Them nhan vien");
+    			alert.setTitle("Thêm nhân viên");
         		 System.out.println(error);
         		 alert.setContentText("Thêm nhân viên thất bại  !");
         		 alert.showAndWait();

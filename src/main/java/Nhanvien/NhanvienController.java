@@ -12,9 +12,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-import org.hibernate.query.Query;
-import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
@@ -22,12 +21,7 @@ import QLBH.Nhanvien;
 import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
-import QLBH.Taikhoannv;
-import QLBH.chucnangquanly;
-
 import javax.persistence.criteria.CriteriaQuery;
-
-import org.apache.derby.vti.Restriction.AND;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,7 +29,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
+import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,7 +61,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
-import QLBH.Nhanvien;
 
 
 public class NhanvienController implements Initializable{
@@ -122,8 +115,6 @@ public class NhanvienController implements Initializable{
 	@FXML
 	private DatePicker ngayvaolam;
 
-	@FXML
-	private TextField cv_nv;
 
 	@FXML
 	private TextField sdt_nv;
@@ -156,12 +147,82 @@ public class NhanvienController implements Initializable{
 	private TextField search;
 
 	@FXML
-	private TextField gt_nv;
-
-	@FXML
 	private ComboBox<String> Listnhanvien;
-
 	
+	
+	@FXML
+    private Label check_hovaten;
+
+    @FXML
+    private Label check_ngaysinh;
+
+    @FXML
+    private Label check_sdt;
+
+    @FXML
+    private Label check_cmnd;
+
+    @FXML
+    private Label check_diachi;
+    
+    @FXML
+    private ComboBox<String> cb_chucvu;
+
+    @FXML
+    private ComboBox<String> cb_gioitinh;
+
+    private boolean KiemTraTenKH() {
+		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
+		Matcher m = p.matcher(hovaten_nv.getText());
+		if(m.find() && m.group().equals(hovaten_nv.getText())){
+			check_hovaten.setText(null);
+			return true;
+		}
+		else {
+			check_hovaten.setText("Vui lòng điền tên hợp lệ");
+			return false;
+		}
+	}
+    
+    private boolean KiemTraSDT() {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(sdt_nv.getText());
+		if(m.find() && m.group().equals(sdt_nv.getText()) && sdt_nv.getText().matches("\\d{10}|\\d{11}")){
+			check_sdt.setText(null);
+			return true;
+		}
+		else if(sdt_nv.getText().length()<10){
+			check_sdt.setText("Số điện thoại không đủ 10 số");
+			return false;
+		}
+		else{
+			check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
+			return false;
+		}
+	}
+    
+    private boolean KiemTraCMND() {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(cmnd_nv.getText());
+		if(m.find() && m.group().equals(cmnd_nv.getText())){
+			check_cmnd.setText(null);
+			return true;
+		}
+		else {
+			check_cmnd.setText("Vui lòng điền cmnd hợp lệ");
+			return false;
+		}
+	}
+    
+    private boolean KiemTraDiaChi() {
+    	//System.out.println(tfdc.getText());
+		if(diachi_nv.getText().isEmpty()){
+			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
+			return false;
+		}
+		check_diachi.setText(null);
+		return true;
+		}
 
 	@FXML
 	void Reset(ActionEvent event) {
@@ -170,11 +231,13 @@ public class NhanvienController implements Initializable{
 		hovaten_nv.setText(nv.getHovaten());
 		// ns_nv.setText(Integer.toString(nv.getNgaysinh()));
 		ns_nv.setValue(nv.getNgaysinh());
-		cv_nv.setText(nv.getChucvu());
-		gt_nv.setText(nv.getGioitinh());
-		sdt_nv.setText(Integer.toString(nv.getSdt()));
+		cb_chucvu.getSelectionModel().select(nv.getChucvu());
+		cb_gioitinh.getSelectionModel().select(nv.getGioitinh());
+		//cv_nv.setText(nv.getChucvu());
+		//gt_nv.setText(nv.getGioitinh());
+		sdt_nv.setText(nv.getSdt());
 		diachi_nv.setText(nv.getDiachi());
-		cmnd_nv.setText(Integer.toString(nv.getCmnd()));
+		cmnd_nv.setText(String.valueOf(nv.getCmnd()));
 		ngayvaolam.setValue(nv.getNgayvaolam());
 	}
 
@@ -192,61 +255,62 @@ public class NhanvienController implements Initializable{
 	
 	@FXML
 	void luucapnhat(ActionEvent event) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Cap nhat thanh cong ");
-		int idnv = (Integer.parseInt(id_nv.getText()));
-		String hovatennv = hovaten_nv.getText();
-		LocalDate ngaysinhnv = ns_nv.getValue();
-		String chucvunv = cv_nv.getText();
-		String gioitinhnv = gt_nv.getText();
-		LocalDate nvl = ngayvaolam.getValue();
-		int sdtnv = (Integer.parseInt(sdt_nv.getText()));
-		int cmndnv = (Integer.parseInt(cmnd_nv.getText()));
-		String diachinv = diachi_nv.getText();
-		 Session session = HibernateUtils.getSessionFactory().openSession();
-		/*SessionFactory factory = HibernateUltis.getSessionFactory();
-		 
-	      Session session = factory.getCurrentSession();*/
-		try {
-			session.beginTransaction();
-			Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,
-					nvl);
-			nv2 = session.get(Nhanvien.class, idnv);
-			if (nv2 != null) {
-				// nv2.setid(idnv);
-				nv2.setHovaten(hovatennv);
-				nv2.setChucvu(chucvunv);
-				nv2.setGioitinh(gioitinhnv);
-				nv2.setDiachi(diachinv);
-				nv2.setNgaysinh(ngaysinhnv);
-				nv2.setSdt(sdtnv);
-				nv2.setCmnd(cmndnv);
-				// person2.setAge(t2);
-				/// person2.setAddress(t3);
-				session.save(nv2);
+		if(KiemTraTenKH() & KiemTraSDT() &KiemTraCMND()&KiemTraDiaChi()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Cap nhat thanh cong ");
+			int idnv = (Integer.parseInt(id_nv.getText()));
+			String hovatennv = hovaten_nv.getText();
+			LocalDate ngaysinhnv = ns_nv.getValue();
+			String chucvunv = cb_chucvu.getValue();
+			String gioitinhnv = cb_gioitinh.getValue();
+			LocalDate nvl = ngayvaolam.getValue();
+			String sdtnv = (sdt_nv.getText());
+			int cmndnv = Integer.parseInt(cmnd_nv.getText());
+			String diachinv = diachi_nv.getText();
+			 Session session = HibernateUtils.getSessionFactory().openSession();
+			/*SessionFactory factory = HibernateUltis.getSessionFactory();
+			 
+		      Session session = factory.getCurrentSession();*/
+			try {
+				session.beginTransaction();
+				Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,nvl);
+				nv2 = session.get(Nhanvien.class, idnv);
+				if (nv2 != null) {
+					// nv2.setid(idnv);
+					nv2.setHovaten(hovatennv);
+					nv2.setChucvu(chucvunv);
+					nv2.setGioitinh(gioitinhnv);
+					nv2.setDiachi(diachinv);
+					nv2.setNgaysinh(ngaysinhnv);
+					nv2.setSdt(sdtnv);
+					nv2.setCmnd(cmndnv);
+					// person2.setAge(t2);
+					/// person2.setAddress(t3);
+					session.save(nv2);
 
-				alert.setContentText("Cập nhật nhân viên thành công !");
-				alert.showAndWait();
+					alert.setContentText("Cập nhật nhân viên thành công !");
+					alert.showAndWait();
+					luucapnhat.setVisible(false);
+					reset.setVisible(false);
+					hovaten_nv.setEditable(false);
+					ns_nv.setEditable(false);
+					cb_chucvu.setEditable(false);
+					cb_gioitinh.setEditable(false);
+					cmnd_nv.setEditable(false);
+					sdt_nv.setEditable(false);
+					diachi_nv.setEditable(false);
+					ngayvaolam.setEditable(false);
 
-				luucapnhat.setVisible(false);
-				reset.setVisible(false);
-				hovaten_nv.setEditable(false);
-				ns_nv.setEditable(false);
-				cv_nv.setEditable(false);
-				gt_nv.setEditable(false);
-				cmnd_nv.setEditable(false);
-				sdt_nv.setEditable(false);
-				diachi_nv.setEditable(false);
-				ngayvaolam.setEditable(false);
-
+				}
+				session.getTransaction().commit();
+				// tableNV.refresh();
+				initializeNHANVIEN();
+			} catch (RuntimeException error) {
+				session.getTransaction().rollback();
 			}
-			session.getTransaction().commit();
-			// tableNV.refresh();
-			initializeNHANVIEN();
-		} catch (RuntimeException error) {
-			session.getTransaction().rollback();
-		}
 
+		}
+		
 	}
 
 	@FXML
@@ -280,8 +344,6 @@ public class NhanvienController implements Initializable{
 		// id_nv.setEditable(true);
 		hovaten_nv.setEditable(true);
 		ns_nv.setEditable(true);
-		cv_nv.setEditable(true);
-		gt_nv.setEditable(true);
 		cmnd_nv.setEditable(true);
 		sdt_nv.setEditable(true);
 		diachi_nv.setEditable(true);
@@ -346,11 +408,11 @@ public class NhanvienController implements Initializable{
 				id_nv.setText("");
 				hovaten_nv.setText("");
 				ns_nv.setValue(null);
-				cv_nv.setText("");
+				cb_chucvu.setValue(null);
 				sdt_nv.setText("");
 				cmnd_nv.setText("");
 				diachi_nv.setText("");
-				gt_nv.setText("");
+				cb_gioitinh.setValue(null);
 				imgnhanvien.setImage(null);
 				ngayvaolam.setValue(null);
 				capnhat_nv.setVisible(false);
@@ -409,6 +471,7 @@ public class NhanvienController implements Initializable{
 	private void setCellValueFromTabletoTexfField() {
 		tableNV.setOnMouseClicked(event -> {
 			//
+			
 			capnhat_nv.setVisible(true);
 			xoa_nv.setVisible(true);
 			Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
@@ -417,11 +480,11 @@ public class NhanvienController implements Initializable{
 			// ns_nv.setText(Integer.toString(nv.getNgaysinh()));
 			ns_nv.setValue(nv.getNgaysinh());
 			ngayvaolam.setValue(nv.getNgayvaolam());
-			cv_nv.setText(nv.getChucvu());
-			gt_nv.setText(nv.getGioitinh());
-			sdt_nv.setText(Integer.toString(nv.getSdt()));
+			cb_chucvu.getSelectionModel().select(nv.getChucvu());
+			cb_gioitinh.getSelectionModel().select(nv.getGioitinh());
+			sdt_nv.setText(nv.getSdt());
 			diachi_nv.setText(nv.getDiachi());
-			cmnd_nv.setText(Integer.toString(nv.getCmnd()));
+			cmnd_nv.setText(String.valueOf(nv.getCmnd()));
 			byte[] getImageInBytes = nv.getImage();
 
 			//
@@ -448,6 +511,10 @@ public class NhanvienController implements Initializable{
 		search();
 		capnhat_nv.setVisible(false);
 		xoa_nv.setVisible(false);
+		ObservableList<String> list=FXCollections.observableArrayList("Nhân viên","Quản lý");
+		ObservableList<String> list1=FXCollections.observableArrayList("Nam","Nữ");
+		cb_chucvu.setItems(list);
+		cb_gioitinh.setItems(list1);
 		
 	}
 
