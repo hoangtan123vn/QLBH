@@ -153,4 +153,5 @@ public class Phieudathang implements Serializable {
 		this.nhanvien=nhanvien;
 		this.kiemtrahang = kiemtrahang;
 	}
+	
 }

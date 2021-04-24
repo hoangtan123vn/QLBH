@@ -1532,7 +1532,7 @@ public class chucnangquanly extends Application implements Initializable {
 
 		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
 
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
 
 		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sotienno"));
 
@@ -1843,12 +1843,12 @@ public class chucnangquanly extends Application implements Initializable {
 			}
 		});
 
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
 
-		sodienthoai.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, Integer>>() {
+		sodienthoai.setCellFactory(TextFieldTableCell.forTableColumn());
+		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
-			public void handle(CellEditEvent<Nhacungcap, Integer> event) {
+			public void handle(CellEditEvent<Nhacungcap, String> event) {
 				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 						.configure("hibernate.cfg.xml").build();
 				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();

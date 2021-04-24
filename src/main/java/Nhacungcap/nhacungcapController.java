@@ -142,7 +142,7 @@ public class nhacungcapController implements Initializable{
 
 		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
 
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
 
 		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sotienno"));
 
@@ -392,12 +392,12 @@ public class nhacungcapController implements Initializable{
 			}
 		});
 
-		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
+		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
 
-		sodienthoai.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, Integer>>() {
+		sodienthoai.setCellFactory(TextFieldTableCell.forTableColumn());
+		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
-			public void handle(CellEditEvent<Nhacungcap, Integer> event) {
+			public void handle(CellEditEvent<Nhacungcap, String> event) {
 				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 						.configure("hibernate.cfg.xml").build();
 				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
@@ -406,12 +406,8 @@ public class nhacungcapController implements Initializable{
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
 				person = event.getRowValue();
-				person = session.get(Nhacungcap.class, person.getMancc());
-				String s =  "84" + event.getNewValue().toString() ;
-				int sdt = Integer.parseInt(s);
-				person.setSodienthoai(sdt);
-				
-				
+				person = session.get(Nhacungcap.class, person.getMancc());				
+				person.setSodienthoai(event.getNewValue());								
 				session.save(person);
 				session.getTransaction().commit();
 				ReloadNHACUNGCAP();

@@ -111,7 +111,7 @@ public class ThemNCCController extends Application implements Initializable{
     	//Integer mancc = Integer.parseInt(tfncc.getText());
     	String tenncc = tftenncc.getText();
     	String diachi = tfdiachi.getText();
-    	Integer sodienthoai = Integer.parseInt(tfsdt.getText());
+    	String sodienthoai = tfsdt.getText();
     	String email = tfemail.getText();
     	Integer sotienno = Integer.parseInt(tfsotienno.getText());
     

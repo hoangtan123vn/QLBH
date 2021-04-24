@@ -26,7 +26,7 @@ public class Nhacungcap implements Serializable{
 	private Integer mancc;
 	private String tenncc;
 	private String diachi;
-	private Integer sodienthoai;
+	private String sodienthoai;
 	private String email;
 	private Integer sotienno;
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhacungcap")
@@ -50,17 +50,17 @@ public class Nhacungcap implements Serializable{
 		this.mancc = mancc;
 	}
 	
-	public Nhacungcap(String tenncc) {
-		super();
-		this.tenncc=tenncc;
-	}
+//	public Nhacungcap(String tenncc) {
+//		super();
+//		this.tenncc=tenncc;
+//	}
 	
-	public Nhacungcap(Integer sodienthoai) {
+	public Nhacungcap(String sodienthoai) {
 		this.sodienthoai = sodienthoai;
 	}
 	
 
-	public Nhacungcap(Integer mancc, String tenncc, String diachi, Integer sodienthoai, String email,Integer sotienno) {
+	public Nhacungcap(Integer mancc, String tenncc, String diachi, String sodienthoai, String email,Integer sotienno) {
 		super();
 		this.mancc = mancc;
 		this.tenncc = tenncc;
@@ -85,7 +85,7 @@ public class Nhacungcap implements Serializable{
 
 
 
-	public Nhacungcap(String tenncc, String diachi, Integer sodienthoai, String email,Integer sotienno) {
+	public Nhacungcap(String tenncc, String diachi, String sodienthoai, String email,Integer sotienno) {
 		super();
 
 		this.tenncc = tenncc;
@@ -129,11 +129,11 @@ public class Nhacungcap implements Serializable{
 		this.diachi = diachi;
 	}
 
-	public Integer getSodienthoai() {
+	public String getSodienthoai() {
 		return sodienthoai;
 	}
 
-	public void setSodienthoai(Integer sodienthoai) {
+	public void setSodienthoai(String sodienthoai) {
 		this.sodienthoai = sodienthoai;
 	}
 
