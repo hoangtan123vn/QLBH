@@ -30,7 +30,7 @@ public class KhachHang {
 	private int makh;
 	private String tenkh;
 	private String diachi;
-	private int sodienthoai;
+	private String sodienthoai;
 	private LocalDate ngaysinh;
 	private	String gioitinh;
 	private int diemtichluy;
@@ -51,7 +51,7 @@ public class KhachHang {
 //		this.diemtichluy = diemtichluy;
 //		this.email = email;
 //	}
-	public KhachHang(String tenkh,String diachi,int sodienthoai,LocalDate ngaysinh,String gioitinh,String email) {
+	public KhachHang(String tenkh,String diachi,String sodienthoai,LocalDate ngaysinh,String gioitinh,String email) {
 		super();
 		
 		this.tenkh = tenkh;
@@ -80,10 +80,10 @@ public class KhachHang {
 	public void setDiachi(String diachi) {
 		this.diachi = diachi;
 	}
-	public int getSodienthoai() {
+	public String getSodienthoai() {
 		return sodienthoai;
 	}
-	public void setSodienthoai(int sodienthoai) {
+	public void setSodienthoai(String sodienthoai) {
 		this.sodienthoai = sodienthoai;
 	}
 	public LocalDate getNgaysinh() {

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -15,6 +16,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import QLBH.HibernateUtils;
 import QLBH.KhachHang;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -78,23 +80,18 @@ public class themkhachhangController  implements Initializable{
     	Alert alert = new Alert(AlertType.INFORMATION);
     	String hoten = name.getText();
     	String diachi = address.getText();
-    	int sdt= Integer.parseInt(numberphone.getText());
+    	String sdt= numberphone.getText();
     	LocalDate ngaysinh = birth.getValue();
     	String gioitinh = sex.getValue();
     	String email = mail.getText();
-    	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-				.configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+    	Session session = HibernateUtils.getSessionFactory().openSession();
 		KhachHang khachhang = new KhachHang(hoten,diachi,sdt,ngaysinh,gioitinh,email);
 		
 		try {
     		 session.beginTransaction();
     		 session.save(khachhang);
     		 session.getTransaction().commit();		
-        	 alert.setContentText("Them khach hang thanh cong !");
+        	 alert.setContentText("Thêm khách hàng thành công !");
         	 alert.showAndWait();    
         	 
         	

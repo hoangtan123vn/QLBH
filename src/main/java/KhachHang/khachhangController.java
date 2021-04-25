@@ -136,7 +136,7 @@ public class khachhangController implements Initializable {
 		 tableKH.setOnMouseClicked(event -> {
 			 event();
 			 if(event == null) {
-				 System.out.println("Thah cong");
+				 System.out.println("Thành công");
 			 }
 		 });
 	 }
@@ -216,6 +216,9 @@ public class khachhangController implements Initializable {
 				}
 				String typetext = newvalue.toLowerCase();
 				if (kh.getTenkh().toLowerCase().indexOf(typetext) != -1) {
+					return true;
+				}
+				if (kh.getSodienthoai().toLowerCase().indexOf(typetext) != -1) {
 					return true;
 				}
 				// if(kh.getSodienthoai().toLowerCase().indexOf(typetext) !=-1) {
