@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -8,7 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorpane1" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700; -fx-border-color: black; -fx-border-width: 2px;" styleClass="bgkho" stylesheets="@QLkho.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLKho.QLKhoController">
+<AnchorPane fx:id="anchorpane1" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700; -fx-border-color: black; -fx-border-width: 2px;" styleClass="bgkho" stylesheets="@QLkho.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLKho.QLKhoController">
    <children>
       <TextField fx:id="Timkiem" layoutX="21.0" layoutY="360.0" prefHeight="34.0" prefWidth="184.0" promptText="Tìm Kiếm Sản Phẩm" style="-fx-background-radius: 4em; -fx-border-color: blue; -fx-border-radius: 4em;" />
       <TableView fx:id="tableSP" layoutX="221.0" layoutY="207.0" prefHeight="447.0" prefWidth="1019.0">
@@ -50,5 +54,6 @@
             <Image url="@bgkho.PNG" />
          </image>
       </ImageView>
+      <Button fx:id="idreload" layoutX="1017.0" layoutY="171.0" mnemonicParsing="false" onAction="#reload" text="Reload" />
    </children>
 </AnchorPane>

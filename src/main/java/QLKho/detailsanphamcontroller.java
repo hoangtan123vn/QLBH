@@ -39,6 +39,8 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
@@ -58,10 +60,12 @@ import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 
 import QLBH.HibernateUtils;
+import QLBH.Nhanvien;
 import QLBH.Sanpham;
 import QLBH.chucnangquanly;
 
 public class detailsanphamcontroller implements Initializable{
+	private static final ComboBox<String> TableSP = null;
 	private FileChooser filechooser;
 	private Image image;
 	private Blob image1;
@@ -69,6 +73,18 @@ public class detailsanphamcontroller implements Initializable{
 
     @FXML
     private AnchorPane ap;
+    
+    @FXML
+	private Button idreload;
+	
+	@FXML
+	private Label thongbao1;
+	
+	@FXML
+	private Label thongbao2;
+	
+	@FXML
+	private Label thongbao3;
 
     @FXML
     private TextField tensanpham;
@@ -135,12 +151,13 @@ public class detailsanphamcontroller implements Initializable{
     
     @FXML
     void resetSP(ActionEvent event) {
+    
     	
-				
     }
 
     @FXML
     void LuuSP(ActionEvent event) throws IOException{
+    	if(KiemTraTen()& KiemTraSL()& KiemTraGia()) {
     	//Sanpham sp = new Sanpham();
 		//capnhatsp(setSanPham(sanpham));
     	Alert alert = new Alert(AlertType.INFORMATION);
@@ -192,6 +209,43 @@ public class detailsanphamcontroller implements Initializable{
 				}
 
     }
+    }
+private boolean KiemTraTen() {
+    Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
+    Matcher m = p.matcher(tensanpham.getText());
+	if(m.find() && m.group().equals(tensanpham.getText())){
+        thongbao1.setText(null);
+        return true;
+    }
+    else {
+        thongbao1.setText("Vui lòng điền tên sản phẩm phù hợp");
+        return false;
+    }
+}
+private boolean KiemTraSL() {
+    Pattern p = Pattern.compile("[0-9]+");
+    Matcher m = p.matcher(soluong.getText());
+    if(m.find() && m.group().equals(soluong.getText())){
+        thongbao2.setText(null);
+        return true;
+    }
+    else {
+        thongbao2.setText("Vui lòng điền số");
+        return false;
+    }
+}
+ private boolean KiemTraGia() {
+        Pattern p = Pattern.compile("[0-9]+");
+        Matcher m = p.matcher(giatien.getText());
+        if(m.find() && m.group().equals(giatien.getText())){
+            thongbao3.setText(null);
+            return true;
+        }
+        else {
+            thongbao3.setText("Vui lòng điền số");
+            return false;
+        }
+    }
 
     @FXML
     void ThemAnhSP(ActionEvent event) {
@@ -208,7 +262,8 @@ public class detailsanphamcontroller implements Initializable{
 
     @FXML
     void huySP(ActionEvent event) {
-
+    	Stage stage = (Stage) huySP.getScene().getWindow();
+     	 stage.close();	
     }
 
 	@Override

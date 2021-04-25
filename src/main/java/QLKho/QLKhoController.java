@@ -14,17 +14,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
-import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.KiemtrahangController;
 import QLBH.Nhanvien;
 import QLBH.Phieudathang;
 import QLBH.Taikhoannv;
 import QLBH.chucnangquanly;
-import QLBH.detailsanphamcontroller;
+
 
 import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
@@ -77,7 +79,7 @@ import javafx.util.Callback;
 
 
 public class QLKhoController implements Initializable {
-
+	
 	@FXML
 	private TableColumn donvitinh;
 
@@ -92,9 +94,7 @@ public class QLKhoController implements Initializable {
 
 	@FXML
 	private TableColumn<Sanpham, Void> xoasp;
-
 	
-
 	@FXML
 	private TableColumn donvi;
 
@@ -164,7 +164,12 @@ public class QLKhoController implements Initializable {
 		stage.show();
 		truedisable();
 	}
-    
+    @FXML
+	void reload(ActionEvent event) {
+
+		initialize1();
+	//	getNhanvien();
+	}
     private void ButtonXoaSP() {
 
 		Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
@@ -237,6 +242,7 @@ public class QLKhoController implements Initializable {
 
 	private void ButtonChinhSuaAnh() {
 		// TableColumn<Sa, Void> colBtn = new TableColumn("Button Column");
+		
 
 		Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
 			@Override
@@ -286,6 +292,7 @@ public class QLKhoController implements Initializable {
 		};
 		CapNhat.setCellFactory(cellFactory);
 	}
+	
 	
 	void initialize1() {
 		// setCellValueFromTabletoTexfFieldd();
@@ -383,7 +390,7 @@ public class QLKhoController implements Initializable {
 
 	void ReloadSANPHAM() {
 		initialize1();
-		tableSP.setItems(getSanpham());
+		//tableSP.setItems(getSanpham());
 
 		System.out.println("Thanh cong");
 	}

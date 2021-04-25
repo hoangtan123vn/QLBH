@@ -143,6 +143,7 @@ public class ThemSanPhamController extends Application implements Initializable{
             	 stage.close();
             	 QLKhoController.getInstance().initialize1();
             	 QLKhoController.getInstance().falsedisable();
+            	 QLKhoController.getInstance().ReloadSANPHAM();
     		 }
     	    	catch (RuntimeException error){
     	    		
@@ -163,14 +164,14 @@ public class ThemSanPhamController extends Application implements Initializable{
    return true;
 }
     private boolean KiemTraTen() {
-        Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
+        Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$+");
         Matcher m = p.matcher(tensanpham.getText());
 		if(m.find() && m.group().equals(tensanpham.getText())){
             thongbao.setText(null);
             return true;
         }
         else {
-            thongbao.setText("Vui lòng điền tên sản phẩm");
+            thongbao.setText("Vui lòng điền tên sản phẩm phù hợp");
             return false;
         }
     }
@@ -183,7 +184,7 @@ public class ThemSanPhamController extends Application implements Initializable{
             return true;
         }
         else {
-            thongbao3.setText("Vui lòng điền số");
+            thongbao3.setText("Vui lòng điền số phù hợp");
             return false;
         }
     }
@@ -196,7 +197,7 @@ public class ThemSanPhamController extends Application implements Initializable{
             return true;
         }
         else {
-            thongbao2.setText("Vui lòng điền số");
+            thongbao2.setText("Vui lòng điền số phù hợp");
             return false;
         }
     }

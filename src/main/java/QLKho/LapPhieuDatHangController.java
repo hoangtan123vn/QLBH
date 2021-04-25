@@ -67,6 +67,7 @@ import org.hibernate.service.ServiceRegistry;
 import com.sun.xml.bind.v2.util.QNameMap.Entry;
 
 import BanHang.timkhachhangController;
+import Nhanvien.NhanvienController;
 
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
@@ -367,6 +368,8 @@ public class LapPhieuDatHangController implements Initializable{
 	            sum = sum + (chitietdathang.getSanpham().getGiatien()*chitietdathang.getSoluong());
 	        }
 	        tongtien.setText(String.valueOf(sum));
+	        QLKhoController.getInstance().falsedisable();
+	        QLKhoController.getInstance().ReloadSANPHAM();
 		}
 	 
 
@@ -478,6 +481,8 @@ public void loadData(Taikhoannv taikhoan) {
 					 alert.setContentText("bạn phải chọn phương thức thanh toán  !");
 					 alert.showAndWait();
 				}
+				QLKhoController.getInstance().falsedisable();
+				QLKhoController.getInstance().ReloadSANPHAM();
 			 }
 			 
 			
@@ -513,7 +518,7 @@ private boolean KiemTraSL() {
         return true;
     }
     else {
-        thongbao4.setText("Vui lòng điền số");
+        thongbao4.setText("Vui lòng điền số phù hợp");
         return false;
     }
 }
@@ -525,7 +530,7 @@ private boolean KiemTraGia() {
         return true;
     }
     else {
-        thongbao5.setText("Vui lòng điền số");
+        thongbao5.setText("Vui lòng điền số phù hợp");
         return false;
     }
 }
