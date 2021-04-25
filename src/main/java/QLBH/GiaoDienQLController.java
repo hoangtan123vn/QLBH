@@ -101,6 +101,10 @@ public class GiaoDienQLController implements Initializable {
 
 	@FXML
 	private ImageView minimize;
+	
+	@FXML
+	private ImageView imgtrangchu;
+
 
 	@FXML
 	void close(MouseEvent event) {
@@ -113,11 +117,6 @@ public class GiaoDienQLController implements Initializable {
 		Stage stage = (Stage) minimize.getScene().getWindow();
 		stage.setIconified(true);
 	}
-
-	void setNhanvien(Nhanvien nhanvien) {
-
-	}
-
 	@FXML
 	void ChangeNhacungcap(ActionEvent event) {
 
@@ -187,6 +186,9 @@ public class GiaoDienQLController implements Initializable {
 		kiemtrahang.setOnMouseClicked(event -> {
 			SceneKiemTraHang(taikhoan);
 		});
+		imgtrangchu.setOnMouseClicked(event -> {
+			SceneTrangChu();
+		});
 	}
 
 	public void profileNhanvien(Taikhoannv taikhoan) {
@@ -226,6 +228,17 @@ public class GiaoDienQLController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println(e);
+		}
+	}
+	
+	public void SceneTrangChu() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/QLBH/TrangChu.fxml"));
+			AnchorPane pane = loader.load();
+			mainpane.getChildren().setAll(pane);
+		} catch (IOException e) {
+			System.out.println(e);
+			
 		}
 	}
 
@@ -378,7 +391,7 @@ public class GiaoDienQLController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		SceneTrangChu();
 	}
 
 }
