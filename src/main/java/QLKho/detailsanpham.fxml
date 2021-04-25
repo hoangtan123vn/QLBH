@@ -35,7 +35,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="reset" layoutX="420.0" layoutY="262.0" mnemonicParsing="false" onAction="#resetSP" prefHeight="25.0" prefWidth="48.0" text="RESET" />
+      <Button fx:id="reset" layoutX="420.0" layoutY="262.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" text="RESET" />
       <Label layoutX="406.0" layoutY="17.0" text="id :" />
       <TextField fx:id="idsp" editable="false" layoutX="431.0" layoutY="13.0" prefHeight="17.0" prefWidth="41.0" />
       <Label fx:id="thongbao1" layoutX="272.0" layoutY="77.0" prefHeight="17.0" prefWidth="216.0" textFill="RED" />

@@ -164,7 +164,7 @@ public class ThemSanPhamController extends Application implements Initializable{
    return true;
 }
     private boolean KiemTraTen() {
-        Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$+");
+        Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
         Matcher m = p.matcher(tensanpham.getText());
 		if(m.find() && m.group().equals(tensanpham.getText())){
             thongbao.setText(null);

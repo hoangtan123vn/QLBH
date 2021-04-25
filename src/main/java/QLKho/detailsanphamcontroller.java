@@ -65,7 +65,8 @@ import QLBH.Sanpham;
 import QLBH.chucnangquanly;
 
 public class detailsanphamcontroller implements Initializable{
-	private static final ComboBox<String> TableSP = null;
+	
+	
 	private FileChooser filechooser;
 	private Image image;
 	private Blob image1;
@@ -121,12 +122,6 @@ public class detailsanphamcontroller implements Initializable{
     private Button reset;
     
     
-   //private 
-    
-    
-   
-    
-    
     public void setSanPham(Sanpham sanpham) {
     	idsp.setText(String.valueOf(sanpham.getMasanpham()));
     	tensanpham.setText(sanpham.getTensanpham());
@@ -135,8 +130,17 @@ public class detailsanphamcontroller implements Initializable{
     	giatien.setText(String.valueOf(sanpham.getGiatien()));
     	loaisanpham.setValue(sanpham.getLoaisanpham());
     	imageSP.setImage(getImageFromBytes(sanpham.getImagesp()));
-    	
-    }
+    	reset.setOnMouseClicked(event -> {
+    		
+    		idsp.setText(Integer.toString(sanpham.getMasanpham()));
+    		tensanpham.setText(sanpham.getTensanpham());
+    		donvi.setValue(sanpham.getDonvi());
+    		loaisanpham.setValue(sanpham.getLoaisanpham());
+    		giatien.setText(String.valueOf(sanpham.getGiatien()));
+    		soluong.setText(String.valueOf(sanpham.getDonvitinh()));
+    	});	
+    	}
+   
     
     private Image getImageFromBytes(byte[] imgBytes) {
 	    try {
@@ -149,11 +153,8 @@ public class detailsanphamcontroller implements Initializable{
 	    return null;
 	}
     
-    @FXML
-    void resetSP(ActionEvent event) {
+   
     
-    	
-    }
 
     @FXML
     void LuuSP(ActionEvent event) throws IOException{
