@@ -29,18 +29,30 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -50,7 +62,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.persistence.criteria.CriteriaQuery;
-
+import javax.swing.JOptionPane;
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -418,8 +430,8 @@ public void loadData(Taikhoannv taikhoan) {
 				    		 session.save(chitietdathang1);
 				    		// session.save(spp);
 				    		 session.getTransaction().commit();
-				    		 alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
-				    		 alert.showAndWait();   
+				    		
+				    		 
 						 }
 					    	catch (RuntimeException error){
 					    		 System.out.println(error);
@@ -427,7 +439,11 @@ public void loadData(Taikhoannv taikhoan) {
 					    		 alert.showAndWait();
 					    		 session.getTransaction().rollback();
 					    	}
+						 
 						}
+					alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
+		    		 alert.showAndWait();
+					 InPhieudathang(phieudathang);
 				}
 				else if(cbbthanhtoan.getValue() == "Tạo công nợ") {
 					Nhacungcap nhacungcap = new Nhacungcap();
@@ -441,6 +457,7 @@ public void loadData(Taikhoannv taikhoan) {
 						session.getTransaction().commit();
 						alert.setContentText("Cập nhật công nợ thành công  ");
 			    		 alert.showAndWait(); 
+			    		// InPhieudathang(phieudathang);
 					//	alert.setContentText("Thêm phieu dat hang thành công !");
 			    	//	 alert.showAndWait();  
 			    		 
@@ -474,8 +491,9 @@ public void loadData(Taikhoannv taikhoan) {
 					    	}
 						 
 						}
-					alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
+					 alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
 		    		 alert.showAndWait();  
+		    		 InPhieudathang(phieudathang);
 				}
 				else {
 					 alert.setContentText("bạn phải chọn phương thức thanh toán  !");
@@ -488,6 +506,36 @@ public void loadData(Taikhoannv taikhoan) {
 			
 		 });
 	 }
+
+	public void InPhieudathang(Phieudathang phieudathang) {
+		try {
+			    final String DB_URL = "jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh";
+	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
+	            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\QLKho\\Phieudathang.jrxml"));
+	            JasperDesign jd = JRXmlLoader.load(in);
+	            String sql ="SELECT PDH.madathang,NCC.tenncc,PDH.tongtien,PDH.thoigian,SP.tensanpham,SP.loaisanpham,CTDH.thanhtien,CTDH.soluong FROM dathang PDH,Chitietdathang CTDH,Sanpham SP,Nhacungcap NCC WHERE PDH.madathang = CTDH.madathang and CTDH.masanpham = SP.masanpham and PDH.mancc = NCC.mancc and PDH.madathang ='"+phieudathang.getMadathang()+"'";
+	            JRDesignQuery newQuery1 = new JRDesignQuery();
+	            newQuery1.setText(sql);
+	            jd.setQuery(newQuery1);
+	            JasperReport jr = JasperCompileManager.compileReport(jd);
+	            // jr = JasperCompileManager.compileReport(jd1);
+	            HashMap<String,Object> para = new HashMap<>();
+	            String madathang = String.valueOf(phieudathang.getMadathang());
+	            String tongtien = String.valueOf(phieudathang.getTongtien());
+	             para.put("madathang",madathang);
+	             para.put("tongtien", tongtien);
+	            JasperPrint j = JasperFillManager.fillReport(jr, para,conn);
+	    
+	            JasperViewer.viewReport(j,false);
+	         
+	            OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
+	            JasperExportManager.exportReportToPdfStream(j,os);
+	            
+	        }catch(Exception e) {
+	            JOptionPane.showMessageDialog(null, "Lỗi"+ e);
+	        }
+	}
+
 private boolean KiemTraNCC() {
     Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
     Matcher m = p.matcher(name_ncc.getText());

@@ -13,6 +13,7 @@
 	<field name="giatien" class="java.lang.String"/>
 	<field name="manv" class="java.lang.String"/>
 	<field name="makh" class="java.lang.String"/>
+	<field name="thoigianmua" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -120,6 +121,20 @@
 				</textElement>
 				<text><![CDATA[Thành tiền]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="230" y="0" width="100" height="30" uuid="5ff2e2f6-a836-4738-b083-1a1ed45c8f7c"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[thời gian mua]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="330" y="0" width="220" height="30" uuid="c0e086e3-e5e5-4a9c-9511-0b9f9d325c0c"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{thoigianmua}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>

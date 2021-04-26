@@ -384,7 +384,7 @@ public class BanHangController implements Initializable{
 					            System.out.println("1");
 					            
 					           // String sql= "SELECT makh,manv,tonggia FROM HOADON WHERE mahoadon='"+hoadonn.getMahoadon()+"'";
-					            String sql ="SELECT H.mahoadon,H.manv,H.makh,H.tonggia,SP.tensanpham,SP.loaisanpham,SP.giatien,CTHD.thanhtien,CTHD.soluong FROM Hoadon H,Chitiethoadon CTHD,Sanpham SP WHERE H.mahoadon = CTHD.mahoadon and CTHD.masanpham = SP.masanpham and H.mahoadon ='"+hoadonn.getMahoadon()+"'";
+					            String sql ="SELECT H.mahoadon,H.manv,H.makh,H.tonggia,H.thoigianmua,SP.tensanpham,SP.loaisanpham,SP.giatien,CTHD.thanhtien,CTHD.soluong FROM Hoadon H,Chitiethoadon CTHD,Sanpham SP WHERE H.mahoadon = CTHD.mahoadon and CTHD.masanpham = SP.masanpham and H.mahoadon ='"+hoadonn.getMahoadon()+"'";
 					          //  String sql1= "SELECT mahoadon,soluong,masanpham,thanhtien FROM CHITIETHOADON H WHERE H.mahoadon='"+hoadonn.getMahoadon()+"'";
 					          //  JRDesignQuery newQuery = new JRDesignQuery();
 					            JRDesignQuery newQuery1 = new JRDesignQuery();
