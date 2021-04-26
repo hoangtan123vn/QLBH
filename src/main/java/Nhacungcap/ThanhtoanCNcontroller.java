@@ -102,6 +102,31 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	@FXML
     private ImageView exit;
 	
+	
+	private boolean KiemTraDiaChi() {
+    	//System.out.println(tfdc.getText());
+		if(tfthanhtoan.getText().isEmpty()){
+			 Alert alert = new Alert(AlertType.INFORMATION);
+		        alert.setTitle("Error");
+		       
+		        alert.setContentText("Mời nhập vào ô thanh toán!!");
+		 
+		        alert.showAndWait();
+			return false;
+		}
+		return true;
+		}
+	private void showAlertSodienthoai() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Error");
+       
+        alert.setContentText("Mời nhập vào ô thanh toán!!");
+ 
+        alert.showAndWait();
+        
+    }
+	
+	
 	  @FXML
 	    void exit(MouseEvent event) {
 		  Stage stage = (Stage) exit.getScene().getWindow();
@@ -168,7 +193,9 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 				
 				
 		});
+		
 		bttaophieu.setOnMouseClicked(event ->  {
+			if(KiemTraDiaChi()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Thanh Toán Công Nợ");
 			 
@@ -206,8 +233,10 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	    		 alert.setContentText("Cập nhật số tiền nợ thất bại");
 	    		 alert.showAndWait();
 	    		session.getTransaction().rollback();
+	    		
+	    		
 	    	}
-        });
+        }});
 
 	}
 	
