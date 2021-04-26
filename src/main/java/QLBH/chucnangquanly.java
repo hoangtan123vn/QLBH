@@ -1618,7 +1618,8 @@ public class chucnangquanly extends Application implements Initializable {
 		// QL KHÁCH HÀNG //HOÀNG TÂN
 		idKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("makh"));
 		hvtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("tenkh"));
-		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
+		// loai.setCellValueFactor
+		(new PropertyValueFactory<Sanpham, String>("loai"));
 		sdtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("sodienthoai"));
 		nsKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("ngaysinh"));
 		gtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("gioitinh"));

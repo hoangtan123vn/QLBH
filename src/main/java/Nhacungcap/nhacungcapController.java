@@ -203,7 +203,7 @@ public class nhacungcapController implements Initializable{
 
 		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
 
-		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sotienno"));
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sotienno"));
 
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("email"));
 		tableNhacungcap.setItems(getNhacungcap());
@@ -505,38 +505,8 @@ public class nhacungcapController implements Initializable{
 			}
 		});
 
-		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sotienno"));
-
-		sotienno.setCellFactory(TextFieldTableCell.forTableColumn());
-		sotienno.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
-			@Override
-			public void handle(CellEditEvent<Nhacungcap, String> event) {
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
-				session.beginTransaction();
-				Nhacungcap person = new Nhacungcap();
-				String s = event.getNewValue();
-				Pattern p = Pattern.compile("[0-9]+");
-				Matcher m = p.matcher(s);
-				 if(m.find() && m.group().equals(s)){
-					 person = event.getRowValue();
-						person = session.get(Nhacungcap.class, person.getMancc());
-						person.setSotienno(s);
-						session.save(person);
-						session.getTransaction().commit();
-						ReloadNHACUNGCAP();
-		        }
-				 else {
-					showAlertCongno();
-					
-				     
-				 }
-				
-			}
-		});
+		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sotienno"));
+		
 
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("email"));
 

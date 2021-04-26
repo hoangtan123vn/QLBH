@@ -28,7 +28,7 @@ public class Nhacungcap implements Serializable{
 	private String diachi;
 	private String sodienthoai;
 	private String email;
-	private String sotienno;
+	private Integer sotienno;
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhacungcap")
 	private Set<Phieutrahang> phieutrahang = new HashSet<Phieutrahang>();
 	
@@ -60,7 +60,7 @@ public class Nhacungcap implements Serializable{
 	}
 	
 
-	public Nhacungcap(Integer mancc, String tenncc, String diachi, String sodienthoai, String email,String sotienno) {
+	public Nhacungcap(Integer mancc, String tenncc, String diachi, String sodienthoai, String email,Integer sotienno) {
 		super();
 		this.mancc = mancc;
 		this.tenncc = tenncc;
@@ -85,7 +85,7 @@ public class Nhacungcap implements Serializable{
 
 
 
-	public Nhacungcap(String tenncc, String diachi, String sodienthoai, String email,String sotienno) {
+	public Nhacungcap(String tenncc, String diachi, String sodienthoai, String email,Integer sotienno) {
 		super();
 
 		this.tenncc = tenncc;
@@ -97,11 +97,11 @@ public class Nhacungcap implements Serializable{
 	
 	
 
-	public String getSotienno() {
+	public Integer getSotienno() {
 		return sotienno;
 	}
 
-	public void setSotienno(String sotienno) {
+	public void setSotienno(Integer sotienno) {
 		this.sotienno = sotienno;
 	}
 

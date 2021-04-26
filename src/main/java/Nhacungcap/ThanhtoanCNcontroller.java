@@ -174,7 +174,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 			 
 	    	//Integer mancc = Integer.parseInt(tfncc.getText());
 	   // 	String ten = tenncc.getText();
-	    	String sotienno = tfnoconlai.getText();
+	    	Integer sotienno = Integer.parseInt(tfnoconlai.getText()) ;
 	    //	String noio = diachi.getText();
 	    	//Integer sdt = Integer.parseInt(sodienthoai.getText());;
 	    	//String em = email.getText();
@@ -213,7 +213,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	
 	public void InPhieuThanhToanNo(Nhacungcap nhacungcap) {
 		try {
-			    final String DB_URL = "jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh";
+			    final String DB_URL = "jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh";
 	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
 	            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\Nhacungcap\\PhieuThanhToanNo.jrxml"));
 	            JasperDesign jd = JRXmlLoader.load(in);
@@ -227,7 +227,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	            String thanhtoan = String.valueOf(tfthanhtoan.getText());
 	            String noconlai = String.valueOf(tfnoconlai.getText());
 	            String thoigian = tfdate.getText();
-	            String sotienno = String.valueOf(tfnoht.getText());
+	            Integer sotienno = Integer.parseInt(tfnoht.getText());
 	             para.put("thanhtoan",thanhtoan);
 	             para.put("noconlai", noconlai);
 	             para.put("thoigian", thoigian);

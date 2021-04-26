@@ -113,7 +113,7 @@ public class ThemNCCController extends Application implements Initializable{
     	String diachi = tfdiachi.getText();
     	String sodienthoai = tfsdt.getText();
     	String email = tfemail.getText();
-    	String sotienno = tfsotienno.getText();
+    	Integer sotienno = Integer.parseInt(tfsotienno.getText());
     
     	Session session = HibernateUtils.getSessionFactory().openSession();
 
