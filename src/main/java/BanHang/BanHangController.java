@@ -2,8 +2,15 @@ package BanHang;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.time.LocalDateTime;
 
 import org.hibernate.query.Query;
@@ -14,6 +21,7 @@ import Nhacungcap.nhacungcapController;
 import QLBH.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -21,6 +29,7 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 
 import org.apache.derby.iapi.store.access.SpaceInfo;
@@ -70,6 +79,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import QLBH.Chitiethoadon;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
@@ -235,7 +254,6 @@ public class BanHangController implements Initializable{
 				 if(KiemTraSanPhamHoaDon()&KiemTraTienKhachTra1()) {
 					 Alert alert = new Alert(AlertType.INFORMATION);
 					 Session session = HibernateUtils.getSessionFactory().openSession();
-				
 						 for (Sanpham spp1 : TableSP.getItems()) {
 								for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
 									if(spp1.getMasanpham()==chitiethoadon123.getSanpham().getMasanpham()){
@@ -304,7 +322,11 @@ public class BanHangController implements Initializable{
 				 }
 						 }
 						 alert.setContentText("Tạo hóa đơn thành công !");
-			    		 alert.showAndWait(); 
+			    		 alert.showAndWait();
+			    	/*	 List<Chitiethoadon> listitems = new ArrayList<>();
+				           for(Chitiethoadon cthd : hoadon.getItems()) {
+				        	   listitems.add(cthd);
+				           }*/
 						 try {
 							 if (khachhangg.getText().isEmpty()){
 								 for ( int i = 0; i<hoadon.getItems().size(); i++) {
@@ -331,6 +353,7 @@ public class BanHangController implements Initializable{
 				    			 	 khachhang.setDiemtichluy(tongg);
 				    			 	 session.save(khachhang);
 				    			 	 session.getTransaction().commit();
+				    			 	
 				    			 	for ( int i = 0; i<hoadon.getItems().size(); i++) {
 									    hoadon.getItems().clear();
 									}
@@ -350,10 +373,52 @@ public class BanHangController implements Initializable{
 						 //reset
 						 
 						 
+						 ///IN HOA DON
+						 try {
+							   // System.out.print(hoadonn.getMahoadon());
+							    final String DB_URL = "jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh";
+					            Connection conn = DriverManager.getConnection(DB_URL,"root","");
+					            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\BanHang\\InHoaDon1.jrxml"));
+					            JasperDesign jd = JRXmlLoader.load(in);
+					            //JasperDesign jd1 = JRXmlLoader.load(in);
+					            System.out.println("1");
+					            
+					           // String sql= "SELECT makh,manv,tonggia FROM HOADON WHERE mahoadon='"+hoadonn.getMahoadon()+"'";
+					            String sql ="SELECT H.mahoadon,H.manv,H.makh,H.tonggia,SP.tensanpham,SP.loaisanpham,SP.giatien,CTHD.thanhtien,CTHD.soluong FROM Hoadon H,Chitiethoadon CTHD,Sanpham SP WHERE H.mahoadon = CTHD.mahoadon and CTHD.masanpham = SP.masanpham and H.mahoadon ='"+hoadonn.getMahoadon()+"'";
+					          //  String sql1= "SELECT mahoadon,soluong,masanpham,thanhtien FROM CHITIETHOADON H WHERE H.mahoadon='"+hoadonn.getMahoadon()+"'";
+					          //  JRDesignQuery newQuery = new JRDesignQuery();
+					            JRDesignQuery newQuery1 = new JRDesignQuery();
+					         //   newQuery.setText(sql1);
+					            newQuery1.setText(sql);
+					       //     jd.setQuery(newQuery);
+					            jd.setQuery(newQuery1);
+					            System.out.println("2");
+					            JasperReport jr = JasperCompileManager.compileReport(jd);
+					            // jr = JasperCompileManager.compileReport(jd1);
+					            HashMap<String,Object> para = new HashMap<>();
+					            String mahoadon = String.valueOf(hoadonn.getMahoadon());
+					            String tonggia = String.valueOf(hoadonn.getTonggia());
+					             para.put("mahoadon",mahoadon);
+					             para.put("tonggia", tonggia);
+					            JasperPrint j = JasperFillManager.fillReport(jr, para,conn);
+					    
+					            JasperViewer.viewReport(j,false);
+					         
+					            OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
+					            JasperExportManager.exportReportToPdfStream(j,os);
+					            
+					        }catch(Exception e) {
+					            JOptionPane.showMessageDialog(null, "Lỗi"+ e);
+					        }
+						 
+						
+							  
+				
+					        
+						 
+						 
 				 }
 		 });
-		 
-		 
 	 			}
 		
 		   

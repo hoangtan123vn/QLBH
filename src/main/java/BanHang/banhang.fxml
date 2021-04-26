@@ -55,7 +55,7 @@
                </font>
             </Label>
             <TextField fx:id="tongtien" layoutX="149.0" layoutY="340.0" prefHeight="27.0" prefWidth="159.0" editable="false" />
-            <TextField fx:id="khachtra" layoutX="149.0" layoutY="416.0" prefHeight="27.0" prefWidth="159.0" editable="false"/>
+            <TextField fx:id="khachtra" layoutX="149.0" layoutY="416.0" prefHeight="27.0" prefWidth="159.0"/>
             <TextField fx:id="tienthua" layoutX="149.0" layoutY="555.0" prefHeight="25.0" prefWidth="159.0" editable="false"/>
             <Button fx:id="thanhtoan" layoutX="149.0" layoutY="653.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="230.0" text="Thanh toán" textFill="#225abf">
                <cursor>

@@ -130,7 +130,7 @@ public class KiemTraHangController implements Initializable {
 				NhapHangvaTraHang Dathang1 = loader.getController();
 		//		Dathang1.setKiemtrahang(selected);
 				if(selected == null) {
-					 thongbaoKT.setVisible(true);
+					 //thongbaoKT.setVisible(true);
 					 thongbaoKT.setText("Không có phiếu đặt hàng được chọn!!!");
 					 System.out.print("Không có phiếu đặt hàng được chọn!!!");
 					 return;
@@ -138,7 +138,7 @@ public class KiemTraHangController implements Initializable {
 				 else if(selected != null){
 					 Dathang1.setKiemtrahang(selected);
 					 if(selected.getKiemtrahang()== true) {
-						 thongbaoKT.setVisible(true);
+						// thongbaoKT.setVisible(true);
 						 thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra ! ! ! ");
 						 return;
 					 }
@@ -156,6 +156,7 @@ public class KiemTraHangController implements Initializable {
 				stage1.show();
 			}catch (Exception e) {
 				// TODO: handle exception
+				System.out.print(e);
 			}
 		});
 		
