@@ -32,17 +32,30 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.bytebuddy.implementation.bytecode.Addition;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import QLBH.Hoadon;
 import QLBH.Sanpham;
 import QLBH.Taikhoannv;
 import javafx.stage.FileChooser;
 
+import java.util.HashMap;
 import java.util.List;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -55,6 +68,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
+import javax.swing.JOptionPane;
 
 import javafx.application.Application;
 import javafx.beans.Observable;
@@ -354,6 +368,7 @@ public class NhapHangvaTraHang implements Initializable{
 	         alert.setContentText("Cập nhật số lượng thành công!" );
     		 alert.showAndWait();
     		 
+    		 
 
 			 }
 	    	catch (RuntimeException error){
@@ -367,6 +382,7 @@ public class NhapHangvaTraHang implements Initializable{
     		tbnhaphang.getItems().clear();
     		tbnhaphang.refresh();
     		 KiemTraHangController.getInstance().khoitao();
+    		 InPhieuNhapHang(phieunhaphang);
     	
 		}
 		});
@@ -431,12 +447,74 @@ public class NhapHangvaTraHang implements Initializable{
 		    		}
 			 tbtrahang.getItems().clear();
 			 tbtrahang.refresh();
-			
 			 KiemTraHangController.getInstance().khoitao();
+			 InPhieutrahang(phieutrahang);
+			 
 			}
 			
 		});
 	}
+	public void InPhieutrahang(Phieutrahang phieutrahang) {
+		try {
+			    final String DB_URL = "jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh";
+	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
+	            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\KiemTraHang\\PhieuTraHang.jrxml"));
+	            JasperDesign jd = JRXmlLoader.load(in);
+	            String sql ="SELECT PTH.maphieutra,NCC.tenncc,PTH.tongtien,PTH.thoigian,SP.tensanpham,SP.loaisanpham,CTPT.thanhtien,CTPT.soluong,CTPT.lydo FROM phieutra PTH,Chitietphieutra CTPT,Sanpham SP,Nhacungcap NCC WHERE PTH.maphieutra = CTPT.maphieutra and CTPT.masanpham = SP.masanpham and PTH.mancc = NCC.mancc and PTH.maphieutra ='"+phieutrahang.getMaphieutra()+"'";
+	            JRDesignQuery newQuery1 = new JRDesignQuery();
+	            newQuery1.setText(sql);
+	            jd.setQuery(newQuery1);
+	            JasperReport jr = JasperCompileManager.compileReport(jd);
+	            // jr = JasperCompileManager.compileReport(jd1);
+	            HashMap<String,Object> para = new HashMap<>();
+	            String maphieutra = String.valueOf(phieutrahang.getMaphieutra());
+	            String tongtien = String.valueOf(phieutrahang.getTongtien());
+	             para.put("maphieutra",maphieutra);
+	             para.put("tongtien", tongtien);
+	            JasperPrint j = JasperFillManager.fillReport(jr, para,conn);
+	    
+	            JasperViewer.viewReport(j,false);
+	         
+	            OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
+	            JasperExportManager.exportReportToPdfStream(j,os);
+	            
+	        }catch(Exception e) {
+	            JOptionPane.showMessageDialog(null, "Lỗi"+ e);
+	        }
+	}
+
+	public void InPhieuNhapHang(Phieunhaphang phieunhaphang) {
+		try {
+			    final String DB_URL = "jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh";
+	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
+	            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\KiemTraHang\\PhieuNhapHang.jrxml"));
+	            JasperDesign jd = JRXmlLoader.load(in);
+	            String sql ="SELECT PNH.manhaphang,NCC.tenncc,PNH.tongtien,PNH.thoigian,SP.tensanpham,SP.loaisanpham,SP.giatien,CTNH.thanhtien,CTNH.soluong FROM nhaphang PNH,Chitietnhaphang CTNH,Sanpham SP,Nhacungcap NCC WHERE PNH.manhaphang = CTNH.manhaphang and CTNH.masanpham = SP.masanpham and PNH.mancc = NCC.mancc and PNH.manhaphang ='"+phieunhaphang.getManhaphang()+"'";
+	            JRDesignQuery newQuery1 = new JRDesignQuery();
+	            newQuery1.setText(sql);
+	            jd.setQuery(newQuery1);
+	            JasperReport jr = JasperCompileManager.compileReport(jd);
+	            // jr = JasperCompileManager.compileReport(jd1);
+	            HashMap<String,Object> para = new HashMap<>();
+	            String manhaphang = String.valueOf(phieunhaphang.getManhaphang());
+	            String tongtien = String.valueOf(phieunhaphang.getTongtien());
+	             para.put("manhaphang",manhaphang);
+	             para.put("tongtien", tongtien);
+	            JasperPrint j = JasperFillManager.fillReport(jr, para,conn);
+	    
+	            JasperViewer.viewReport(j,false);
+	         
+	            OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
+	            JasperExportManager.exportReportToPdfStream(j,os);
+	            
+	        }catch(Exception e) {
+	            JOptionPane.showMessageDialog(null, "Lỗi"+ e);
+	        }
+	}
+
+	
+	
+	
 	private void ButtonXoaSP() {
 		Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>> cellFactory = new Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>>() {
             @Override
