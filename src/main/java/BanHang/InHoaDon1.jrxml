@@ -28,10 +28,17 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="40" splitType="Stretch">
+		<band height="52" splitType="Stretch">
 			<line>
 				<reportElement x="-20" y="3" width="595" height="1" uuid="ef2f8356-ee2e-465e-8a52-c65285391af0"/>
 			</line>
+			<staticText>
+				<reportElement x="190" y="7" width="150" height="38" uuid="5dee7703-d824-48d5-9453-755b4c224a77"/>
+				<textElement>
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[HÓA ĐƠN ]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
