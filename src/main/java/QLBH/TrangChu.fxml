@@ -9,26 +9,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="863.0" prefWidth="1368.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.TrangChuController">
+<AnchorPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-image: bg01;" stylesheets="@../ThongKe/thongke.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.TrangChuController">
    <children>
-      <LineChart fx:id="line_chart" layoutX="681.0" layoutY="111.0" prefHeight="571.0" prefWidth="640.0">
+      <LineChart fx:id="line_chart" layoutX="642.0" layoutY="112.0" prefHeight="571.0" prefWidth="640.0">
          <xAxis>
             <CategoryAxis fx:id="ngay" side="BOTTOM" />
          </xAxis>
          <yAxis>
-            <NumberAxis fx:id="doanhthu" side="LEFT" />
+            <NumberAxis fx:id="doanhthu" side="LEFT" tickLabelFill="WHITE">
+               <tickLabelFont>
+                  <Font name="System Bold" size="20.0" />
+               </tickLabelFont></NumberAxis>
          </yAxis>
       </LineChart>
-      <ComboBox fx:id="cbb_thang" layoutX="775.0" layoutY="83.0" onAction="#ThongKeThang" prefHeight="27.0" prefWidth="74.0" />
-      <BarChart fx:id="bar_chart" layoutX="77.0" layoutY="96.0" prefHeight="604.0" prefWidth="524.0">
+      <ComboBox fx:id="cbb_thang" layoutX="779.0" layoutY="82.0" onAction="#ThongKeThang" prefHeight="27.0" prefWidth="74.0" />
+      <BarChart fx:id="bar_chart" layoutX="38.0" layoutY="95.0" prefHeight="604.0" prefWidth="524.0">
          <xAxis>
             <CategoryAxis fx:id="Sanpham" side="BOTTOM" />
          </xAxis>
          <yAxis>
-            <NumberAxis fx:id="Soluongbanra" side="LEFT" />
+            <NumberAxis fx:id="Soluongbanra" side="LEFT" tickLabelFill="WHITE">
+               <tickLabelFont>
+                  <Font name="System Bold" size="20.0" />
+               </tickLabelFont></NumberAxis>
          </yAxis>
       </BarChart>
-      <Label layoutX="705.0" layoutY="82.0" text="THÁNG">
+      <Label layoutX="699.0" layoutY="85.0" text="THÁNG" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
