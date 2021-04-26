@@ -196,7 +196,7 @@ public class KiemtrahangController implements Initializable{
 	    		 session.beginTransaction();
 	    		 session.save(phieunhaphang);
 	    		 session.getTransaction().commit();  
-	    		 alert.setContentText("them phieu nhap hang thanh cong " );
+	    		 alert.setContentText("Thêm phiếu nhập hàng thành công " );
 	    		 alert.showAndWait();
 			 	}
 		    	catch (RuntimeException error){

@@ -344,15 +344,16 @@ public class NhapHangvaTraHang implements Initializable{
     		Chitietnhaphang chitietnhaphang= new Chitietnhaphang(phieunhaphang,sanpham,soluongnhap,thanhtien);
 		//them so luong sp 
     		int soluong = ct.getSanpham().getDonvitinh() + sanpham.getDonvitinh();
-    		
+    		 
 			 try {
 	    	 session.beginTransaction();
 	    	 sanpham.setDonvitinh(soluong);
     		 session.save(chitietnhaphang);
     		 session.save(sanpham);
     		 session.getTransaction().commit();
-	         alert.setContentText("Thêm chi tiết nhập hàng và cập nhật số lượng thành công!" );
+	         alert.setContentText("Cập nhật số lượng thành công!" );
     		 alert.showAndWait();
+    		 
 
 			 }
 	    	catch (RuntimeException error){
@@ -361,8 +362,11 @@ public class NhapHangvaTraHang implements Initializable{
 		    		 alert.showAndWait();
 		    		 session.getTransaction().rollback();
 		    	} 	
-			 KiemTraHangController.getInstance().khoitao();
+			
     		}
+    		tbnhaphang.getItems().clear();
+    		tbnhaphang.refresh();
+    		 KiemTraHangController.getInstance().khoitao();
     	
 		}
 		});
@@ -388,9 +392,7 @@ public class NhapHangvaTraHang implements Initializable{
 			 try{
 	    		 session.beginTransaction();
 	    		 session.save(phieutrahang);
-	    		 session.getTransaction().commit();  
-	    		 alert.setContentText("Thêm phiếu trả hàng thành công!" );
-	    		 alert.showAndWait();
+	    		 session.getTransaction().commit();  	
 			 	}
 		    	catch (RuntimeException error){
 		    		 alert.setContentText("Lỗi " + error);
@@ -415,7 +417,7 @@ public class NhapHangvaTraHang implements Initializable{
 		    		 session.save(chitietphieutra);
 		    	//	 session.save(sanpham);
 		    		 session.getTransaction().commit();
-			         alert.setContentText("Thêm chi tiết trả hàng thành công!" );
+		    		 alert.setContentText("Thêm phiếu trả hàng thành công!" );
 		    		 alert.showAndWait();
 		    		 
 
@@ -427,6 +429,8 @@ public class NhapHangvaTraHang implements Initializable{
 				    		 session.getTransaction().rollback();
 				    	} 	    		
 		    		}
+			 tbtrahang.getItems().clear();
+			 tbtrahang.refresh();
 			
 			 KiemTraHangController.getInstance().khoitao();
 			}
