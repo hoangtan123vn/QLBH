@@ -30,6 +30,7 @@ public class QLBH extends Application {
 		Scene scene = new Scene(root);
 		scene.setFill(null);
 		scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
+		//scene.getStylesheets().add(getClass().getResource("thongke.css").toExternalForm());
 	//	scene.addEventHandler(null, null);
 	//	Scene scene = new Scene(root,337,408);
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
