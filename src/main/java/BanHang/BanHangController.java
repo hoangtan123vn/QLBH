@@ -457,6 +457,7 @@ public class BanHangController implements Initializable{
 	               	        }
 	               			
 	               	        tongtien.setText(String.valueOf(sum));
+	               	        kiemtratftongtien();
 	               		   }
 	                        });
 	                    }
@@ -496,6 +497,8 @@ public class BanHangController implements Initializable{
 		timkiemloaisp.setItems(list);
 		//
 		
+		tongtien.setText("0");
+		khachtra.setText("0");
 		giamgia.setText("0");
 		
 		setCellValueFromTabletoTexfFieldd();
@@ -669,6 +672,7 @@ public class BanHangController implements Initializable{
             sum = sum + (chitiethoadon.getSanpham().getGiatien()*chitiethoadon.getSoluong());
         }
         tongtien.setText(String.valueOf(sum));
+        kiemtratftongtien();
  	   // TableSP.refresh();
 	   // entry.s
 	}
@@ -795,5 +799,21 @@ public class BanHangController implements Initializable{
 		diemtichluy.setText(null);
 		giamgia.setText("0");
 	}
+void kiemtratftongtien() {
+		
+		if(Integer.parseInt(khachtra.getText()) >= Integer.parseInt(tongtien.getText())) { 
 
+			 float tiengiam = Float.parseFloat(giamgia.getText())/100;
+			 float tongtiengiam = Float.parseFloat(tongtien.getText())*(1-tiengiam);
+			 float tientrakhach = Float.parseFloat(khachtra.getText())- tongtiengiam;
+             tienthua.setText(String.valueOf(tientrakhach));
+             thongbao.setText(null);
+
+		}
+		else {
+			khachtra.setText("0");
+			thongbao.setText("Vui lòng điền số tien ");
+			tienthua.setText(null);
+		}
+	}
 }
