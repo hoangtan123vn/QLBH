@@ -62,8 +62,6 @@ import org.hibernate.boot.registry.*;
 import QLBH.HibernateUtils;
 import QLBH.Nhanvien;
 import QLBH.Sanpham;
-import QLBH.chucnangquanly;
-
 public class detailsanphamcontroller implements Initializable{
 	
 	

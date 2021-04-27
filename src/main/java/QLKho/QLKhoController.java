@@ -21,11 +21,9 @@ import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 import QLBH.HibernateUtils;
-import QLBH.KiemtrahangController;
 import QLBH.Nhanvien;
 import QLBH.Phieudathang;
 import QLBH.Taikhoannv;
-import QLBH.chucnangquanly;
 
 
 import javax.imageio.ImageIO;

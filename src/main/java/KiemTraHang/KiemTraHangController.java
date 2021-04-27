@@ -140,7 +140,7 @@ public class KiemTraHangController implements Initializable {
 						 thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra ! ! ! ");
 						 return;
 					 }
-					 Dathang1.setKiemtrahang(selected);
+					 
 					// truedisable();
 				 }
 				//thongbaoKT.setText(null);

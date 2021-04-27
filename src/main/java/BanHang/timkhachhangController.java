@@ -19,7 +19,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 //import QLBH.HoadonDetailController;
 import QLBH.Hoadon;
-import QLBH.chucnangnhanvienController;
 import QLBH.KhachHang;
 import QLBH.Sanpham;
 import javafx.collections.FXCollections;

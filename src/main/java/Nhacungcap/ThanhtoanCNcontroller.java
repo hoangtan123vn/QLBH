@@ -256,7 +256,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	            String thanhtoan = String.valueOf(tfthanhtoan.getText());
 	            String noconlai = String.valueOf(tfnoconlai.getText());
 	            String thoigian = tfdate.getText();
-	            Integer sotienno = Integer.parseInt(tfnoht.getText());
+	            String sotienno = tfnoconlai.getText();
 	             para.put("thanhtoan",thanhtoan);
 	             para.put("noconlai", noconlai);
 	             para.put("thoigian", thoigian);

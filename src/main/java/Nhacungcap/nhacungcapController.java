@@ -30,7 +30,6 @@ import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
 import QLBH.Sanpham;
-import QLBH.chucnangquanly;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

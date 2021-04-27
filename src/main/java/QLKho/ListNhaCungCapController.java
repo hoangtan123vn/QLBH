@@ -18,7 +18,6 @@ import BanHang.BanHangController;
 import QLBH.HibernateUtils;
 //import QLBH.HoadonDetailController;
 import QLBH.Hoadon;
-import QLBH.chucnangnhanvienController;
 import QLBH.KhachHang;
 import QLBH.Sanpham;
 import QLBH.Nhacungcap;
