@@ -623,6 +623,7 @@ public class BanHangController implements Initializable{
 						 float tongtiengiam = Float.parseFloat(tongtien.getText())*(1-tiengiam);
 						 float tientrakhach = Float.parseFloat(khachtra.getText())- tongtiengiam;
 		                 tienthua.setText(String.valueOf(tientrakhach));
+		                 thongbaokhachtra.setText(null);
 					}
 			}
 		});
@@ -807,12 +808,12 @@ void kiemtratftongtien() {
 			 float tongtiengiam = Float.parseFloat(tongtien.getText())*(1-tiengiam);
 			 float tientrakhach = Float.parseFloat(khachtra.getText())- tongtiengiam;
              tienthua.setText(String.valueOf(tientrakhach));
-             thongbao.setText(null);
+             thongbaokhachtra.setText(null);
 
 		}
 		else {
-			khachtra.setText("0");
-			thongbao.setText("Vui lòng điền số tien ");
+			khachtra.setText(String.valueOf(0));
+			thongbaokhachtra.setText("Vui lòng nhập số tiền khách trả ");
 			tienthua.setText(null);
 		}
 	}
