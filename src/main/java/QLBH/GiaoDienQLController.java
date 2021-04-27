@@ -236,6 +236,9 @@ public class GiaoDienQLController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/QLBH/TrangChu.fxml"));
 			AnchorPane pane = loader.load();
 			mainpane.getChildren().setAll(pane);
+			mainpane.getStylesheets().add(getClass().getResource("thongke.css").toExternalForm());
+			//mainpane.getStylesheets().add();
+			//mainpane.setStyle(" -fx-background-image: url(\"bg1.jpg\");");
 		} catch (IOException e) {
 			System.out.println(e);
 			
