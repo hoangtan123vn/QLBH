@@ -509,7 +509,7 @@ public void loadData(Taikhoannv taikhoan) {
 
 	public void InPhieudathang(Phieudathang phieudathang) {
 		try {
-			    final String DB_URL = "jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh";
+			    final String DB_URL = "jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh";
 	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
 	            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\QLKho\\Phieudathang.jrxml"));
 	            JasperDesign jd = JRXmlLoader.load(in);

@@ -456,7 +456,7 @@ public class NhapHangvaTraHang implements Initializable{
 	}
 	public void InPhieutrahang(Phieutrahang phieutrahang) {
 		try {
-			    final String DB_URL = "jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh";
+			    final String DB_URL = "jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh";
 	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
 	            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\KiemTraHang\\PhieuTraHang.jrxml"));
 	            JasperDesign jd = JRXmlLoader.load(in);
@@ -485,7 +485,7 @@ public class NhapHangvaTraHang implements Initializable{
 
 	public void InPhieuNhapHang(Phieunhaphang phieunhaphang) {
 		try {
-			    final String DB_URL = "jdbc:mysql://localhost/qlbhh?serverTimezone=Asia/Ho_Chi_Minh";
+			    final String DB_URL = "jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh";
 	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
 	            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\KiemTraHang\\PhieuNhapHang.jrxml"));
 	            JasperDesign jd = JRXmlLoader.load(in);
