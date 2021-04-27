@@ -59,6 +59,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Tab;
@@ -111,6 +112,8 @@ public class BanHangController implements Initializable{
 	public static BanHangController getInstance() {
 		return instance;
 	}
+	@FXML
+	private ComboBox<String> timkiemloaisp;
 	@FXML
 	private Button xoakh;
 	@FXML
@@ -488,6 +491,10 @@ public class BanHangController implements Initializable{
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		//set value for combobox
+		ObservableList<String> list=FXCollections.observableArrayList("snack","drink","food","kem","ALL");
+		timkiemloaisp.setItems(list);
+		//
 		
 		giamgia.setText("0");
 		
@@ -681,20 +688,65 @@ public class BanHangController implements Initializable{
 					return true;
 				}
 				String lowerCaseFilter = newValue.toLowerCase();
-
+				
 				if (sanpham.getTensanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches username
-				} else if (sanpham.getDonvi().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				} else if (sanpham.getLoaisanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true; // Filter matches password
-				} else
+				}else
 					return false; // Does not match.
 			});
 		});
+		timkiemloaisp.valueProperty().addListener((observable, oldValue, newValue) -> {
+		
+			filteredData.setPredicate(sanpham -> {
+				//Timkiem.setText(null);
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				if (newValue == "ALL" ) {
+					return true;
+				}
+				String lowerCaseFilter = newValue.toLowerCase();	
+				// Filter matches username
+				if (sanpham.getLoaisanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {	
+					return true; // Filter matches password
+				}
+				  else
+					return false; // Does not match.
+			});
+		});
+		//
+		timkiemloaisp.valueProperty().addListener((observable, oldValue, newValue) -> {
+			Timkiem.textProperty().addListener((observable1, oldValue1, newValue1) -> {
+			filteredData.setPredicate(sanpham -> {
+				//Timkiem.setText(null);
+				String lowerCaseFilter = newValue.toLowerCase();
+				String lowerCaseFilter1 = newValue1.toLowerCase();
+				if (newValue == null || newValue.isEmpty()) {
+					return true;
+				}
+				if (newValue == "ALL" && sanpham.getTensanpham().toLowerCase().indexOf(lowerCaseFilter1) != -1) {
+					return true;
+				}
+				
+				// Filter matches username
+				if (sanpham.getLoaisanpham().toLowerCase().indexOf(lowerCaseFilter) != -1 && sanpham.getTensanpham().toLowerCase().indexOf(lowerCaseFilter1) != -1) {	
+					return true; // Filter matches password
+				}
+				  else
+					return false; // Does not match.
+			});
+		});
+		});
+		//
 		SortedList<Sanpham> sortedData = new SortedList<>(filteredData);
 		sortedData.comparatorProperty().bind(TableSP.comparatorProperty());
 		TableSP.setItems(sortedData);
 
+
 	}
+
 	/// thanh toan
 	
 	// tim khach hang
