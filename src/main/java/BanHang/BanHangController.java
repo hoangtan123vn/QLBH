@@ -601,21 +601,19 @@ public class BanHangController implements Initializable{
 //	        
 		khachtra.addEventHandler(KeyEvent.KEY_PRESSED, e->{
 			if(e.getCode() == KeyCode.ENTER) {
-				Pattern p = Pattern.compile("[0-9]+");
-				Matcher m = p.matcher(khachtra.getText());
-				if(m.find() && m.group().equals(khachtra.getText()) &&
-						Integer.parseInt(khachtra.getText()) >= Integer.parseInt(tongtien.getText())) { 
-
-					 float tiengiam = Float.parseFloat(giamgia.getText())/100;
-					 float tongtiengiam = Float.parseFloat(tongtien.getText())*(1-tiengiam);
-					 float tientrakhach = Float.parseFloat(khachtra.getText())- tongtiengiam;
-	                 tienthua.setText(String.valueOf(tientrakhach));
-       
+				if( Integer.parseInt(khachtra.getText()) < Integer.parseInt(tongtien.getText())) {
+					
+	                 
+	                 khachtra.setText("");
+	                 thongbaokhachtra.setText("Không đủ tiền , nhập lại");
+	                 
 				}
-				else {
-					khachtra.setText("");
-					thongbao.setText("Vui lòng điền số tien hợp lệ");
-				}
+					else {
+						 float tiengiam = Float.parseFloat(giamgia.getText())/100;
+						 float tongtiengiam = Float.parseFloat(tongtien.getText())*(1-tiengiam);
+						 float tientrakhach = Float.parseFloat(khachtra.getText())- tongtiengiam;
+		                 tienthua.setText(String.valueOf(tientrakhach));
+					}
 			}
 		});
 //
