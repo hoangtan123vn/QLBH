@@ -3,7 +3,6 @@ package Nhanvien;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.annotation.Generated;
 
 import org.junit.Test;
 
@@ -11,7 +10,7 @@ import QLBH.Nhanvien;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
-@Generated(value = "org.junit-tools-1.1.0")
+@javax.annotation.processing.Generated(value = "org.junit-tools-1.1.0")
 public class NhanvienControllerTest {
 
 	private NhanvienController createTestSubject() {
@@ -92,6 +91,7 @@ public class NhanvienControllerTest {
 		// default test
 		testSubject = createTestSubject();
 		result = testSubject.getNhanvien();
+		System.out.print(result);
 	}
 
 	

@@ -27,7 +27,7 @@
             <Font name="Arial Bold" size="15.0" />
          </font></Label>
       <Button fx:id="chitiet" layoutX="564.0" layoutY="611.0" mnemonicParsing="false" text="Chi tiết phiếu đặt hàng" />
-      <Label fx:id="thongbaoKT" layoutX="451.0" layoutY="158.0" prefHeight="35.0" prefWidth="416.0" text="Label" textFill="RED" visible="false">
+      <Label fx:id="thongbaoKT" layoutX="451.0" layoutY="158.0" prefHeight="35.0" prefWidth="416.0" textFill="RED">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

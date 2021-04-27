@@ -76,8 +76,8 @@ public class KiemTraHangController implements Initializable {
 	@FXML
 	private TableColumn thoigiandatkt;
 	
-	@FXML
-	private Label thongbaoKT;
+	 @FXML
+	 private Label thongbaoKT;
 
 	@FXML
 	private TableColumn tongtienkt;
@@ -130,26 +130,20 @@ public class KiemTraHangController implements Initializable {
 				NhapHangvaTraHang Dathang1 = loader.getController();
 		//		Dathang1.setKiemtrahang(selected);
 				if(selected == null) {
-					 //thongbaoKT.setVisible(true);
 					 thongbaoKT.setText("Không có phiếu đặt hàng được chọn!!!");
-					 System.out.print("Không có phiếu đặt hàng được chọn!!!");
 					 return;
 				 }
 				 else if(selected != null){
-					 Dathang1.setKiemtrahang(selected);
-					 if(selected.getKiemtrahang()== true) {
+					 
+					 if(selected.getKiemtrahang()==true) {
 						// thongbaoKT.setVisible(true);
 						 thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra ! ! ! ");
 						 return;
 					 }
-					 
+					 Dathang1.setKiemtrahang(selected);
 					// truedisable();
-					
-					 
-					 
-					 
 				 }
-				thongbaoKT.setText(null);
+				//thongbaoKT.setText(null);
 				Dathang1.loadData(taikhoan);
 				stage1.setTitle("Kiem tra hang");
 				stage1.setScene(scene1);
