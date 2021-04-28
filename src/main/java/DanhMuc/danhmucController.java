@@ -4,16 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.persistence.criteria.CriteriaQuery;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
@@ -77,8 +74,6 @@ public class danhmucController implements Initializable {
 
 	ObservableList<Hoadon> listPHD;
 
-	
-
 	@FXML
 	private TableView<Phieutrahang> tablePhieuTraHang;
 
@@ -89,7 +84,7 @@ public class danhmucController implements Initializable {
 	private TableColumn thoigiantra;
 
 	@FXML
-	private TableColumn mancc3;
+	private TableColumn manccTH;
 
 	@FXML
 	private TextField searchTraHang;
@@ -118,13 +113,13 @@ public class danhmucController implements Initializable {
 	private Label thongbaoDH;
 
 	@FXML
-	private TableColumn mancc;
+	private TableColumn manccDH;
 
 	@FXML
 	private TableColumn thoigiandat;
 
 	@FXML
-	private TableColumn tongtien1;
+	private TableColumn tongtienDH;
 
 	ObservableList<Phieudathang> listPDH;
 
@@ -141,7 +136,7 @@ public class danhmucController implements Initializable {
 	private TableColumn manhaphang;
 
 	@FXML
-	private TableColumn mancc2;
+	private TableColumn manccNH;
 
 	@FXML
 	private TableColumn thoigiannhap;
@@ -153,7 +148,7 @@ public class danhmucController implements Initializable {
 	private Label thongbaoNH;
 
 	@FXML
-	private TableColumn manv2;
+	private TableColumn manvNH;
 
 	ObservableList<Phieunhaphang> listPNH;
 
@@ -410,12 +405,12 @@ public class danhmucController implements Initializable {
 		manvHD.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
 		tableHoaDon.setItems(getHoadon());
 		searchHoaDon();
-		
+
 		madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
 		thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
-		tongtien1.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
-		mancc.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancc.setCellFactory(tablePhieuDatHang -> new TableCell<Phieudathang, Nhacungcap>() {
+		tongtienDH.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
+		manccDH.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		manccDH.setCellFactory(tablePhieuDatHang -> new TableCell<Phieudathang, Nhacungcap>() {
 			@Override
 			protected void updateItem(Nhacungcap item, boolean empty) {
 				super.updateItem(item, empty);
@@ -428,12 +423,12 @@ public class danhmucController implements Initializable {
 		});
 		tablePhieuDatHang.setItems(getPhieudathang());
 		searchDatHang();
-		
+
 		manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manhaphang"));
 		thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigian"));
 		tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
-		mancc2.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancc2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhacungcap>() {
+		manccNH.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		manccNH.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhacungcap>() {
 			@Override
 			protected void updateItem(Nhacungcap item, boolean empty) {
 				super.updateItem(item, empty);
@@ -444,8 +439,8 @@ public class danhmucController implements Initializable {
 				}
 			}
 		});
-		manv2.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
-		manv2.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhanvien>() {
+		manvNH.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
+		manvNH.setCellFactory(tablePhieuNhapHang -> new TableCell<Phieunhaphang, Nhanvien>() {
 			@Override
 			protected void updateItem(Nhanvien item, boolean empty) {
 				super.updateItem(item, empty);
@@ -458,11 +453,11 @@ public class danhmucController implements Initializable {
 		});
 		tablePhieuNhapHang.setItems(getPhieunhaphang());
 		searchNhapHang();
-		
+
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
 		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigian"));
-		mancc3.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-		mancc3.setCellFactory(tablePhieuTraHang -> new TableCell<Phieutrahang, Nhacungcap>() {
+		manccTH.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		manccTH.setCellFactory(tablePhieuTraHang -> new TableCell<Phieutrahang, Nhacungcap>() {
 			@Override
 			protected void updateItem(Nhacungcap item, boolean empty) {
 				super.updateItem(item, empty);

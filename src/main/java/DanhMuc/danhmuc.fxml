@@ -55,9 +55,9 @@
                         <TableView fx:id="tablePhieuDatHang" layoutX="312.0" layoutY="173.0" prefHeight="248.0" prefWidth="751.0">
                            <columns>
                               <TableColumn fx:id="madathang" prefWidth="177.0" text="Mã đặt hàng " />
-                              <TableColumn fx:id="mancc" prefWidth="183.0" text="Mã NCC" />
+                              <TableColumn fx:id="manccDH" prefWidth="183.0" text="Mã NCC" />
                               <TableColumn fx:id="thoigiandat" prefWidth="234.0" text="Thời gian đặt " />
-                              <TableColumn fx:id="tongtien1" prefWidth="156.0" text="Tổng tiền " />
+                              <TableColumn fx:id="tongtienDH" prefWidth="156.0" text="Tổng tiền " />
                            </columns>
                         </TableView>
                         <Button layoutX="622.0" layoutY="466.0" mnemonicParsing="false" onAction="#changeSceneDathangDetail" text="Chi tiết đặt hàng" />
@@ -81,10 +81,10 @@
                         <TableView fx:id="tablePhieuNhapHang" layoutX="317.0" layoutY="152.0" prefHeight="266.0" prefWidth="731.0">
                            <columns>
                               <TableColumn fx:id="manhaphang" prefWidth="162.0" text="Mã phiếu nhập " />
-                              <TableColumn fx:id="mancc2" prefWidth="106.0" text="Mã NCC " />
+                              <TableColumn fx:id="manccNH" prefWidth="106.0" text="Mã NCC " />
                               <TableColumn fx:id="thoigiannhap" prefWidth="147.0" text="Thời gian nhập " />
                               <TableColumn fx:id="tongtien" prefWidth="152.0" text="Tổng tiền " />
-                              <TableColumn fx:id="manv2" prefWidth="163.0" text="Nhân viên " />
+                              <TableColumn fx:id="manvNH" prefWidth="163.0" text="Nhân viên " />
                            </columns>
                         </TableView>
                         <Button layoutX="590.0" layoutY="451.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" text="Chi tiết phiếu nhập hàng" />
@@ -104,7 +104,7 @@
                         <TableView fx:id="tablePhieuTraHang" layoutX="290.0" layoutY="164.0" prefHeight="256.0" prefWidth="727.0">
                            <columns>
                               <TableColumn fx:id="maphieutra" prefWidth="199.0" text="Mã phiếu trả " />
-                              <TableColumn fx:id="mancc3" prefWidth="287.0" text="Mã NCC " />
+                              <TableColumn fx:id="manccTH" prefWidth="287.0" text="Mã NCC " />
                               <TableColumn fx:id="thoigiantra" prefWidth="240.0" text="Thời gian trả " />
                            </columns>
                         </TableView>
