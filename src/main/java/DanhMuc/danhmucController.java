@@ -229,7 +229,7 @@ public class danhmucController implements Initializable {
 			DSNVController.setHoadon(selected);
 			thongbaoHD.setVisible(false);
 		}
-		stage.setTitle("Chi tiet hoa don");
+		stage.setTitle("Chi tiết hóa đơn");
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -264,7 +264,7 @@ public class danhmucController implements Initializable {
 			Dathang.setPhieudathang(selected);
 			thongbaoDH.setVisible(false);
 		}
-		stage1.setTitle("Chi tiet dat hang");
+		stage1.setTitle("Chi tiết đặt hàng");
 		stage1.setScene(scene1);
 		stage1.show();
 	}
@@ -319,7 +319,7 @@ public class danhmucController implements Initializable {
 			Nhaphang.setPhieunhaphang(selected);
 			thongbaoNH.setVisible(false);
 		}
-		stage1.setTitle("Chi tiet nhap hang");
+		stage1.setTitle("Chi tiết nhập hàng");
 		stage1.setScene(scene1);
 		stage1.show();
 	}
@@ -363,7 +363,7 @@ public class danhmucController implements Initializable {
 			Trahang.setPhieutrahang(selected);
 			thongbaoTH.setVisible(false);
 		}
-		stage1.setTitle("Chi tiet phieu tra");
+		stage1.setTitle("Chi tiết phiếu trả");
 		stage1.setScene(scene1);
 		stage1.show();
 	}
@@ -426,7 +426,6 @@ public class danhmucController implements Initializable {
 					setText(String.valueOf(item.getMancc()));
 				}
 			}
-
 		});
 		tablePhieuDatHang.setItems(getPhieudathang());
 		searchPDH();
