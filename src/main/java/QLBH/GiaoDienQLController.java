@@ -34,6 +34,7 @@ import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -53,6 +54,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
@@ -375,16 +377,36 @@ public class GiaoDienQLController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-
+	private static double xoffset =0; 
+	private static double yoffset =0; 
 	@FXML
 	void DangXuat(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("loginform.fxml"));
 		Parent tmp;
 		tmp = loader.load();
 		Scene scene = new Scene(tmp);
-		// Stage stage = new Stage();
+		scene.setFill(null);
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		stage.hide();
+		scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
+		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    // record a delta distance for the drag and drop operation.
+			    xoffset = stage.getX() - mouseEvent.getScreenX();
+			    yoffset = stage.getY() - mouseEvent.getScreenY();
+			  }
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    stage.setX(mouseEvent.getScreenX() + xoffset);
+			    stage.setY(mouseEvent.getScreenY() + yoffset);
+			  }
+			});
+		// Stage stage = new Stage();
+			stage.getIcons().add(new Image(QLBH.class.getResourceAsStream("backgroundSGU.png")));
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.initStyle(StageStyle.TRANSPARENT);
+		
 		stage.setScene(scene);
 		stage.show();
 	}
