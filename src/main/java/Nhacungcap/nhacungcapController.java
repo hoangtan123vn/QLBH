@@ -21,6 +21,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import QLBH.Chitiethoadon;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
@@ -223,7 +224,7 @@ public class nhacungcapController implements Initializable{
 			stage.setScene(new Scene(root1));
 			stage.setTitle("Tạo nhà cung cấp");
 			stage.show();
-			truedisable();
+			GiaoDienQLController.getInstance().truedisable();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -264,7 +265,7 @@ public class nhacungcapController implements Initializable{
 			stage.setScene(new Scene(root1));
 			stage.setTitle("thanh toán công nợ");
 			stage.show();
-			truedisable();
+			GiaoDienQLController.getInstance().truedisable();
 			//
 
 		} catch (Exception e) {

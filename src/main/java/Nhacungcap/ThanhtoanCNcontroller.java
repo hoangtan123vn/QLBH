@@ -67,6 +67,7 @@ import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 import QLBH.Phieunhaphang;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Nhacungcap;
 
@@ -131,14 +132,14 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	    void exit(MouseEvent event) {
 		  Stage stage = (Stage) exit.getScene().getWindow();
 			stage.close();
-			nhacungcapController.getInstance().falsedisable();
+			GiaoDienQLController.getInstance().falsedisable();
 	    }
 	
 	@FXML
 	void close(ActionEvent event) {
 		Stage stage = (Stage) btquaylai.getScene().getWindow();
 		stage.close();
-		nhacungcapController.getInstance().falsedisable();
+		GiaoDienQLController.getInstance().falsedisable();
 	}
 //	@FXML
 //	public void actionComboBox() {
@@ -225,7 +226,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	        	 InPhieuThanhToanNo(nv);
 	        	 
 	        	nhacungcapController.getInstance().ReloadNHACUNGCAP();
-	        	nhacungcapController.getInstance().falsedisable();
+	        	GiaoDienQLController.getInstance().falsedisable();
 	        	
 	    	}
 	    	catch (RuntimeException error){
