@@ -43,6 +43,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -95,7 +96,7 @@ public class timkhachhangController implements Initializable{
     void exit(MouseEvent event) {
     	Stage stage = (Stage) exit.getScene().getWindow();
 		stage.close();
-		banHangController.falsedisable();
+		GiaoDienQLController.getInstance().falsedisable();
     }
     
     
@@ -137,7 +138,7 @@ public class timkhachhangController implements Initializable{
 
 	            // Setup the window/stage
 	            thisStage.setTitle("Chon khach hang");
-	            BanHangController.getInstance().truedisable();
+	            GiaoDienQLController.getInstance().truedisable();
 	            
 	            // xóa viền window
 	            thisStage.initStyle(StageStyle.UNDECORATED);
@@ -224,7 +225,7 @@ public class timkhachhangController implements Initializable{
 		 }
 		 Stage stage1 = (Stage) ap.getScene().getWindow();
     	 stage1.close();
-    	 BanHangController.getInstance().falsedisable();
+    	 GiaoDienQLController.getInstance().falsedisable();
 
 	 }
 	
