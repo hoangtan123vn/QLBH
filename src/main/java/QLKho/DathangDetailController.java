@@ -61,117 +61,100 @@ import QLBH.HibernateUtils;
 import QLBH.Sanpham;
 import QLBH.Phieudathang;
 
+public class DathangDetailController implements Initializable {
 
-public class DathangDetailController implements Initializable{
+	@FXML
+	private Label lbMadathang;
 
-    @FXML
-    private Label lbMadathang;
+	@FXML
+	private Label lbThoigiandat;
 
-    @FXML
-    private Label lbThoigiandat;
+	@FXML
+	private Label lbTongtien;
 
-    @FXML
-    private Label lbTongtien;
+	@FXML
+	private Label lbMancc;
 
-    @FXML
-    private Label lbMancc;
+	@FXML
+	private Button back1;
 
- //   @FXML
-//    private Label lbManv;
+	@FXML
+	private TableView tbChitietDatHang;
 
-    @FXML
-    private Button back1;
+	@FXML
+	private TableColumn<Chitietdathang, Sanpham> tenhang;
 
-    @FXML
-    private TableView tbChitietDatHang;
+	@FXML
+	private TableColumn soluong;
 
-    @FXML
-    private TableColumn<Chitietdathang,Sanpham> tenhang;
+	@FXML
+	private TableColumn dongia;
 
-    @FXML
-    private TableColumn soluong;
+	@FXML
+	private TableColumn tongtien;
 
-    @FXML
-    private TableColumn dongia;
+	@FXML
+	void trolai(ActionEvent e) throws IOException {
+		Stage stage = (Stage) back1.getScene().getWindow();
+		stage.close();
+	}
 
-    @FXML
-    private TableColumn tongtien;
+	public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
+		int Phieudathang = phieudathang.getMadathang();
+		ObservableList<Chitietdathang> tablePhieuDatHang = FXCollections.observableArrayList();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 
-    
-    @FXML
-    void trolai(ActionEvent e) throws IOException {
-    	Stage stage = (Stage) back1.getScene().getWindow();
-        stage.close();
-    }
-    public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
-    	int Phieudathang = phieudathang.getMadathang();
-    	ObservableList<Chitietdathang> tablePhieuDatHang = FXCollections.observableArrayList();
-    	 Session session = HibernateUtils.getSessionFactory().openSession();
-			
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			//SELECT C.soluong,SP.tensanpham,SP.giatien FROM chitietdathang C,sanpham SP WHERE C.masanpham = SP.masanpham
-			CriteriaQuery<Chitietdathang> query = builder.createQuery(Chitietdathang.class);
-			Root<Chitietdathang> root = query.from(Chitietdathang.class); // FROM
-			Join<Chitietdathang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
-			//query.where(builder.equal(SanphamJoin.get("masanpham"), masanpham));
-			List<Chitietdathang> ctdh = session.createQuery(query).getResultList();
-		 for(Chitietdathang b : ctdh) {
-			 tablePhieuDatHang.add(b);
-			 System.out.println(b);
-		 }
-		 return tablePhieuDatHang;
-		
-		 
-    }
-    
-    public void IntitlizeChitietdathang(Phieudathang phieudathang) {
-    	tenhang.setCellFactory(tbChitietDatHang ->new TableCell<Chitietdathang, Sanpham>(){
-    		@Override
- 		    protected void updateItem(Sanpham item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(item.getTensanpham());
- 		        }
- 		    }
-    	});
-    	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-    	soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Integer>("soluong"));
-    	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-    	dongia.setCellFactory(tbChitietDatHang ->new TableCell<Chitietdathang, Sanpham>(){
-    		@Override
- 		    protected void updateItem(Sanpham item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(String.valueOf(item.getGiatien()));
- 		        }
- 		    }
-    	});
-    	
-    	tbChitietDatHang.setItems(getChitietdathang(phieudathang));
-    }
-    
-    
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Chitietdathang> query = builder.createQuery(Chitietdathang.class);
+		Root<Chitietdathang> root = query.from(Chitietdathang.class);
+		Join<Chitietdathang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
+		List<Chitietdathang> ctdh = session.createQuery(query).getResultList();
+		for (Chitietdathang b : ctdh) {
+			tablePhieuDatHang.add(b);
+			System.out.println(b);
+		}
+		return tablePhieuDatHang;
 
+	}
 
+	public void IntitlizeChitietdathang(Phieudathang phieudathang) {
+		tenhang.setCellFactory(tbChitietDatHang -> new TableCell<Chitietdathang, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item.getTensanpham());
+				}
+			}
+		});
+		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang, Integer>("soluong"));
+		dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		dongia.setCellFactory(tbChitietDatHang -> new TableCell<Chitietdathang, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getGiatien()));
+				}
+			}
+		});
+
+		tbChitietDatHang.setItems(getChitietdathang(phieudathang));
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
 	}
 
-
-	 public void setPhieudathang (Phieudathang phieudathang) {
-	    	lbMadathang.setText(String.valueOf((phieudathang.getMadathang())));
-	    	lbThoigiandat.setText(String.valueOf(phieudathang.getThoigian()));
-	  //  	lbTongtien.setText(String.valueOf((phieudathang.getTongtien())));
-	    	lbMancc.setText(phieudathang.getNhacungcap().toString());
-	   // 	lbManv.setText(phieudathang.getNhanvien().toString());
-	    	
-	    	IntitlizeChitietdathang(phieudathang);
-	    }	
+	public void setPhieudathang(Phieudathang phieudathang) {
+		lbMadathang.setText(String.valueOf((phieudathang.getMadathang())));
+		lbThoigiandat.setText(String.valueOf(phieudathang.getThoigian()));
+		lbMancc.setText(phieudathang.getNhacungcap().toString());
+		IntitlizeChitietdathang(phieudathang);
+	}
 }

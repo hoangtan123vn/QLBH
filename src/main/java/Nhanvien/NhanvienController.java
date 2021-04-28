@@ -1,4 +1,5 @@
 package Nhanvien;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -65,8 +66,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-
-public class NhanvienController implements Initializable{
+public class NhanvienController implements Initializable {
 
 	public static NhanvienController instance;
 
@@ -118,7 +118,6 @@ public class NhanvienController implements Initializable{
 	@FXML
 	private DatePicker ngayvaolam;
 
-
 	@FXML
 	private TextField sdt_nv;
 
@@ -151,81 +150,75 @@ public class NhanvienController implements Initializable{
 
 	@FXML
 	private ComboBox<String> Listnhanvien;
-	
-	
+
 	@FXML
-    private Label check_hovaten;
+	private Label check_hovaten;
 
-    @FXML
-    private Label check_ngaysinh;
+	@FXML
+	private Label check_ngaysinh;
 
-    @FXML
-    private Label check_sdt;
+	@FXML
+	private Label check_sdt;
 
-    @FXML
-    private Label check_cmnd;
+	@FXML
+	private Label check_cmnd;
 
-    @FXML
-    private Label check_diachi;
-    
-    @FXML
-    private ComboBox<String> cb_chucvu;
+	@FXML
+	private Label check_diachi;
 
-    @FXML
-    private ComboBox<String> cb_gioitinh;
+	@FXML
+	private ComboBox<String> cb_chucvu;
 
-    private boolean KiemTraTenKH() {
+	@FXML
+	private ComboBox<String> cb_gioitinh;
+
+	private boolean KiemTraTenKH() {
 		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
 		Matcher m = p.matcher(hovaten_nv.getText());
-		if(m.find() && m.group().equals(hovaten_nv.getText())){
+		if (m.find() && m.group().equals(hovaten_nv.getText())) {
 			check_hovaten.setText(null);
 			return true;
-		}
-		else {
+		} else {
 			check_hovaten.setText("Vui lòng điền tên hợp lệ");
 			return false;
 		}
 	}
-    
-    private boolean KiemTraSDT() {
+
+	private boolean KiemTraSDT() {
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(sdt_nv.getText());
-		if(m.find() && m.group().equals(sdt_nv.getText()) && sdt_nv.getText().matches("\\d{10}|\\d{11}")){
+		if (m.find() && m.group().equals(sdt_nv.getText()) && sdt_nv.getText().matches("\\d{10}|\\d{11}")) {
 			check_sdt.setText(null);
 			return true;
-		}
-		else if(sdt_nv.getText().length()<10){
+		} else if (sdt_nv.getText().length() < 10) {
 			check_sdt.setText("Số điện thoại không đủ 10 số");
 			return false;
-		}
-		else{
+		} else {
 			check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
 			return false;
 		}
 	}
-    
-    private boolean KiemTraCMND() {
+
+	private boolean KiemTraCMND() {
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(cmnd_nv.getText());
-		if(m.find() && m.group().equals(cmnd_nv.getText())){
+		if (m.find() && m.group().equals(cmnd_nv.getText())) {
 			check_cmnd.setText(null);
 			return true;
-		}
-		else {
+		} else {
 			check_cmnd.setText("Vui lòng điền cmnd hợp lệ");
 			return false;
 		}
 	}
-    
-    private boolean KiemTraDiaChi() {
-    	//System.out.println(tfdc.getText());
-		if(diachi_nv.getText().isEmpty()){
+
+	private boolean KiemTraDiaChi() {
+		if (diachi_nv.getText().isEmpty()) {
 			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
 			return false;
 		}
 		check_diachi.setText(null);
 		return true;
-		}
+	}
 
 	@FXML
 	void Reset(ActionEvent event) {
@@ -240,27 +233,29 @@ public class NhanvienController implements Initializable{
 		cmnd_nv.setText(String.valueOf(nv.getCmnd()));
 		ngayvaolam.setValue(nv.getNgayvaolam());
 	}
-	
-	private static double xoffset =0; 
-	private static double yoffset =0; 
+
+	private static double xoffset = 0;
+	private static double yoffset = 0;
+
 	@FXML
 	private void ThemNV(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/Nhanvien/themnhanvien.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-			  @Override public void handle(MouseEvent mouseEvent) {
-			    // record a delta distance for the drag and drop operation.
-			    xoffset = stage.getX() - mouseEvent.getScreenX();
-			    yoffset = stage.getY() - mouseEvent.getScreenY();
-			  }
-			});
-			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			  @Override public void handle(MouseEvent mouseEvent) {
-			    stage.setX(mouseEvent.getScreenX() + xoffset);
-			    stage.setY(mouseEvent.getScreenY() + yoffset);
-			  }
-			});
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				xoffset = stage.getX() - mouseEvent.getScreenX();
+				yoffset = stage.getY() - mouseEvent.getScreenY();
+			}
+		});
+		scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				stage.setX(mouseEvent.getScreenX() + xoffset);
+				stage.setY(mouseEvent.getScreenY() + yoffset);
+			}
+		});
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Them nhan vien");
@@ -268,10 +263,9 @@ public class NhanvienController implements Initializable{
 		GiaoDienQLController.getInstance().truedisable();
 	}
 
-	
 	@FXML
 	void luucapnhat(ActionEvent event) {
-		if(KiemTraTenKH() & KiemTraSDT() &KiemTraCMND()&KiemTraDiaChi()) {
+		if (KiemTraTenKH() & KiemTraSDT() & KiemTraCMND() & KiemTraDiaChi()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Cap nhat thanh cong ");
 			int idnv = (Integer.parseInt(id_nv.getText()));
@@ -283,10 +277,11 @@ public class NhanvienController implements Initializable{
 			String sdtnv = (sdt_nv.getText());
 			int cmndnv = Integer.parseInt(cmnd_nv.getText());
 			String diachinv = diachi_nv.getText();
-			 Session session = HibernateUtils.getSessionFactory().openSession();
+			Session session = HibernateUtils.getSessionFactory().openSession();
 			try {
 				session.beginTransaction();
-				Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,nvl);
+				Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,
+						nvl);
 				nv2 = session.get(Nhanvien.class, idnv);
 				if (nv2 != null) {
 					// nv2.setid(idnv);
@@ -297,10 +292,7 @@ public class NhanvienController implements Initializable{
 					nv2.setNgaysinh(ngaysinhnv);
 					nv2.setSdt(sdtnv);
 					nv2.setCmnd(cmndnv);
-					// person2.setAge(t2);
-					/// person2.setAddress(t3);
 					session.save(nv2);
-
 					alert.setContentText("Cập nhật nhân viên thành công !");
 					alert.showAndWait();
 					luucapnhat.setVisible(false);
@@ -313,16 +305,13 @@ public class NhanvienController implements Initializable{
 					sdt_nv.setEditable(false);
 					diachi_nv.setEditable(false);
 					ngayvaolam.setEditable(false);
-
 				}
 				session.getTransaction().commit();
 				initializeNHANVIEN();
 			} catch (RuntimeException error) {
 				session.getTransaction().rollback();
 			}
-
 		}
-		
 	}
 
 	@FXML
@@ -342,7 +331,6 @@ public class NhanvienController implements Initializable{
 					return true;
 				}
 				return false;
-
 			});
 			SortedList<Nhanvien> sortedList = new SortedList<>(filterData);
 			sortedList.comparatorProperty().bind(tableNV.comparatorProperty());
@@ -352,7 +340,6 @@ public class NhanvienController implements Initializable{
 
 	@FXML
 	void CapNhatNhanvien(ActionEvent event) {
-		
 		hovaten_nv.setEditable(true);
 		ns_nv.setEditable(true);
 		cmnd_nv.setEditable(true);
@@ -366,12 +353,11 @@ public class NhanvienController implements Initializable{
 	public void falsedisable() {
 		anchorpane.setDisable(false);
 	}
+
 	public void truedisable() {
 		anchorpane.setDisable(true);
 	}
-	
-	
-	
+
 	@FXML
 	void XoaNhanvien(ActionEvent event) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -390,28 +376,27 @@ public class NhanvienController implements Initializable{
 					session.beginTransaction();
 					if (nv != null) {
 						Set<Hoadon> hoadons = nv.getHoadon();
-						for(Hoadon hoadon : hoadons) {
+						for (Hoadon hoadon : hoadons) {
 							hoadon.setNhanvien(null);
 						}
 						Set<Phieudathang> phieudathangs = nv.getPhieudathang();
-						for(Phieudathang phieudathang : phieudathangs) {
+						for (Phieudathang phieudathang : phieudathangs) {
 							phieudathang.setNhanvien(null);
 						}
 						Set<Phieunhaphang> phieunhaphangs = nv.getPhieunhaphang();
-						for(Phieunhaphang phieunhaphang : phieunhaphangs) {
+						for (Phieunhaphang phieunhaphang : phieunhaphangs) {
 							phieunhaphang.setNhanvien(null);
 						}
 						Set<Phieutrahang> phieutrahangs = nv.getPhieutrahang();
-						for(Phieutrahang phieutrahang : phieutrahangs) {
+						for (Phieutrahang phieutrahang : phieutrahangs) {
 							phieutrahang.setNhanvien(null);
-						}	
+						}
 						session.delete(nv);
 					}
 					session.getTransaction().commit();
 				} catch (HibernateException error) {
 					System.out.println(error);
 					session.getTransaction().rollback();
-
 				}
 				initializeNHANVIEN();
 				id_nv.setText("");
@@ -453,7 +438,6 @@ public class NhanvienController implements Initializable{
 			TableNV.add(ent);
 		}
 		return TableNV;
-
 	}
 
 	void reloadNHANVIEN() {
@@ -489,10 +473,7 @@ public class NhanvienController implements Initializable{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		});
-	
-
 	}
 
 	@Override
@@ -502,11 +483,9 @@ public class NhanvienController implements Initializable{
 		search();
 		capnhat_nv.setVisible(false);
 		xoa_nv.setVisible(false);
-		ObservableList<String> list=FXCollections.observableArrayList("Nhân viên","Quản lý");
-		ObservableList<String> list1=FXCollections.observableArrayList("Nam","Nữ");
+		ObservableList<String> list = FXCollections.observableArrayList("Nhân viên", "Quản lý");
+		ObservableList<String> list1 = FXCollections.observableArrayList("Nam", "Nữ");
 		cb_chucvu.setItems(list);
 		cb_gioitinh.setItems(list1);
-		
 	}
-
 }

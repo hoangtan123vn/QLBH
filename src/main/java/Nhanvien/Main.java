@@ -1,4 +1,5 @@
 package Nhanvien;
+
 import java.sql.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,26 +14,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
-public class Main extends Application{
-
-	
+public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		// TODO Auto-generated method stub
-	//	Parent root = FXMLLoader.load(getClass().getResource("/QLBH/giaodienquanly.fxml"));
 		Parent root = FXMLLoader.load(getClass().getResource("nhanvien.fxml"));
-		//Parent root = FXMLLoader.load(getClass().getResource("nhanvien.fxml"));
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Phan mem quan ly ban hang");
 		stage.show();
 	}
-	public static void main(String[] args) throws Exception{
-		// TODO Auto-generated method stub
-		launch(args);
-		
-	}
 
+	public static void main(String[] args) throws Exception {
+		launch(args);
+	}
 }

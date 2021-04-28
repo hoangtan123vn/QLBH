@@ -1,4 +1,5 @@
 package QLKho;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import BanHang.BanHangController;
 import QLBH.HibernateUtils;
-//import QLBH.HoadonDetailController;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
 import QLBH.Sanpham;
@@ -40,81 +40,70 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 public class ListNhaCungCapController implements Initializable {
 
-    @FXML
-    private TableView<Nhacungcap> tb_NCC;
+	@FXML
+	private TableView<Nhacungcap> tb_NCC;
 
-    @FXML
-    private TableColumn id_NCC;
+	@FXML
+	private TableColumn id_NCC;
 
-    @FXML
-    private TableColumn name_NCC;
+	@FXML
+	private TableColumn name_NCC;
 
-    @FXML
-    private TableColumn diachi_NCC;
+	@FXML
+	private TableColumn diachi_NCC;
 
-    @FXML
-    private TableColumn sdt_NCC;
+	@FXML
+	private TableColumn sdt_NCC;
 
-    @FXML
-    private TableColumn email_NCC;
+	@FXML
+	private TableColumn email_NCC;
 
-    @FXML
-    private TableColumn tienno_NCC;
+	@FXML
+	private TableColumn tienno_NCC;
 
-    @FXML
-    private Button bt_NCC;
-    @FXML
-    private AnchorPane ap;
-    
-    @FXML
-    private TextField tf_ncc;
-    
-    private Stage thisStage;
-    
-    private final LapPhieuDatHangController lapPhieuDatHangController;
+	@FXML
+	private Button bt_NCC;
+	@FXML
+	private AnchorPane ap;
 
-    public ListNhaCungCapController(LapPhieuDatHangController lapPhieuDatHangController) {
-		 this.lapPhieuDatHangController = lapPhieuDatHangController;
+	@FXML
+	private TextField tf_ncc;
 
-	        // Create the new stage
-	        thisStage = new Stage();
+	private Stage thisStage;
 
-	        // Load the FXML file
-	        try {
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("listnhacungcap.fxml"));
+	private final LapPhieuDatHangController lapPhieuDatHangController;
 
-	            // Set this class as the controller
-	            loader.setController(this);
+	public ListNhaCungCapController(LapPhieuDatHangController lapPhieuDatHangController) {
+		this.lapPhieuDatHangController = lapPhieuDatHangController;
+		thisStage = new Stage();
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("listnhacungcap.fxml"));
+			loader.setController(this);
+			thisStage.setScene(new Scene(loader.load()));
+			thisStage.setTitle("Chọn nhà cung cấp");
 
-	            // Load the scene
-	            thisStage.setScene(new Scene(loader.load()));
-
-	            // Setup the window/stage
-	            thisStage.setTitle("Chọn nhà cung cấp");
-
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	
+
 	public void showStage() {
-       thisStage.showAndWait();
-   }
-    
-    @FXML
-    void ChonNCC(ActionEvent event) {
-    	Nhacungcap selected = tb_NCC.getSelectionModel().getSelectedItem();
-		 lapPhieuDatHangController.setNhaCungCap(selected);
-		 Stage stage1 = (Stage) ap.getScene().getWindow();
-    	 stage1.close();
-    }
+		thisStage.showAndWait();
+	}
+
+	@FXML
+	void ChonNCC(ActionEvent event) {
+		Nhacungcap selected = tb_NCC.getSelectionModel().getSelectedItem();
+		lapPhieuDatHangController.setNhaCungCap(selected);
+		Stage stage1 = (Stage) ap.getScene().getWindow();
+		stage1.close();
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		id_NCC.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("mancc"));
 		name_NCC.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
 		sdt_NCC.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sodienthoai"));
@@ -124,22 +113,20 @@ public class ListNhaCungCapController implements Initializable {
 		tb_NCC.setItems(getNhacungcap());
 		searchNCC();
 	}
-	
+
 	public ObservableList<Nhacungcap> getNhacungcap() {
 		ObservableList<Nhacungcap> tableKH = FXCollections.observableArrayList();
-		 Session session = HibernateUtils.getSessionFactory().openSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Nhacungcap> ncc = session.getCriteriaBuilder().createQuery(Nhacungcap.class);
 		ncc.from(Nhacungcap.class);
 		List<Nhacungcap> eList = session.createQuery(ncc).getResultList();
-		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
 		for (Nhacungcap ent : eList) {
 			tableKH.add(ent);
 		}
 		return tableKH;
 	}
-	
+
 	void searchNCC() {
 		ObservableList<Nhacungcap> table = FXCollections.observableArrayList(getNhacungcap());
 		FilteredList<Nhacungcap> filterData = new FilteredList<>(table, p -> true);
@@ -152,9 +139,9 @@ public class ListNhaCungCapController implements Initializable {
 				if (ncc.getTenncc().toLowerCase().indexOf(typetext) != -1) {
 					return true;
 				}
-				 if(String.valueOf(ncc.getSodienthoai()).indexOf(typetext) !=-1) {
-				 return true;
-				 }
+				if (String.valueOf(ncc.getSodienthoai()).indexOf(typetext) != -1) {
+					return true;
+				}
 				return false;
 
 			});
@@ -162,7 +149,6 @@ public class ListNhaCungCapController implements Initializable {
 			sortedList.comparatorProperty().bind(tb_NCC.comparatorProperty());
 			tb_NCC.setItems(sortedList);
 		});
-	} 
-	
+	}
 
 }

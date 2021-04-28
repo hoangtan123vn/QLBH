@@ -1,4 +1,5 @@
 package QLKho;
+
 import QLBH.Sanpham;
 import java.sql.Connection;
 import java.sql.Date;
@@ -26,7 +27,6 @@ import QLBH.Nhanvien;
 import QLBH.Phieudathang;
 import QLBH.Taikhoannv;
 
-
 import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -38,7 +38,6 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,10 +77,8 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Callback;
 
-
-
 public class QLKhoController implements Initializable {
-	
+
 	@FXML
 	private TableColumn donvitinh;
 
@@ -96,7 +93,7 @@ public class QLKhoController implements Initializable {
 
 	@FXML
 	private TableColumn<Sanpham, Void> xoasp;
-	
+
 	@FXML
 	private TableColumn donvi;
 
@@ -132,66 +129,64 @@ public class QLKhoController implements Initializable {
 	private Text idsanpham;
 	@FXML
 	private TableView<Sanpham> tableSP;
-	
+
 	public void falsedisable() {
 		anchorpane1.setDisable(false);
 	}
+
 	public void truedisable() {
 		anchorpane1.setDisable(true);
 	}
-	
 
-	
-	 public static QLKhoController instance;
+	public static QLKhoController instance;
 
-		public QLKhoController() {
-			instance = this;
-		}
+	public QLKhoController() {
+		instance = this;
+	}
 
-		public static QLKhoController getInstance() {
-			return instance;
-		}
-
+	public static QLKhoController getInstance() {
+		return instance;
+	}
 
 	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
-	private static double xoffset =0; 
-	private static double yoffset =0; 
-    
-    @FXML
+	private static double xoffset = 0;
+	private static double yoffset = 0;
+
+	@FXML
 	void ThemSP(ActionEvent event) throws IOException {
-    	
+
 		Parent root = FXMLLoader.load(getClass().getResource("/QLKho/themsanpham.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-			  @Override public void handle(MouseEvent mouseEvent) {
-			    // record a delta distance for the drag and drop operation.
-			    xoffset = stage.getX() - mouseEvent.getScreenX();
-			    yoffset = stage.getY() - mouseEvent.getScreenY();
-			  }
-			});
-			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			  @Override public void handle(MouseEvent mouseEvent) {
-			    stage.setX(mouseEvent.getScreenX() + xoffset);
-			    stage.setY(mouseEvent.getScreenY() + yoffset);
-			  }
-			});
-		
-		
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				xoffset = stage.getX() - mouseEvent.getScreenX();
+				yoffset = stage.getY() - mouseEvent.getScreenY();
+			}
+		});
+		scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				stage.setX(mouseEvent.getScreenX() + xoffset);
+				stage.setY(mouseEvent.getScreenY() + yoffset);
+			}
+		});
+
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.show();
-		//truedisable();
 		GiaoDienQLController.getInstance().truedisable();
-		
+
 	}
-    @FXML
+
+	@FXML
 	void reload(ActionEvent event) {
 
 		initialize1();
-	//	getNhanvien();
 	}
-    private void ButtonXoaSP() {
+
+	private void ButtonXoaSP() {
 
 		Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
 			@Override
@@ -201,8 +196,7 @@ public class QLKhoController implements Initializable {
 					private final Button btn = new Button("Xóa Sản Phẩm");
 
 					{
-						
-						///////////////////////////
+
 						btn.setOnAction((ActionEvent event) -> {
 							Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 							Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
@@ -262,9 +256,6 @@ public class QLKhoController implements Initializable {
 	}
 
 	private void ButtonChinhSuaAnh() {
-		// TableColumn<Sa, Void> colBtn = new TableColumn("Button Column");
-		
-
 		Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
 			@Override
 			public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
@@ -273,7 +264,6 @@ public class QLKhoController implements Initializable {
 					private final Button btn = new Button("Cập nhật sản phẩm");
 
 					{
-						///////////////////////////
 						btn.setOnAction((ActionEvent event) -> {
 							Parent root;
 							try {
@@ -281,9 +271,8 @@ public class QLKhoController implements Initializable {
 								Parent CapnhatSP = loader.load();
 								Stage stage = new Stage();
 								Scene scene = new Scene(CapnhatSP);
-								// Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
 								Sanpham sp = getTableView().getItems().get(getIndex());
-							    QLKho.detailsanphamcontroller CapNhatSP = loader.getController();
+								QLKho.detailsanphamcontroller CapNhatSP = loader.getController();
 								CapNhatSP.setSanPham(sp);
 								stage.setTitle("Cập nhật sản phẩm");
 								stage.setScene(scene);
@@ -291,7 +280,7 @@ public class QLKhoController implements Initializable {
 							} catch (IOException e) {
 
 								e.printStackTrace();
-								
+
 							}
 
 						});
@@ -313,13 +302,10 @@ public class QLKhoController implements Initializable {
 		};
 		CapNhat.setCellFactory(cellFactory);
 	}
-	
-	
+
 	void initialize1() {
-		// setCellValueFromTabletoTexfFieldd();
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
-		// loai.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loai"));
 		donvi.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvi"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		donvitinh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
@@ -327,8 +313,6 @@ public class QLKhoController implements Initializable {
 		ButtonXoaSP();
 		ButtonChinhSuaAnh();
 		imageSp.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
-	//	imageSp.setPrefWidth(50);
-//		imageSp.setPrefWidth
 		imageSp.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
 
 			private ImageView imageView = new ImageView();
@@ -343,7 +327,7 @@ public class QLKhoController implements Initializable {
 					imageView.setImage(getImageFromBytes(item));
 					imageView.setFitHeight(65);
 					imageView.setFitWidth(65);
-					
+
 					BorderPane pane = new BorderPane();
 					pane.setCenter(imageView);
 					setGraphic(pane);
@@ -351,7 +335,6 @@ public class QLKhoController implements Initializable {
 				this.setItem(item);
 			}
 		});
-		// imageSp.setPrefWidth(70);
 		tableSP.setItems(getSanpham());
 		Timkiem();
 
@@ -380,11 +363,11 @@ public class QLKhoController implements Initializable {
 				String lowerCaseFilter = newValue.toLowerCase();
 
 				if (sanpham.getTensanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches username
+					return true;
 				} else if (sanpham.getDonvi().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-					return true; // Filter matches password
+					return true;
 				} else
-					return false; // Does not match.
+					return false;
 			});
 		});
 		SortedList<Sanpham> sortedData = new SortedList<>(filteredData);
@@ -398,7 +381,7 @@ public class QLKhoController implements Initializable {
 
 	public ObservableList<Sanpham> getSanpham() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
-		 Session session = HibernateUtils.getSessionFactory().openSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
 		sp.from(Sanpham.class);
@@ -411,52 +394,50 @@ public class QLKhoController implements Initializable {
 
 	void ReloadSANPHAM() {
 		initialize1();
-		//tableSP.setItems(getSanpham());
-
 		System.out.println("Thanh cong");
 	}
-	public void loadData(Taikhoannv taikhoan){
-		lapphieudathang.setOnMouseClicked(event ->  {
-			 ChangeSceneLapPhieu(taikhoan);
-			 System.out.println(taikhoan);
-		 });
+
+	public void loadData(Taikhoannv taikhoan) {
+		lapphieudathang.setOnMouseClicked(event -> {
+			ChangeSceneLapPhieu(taikhoan);
+			System.out.println(taikhoan);
+		});
 	}
-	public void ChangeSceneLapPhieu(Taikhoannv taikhoan)  {
-	try {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("lapphieudathang.fxml"));
-		Parent kiemtraViewParent = loader.load();
-		Stage stage1 = new Stage();
-		Scene scene1 = new Scene(kiemtraViewParent);
-		scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
-			  @Override public void handle(MouseEvent mouseEvent) {
-			    // record a delta distance for the drag and drop operation.
-			    xoffset = stage1.getX() - mouseEvent.getScreenX();
-			    yoffset = stage1.getY() - mouseEvent.getScreenY();
-			  }
+
+	public void ChangeSceneLapPhieu(Taikhoannv taikhoan) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("lapphieudathang.fxml"));
+			Parent kiemtraViewParent = loader.load();
+			Stage stage1 = new Stage();
+			Scene scene1 = new Scene(kiemtraViewParent);
+			scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					xoffset = stage1.getX() - mouseEvent.getScreenX();
+					yoffset = stage1.getY() - mouseEvent.getScreenY();
+				}
 			});
 			scene1.setOnMouseDragged(new EventHandler<MouseEvent>() {
-			  @Override public void handle(MouseEvent mouseEvent) {
-			    stage1.setX(mouseEvent.getScreenX() + xoffset);
-			    stage1.setY(mouseEvent.getScreenY() + yoffset);
-			  }
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					stage1.setX(mouseEvent.getScreenX() + xoffset);
+					stage1.setY(mouseEvent.getScreenY() + yoffset);
+				}
 			});
-		//Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
-		LapPhieuDatHangController lapPhieuDatHangController = loader.getController();
-		lapPhieuDatHangController.loadData(taikhoan);
-		stage1.initStyle(StageStyle.UNDECORATED);
-		stage1.setTitle("Lap phieu dat hang");
-		stage1.setScene(scene1);
-		stage1.show();
-		GiaoDienQLController.getInstance().truedisable();
-	} catch (Exception e) {
-		System.out.println(e);
+			LapPhieuDatHangController lapPhieuDatHangController = loader.getController();
+			lapPhieuDatHangController.loadData(taikhoan);
+			stage1.initStyle(StageStyle.UNDECORATED);
+			stage1.setTitle("Lap phieu dat hang");
+			stage1.setScene(scene1);
+			stage1.show();
+			GiaoDienQLController.getInstance().truedisable();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
-	}
-    
-  
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		initialize1();
 	}
 

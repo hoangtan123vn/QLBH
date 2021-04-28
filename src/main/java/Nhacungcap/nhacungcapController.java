@@ -367,12 +367,7 @@ public class nhacungcapController implements Initializable{
 							alert.showAndWait().ifPresent(type -> {
 								if (type == okButton) {
 									Nhacungcap ncc = getTableView().getItems().get(getIndex());
-									StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-											.configure("hibernate.cfg.xml").build();
-									Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder()
-											.build();
-									SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-									Session session = sessionFactory.openSession();
+									Session session = HibernateUtils.getSessionFactory().openSession();
 									ncc = session.get(Nhacungcap.class, ncc.getMancc());
 									try {
 										session.beginTransaction();
@@ -447,11 +442,7 @@ public class nhacungcapController implements Initializable{
 		tenncc.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
 			public void handle(CellEditEvent<Nhacungcap, String> event) {
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+				Session session = HibernateUtils.getSessionFactory().openSession();
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
 				String s = event.getNewValue();
@@ -477,11 +468,7 @@ public class nhacungcapController implements Initializable{
 		diachi1.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
 			public void handle(CellEditEvent<Nhacungcap, String> event) {
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+				Session session = HibernateUtils.getSessionFactory().openSession();
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
 				String s = event.getNewValue();
@@ -510,11 +497,7 @@ public class nhacungcapController implements Initializable{
 		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {		   
 			@Override
 			public void handle(CellEditEvent<Nhacungcap, String> event) {
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+				Session session = HibernateUtils.getSessionFactory().openSession();
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
 				String s = event.getNewValue();
@@ -546,11 +529,7 @@ public class nhacungcapController implements Initializable{
 		email.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
 			public void handle(CellEditEvent<Nhacungcap, String> event) {
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+				Session session = HibernateUtils.getSessionFactory().openSession();
 				session.beginTransaction();
 				String s = event.getNewValue();
 				Nhacungcap person = new Nhacungcap();

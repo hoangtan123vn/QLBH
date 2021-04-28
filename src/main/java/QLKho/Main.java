@@ -13,20 +13,16 @@ public class Main extends Application {
 	private static double xoffset =0; 
 	private static double yoffset =0; 
 	public static void main(String[] args)  {
-		// TODO Auto-generated method stub
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		// TODO Auto-generated method stub
 		Parent root = FXMLLoader.load(getClass().getResource("QLKho.fxml"));
-		//Parent root = FXMLLoader.load(getClass().getResource("nhanvien.fxml"));
-		
 		Scene scene = new Scene(root);
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-			  @Override public void handle(MouseEvent mouseEvent) {
-			    // record a delta distance for the drag and drop operation.
+			@Override
+			public void handle(MouseEvent mouseEvent) {
 			    xoffset = stage.getX() - mouseEvent.getScreenX();
 			    yoffset = stage.getY() - mouseEvent.getScreenY();
 			  }
