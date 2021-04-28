@@ -60,6 +60,7 @@ import Nhacungcap.nhacungcapController;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Nhanvien;
 import QLBH.Taikhoannv;
@@ -183,7 +184,7 @@ public class ThemNVController implements Initializable{
     void exit(MouseEvent event) {
 	 Stage stage = (Stage) exit.getScene().getWindow();
 		stage.close();
-		NhanvienController.getInstance().falsedisable();
+		GiaoDienQLController.getInstance().falsedisable();
     }
     
 
@@ -191,7 +192,7 @@ public class ThemNVController implements Initializable{
      void HuyThemNV(ActionEvent event) {
     	 Stage stage = (Stage) huy.getScene().getWindow();
     	 stage.close();
-    	 NhanvienController.getInstance().falsedisable();
+    	 GiaoDienQLController.getInstance().falsedisable();
     	 
     }
     
@@ -375,6 +376,7 @@ public class ThemNVController implements Initializable{
                  alert.showAndWait(); 
         	}
         	catch (RuntimeException error){
+        			error.printStackTrace();
         		 Alert alert = new Alert(AlertType.INFORMATION);
     			 alert.setTitle("Thêm nhân viên");
         		 alert.setContentText("Thêm nhân viên thất bại  !");
@@ -383,7 +385,7 @@ public class ThemNVController implements Initializable{
         		 return;
         	}
     		 NhanvienController.getInstance().reloadNHANVIEN();
-    		 NhanvienController.getInstance().falsedisable(); 	
+    		 GiaoDienQLController.getInstance().falsedisable();	
 			}
     
 		

@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Nhanvien;
@@ -247,7 +248,7 @@ public class NhanvienController implements Initializable{
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Them nhan vien");
 		stage.show();
-		truedisable();
+		GiaoDienQLController.getInstance().truedisable();
 	}
 
 	
