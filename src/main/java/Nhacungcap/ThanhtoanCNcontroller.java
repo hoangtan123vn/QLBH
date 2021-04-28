@@ -245,7 +245,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 		try {
 			    final String DB_URL = "jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh";
 	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
-	            InputStream in = new FileInputStream(new File("C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\Nhacungcap\\PhieuThanhToanNo.jrxml"));
+	            InputStream in = new FileInputStream(new File("Nhacungcap\\PhieuThanhToanNo.jrxml"));
 	            JasperDesign jd = JRXmlLoader.load(in);
 	            String sql ="SELECT tenncc,sotienno FROM nhacungcap WHERE mancc ='"+nhacungcap.getMancc()+"'";
 	            JRDesignQuery newQuery1 = new JRDesignQuery();

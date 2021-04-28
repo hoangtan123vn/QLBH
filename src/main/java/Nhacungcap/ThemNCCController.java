@@ -153,10 +153,19 @@ public class ThemNCCController extends Application implements Initializable{
             check_sdt.setText(null);
             return true;
         }
+        
         else {
             check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
             return false;
         }
+    }
+    public boolean isNumber(String s) {
+    	try {
+			Double.parseDouble(s);
+			return true; 
+		} catch (Exception e) {
+			return false;			
+		}
     }
     
     @FXML
