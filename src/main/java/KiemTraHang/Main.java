@@ -19,6 +19,7 @@ public class Main extends Application{
 		Parent root = FXMLLoader.load(getClass().getResource("Kiemtrahang.fxml"));
 		//Parent root = FXMLLoader.load(getClass().getResource("nhanvien.fxml"));
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("kiemtrahang.css").toExternalForm());
 		stage.setScene(scene);
 		stage.setTitle("Phan mem quan ly ban hang");
 		stage.show();

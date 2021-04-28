@@ -20,6 +20,7 @@ import org.hibernate.query.Query;
 
 import Nhacungcap.nhacungcapController;
 import QLBH.Chitiethoadon;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
@@ -51,8 +52,11 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -67,6 +71,8 @@ public class KiemTraHangController implements Initializable {
 	public static KiemTraHangController getInstance() {
 		return instance;
 	}
+	
+
 	
 	@FXML
 	private TableView<Phieudathang> phieudathangkt;
@@ -117,7 +123,8 @@ public class KiemTraHangController implements Initializable {
 		}
 		return phieudathangkt;
 	}
-
+	private static double xoffset =0; 
+	private static double yoffset =0; 
 
 	public void loadData(Taikhoannv taikhoan) {
 		chitiet.setOnMouseClicked(event ->  {
@@ -126,6 +133,21 @@ public class KiemTraHangController implements Initializable {
 				Parent kiemtraViewParent = loader.load();
 				Stage stage1 = new Stage();
 				Scene scene1 = new Scene(kiemtraViewParent);
+				scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
+					  @Override public void handle(MouseEvent mouseEvent) {
+					    // record a delta distance for the drag and drop operation.
+					    xoffset = stage1.getX() - mouseEvent.getScreenX();
+					    yoffset = stage1.getY() - mouseEvent.getScreenY();
+					  }
+					});
+					scene1.setOnMouseDragged(new EventHandler<MouseEvent>() {
+					  @Override public void handle(MouseEvent mouseEvent) {
+					    stage1.setX(mouseEvent.getScreenX() + xoffset);
+					    stage1.setY(mouseEvent.getScreenY() + yoffset);
+					  }
+					});
+				
+				stage1.initStyle(StageStyle.UNDECORATED);
 				Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
 				NhapHangvaTraHang Dathang1 = loader.getController();
 		//		Dathang1.setKiemtrahang(selected);
@@ -148,6 +170,7 @@ public class KiemTraHangController implements Initializable {
 				stage1.setTitle("Kiem tra hang");
 				stage1.setScene(scene1);
 				stage1.show();
+				GiaoDienQLController.getInstance().truedisable();
 			}catch (Exception e) {
 				// TODO: handle exception
 				System.out.print(e);
