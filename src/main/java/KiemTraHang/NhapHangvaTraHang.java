@@ -26,6 +26,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -93,6 +94,7 @@ import QLBH.Nhanvien;
 import QLBH.Phieudathang;
 import QLBH.Chitietnhaphang;
 import QLBH.Chitietphieutra;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Phieutrahang;
 import QLBH.Chitietdathang;
@@ -199,12 +201,22 @@ public class NhapHangvaTraHang implements Initializable{
 	    @FXML
 	    private Label kiemtranhaphang;
 
+		 @FXML
+		    private ImageView exit;
+
+		    @FXML
+		    void exit(MouseEvent event) {
+		    	  Stage stage = (Stage) exit.getScene().getWindow();
+					stage.close();
+					GiaoDienQLController.getInstance().falsedisable();
+		    }
 	    
 	    @FXML
 	    void nhap(ActionEvent event) {
 	    	try {
 	    		event();
 	    		//kiemtra.setVisible(false);
+	    		//GiaoDienQLController.getInstance().falsedisable();
 			} catch (Exception e) {
 				// TODO: handle exception
 				//kiemtra.setVisible(true);
@@ -218,6 +230,7 @@ public class NhapHangvaTraHang implements Initializable{
 	    	try {
 	    		event2();
 	    		//kiemtra.setVisible(false);
+	    	//	GiaoDienQLController.getInstance().falsedisable();
 			} catch (Exception e) {
 				// TODO: handle exception
 				//kiemtra.setVisible(true);
@@ -381,7 +394,7 @@ public class NhapHangvaTraHang implements Initializable{
     		}
     		tbnhaphang.getItems().clear();
     		tbnhaphang.refresh();
-    		 KiemTraHangController.getInstance().khoitao();
+    		GiaoDienQLController.getInstance().falsedisable();
     		 InPhieuNhapHang(phieunhaphang);
     	
 		}
@@ -447,7 +460,7 @@ public class NhapHangvaTraHang implements Initializable{
 		    		}
 			 tbtrahang.getItems().clear();
 			 tbtrahang.refresh();
-			 KiemTraHangController.getInstance().khoitao();
+			GiaoDienQLController.getInstance().falsedisable();
 			 InPhieutrahang(phieutrahang);
 			 
 			}

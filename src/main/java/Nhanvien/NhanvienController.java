@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Nhanvien;
@@ -36,6 +37,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -58,6 +60,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
@@ -237,17 +240,32 @@ public class NhanvienController implements Initializable{
 		cmnd_nv.setText(String.valueOf(nv.getCmnd()));
 		ngayvaolam.setValue(nv.getNgayvaolam());
 	}
-
+	
+	private static double xoffset =0; 
+	private static double yoffset =0; 
 	@FXML
 	private void ThemNV(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/Nhanvien/themnhanvien.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
+		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    // record a delta distance for the drag and drop operation.
+			    xoffset = stage.getX() - mouseEvent.getScreenX();
+			    yoffset = stage.getY() - mouseEvent.getScreenY();
+			  }
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    stage.setX(mouseEvent.getScreenX() + xoffset);
+			    stage.setY(mouseEvent.getScreenY() + yoffset);
+			  }
+			});
 		stage.setScene(scene);
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Them nhan vien");
 		stage.show();
-		truedisable();
+		GiaoDienQLController.getInstance().truedisable();
 	}
 
 	

@@ -62,6 +62,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -211,17 +212,34 @@ public class nhacungcapController implements Initializable{
 
 	}
 
+	private static double xoffset =0; 
+	private static double yoffset =0; 
+
 	@FXML
 	void Taonhacungcap(ActionEvent event) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Nhacungcap/taonhacungcap.fxml"));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
+			Scene scene = new Scene(root1);
+			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+				  @Override public void handle(MouseEvent mouseEvent) {
+				    // record a delta distance for the drag and drop operation.
+				    xoffset = stage.getX() - mouseEvent.getScreenX();
+				    yoffset = stage.getY() - mouseEvent.getScreenY();
+				  }
+				});
+				scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				  @Override public void handle(MouseEvent mouseEvent) {
+				    stage.setX(mouseEvent.getScreenX() + xoffset);
+				    stage.setY(mouseEvent.getScreenY() + yoffset);
+				  }
+				});
 		//	root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.getIcons().add(new Image(nhacungcapController.class.getResourceAsStream("backgroundSGU.png")));
 			stage.setResizable(false);
-			stage.setScene(new Scene(root1));
+			stage.setScene(scene);
 			stage.setTitle("Tạo nhà cung cấp");
 			stage.show();
 			GiaoDienQLController.getInstance().truedisable();
@@ -243,7 +261,21 @@ public class nhacungcapController implements Initializable{
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/Nhacungcap/thanhtoancongno.fxml"));
 			Parent root1 = (Parent) loader.load();
+			Scene scene = new Scene(root1);
 			Stage stage = new Stage();
+			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+				  @Override public void handle(MouseEvent mouseEvent) {
+				    // record a delta distance for the drag and drop operation.
+				    xoffset = stage.getX() - mouseEvent.getScreenX();
+				    yoffset = stage.getY() - mouseEvent.getScreenY();
+				  }
+				});
+				scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				  @Override public void handle(MouseEvent mouseEvent) {
+				    stage.setX(mouseEvent.getScreenX() + xoffset);
+				    stage.setY(mouseEvent.getScreenY() + yoffset);
+				  }
+				});
 			ThanhtoanCNcontroller controller = loader.getController();
 			Nhacungcap selected = tableNhacungcap.getSelectionModel().getSelectedItem();
 		//	root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
@@ -262,7 +294,7 @@ public class nhacungcapController implements Initializable{
 				thongbao.setVisible(false);
 				 
 			 }
-			stage.setScene(new Scene(root1));
+			stage.setScene(scene);
 			stage.setTitle("thanh toán công nợ");
 			stage.show();
 			GiaoDienQLController.getInstance().truedisable();

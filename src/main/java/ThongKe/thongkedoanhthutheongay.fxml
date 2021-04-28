@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1305.0" stylesheets="@thongke.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ThongKe.TKDTtheongayController">
+<AnchorPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1305.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ThongKe.TKDTtheongayController">
    <children>
       <LineChart fx:id="line_chart" layoutX="580.0" layoutY="140.0" prefHeight="571.0" prefWidth="640.0">
         <xAxis>
           <CategoryAxis fx:id="ngay" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis fx:id="doanhthu" side="LEFT" tickLabelFill="WHITE">
+          <NumberAxis fx:id="doanhthu" side="LEFT">
                <tickLabelFont>
                   <Font name="System Bold" size="20.0" />
                </tickLabelFont></NumberAxis>
@@ -26,13 +26,13 @@
       <ComboBox fx:id="listthongke" layoutX="400.0" layoutY="14.0" onAction="#ListThongKe" prefHeight="39.0" prefWidth="409.0" styleClass="cbb" stylesheets="@thongke.css" />
       <BarChart fx:id="bar_chart" layoutX="47.0" layoutY="136.0" prefHeight="604.0" prefWidth="524.0">
          <xAxis>
-            <CategoryAxis fx:id="Sanpham" prefHeight="37.0" prefWidth="449.0" side="BOTTOM" style="-fx-background-color: white;" tickLabelFill="WHITE">
+            <CategoryAxis fx:id="Sanpham" prefHeight="37.0" prefWidth="449.0" side="BOTTOM" style="-fx-background-color: white;">
                <tickLabelFont>
                   <Font name="System Bold" size="20.0" />
                </tickLabelFont></CategoryAxis>
          </xAxis>
          <yAxis>
-            <NumberAxis fx:id="Soluongbanra" side="LEFT" tickLabelFill="WHITE">
+            <NumberAxis fx:id="Soluongbanra" side="LEFT">
                <tickLabelFont>
                   <Font name="System Bold" size="20.0" />
                </tickLabelFont></NumberAxis>
