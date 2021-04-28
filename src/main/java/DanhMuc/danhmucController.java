@@ -58,10 +58,10 @@ public class danhmucController implements Initializable {
 	private TableColumn tonggia;
 
 	@FXML
-	private TableColumn<Hoadon, KhachHang> makh;
+	private TableColumn<Hoadon, KhachHang> makhHD;
 
 	@FXML
-	private TableColumn<Hoadon, Nhanvien> manv1;
+	private TableColumn<Hoadon, Nhanvien> manvHD;
 
 	@FXML
 	private TableColumn<Phieudathang, Nhanvien> manv;
@@ -77,8 +77,7 @@ public class danhmucController implements Initializable {
 
 	ObservableList<Hoadon> listPHD;
 
-	@FXML
-	private Button btnsearchTraHang;
+	
 
 	@FXML
 	private TableView<Phieutrahang> tablePhieuTraHang;
@@ -160,7 +159,6 @@ public class danhmucController implements Initializable {
 
 	void searchHoaDon() {
 		ObservableList<Hoadon> tbHoaDon = FXCollections.observableArrayList(getHoadon());
-
 		FilteredList<Hoadon> filteredData = new FilteredList<>(tbHoaDon, b -> true);
 		searchHoaDon.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(hoadon -> {
@@ -385,7 +383,7 @@ public class danhmucController implements Initializable {
 		mahoadon.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("mahoadon"));
 		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
 		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("tonggia"));
-		makh.setCellFactory(tableHoaDon -> new TableCell<Hoadon, KhachHang>() {
+		makhHD.setCellFactory(tableHoaDon -> new TableCell<Hoadon, KhachHang>() {
 			@Override
 			protected void updateItem(KhachHang item, boolean empty) {
 				super.updateItem(item, empty);
@@ -396,7 +394,7 @@ public class danhmucController implements Initializable {
 				}
 			}
 		});
-		manv1.setCellFactory(tableHoaDon -> new TableCell<Hoadon, Nhanvien>() {
+		manvHD.setCellFactory(tableHoaDon -> new TableCell<Hoadon, Nhanvien>() {
 			@Override
 			protected void updateItem(Nhanvien item, boolean empty) {
 				super.updateItem(item, empty);
@@ -408,10 +406,11 @@ public class danhmucController implements Initializable {
 			}
 
 		});
-		makh.setCellValueFactory(new PropertyValueFactory<>("khachhang"));
-		manv1.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
+		makhHD.setCellValueFactory(new PropertyValueFactory<>("khachhang"));
+		manvHD.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
 		tableHoaDon.setItems(getHoadon());
 		searchHoaDon();
+		
 		madathang.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
 		thoigiandat.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
 		tongtien1.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
@@ -429,6 +428,7 @@ public class danhmucController implements Initializable {
 		});
 		tablePhieuDatHang.setItems(getPhieudathang());
 		searchDatHang();
+		
 		manhaphang.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("manhaphang"));
 		thoigiannhap.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, String>("thoigian"));
 		tongtien.setCellValueFactory(new PropertyValueFactory<Phieunhaphang, Integer>("tongtien"));
@@ -457,6 +457,8 @@ public class danhmucController implements Initializable {
 			}
 		});
 		tablePhieuNhapHang.setItems(getPhieunhaphang());
+		searchNhapHang();
+		
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
 		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigian"));
 		mancc3.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
@@ -473,6 +475,5 @@ public class danhmucController implements Initializable {
 		});
 		tablePhieuTraHang.setItems(getPhieutrahang());
 		searchTraHang();
-		searchNhapHang();
 	}
 }
