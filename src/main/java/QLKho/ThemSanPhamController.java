@@ -178,18 +178,17 @@ public class ThemSanPhamController extends Application implements Initializable{
   thongbao5.setText(null);
    return true;
 }
+    
     private boolean KiemTraTen() {
-        Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
-        Matcher m = p.matcher(tensanpham.getText());
-		if(m.find() && m.group().equals(tensanpham.getText())){
-            thongbao.setText(null);
-            return true;
-        }
-        else {
-            thongbao.setText("Vui lòng điền tên sản phẩm phù hợp");
-            return false;
-        }
-    }
+		if(tensanpham.getText().isEmpty()){
+			thongbao.setText("Vui lòng điền địa chỉ phù hợp");
+			return false;
+		}
+		thongbao.setText(null);
+		return true;
+		}
+    
+
     
     private boolean KiemTraGia() {
         Pattern p = Pattern.compile("[0-9]+");
