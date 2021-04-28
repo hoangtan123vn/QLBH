@@ -111,16 +111,16 @@ public class LoginController implements Initializable {
 				List<Object[]> tk1 = query1.list();
 				List<Taikhoannv> checktaikhoan = query.list();
 				for (Taikhoannv checktk1 : checktaikhoan) {
-					if (checktk1.getusername().contains(taikhoannv.getusername().trim())
-							&& checktk1.getpassword().contains(taikhoannv.getpassword().trim())) {
+					if (checktk1.getusername().equals(taikhoannv.getusername().trim())
+							&& checktk1.getpassword().equals(taikhoannv.getpassword().trim())) {
 						for (Object[] singleRowValues : tk1) {
 							String tentaikhoan = (String) singleRowValues[0];
 							String matkhau = (String) singleRowValues[1];
 							String cvString = (String) singleRowValues[2];
 
-							if (tentaikhoan.contains(checktk1.getusername().trim())
-									&& matkhau.contains(checktk1.getpassword().trim())
-									&& cvString.contains("Quản lý")) {
+							if (tentaikhoan.equals(checktk1.getusername().trim())
+									&& matkhau.equals(checktk1.getpassword().trim())
+									&& cvString.equals("Quản lý")) {
 								String tk = checktk1.getusername();
 								String mk = checktk1.getpassword();
 								taikhoan = session.get(Taikhoannv.class, tk);
@@ -149,9 +149,9 @@ public class LoginController implements Initializable {
 								stage.hide();
 								stage.setScene(scene);
 								stage.show();
-							} else if (tentaikhoan.contains(checktk1.getusername().trim())
-									&& matkhau.contains(checktk1.getpassword().trim())
-									&& cvString.contains("Nhân viên")) {
+							} else if (tentaikhoan.equals(checktk1.getusername().trim())
+									&& matkhau.equals(checktk1.getpassword().trim())
+									&& cvString.equals("Nhân viên")) {
 								Parent sampleparent = FXMLLoader.load(getClass().getResource("giaodiennhanvien.fxml"));
 								Scene scene = new Scene(sampleparent);
 								Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -269,9 +269,6 @@ public class LoginController implements Initializable {
 	void login(ActionEvent event) {
 
 		try {
-			
-			Window owner = submitButton.getScene().getWindow();
-
 			System.out.println(emailIdField.getText());
 			System.out.println(passwordField.getText());
 
@@ -312,15 +309,15 @@ public class LoginController implements Initializable {
 			List<Object[]> tk1 = query1.list();
 			List<Taikhoannv> checktaikhoan = query.list();
 			for (Taikhoannv checktk1 : checktaikhoan) {
-				if (checktk1.getusername().contains(taikhoannv.getusername().trim())
-						&& checktk1.getpassword().contains(taikhoannv.getpassword().trim())) {
+				if (checktk1.getusername().equals(taikhoannv.getusername().trim())
+						&& checktk1.getpassword().equals(taikhoannv.getpassword().trim())) {
 					for (Object[] singleRowValues : tk1) {
 						String tentaikhoan = (String) singleRowValues[0];
 						String matkhau = (String) singleRowValues[1];
 						String cvString = (String) singleRowValues[2];
 
-						if (tentaikhoan.contains(checktk1.getusername().trim())
-								&& matkhau.contains(checktk1.getpassword().trim()) && cvString.contains("Quản lý")) {
+						if (tentaikhoan.equals(checktk1.getusername().trim())
+								&& matkhau.equals(checktk1.getpassword().trim()) && cvString.equals("Quản lý")) {
 							String tk = checktk1.getusername();
 							String mk = checktk1.getpassword();
 							taikhoan = session.get(Taikhoannv.class, tk);
@@ -349,8 +346,9 @@ public class LoginController implements Initializable {
 							stage.hide();
 							stage.setScene(scene);
 							stage.show();
-						} else if (tentaikhoan.contains(checktk1.getusername().trim())
-								&& matkhau.contains(checktk1.getpassword().trim()) && cvString.contains("Nhân viên")) {
+							//NhanvienController.getInstance().initializeNHANVIEN();
+						} else if (tentaikhoan.equals(checktk1.getusername().trim())
+								&& matkhau.equals(checktk1.getpassword().trim()) && cvString.equals("Nhân viên")) {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodiennhanvien.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);

@@ -36,7 +36,7 @@ public class Hoadon implements Serializable{
 	
 	
 	private LocalDateTime thoigianmua;
-	private int tonggia;
+	private Float tonggia;
 	
 	
 		
@@ -46,7 +46,7 @@ public class Hoadon implements Serializable{
 	}
 	
 	
-	public Hoadon(int mahoadon, LocalDateTime thoigianmua, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
+	public Hoadon(int mahoadon, LocalDateTime thoigianmua, Float tonggia,Nhanvien nhanvien,KhachHang khachhang) {
 		super();
 		//this.id=id;
 		this.mahoadon=mahoadon;
@@ -56,7 +56,7 @@ public class Hoadon implements Serializable{
 		this.khachhang = khachhang;
 	//	this.manv=manv;
 	}
-	public Hoadon( LocalDateTime dateTime, int tonggia,Nhanvien nhanvien,KhachHang khachhang) {
+	public Hoadon( LocalDateTime dateTime, Float tonggia,Nhanvien nhanvien,KhachHang khachhang) {
 		super();
 		//this.id=id;
 		//this.mahoadon=mahoadon;
@@ -95,10 +95,10 @@ public class Hoadon implements Serializable{
 		this.kh = kh;
 	}
 */
-	public int getTonggia() {
+	public Float getTonggia() {
 		return tonggia;
 	}
-	public void setTonggia(int tonggia) {
+	public void setTonggia(Float tonggia) {
 		this.tonggia = tonggia;
 	}
 
