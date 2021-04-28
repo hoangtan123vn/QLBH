@@ -6,7 +6,7 @@
 	-fx-background-image:url("bg1.jpg");
 }
 .cbb{
-	-fx-font-size: 16px;
+	-fx-font-size: 16.0px;
 }
 .bg{
 	-fx-background-image:url("bg1.jpg");
