@@ -64,7 +64,7 @@ import QLBH.HibernateUtils;
 import QLBH.Nhanvien;
 import QLBH.Taikhoannv;
 
-public class ThemNVController extends Application implements Initializable{
+public class ThemNVController implements Initializable{
 	private FileChooser filechooser;
 	private Image image;
 	private Blob image1;
@@ -77,12 +77,7 @@ public class ThemNVController extends Application implements Initializable{
     @FXML
 	private ImageView exit;
 	
-	 @FXML
-	    void exit(MouseEvent event) {
-		 Stage stage = (Stage) exit.getScene().getWindow();
-			stage.close();
-			NhanvienController.getInstance().falsedisable();
-	    }
+	 
     
     @FXML
     private AnchorPane ap;
@@ -184,10 +179,16 @@ public class ThemNVController extends Application implements Initializable{
     	}
     }
     
+    @FXML
+    void exit(MouseEvent event) {
+	 Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		NhanvienController.getInstance().falsedisable();
+    }
+    
 
     @FXML
      void HuyThemNV(ActionEvent event) {
-    	//System.exit(0);
     	 Stage stage = (Stage) huy.getScene().getWindow();
     	 stage.close();
     	 NhanvienController.getInstance().falsedisable();
@@ -301,7 +302,6 @@ public class ThemNVController extends Application implements Initializable{
 		}
 	}
     private boolean KiemTraDiaChi() {
-    	//System.out.println(tfdc.getText());
 		if(tfdc.getText().isEmpty()){
 			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
 			return false;
@@ -338,7 +338,6 @@ public class ThemNVController extends Application implements Initializable{
     		try {
     			Alert alert = new Alert(AlertType.INFORMATION);
     			alert.setTitle("Thêm nhân viên");
-    			
     			LocalDate t2 = tfns.getValue();
     			String t3 = tfcv.getValue();
     			String t4 = tfgt.getValue();
@@ -351,18 +350,17 @@ public class ThemNVController extends Application implements Initializable{
     			String taikhoan = user.getText();
     			String matkhau = pass.getText();
     			String xacnhanmatkhau = xacnhanpass.getText();
-    			//KIỂM TRA HỌ VÀ TÊN 
-    			 FileInputStream fis = new FileInputStream(file);
-    			 byte[] bFile = new byte[(int) (file.length())];
-    			 fis.read(bFile);
-    			 Nhanvien nv = new Nhanvien(t1,t2,t3,t4,sodienthoai,t6,t7,bFile,t8);
-    			 Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
-    			 session.beginTransaction();
-    			 String hql = "FROM Taikhoannv A WHERE A.username = :username";
-    			 Query query = session.createQuery(hql);
-    			 query.setParameter("username", taikhoan);
-    			 List<Taikhoannv> taikhoannv =query.getResultList();
-    			 for(Taikhoannv checkTaikhoannv : taikhoannv) {
+    			FileInputStream fis = new FileInputStream(file);
+    			byte[] bFile = new byte[(int) (file.length())];
+    			fis.read(bFile);
+    		    Nhanvien nv = new Nhanvien(t1,t2,t3,t4,sodienthoai,t6,t7,bFile,t8);
+    			Taikhoannv tk = new Taikhoannv(taikhoan,matkhau,nv);
+    			session.beginTransaction();
+    			String hql = "FROM Taikhoannv A WHERE A.username = :username";
+    			Query query = session.createQuery(hql);
+    			query.setParameter("username", taikhoan);
+    			List<Taikhoannv> taikhoannv =query.getResultList();
+    			for(Taikhoannv checkTaikhoannv : taikhoannv) {
     				 if(checkTaikhoannv.getusername().equals(taikhoan)) {
     					 check_taikhoan.setText("Tài khoản đã có");
     					 return;
@@ -375,49 +373,29 @@ public class ThemNVController extends Application implements Initializable{
                  stage.close();
                  alert.setContentText("Thêm nhân viên thành công !");
                  alert.showAndWait(); 
-            //	 System.out.println();
-            	   	
         	}
         	catch (RuntimeException error){
-        		Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setTitle("Thêm nhân viên");
-        		 System.out.println(error);
+        		 Alert alert = new Alert(AlertType.INFORMATION);
+    			 alert.setTitle("Thêm nhân viên");
         		 alert.setContentText("Thêm nhân viên thất bại  !");
         		 alert.showAndWait();
         		 session.getTransaction().rollback();
         		 return;
         	}
-    	
     		 NhanvienController.getInstance().reloadNHANVIEN();
-    		 NhanvienController.getInstance().falsedisable();
-      //  	
+    		 NhanvienController.getInstance().falsedisable(); 	
 			}
     
 		
     	 
     }
 
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-	/*public void showMessageDialog() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		 alert.setTitle("Test Connection");
-	}*/
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		ObservableList<String> list=FXCollections.observableArrayList("Nhân viên","Quản lý");
 		ObservableList<String> list1=FXCollections.observableArrayList("Nam","Nữ");
 		tfcv.setItems(list);
-		tfgt.setItems(list1);
-		//RequiredFielDValidator validator = new RequiredFieldValidator();
-		
-		
+		tfgt.setItems(list1);	
 	}
 
 }

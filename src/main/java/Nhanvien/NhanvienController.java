@@ -229,12 +229,9 @@ public class NhanvienController implements Initializable{
 		Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 		id_nv.setText(Integer.toString(nv.getManv()));
 		hovaten_nv.setText(nv.getHovaten());
-		// ns_nv.setText(Integer.toString(nv.getNgaysinh()));
 		ns_nv.setValue(nv.getNgaysinh());
 		cb_chucvu.getSelectionModel().select(nv.getChucvu());
 		cb_gioitinh.getSelectionModel().select(nv.getGioitinh());
-		//cv_nv.setText(nv.getChucvu());
-		//gt_nv.setText(nv.getGioitinh());
 		sdt_nv.setText(nv.getSdt());
 		diachi_nv.setText(nv.getDiachi());
 		cmnd_nv.setText(String.valueOf(nv.getCmnd()));
@@ -269,9 +266,6 @@ public class NhanvienController implements Initializable{
 			int cmndnv = Integer.parseInt(cmnd_nv.getText());
 			String diachinv = diachi_nv.getText();
 			 Session session = HibernateUtils.getSessionFactory().openSession();
-			/*SessionFactory factory = HibernateUltis.getSessionFactory();
-			 
-		      Session session = factory.getCurrentSession();*/
 			try {
 				session.beginTransaction();
 				Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,nvl);
@@ -304,7 +298,6 @@ public class NhanvienController implements Initializable{
 
 				}
 				session.getTransaction().commit();
-				// tableNV.refresh();
 				initializeNHANVIEN();
 			} catch (RuntimeException error) {
 				session.getTransaction().rollback();
@@ -316,7 +309,6 @@ public class NhanvienController implements Initializable{
 
 	@FXML
 	void search() {
-		//reloadNHANVIEN();
 		ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
 		FilteredList<Nhanvien> filterData = new FilteredList<>(table, p -> true);
 		search.textProperty().addListener((observable, oldvalue, newvalue) -> {
@@ -342,7 +334,7 @@ public class NhanvienController implements Initializable{
 
 	@FXML
 	void CapNhatNhanvien(ActionEvent event) {
-		// id_nv.setEditable(true);
+		
 		hovaten_nv.setEditable(true);
 		ns_nv.setEditable(true);
 		cmnd_nv.setEditable(true);
@@ -379,7 +371,6 @@ public class NhanvienController implements Initializable{
 				try {
 					session.beginTransaction();
 					if (nv != null) {
-					//	nv.setHoadon(null);
 						Set<Hoadon> hoadons = nv.getHoadon();
 						for(Hoadon hoadon : hoadons) {
 							hoadon.setNhanvien(null);
@@ -396,7 +387,6 @@ public class NhanvienController implements Initializable{
 						for(Phieutrahang phieutrahang : phieutrahangs) {
 							phieutrahang.setNhanvien(null);
 						}	
-					//	nv.setHoadon(null);
 						session.delete(nv);
 					}
 					session.getTransaction().commit();
@@ -421,12 +411,10 @@ public class NhanvienController implements Initializable{
 			} else if (type == ButtonType.NO) {
 				alert.close();
 			}
-			//ObservableList<Nhanvien> table = FXCollections.observableArrayList(getNhanvien());
 		});
 	}
 
 	public void initializeNHANVIEN() {
-		// id.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("id"));
 		hovaten.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("hovaten"));
 		ngaysinh.setCellValueFactory(new PropertyValueFactory<Nhanvien, Date>("ngaysinh"));
 		chucvu.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("chucvu"));
@@ -439,17 +427,10 @@ public class NhanvienController implements Initializable{
 
 	public ObservableList<Nhanvien> getNhanvien() {
 		ObservableList<Nhanvien> TableNV = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
-
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		CriteriaQuery<Nhanvien> nv = session.getCriteriaBuilder().createQuery(Nhanvien.class);
 		nv.from(Nhanvien.class);
 		List<Nhanvien> eList = session.createQuery(nv).getResultList();
-		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
 		for (Nhanvien ent : eList) {
 			TableNV.add(ent);
 		}
@@ -459,26 +440,20 @@ public class NhanvienController implements Initializable{
 
 	void reloadNHANVIEN() {
 		initializeNHANVIEN();
-		//getNhanvien();
 	}
 
 	@FXML
 	void reload(ActionEvent event) {
-
 		initializeNHANVIEN();
-	//	getNhanvien();
 	}
 
 	private void setCellValueFromTabletoTexfField() {
 		tableNV.setOnMouseClicked(event -> {
-			//
-			
 			capnhat_nv.setVisible(true);
 			xoa_nv.setVisible(true);
 			Nhanvien nv = tableNV.getItems().get(tableNV.getSelectionModel().getSelectedIndex());
 			id_nv.setText(Integer.toString(nv.getManv()));
 			hovaten_nv.setText(nv.getHovaten());
-			// ns_nv.setText(Integer.toString(nv.getNgaysinh()));
 			ns_nv.setValue(nv.getNgaysinh());
 			ngayvaolam.setValue(nv.getNgayvaolam());
 			cb_chucvu.getSelectionModel().select(nv.getChucvu());
@@ -487,9 +462,6 @@ public class NhanvienController implements Initializable{
 			diachi_nv.setText(nv.getDiachi());
 			cmnd_nv.setText(String.valueOf(nv.getCmnd()));
 			byte[] getImageInBytes = nv.getImage();
-
-			//
-
 			try {
 				FileOutputStream fos = new FileOutputStream(new File("photo.jpg"));
 				fos.write(getImageInBytes);
