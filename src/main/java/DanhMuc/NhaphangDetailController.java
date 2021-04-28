@@ -65,124 +65,116 @@ import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Phieunhaphang;
 import QLBH.Sanpham;
+
 public class NhaphangDetailController implements Initializable {
 
-	 @FXML
-	    private Label lbManhaphang;
+	@FXML
+	private Label lbManhaphang;
 
-	    @FXML
-	    private Label lbThoigiannhap;
+	@FXML
+	private Label lbThoigiannhap;
 
-	    @FXML
-	    private Label lbTongtien;
+	@FXML
+	private Label lbTongtien;
 
-	    @FXML
-	    private Label lbMancc;
+	@FXML
+	private Label lbMancc;
 
-	    @FXML
-	    private Label lbManv;
+	@FXML
+	private Label lbManv;
 
-	    @FXML
-	    private Button backNH;
+	@FXML
+	private Button backNH;
 
-	    @FXML
-	    private TableView<Chitietnhaphang> tbChitietNhapHang;
+	@FXML
+	private TableView<Chitietnhaphang> tbChitietNhapHang;
 
-	   
+	@FXML
+	private TableColumn soluong;
 
-	    @FXML
-	    private TableColumn soluong;
+	@FXML
+	private TableColumn dongia;
 
-	    @FXML
-	    private TableColumn dongia;
+	@FXML
+	private TableColumn tongtien;
+	@FXML
+	private TableColumn<Chitietnhaphang, Sanpham> tenhang;
 
-	    @FXML
-	    private TableColumn tongtien;
-	    @FXML
-	    private TableColumn<Chitietnhaphang, Sanpham> tenhang;
+	@FXML
+	void backNhapHang(ActionEvent event) throws IOException {
+		Stage stage = (Stage) backNH.getScene().getWindow();
+		stage.close();
+	}
 
+	public void setPhieunhaphang(Phieunhaphang phieunhaphang) {
+		lbManhaphang.setText(String.valueOf(phieunhaphang.getManhaphang()));
+		lbThoigiannhap.setText(String.valueOf(phieunhaphang.getThoigian()));
+		if (phieunhaphang.getNhacungcap() == null) {
+			lbMancc.setText("[Nhà cung cấp đã bị xóa]");
+		} else {
+			lbMancc.setText(phieunhaphang.getNhacungcap().getTenncc());
+		}
+		if (phieunhaphang.getNhanvien() == null) {
+			lbManv.setText("[Nhân viên đã bị xóa]");
+		} else {
+			lbManv.setText(phieunhaphang.getNhanvien().getHovaten());
+		}
+		lbTongtien.setText(String.valueOf(phieunhaphang.getTongtien()));
+		IntitlizeChitietnhaphang(phieunhaphang);
+	}
 
-    @FXML
-    void backNH(ActionEvent event) throws IOException {
-    	Stage stage = (Stage) backNH.getScene().getWindow();
-        stage.close();
-    }
-    
-    public void setPhieunhaphang(Phieunhaphang phieunhaphang) {
-    	lbManhaphang.setText(String.valueOf(phieunhaphang.getManhaphang()));
-    	lbThoigiannhap.setText(String.valueOf(phieunhaphang.getThoigian()));
-    	if(phieunhaphang.getNhacungcap() == null) {
-    		lbMancc.setText("[Nhà cung cấp đã bị xóa]");
-    	}else {
-    		lbMancc.setText(phieunhaphang.getNhacungcap().getTenncc());
-    	}
-    	if(phieunhaphang.getNhanvien() == null) {
-    		lbManv.setText("[Nhân viên đã bị xóa]");
-    	}else {
-    		lbManv.setText(phieunhaphang.getNhanvien().getHovaten());
-    	}
-    	lbTongtien.setText(String.valueOf(phieunhaphang.getTongtien()));
-  //  	IntitlizeChitietnhaphang(phieunhaphang);
-    	IntitlizeChitietnhaphang(phieunhaphang);
-    }
-    
-   public ObservableList<Chitietnhaphang> getChitietnhaphang(Phieunhaphang phieunhaphang) {
-    	String Phieunhaphang = String.valueOf(phieunhaphang.getManhaphang());
-    	ObservableList<Chitietnhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
-    	 Session session = HibernateUtils.getSessionFactory().openSession();
-			
-			CriteriaBuilder builder = session.getCriteriaBuilder();
-			CriteriaQuery<Chitietnhaphang> query = builder.createQuery(Chitietnhaphang.class);
-			Root<Chitietnhaphang> root = query.from(Chitietnhaphang.class); // FROM
-			Join<Chitietnhaphang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
-			Join<Chitietnhaphang, Phieunhaphang> NhapHangJoin = root.join("phieunhaphang",JoinType.INNER);
-			query.where(builder.equal(NhapHangJoin.get("manhaphang"), Phieunhaphang));
-			List<Chitietnhaphang> ctnh = session.createQuery(query).getResultList();
-    	
-		 for(Chitietnhaphang b : ctnh) {
-			 tablePhieuNhapHang.add(b);
-			 System.out.println(b);
-		 }
-		 return tablePhieuNhapHang;	 
-    }
-   
-   public void  IntitlizeChitietnhaphang(Phieunhaphang phieunhaphang ) {
-	tenhang.setCellFactory(tbChitietNhapHang-> new TableCell<Chitietnhaphang, Sanpham>(){
-		@Override
-		    protected void updateItem(Sanpham item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getTensanpham());
-		        }
-		    }
-	});
-	soluong.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("soluong"));
-	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
-	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-	dongia.setCellFactory(tbChitietNhapHang ->new TableCell<Chitietnhaphang, Sanpham>(){
-		@Override
-		    protected void updateItem(Sanpham item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(String.valueOf(item.getGiatien()));
-		        }
-		    }
-	});
-	tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
+	public ObservableList<Chitietnhaphang> getChitietnhaphang(Phieunhaphang phieunhaphang) {
+		String Phieunhaphang = String.valueOf(phieunhaphang.getManhaphang());
+		ObservableList<Chitietnhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 
-}
-   
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Chitietnhaphang> query = builder.createQuery(Chitietnhaphang.class);
+		Root<Chitietnhaphang> root = query.from(Chitietnhaphang.class); // FROM
+		Join<Chitietnhaphang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
+		Join<Chitietnhaphang, Phieunhaphang> NhapHangJoin = root.join("phieunhaphang", JoinType.INNER);
+		query.where(builder.equal(NhapHangJoin.get("manhaphang"), Phieunhaphang));
+		List<Chitietnhaphang> ctnh = session.createQuery(query).getResultList();
+		for (Chitietnhaphang b : ctnh) {
+			tablePhieuNhapHang.add(b);
+			System.out.println(b);
+		}
+		return tablePhieuNhapHang;
+	}
+
+	public void IntitlizeChitietnhaphang(Phieunhaphang phieunhaphang) {
+		tenhang.setCellFactory(tbChitietNhapHang -> new TableCell<Chitietnhaphang, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item.getTensanpham());
+				}
+			}
+		});
+		soluong.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Integer>("soluong"));
+		tongtien.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
+		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		dongia.setCellFactory(tbChitietNhapHang -> new TableCell<Chitietnhaphang, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getGiatien()));
+				}
+			}
+		});
+		tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
+
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
+
 	}
-
 }
-

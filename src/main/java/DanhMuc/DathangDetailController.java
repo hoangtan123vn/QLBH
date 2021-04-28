@@ -100,7 +100,7 @@ public class DathangDetailController implements Initializable {
 	private Label lbManv;
 
 	@FXML
-	void trolai(ActionEvent e) throws IOException {
+	void backDatHang(ActionEvent e) throws IOException {
 		Stage stage = (Stage) backDH.getScene().getWindow();
 		stage.close();
 	}
@@ -112,7 +112,7 @@ public class DathangDetailController implements Initializable {
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 		CriteriaQuery<Chitietdathang> query = builder.createQuery(Chitietdathang.class);
-		Root<Chitietdathang> root = query.from(Chitietdathang.class); // FROM
+		Root<Chitietdathang> root = query.from(Chitietdathang.class); 
 		Join<Chitietdathang, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
 		Join<Chitietdathang, Phieudathang> PhieuJoin = root.join("phieudathang", JoinType.INNER);
 		query.where(builder.equal(PhieuJoin.get("madathang"), madathang));
