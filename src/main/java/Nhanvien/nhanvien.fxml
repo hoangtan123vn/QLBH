@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="background" stylesheets="@../Nhacungcap/nhacungcap.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhanvien.NhanvienController">
+<AnchorPane fx:id="anchorpane" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="background" stylesheets="@../Nhacungcap/nhacungcap.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhanvien.NhanvienController">
    <children>
       <TextField fx:id="search" layoutX="13.0" layoutY="236.0" prefHeight="32.0" prefWidth="173.0" promptText="Tìm kiếm nhân viên" />
       <Button fx:id="idaddNV" alignment="BASELINE_LEFT" layoutX="192.0" layoutY="235.0" mnemonicParsing="false" onAction="#ThemNV" prefHeight="32.0" prefWidth="126.0" text="Thêm nhân viên" />

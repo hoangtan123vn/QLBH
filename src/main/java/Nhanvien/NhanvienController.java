@@ -247,6 +247,7 @@ public class NhanvienController implements Initializable{
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		stage.setScene(scene);
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Them nhan vien");
 		stage.show();
 		truedisable();

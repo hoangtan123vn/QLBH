@@ -86,6 +86,8 @@ import org.hibernate.boot.registry.*;
 
 import QLBH.Chitietdathang;
 import QLBH.Chitiethoadon;
+import QLBH.GiaoDienNhanvienController;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Nhacungcap;
@@ -218,12 +220,24 @@ public class LapPhieuDatHangController implements Initializable{
     	name_ncc.setText(String.valueOf(nhacungcap.getTenncc()));
     }
     
+    @FXML
+    private ImageView exit1;
+    
+    @FXML
+    void exit1(MouseEvent event) {
+    	Stage stage = (Stage) exit1.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+		
+		
+    }
+    
     
 	@FXML
 	void CanCel(ActionEvent event) {
 		Stage stage = (Stage) huy.getScene().getWindow();
    	   	stage.close();
-   	   	QLKhoController.getInstance().falsedisable();
+   	 GiaoDienQLController.getInstance().falsedisable();
 	}
 	void Timkiem() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList(getSanpham());
@@ -380,7 +394,7 @@ public class LapPhieuDatHangController implements Initializable{
 	            sum = sum + (chitietdathang.getSanpham().getGiatien()*chitietdathang.getSoluong());
 	        }
 	        tongtien.setText(String.valueOf(sum));
-	        QLKhoController.getInstance().falsedisable();
+	       // GiaoDienQLController.getInstance().falsedisable();
 	        QLKhoController.getInstance().ReloadSANPHAM();
 		}
 	 
@@ -499,7 +513,7 @@ public void loadData(Taikhoannv taikhoan) {
 					 alert.setContentText("bạn phải chọn phương thức thanh toán  !");
 					 alert.showAndWait();
 				}
-				QLKhoController.getInstance().falsedisable();
+				GiaoDienQLController.getInstance().falsedisable();
 				QLKhoController.getInstance().ReloadSANPHAM();
 			 }
 			 

@@ -16,7 +16,7 @@
             <CategoryAxis fx:id="ngay" side="BOTTOM" />
          </xAxis>
          <yAxis>
-            <NumberAxis fx:id="doanhthu" side="LEFT" tickLabelFill="WHITE">
+            <NumberAxis fx:id="doanhthu" side="LEFT">
                <tickLabelFont>
                   <Font name="System Bold" size="20.0" />
                </tickLabelFont></NumberAxis>
@@ -28,15 +28,25 @@
             <CategoryAxis fx:id="Sanpham" side="BOTTOM" />
          </xAxis>
          <yAxis>
-            <NumberAxis fx:id="Soluongbanra" side="LEFT" tickLabelFill="WHITE">
+            <NumberAxis fx:id="Soluongbanra" side="LEFT">
                <tickLabelFont>
                   <Font name="System Bold" size="20.0" />
                </tickLabelFont></NumberAxis>
          </yAxis>
       </BarChart>
-      <Label layoutX="699.0" layoutY="85.0" text="THÁNG" textFill="WHITE">
+      <Label layoutX="699.0" layoutY="85.0" text="THÁNG">
          <font>
             <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="103.0" layoutY="37.0" text="THỐNG KÊ SẢN PHẨM BÁN TRONG 1 NGÀY">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="682.0" layoutY="37.0" text="THỐNG KÊ DOANH THU BÁN TRONG 1 NGÀY">
+         <font>
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
    </children>

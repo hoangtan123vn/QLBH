@@ -57,7 +57,21 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 
 public class GiaoDienQLController implements Initializable {
+	
+	
+	public static GiaoDienQLController instance;
 
+	public GiaoDienQLController() {
+		instance = this;
+	}
+
+	public static GiaoDienQLController getInstance() {
+		return instance;
+	}
+
+	 @FXML
+	 private AnchorPane mainto;
+	
 	@FXML
 	private Button banhang;
 	
@@ -110,6 +124,7 @@ public class GiaoDienQLController implements Initializable {
 	void close(MouseEvent event) {
 		Stage stage = (Stage) close.getScene().getWindow();
 		stage.close();
+		
 	}
 
 	@FXML
@@ -209,6 +224,13 @@ public class GiaoDienQLController implements Initializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void falsedisable() {
+		mainto.setDisable(false);
+	}
+	public void truedisable() {
+		mainto.setDisable(true);
+	}
 
 	public void SceneBanHang(Taikhoannv taikhoan) {
 		try {
@@ -236,7 +258,7 @@ public class GiaoDienQLController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/QLBH/TrangChu.fxml"));
 			AnchorPane pane = loader.load();
 			mainpane.getChildren().setAll(pane);
-			mainpane.getStylesheets().add(getClass().getResource("thongke.css").toExternalForm());
+			//mainpane.getStylesheets().add(getClass().getResource("thongke.css").toExternalForm());
 			//mainpane.getStylesheets().add();
 			//mainpane.setStyle(" -fx-background-image: url(\"bg1.jpg\");");
 		} catch (IOException e) {

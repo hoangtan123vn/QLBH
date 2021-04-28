@@ -51,9 +51,13 @@ import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
+
+import Nhacungcap.nhacungcapController;
+
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Sanpham;
 public class ThemSanPhamController extends Application implements Initializable{
@@ -112,7 +116,18 @@ public class ThemSanPhamController extends Application implements Initializable{
     @FXML
     private ComboBox<String> donvi;
     
+ 
+   
+
+    @FXML
+    private ImageView exit;
     
+    @FXML
+    void exit(MouseEvent event) {
+    	Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+    }
 
 
     @FXML
@@ -142,7 +157,7 @@ public class ThemSanPhamController extends Application implements Initializable{
         		 Stage stage = (Stage) luusp.getScene().getWindow();
             	 stage.close();
             	 QLKhoController.getInstance().initialize1();
-            	 QLKhoController.getInstance().falsedisable();
+            	 GiaoDienQLController.getInstance().falsedisable();
             	 QLKhoController.getInstance().ReloadSANPHAM();
     		 }
     	    	catch (RuntimeException error){
@@ -238,7 +253,7 @@ public class ThemSanPhamController extends Application implements Initializable{
     void huySP(ActionEvent event) {
     	Stage stage = (Stage) huySP.getScene().getWindow();
       	 stage.close();	
-      	 QLKhoController.getInstance().falsedisable();
+      	GiaoDienQLController.getInstance().falsedisable();
       	 
     }
 

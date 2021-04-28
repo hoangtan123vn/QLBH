@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Nhanvien;
 import QLBH.Phieudathang;
@@ -71,6 +72,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Callback;
 
@@ -151,16 +153,18 @@ public class QLKhoController implements Initializable {
 
 	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
  
-
     
     @FXML
 	void ThemSP(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/QLKho/themsanpham.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.show();
-		truedisable();
+		//truedisable();
+		GiaoDienQLController.getInstance().truedisable();
+		
 	}
     @FXML
 	void reload(ActionEvent event) {
@@ -407,10 +411,11 @@ public class QLKhoController implements Initializable {
 		//Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
 		LapPhieuDatHangController lapPhieuDatHangController = loader.getController();
 		lapPhieuDatHangController.loadData(taikhoan);
+		stage1.initStyle(StageStyle.UNDECORATED);
 		stage1.setTitle("Lap phieu dat hang");
 		stage1.setScene(scene1);
 		stage1.show();
-		truedisable();
+		GiaoDienQLController.getInstance().truedisable();
 	} catch (Exception e) {
 		System.out.println(e);
 	}
