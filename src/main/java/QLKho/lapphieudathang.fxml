@@ -33,8 +33,9 @@
 					prefWidth="0.0" text="Loại sản phẩm" />
 			</columns>
 		</TableView>
-		<TextField layoutX="159.0" layoutY="231.0" prefHeight="27.0"
-			prefWidth="235.0" text="75 đường 14 phường Bình An Quận 2 " />
+		<TextField editable="false" layoutX="159.0" layoutY="231.0"
+			prefHeight="27.0" prefWidth="235.0"
+			text="75 đường 14 phường Bình An Quận 2 " />
 		<Text layoutX="51.0" layoutY="200.0" strokeType="OUTSIDE"
 			strokeWidth="0.0" text="Nhà cung cấp" wrappingWidth="80.341796875" />
 		<Text layoutX="54.0" layoutY="249.0" strokeType="OUTSIDE"
