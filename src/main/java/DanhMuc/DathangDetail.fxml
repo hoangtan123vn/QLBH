@@ -54,7 +54,7 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-     <Button fx:id="backDH" layoutX="317.0" layoutY="614.0" mnemonicParsing="false" onAction="#backDatHang" text="Trở lại" />
+     <Button fx:id="back1" layoutX="317.0" layoutY="614.0" mnemonicParsing="false" onAction="#trolai" text="Trở lại" />
       <TableView fx:id="tbChitietDatHang" layoutX="62.0" layoutY="237.0" prefHeight="194.0" prefWidth="630.0">
         <columns>
           <TableColumn fx:id="tenhang" prefWidth="212.0" text="Tên sản phẩm " />

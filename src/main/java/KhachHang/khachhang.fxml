@@ -30,7 +30,7 @@
             <TableColumn fx:id="tongtien" prefWidth="154.0" text="Tổng tiền" />
         </columns>
       </TableView>
-      <Label layoutX="704.0" layoutY="192.0" text="Lịch sử Mua Hàng của Khách Hàng">
+      <Label layoutX="704.0" layoutY="192.0" text="Lịch sử Mua Hàng của Khách Hàng" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>

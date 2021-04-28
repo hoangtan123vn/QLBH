@@ -71,7 +71,7 @@ public class TrahangDetailController implements Initializable{
     private TableColumn tongtien;
 
     @FXML
-    void backTraHang(ActionEvent event) throws IOException {
+    void backPT(ActionEvent event) throws IOException {
     	Stage stage = (Stage) backPT.getScene().getWindow();
         stage.close();
     }

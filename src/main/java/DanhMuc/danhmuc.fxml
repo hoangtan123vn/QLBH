@@ -11,15 +11,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1305.0" style="-fx-background-size: 1700;" styleClass="bg" stylesheets="@Danhmuc.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DanhMuc.danhmucController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="711.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DanhMuc.danhmucController">
    <children>
-      <TabPane fx:id="tabPaneQLDM" layoutX="3.0" layoutY="1.0" prefHeight="850.0" prefWidth="1305.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPaneQLDM" layoutY="123.0" prefHeight="591.0" prefWidth="1333.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab fx:id="sTab_PhieuHoaDon" text="     Danh mục phiếu hóa đơn">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="682.0" prefWidth="1312.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="896.0">
                      <children>
-                        <TableView fx:id="tableHoaDon" layoutX="350.0" layoutY="240.0" prefHeight="435.0" prefWidth="750.0">
+                        <TableView fx:id="tableHoaDon" layoutX="304.0" layoutY="160.0" prefHeight="258.0" prefWidth="750.0">
                            <columns>
                               <TableColumn fx:id="mahoadon" prefWidth="111.19998741149902" text="Mã hóa đơn " />
                               <TableColumn fx:id="thoigianmua" prefWidth="152.79998779296875" text="Thời gian mua " />
@@ -28,20 +28,15 @@
                               <TableColumn fx:id="manv1" prefWidth="150.0" text="Mã nhân viên " />
                            </columns>
                         </TableView>
-                        <TextField fx:id="searchPHD" layoutX="915.0" layoutY="205.0" prefHeight="25.0" prefWidth="185.0" promptText="Tìm theo mã hóa đơn" />
-                        <Label fx:id="lbDanhMucPHD" layoutX="14.0" layoutY="374.0" text="DANH MỤC PHIẾU HÓA ĐƠN " textFill="WHITE">
+                        <TextField fx:id="searchPHD" layoutX="867.0" layoutY="90.0" promptText="Tìm theo mã hóa đơn" />
+                        <Label fx:id="lbDanhMucPHD" layoutX="537.0" layoutY="25.0" text="DANH MỤC PHIẾU HÓA ĐƠN ">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font></Label>
-                        <Button layoutX="674.0" layoutY="697.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" prefHeight="38.0" prefWidth="129.0" style="-fx-background-radius: 4em; -fx-border-radius: 4em;" text="Chi tiết hóa đơn" />
-                        <Label fx:id="thongbaoHD" layoutX="479.0" layoutY="226.0" text="Label" textFill="RED" visible="false">
+                        <Button layoutX="630.0" layoutY="454.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" text="Chi tiết hóa đơn" />
+                        <Label fx:id="thongbaoHD" layoutX="403.0" layoutY="111.0" text="Label" textFill="RED" visible="false">
                            <font>
                               <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lbTitleStore" contentDisplay="CENTER" layoutX="571.0" layoutY="120.0" text="QUẢN LÝ DANH MỤC" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
-                           <font>
-                              <Font name="Arial Bold" size="30.0" />
                            </font>
                         </Label>
                      </children>
@@ -52,12 +47,12 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="lbDanhMucPDH" layoutX="507.0" layoutY="36.0" text="DANH MỤC PHIẾU ĐẶT HÀNG " textFill="#fffdfd">
+                        <Label fx:id="lbDanhMucPDH" layoutX="507.0" layoutY="36.0" text="DANH MỤC PHIẾU ĐẶT HÀNG ">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font></Label>
                         <TextField fx:id="searchPDH" layoutX="876.0" layoutY="92.0" promptText="Tìm theo mã đặt hàng" />
-                        <TableView fx:id="tablePhieuDatHang" layoutX="350.0" layoutY="240.0" prefHeight="435.0" prefWidth="750.0">
+                        <TableView fx:id="tablePhieuDatHang" layoutX="312.0" layoutY="173.0" prefHeight="248.0" prefWidth="751.0">
                            <columns>
                               <TableColumn fx:id="madathang" prefWidth="177.0" text="Mã đặt hàng " />
                               <TableColumn fx:id="mancc" prefWidth="183.0" text="Mã NCC" />
@@ -65,7 +60,7 @@
                               <TableColumn fx:id="tongtien1" prefWidth="156.0" text="Tổng tiền " />
                            </columns>
                         </TableView>
-                        <Button layoutX="640.0" layoutY="731.0" mnemonicParsing="false" onAction="#changeSceneDathangDetail" text="Chi tiết đặt hàng" />
+                        <Button layoutX="622.0" layoutY="466.0" mnemonicParsing="false" onAction="#changeSceneDathangDetail" text="Chi tiết đặt hàng" />
                         <Label fx:id="thongbaoDH" layoutX="367.0" layoutY="123.0" prefHeight="29.0" prefWidth="280.0" text="label" textFill="#ee0202" visible="false">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -78,21 +73,21 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="741.0">
                      <children>
-                        <Label fx:id="lbDanhMucPNH" layoutX="23.0" layoutY="443.0" text="DANH MỤC PHIẾU NHẬP HÀNG " textFill="WHITE">
+                        <Label fx:id="lbDanhMucPNH" layoutX="498.0" layoutY="32.0" text="DANH MỤC PHIẾU NHẬP HÀNG ">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font></Label>
-                        <TextField fx:id="searchPNH" layoutX="951.0" layoutY="203.0" onAction="#searchPNH" promptText="Tìm theo mã nhập hàng" />
-                        <TableView fx:id="tablePhieuNhapHang" layoutX="350.0" layoutY="240.0" prefHeight="435.0" prefWidth="750.0">
+                        <TextField fx:id="searchPNH" layoutX="860.0" layoutY="81.0" onAction="#searchPNH" promptText="Tìm theo mã nhập hàng" />
+                        <TableView fx:id="tablePhieuNhapHang" layoutX="317.0" layoutY="152.0" prefHeight="266.0" prefWidth="731.0">
                            <columns>
                               <TableColumn fx:id="manhaphang" prefWidth="162.0" text="Mã phiếu nhập " />
                               <TableColumn fx:id="mancc2" prefWidth="106.0" text="Mã NCC " />
                               <TableColumn fx:id="thoigiannhap" prefWidth="147.0" text="Thời gian nhập " />
                               <TableColumn fx:id="tongtien" prefWidth="152.0" text="Tổng tiền " />
-                              <TableColumn fx:id="manv2" prefWidth="181.0" text="Nhân viên " />
+                              <TableColumn fx:id="manv2" prefWidth="163.0" text="Nhân viên " />
                            </columns>
                         </TableView>
-                        <Button layoutX="672.0" layoutY="703.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" text="Chi tiết phiếu nhập hàng" />
+                        <Button layoutX="590.0" layoutY="451.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" text="Chi tiết phiếu nhập hàng" />
                         <Label fx:id="thongbaoNH" layoutX="405.0" layoutY="102.0" text="Label" textFill="#e80303" visible="false">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -131,5 +126,10 @@
          </tabs>
       </TabPane>
       <Text fx:id="txtTitle_store" layoutX="167.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Label fx:id="lbTitleStore" contentDisplay="CENTER" layoutX="513.0" layoutY="47.0" text="QUẢN LÝ DANH MỤC" textAlignment="JUSTIFY" textFill="#0e0000" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="Arial Bold" size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

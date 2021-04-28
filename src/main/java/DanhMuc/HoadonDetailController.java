@@ -62,116 +62,158 @@ import QLBH.Hoadon;
 import QLBH.Sanpham;
 
 public class HoadonDetailController implements Initializable {
+	
 
 	@FXML
-	private Label lbMahoadon;
+    private Label lbMahoadon;
 
-	@FXML
-	private Label lbThoigianmua;
+    @FXML
+    private Label lbThoigianmua;
 
-	@FXML
-	private Label lbTonggia;
+    @FXML
+    private Label lbTonggia;
 
-	@FXML
-	private Label lbMakh;
+    @FXML
+    private Label lbMakh;
 
-	@FXML
-	private Label lbManv;
-	@FXML
-	private Button back;
+    @FXML
+    private Label lbManv;
+    @FXML
+    private Button back;
+    
+    @FXML
+    private TableView<Chitiethoadon> tbChitietHoaDon;
 
-	@FXML
-	private TableView<Chitiethoadon> tbChitietHoaDon;
+    @FXML
+    private TableColumn<Chitiethoadon,Sanpham> tenhang;
 
-	@FXML
-	private TableColumn<Chitiethoadon, Sanpham> tenhang;
+    @FXML
+    private TableColumn soluong;
 
-	@FXML
-	private TableColumn soluong;
+    @FXML
+    private TableColumn dongia;
 
-	@FXML
-	private TableColumn dongia;
+    @FXML
+    private TableColumn thanhtien;
+    
+  
+    
+    public void setHoadon (Hoadon hoadon) {
+    	
+    	lbMahoadon.setText(String.valueOf((hoadon.getMahoadon())));
+    	lbThoigianmua.setText(String.valueOf(hoadon.getThoigianmua()));
+    //	lbTonggia.setText(String.valueOf(hoadon.getMahoadon()));
+    	//System.out.println(hoadon.getKhachhang().toString());
+    	if(hoadon.getKhachhang() == null) {
+    		lbMakh.setText("[khách lẻ]");
+    	}
+    	else {
+    		lbMakh.setText((hoadon.getKhachhang()).getTenkh());
+    	}
+    	
+    	if(hoadon.getNhanvien() == null) {
+    		lbManv.setText("[Nhân viên đã bị xóa]");
+    	}
+    	else {
+    		lbManv.setText((hoadon.getNhanvien()).getHovaten());
+    	}
+    	//lbManv.setText((hoadon.getKhachhang().getTenkh()));
+   // 	int mahoadon = hoadon.getMahoadon();
+    	lbTonggia.setText(String.valueOf(hoadon.getTonggia()));
+    	IntilizeChitietHoadon(hoadon);
+    	getChitietHoadon(hoadon);
+    }
+   
+void read() {
+	 
+}
+    //add column
+    
+    
+    
+    
+    @FXML
+    void goBack(ActionEvent e) throws IOException {
+      /* Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("danhsachnhanvien.fxml"));
+        Parent QLBHhdParent = loader.load();
+        Scene scene = new Scene(QLBHhdParent);
+        stage.setScene(scene);
+  */
+    	Stage stage = (Stage) back.getScene().getWindow();
+        stage.close();
+    }
+    public ObservableList<Chitiethoadon> getChitietHoadon(Hoadon hoadon) {
+    	int mahoadon = hoadon.getMahoadon();
+    	ObservableList<Chitiethoadon> TableHD = FXCollections.observableArrayList();
+    	 Session session = HibernateUtils.getSessionFactory().openSession();
+			
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Chitiethoadon> query = builder.createQuery(Chitiethoadon.class);
+			Root<Chitiethoadon> root = query.from(Chitiethoadon.class); // FROM
+			Join<Chitiethoadon, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
+			Join<Chitiethoadon, Hoadon> HoadonJoin = root.join("hoadon",JoinType.INNER);
+			query.where(builder.equal(HoadonJoin.get("mahoadon"), mahoadon));
+			//WHERE HOADON.MAHOADON = 
+			List<Chitiethoadon> cthd = session.createQuery(query).getResultList();
+    	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C,Sanpham SP,Hoadon H WHERE H.mahoadon=C.hoadon.mahoadon and C.sanpham.masanpham=SP.masanpham and H.mahoadon = :hoadon";
+    	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
+    //	 String hql = " SELECT C.soluong FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
+	/*		 String hql = " SELECT C.soluong FROM Chitiethoadon C,Hoadon H WHERE C.hoadon.mahoadon=H.mahoadon and C.hoadon.mahoadon = :hoadon";
+    	 Query query = session.createQuery(hql);
+	    query.setParameter("hoadon", mahoadon);
+		
+		// List<Object[]> tk1 = query.list();
+		// ObservableList<Object[]> list = FXCollections.observableArrayList(query.list());
+		// List<Object> eList = session.createQuery(query).getResultList();
+		 List<Chitiethoadon> tk1 = query.getResultList();*/
+		 for(Chitiethoadon b : cthd) {
+			 TableHD.add(b);
+			 System.out.println(b);
+		 }
+		 return TableHD;
+		
+		 
+    }
 
-	@FXML
-	private TableColumn thanhtien;
-
-	public void setHoadon(Hoadon hoadon) {
-		lbMahoadon.setText(String.valueOf((hoadon.getMahoadon())));
-		lbThoigianmua.setText(String.valueOf(hoadon.getThoigianmua()));
-		if (hoadon.getKhachhang() == null) {
-			lbMakh.setText("[khách lẻ]");
-		} else {
-			lbMakh.setText((hoadon.getKhachhang()).getTenkh());
-		}
-		if (hoadon.getNhanvien() == null) {
-			lbManv.setText("[Nhân viên đã bị xóa]");
-		} else {
-			lbManv.setText((hoadon.getNhanvien()).getHovaten());
-		}
-		lbTonggia.setText(String.valueOf(hoadon.getTonggia()));
-		IntilizeChitietHoadon(hoadon);
-		getChitietHoadon(hoadon);
-	}
-
-	void read() {
-
-	}
-
-	@FXML
-	void backHoaDon(ActionEvent e) throws IOException {
-		Stage stage = (Stage) back.getScene().getWindow();
-		stage.close();
-	}
-
-	public ObservableList<Chitiethoadon> getChitietHoadon(Hoadon hoadon) {
-		int mahoadon = hoadon.getMahoadon();
-		ObservableList<Chitiethoadon> TableHD = FXCollections.observableArrayList();
-		Session session = HibernateUtils.getSessionFactory().openSession();
-		CriteriaBuilder builder = session.getCriteriaBuilder();
-		CriteriaQuery<Chitiethoadon> query = builder.createQuery(Chitiethoadon.class);
-		Root<Chitiethoadon> root = query.from(Chitiethoadon.class);
-		Join<Chitiethoadon, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
-		Join<Chitiethoadon, Hoadon> HoadonJoin = root.join("hoadon", JoinType.INNER);
-		query.where(builder.equal(HoadonJoin.get("mahoadon"), mahoadon));
-		List<Chitiethoadon> cthd = session.createQuery(query).getResultList();
-		for (Chitiethoadon b : cthd) {
-			TableHD.add(b);
-			System.out.println(b);
-		}
-		return TableHD;
-	}
-
-	public void IntilizeChitietHoadon(Hoadon hoadon) {
-		tenhang.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon, Sanpham>() {
-			@Override
-			protected void updateItem(Sanpham item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(item.getTensanpham());
-				}
-			}
-		});
-		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-		soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Integer>("soluong"));
-		thanhtien.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Double>("thanhtien"));
-		dongia.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon, Sanpham>() {
-			@Override
-			protected void updateItem(Sanpham item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(Integer.toString(item.getGiatien()));
-				}
-			}
-		});
-		dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-		tbChitietHoaDon.setItems(getChitietHoadon(hoadon));
-	}
+    public void IntilizeChitietHoadon(Hoadon hoadon) {
+    //	tenhang.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+  	    tenhang.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon,Sanpham>(){
+  	    	 @Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(item.getTensanpham());
+ 		        }
+ 		    }
+  	    });
+    	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+    	soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Integer>("soluong"));
+    	thanhtien.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Double>("thanhtien"));
+    	dongia.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon,Sanpham>(){
+  	    	 @Override
+ 		    protected void updateItem(Sanpham item, boolean empty) {
+ 		        super.updateItem(item, empty);
+ 		        if (empty || item == null) {
+ 		            setText(null);
+ 		        } else {
+ 		            setText(Integer.toString(item.getGiatien()));
+ 		        }
+ 		    }
+  	    });
+    	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+     	//dongia.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Sanpham>("sanpham"));
+    	tbChitietHoaDon.setItems(getChitietHoadon(hoadon));
+    }
+    
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}
+
+    
+
 }
