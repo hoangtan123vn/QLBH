@@ -249,10 +249,45 @@ public class BanHangController implements Initializable {
 
 		});
 	}
+	private boolean KiemTraKt() {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(khachtra.getText());
+		if (m.find() && m.group().equals(khachtra.getText())) {
+			thongbaokhachtra.setText(null);
+			return true;
+		} else {
+			thongbaokhachtra.setText("Vui lòng điền số tiền phù hợp");
+			return false;
+		}
+	}
+	private boolean KiemTraKt1() {
+		Pattern p = Pattern.compile("[0]+");
+		Matcher m = p.matcher(khachtra.getText());
+		if (m.find() && m.group().equals(khachtra.getText())) {
+			thongbaokhachtra.setText("Vui lòng điền số tiền phù hợp  ");
+			return false;
+			
+		} else {
+			thongbaokhachtra.setText(null);
+			return true;
+		}
+	}
 
 	public void loadData(Taikhoannv taikhoan) throws IOException {
+		
 		thanhtoan.setOnMouseClicked(event -> {
-			if (KiemTraSanPhamHoaDon() & KiemTraTienKhachTra() & KiemTraTienKhachTra1()) {
+			if (KiemTraSanPhamHoaDon() & KiemTraTienKhachTra() & KiemTraKt1()) {
+				if (Float.parseFloat(khachtra.getText()) < Float.parseFloat(tongtien.getText())) {
+					khachtra.setText("");
+					thongbaokhachtra.setText("Không đủ tiền , nhập lại");
+					return;
+
+				} else {
+					float tientrakhach = Float.parseFloat(khachtra.getText()) - Float.parseFloat(tongtien.getText());
+					tienthua.setText(String.valueOf(tientrakhach));
+					thongbaokhachtra.setText(null);
+				}
+
 				try {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				Session session = HibernateUtils.getSessionFactory().openSession();
@@ -402,6 +437,7 @@ public class BanHangController implements Initializable {
 			}
 		});
 	}
+	
 
 //
 
@@ -587,6 +623,7 @@ public class BanHangController implements Initializable {
 
 //	        
 		khachtra.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+			if(KiemTraKt()) {
 			if (e.getCode() == KeyCode.ENTER) {
 				if (Float.parseFloat(khachtra.getText()) < Float.parseFloat(tongtien.getText())) {
 					khachtra.setText("");
@@ -598,7 +635,7 @@ public class BanHangController implements Initializable {
 					thongbaokhachtra.setText(null);
 				}
 			}
-		});
+		}});
 		khachhangg.setText(null);
 //
 
