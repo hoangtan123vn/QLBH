@@ -90,203 +90,145 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 	@FXML
 	private Button btquaylai;
 
-
 	@FXML
 	private Label tenncc;
 
 	@FXML
 	private Label thongbao;
-	
+
 	@FXML
 	private Label thongbao1;
 
 	@FXML
-    private ImageView exit;
-	
-	
+	private ImageView exit;
+
 	private boolean KiemTraDiaChi() {
-    	//System.out.println(tfdc.getText());
-		if(tfthanhtoan.getText().isEmpty()){
-			 Alert alert = new Alert(AlertType.INFORMATION);
-		        alert.setTitle("Error");
-		       
-		        alert.setContentText("Mời nhập vào ô thanh toán!!");
-		 
-		        alert.showAndWait();
+		if (tfthanhtoan.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Error");
+			alert.setContentText("Mời nhập vào ô thanh toán!!");
+			alert.showAndWait();
 			return false;
 		}
 		return true;
-		}
+	}
+
 	private void showAlertSodienthoai() {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Error");
-       
-        alert.setContentText("Mời nhập vào ô thanh toán!!");
- 
-        alert.showAndWait();
-        
-    }
-	
-	
-	  @FXML
-	    void exit(MouseEvent event) {
-		  Stage stage = (Stage) exit.getScene().getWindow();
-			stage.close();
-			GiaoDienQLController.getInstance().falsedisable();
-	    }
-	
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Error");
+		alert.setContentText("Mời nhập vào ô thanh toán!!");
+		alert.showAndWait();
+	}
+
+	@FXML
+	void exit(MouseEvent event) {
+		Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+	}
+
 	@FXML
 	void close(ActionEvent event) {
 		Stage stage = (Stage) btquaylai.getScene().getWindow();
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();
 	}
-//	@FXML
-//	public void actionComboBox() {
-//		if(cbb.getValue() == "Trực Tiếp") {
-//			thongbao1.setVisible(true);
-//			thongbao1.setText("Mời bạn gặp nhân viên A");
-//			tfthanhtoan.setVisible(false);
-//		}
-//		else if (cbb.getValue() == "Chuyển Khoản"){
-//			thongbao1.setVisible(true);
-//			thongbao1.setText("Mời bạn nhập vào ô thanh toán");
-//			tfthanhtoan.setVisible(true);
-//		}
-//	}
 
 	public void setThanhtoan(Nhacungcap nhacungcap) {
 		tenncc.setText(nhacungcap.getTenncc());
 		tfnoht.setText(String.valueOf(nhacungcap.getSotienno()));
 		java.util.Date date = new java.util.Date();
 		tfdate.setText(String.valueOf(date));
-	
 		tfthanhtoan.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-			
-				try {
-					if (e.getCode() == KeyCode.ENTER) {
-						if (Integer.parseInt(tfthanhtoan.getText()) > Integer.parseInt(tfnoht.getText()) ) {
-	
-							tfthanhtoan.setText("");
-							thongbao.setVisible(true);
-							thongbao.setText("Không hợp lệ! Mời Nhập Lại!!!");
-							tfnoconlai.setText(" ");
-	
-						} else if (Integer.parseInt(tfthanhtoan.getText()) <= Integer.parseInt(tfnoht.getText()) ) {
-	
-							tfnoconlai.setText(String
-									.valueOf(Integer.parseInt(tfnoht.getText()) - Integer.parseInt(tfthanhtoan.getText())));
-							tfnoconlai.setVisible(true);
-							thongbao.setText(" ");
-							
-						}
-						else if(tfthanhtoan.getText().isEmpty()) {
-							thongbao.setText("Bạn không được bỏ trống ");
-							
-						}
-						
+			try {
+				if (e.getCode() == KeyCode.ENTER) {
+					if (Integer.parseInt(tfthanhtoan.getText()) > Integer.parseInt(tfnoht.getText())) {
+						tfthanhtoan.setText("");
+						thongbao.setVisible(true);
+						thongbao.setText("Không hợp lệ! Mời Nhập Lại!!!");
+						tfnoconlai.setText(" ");
+					} else if (Integer.parseInt(tfthanhtoan.getText()) <= Integer.parseInt(tfnoht.getText())) {
+						tfnoconlai.setText(String
+								.valueOf(Integer.parseInt(tfnoht.getText()) - Integer.parseInt(tfthanhtoan.getText())));
+						tfnoconlai.setVisible(true);
+						thongbao.setText(" ");
+					} else if (tfthanhtoan.getText().isEmpty()) {
+						thongbao.setText("Bạn không được bỏ trống ");
 					}
-				} catch (Exception e2) {
-					// TODO: handle exception
-					thongbao.setText("Vui lòng nhập số ");
-					
 				}
-				
-				
+			} catch (Exception e2) {
+				thongbao.setText("Vui lòng nhập số ");
+			}
 		});
-		
-		bttaophieu.setOnMouseClicked(event ->  {
-			if(KiemTraDiaChi()) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Thanh Toán Công Nợ");
-			 
-	    	//Integer mancc = Integer.parseInt(tfncc.getText());
-	   // 	String ten = tenncc.getText();
-	    	Integer sotienno = Integer.parseInt(tfnoconlai.getText()) ;
-	    //	String noio = diachi.getText();
-	    	//Integer sdt = Integer.parseInt(sodienthoai.getText());;
-	    	//String em = email.getText();
-	    
-	    	 Session session = HibernateUtils.getSessionFactory().openSession();
-			
-			
-	    	try {		
-	    		 session.beginTransaction();
-				 Nhacungcap nv = new Nhacungcap();
-				 nv = session.get(Nhacungcap.class, nhacungcap.getMancc());
-				 nv.setSotienno(sotienno);
-				 session.save(nv);
-	    		 session.getTransaction().commit();
-	    		 //Nhacungcap ncc = new Nhacungcap(tenncc,diachi,sodienthoai,email);
-	    		 Stage stage = (Stage) bttaophieu.getScene().getWindow();
-	    		 
-	        	 stage.close();
-	        	 alert.setContentText("Cập nhật số tiền nợ thành công");
-	        	 alert.showAndWait();    
-	        	 InPhieuThanhToanNo(nv);
-	        	 
-	        	nhacungcapController.getInstance().ReloadNHACUNGCAP();
-	        	GiaoDienQLController.getInstance().falsedisable();
-	        	
-	    	}
-	    	catch (RuntimeException error){
-	    		 System.out.print(error);
-	    		 alert.setContentText("Cập nhật số tiền nợ thất bại");
-	    		 alert.showAndWait();
-	    		session.getTransaction().rollback();
-	    		
-	    		
-	    	}
-        }});
 
+		bttaophieu.setOnMouseClicked(event -> {
+			if (KiemTraDiaChi()) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Thanh Toán Công Nợ");
+				Integer sotienno = Integer.parseInt(tfnoconlai.getText());
+				Session session = HibernateUtils.getSessionFactory().openSession();
+				try {
+					session.beginTransaction();
+					Nhacungcap nv = new Nhacungcap();
+					nv = session.get(Nhacungcap.class, nhacungcap.getMancc());
+					nv.setSotienno(sotienno);
+					session.save(nv);
+					session.getTransaction().commit();
+					Stage stage = (Stage) bttaophieu.getScene().getWindow();
+					stage.close();
+					alert.setContentText("Cập nhật số tiền nợ thành công");
+					alert.showAndWait();
+					InPhieuThanhToanNo(nv);
+					nhacungcapController.getInstance().ReloadNHACUNGCAP();
+					GiaoDienQLController.getInstance().falsedisable();
+				} catch (RuntimeException error) {
+					System.out.print(error);
+					alert.setContentText("Cập nhật số tiền nợ thất bại");
+					alert.showAndWait();
+					session.getTransaction().rollback();
+				}
+			}
+		});
 	}
-	
+
 	public void InPhieuThanhToanNo(Nhacungcap nhacungcap) {
 		try {
-			    final String DB_URL = "jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh";
-	            Connection conn = DriverManager.getConnection(DB_URL,"root","");
-	            InputStream in = new FileInputStream(new File("Nhacungcap\\PhieuThanhToanNo.jrxml"));
-	            JasperDesign jd = JRXmlLoader.load(in);
-	            String sql ="SELECT tenncc,sotienno FROM nhacungcap WHERE mancc ='"+nhacungcap.getMancc()+"'";
-	            JRDesignQuery newQuery1 = new JRDesignQuery();
-	            newQuery1.setText(sql);
-	            jd.setQuery(newQuery1);
-	            JasperReport jr = JasperCompileManager.compileReport(jd);
-	            // jr = JasperCompileManager.compileReport(jd1);
-	            HashMap<String,Object> para = new HashMap<>();
-	            String thanhtoan = String.valueOf(tfthanhtoan.getText());
-	            String noconlai = String.valueOf(tfnoconlai.getText());
-	            String thoigian = tfdate.getText();
-	            String sotienno = tfnoconlai.getText();
-	             para.put("thanhtoan",thanhtoan);
-	             para.put("noconlai", noconlai);
-	             para.put("thoigian", thoigian);
-	             para.put("sotienno", sotienno);
-	            JasperPrint j = JasperFillManager.fillReport(jr, para,conn);
-	    
-	            JasperViewer.viewReport(j,false);
-	         
-	            OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
-	            JasperExportManager.exportReportToPdfStream(j,os);
-	            
-	        }catch(Exception e) {
-	            JOptionPane.showMessageDialog(null, "Lỗi"+ e);
-	        }
+			final String DB_URL = "jdbc:mysql://localhost/qlbh?serverTimezone=Asia/Ho_Chi_Minh";
+			Connection conn = DriverManager.getConnection(DB_URL, "root", "");
+			InputStream in = new FileInputStream(new File("Nhacungcap\\PhieuThanhToanNo.jrxml"));
+			JasperDesign jd = JRXmlLoader.load(in);
+			String sql = "SELECT tenncc,sotienno FROM nhacungcap WHERE mancc ='" + nhacungcap.getMancc() + "'";
+			JRDesignQuery newQuery1 = new JRDesignQuery();
+			newQuery1.setText(sql);
+			jd.setQuery(newQuery1);
+			JasperReport jr = JasperCompileManager.compileReport(jd);
+			HashMap<String, Object> para = new HashMap<>();
+			String thanhtoan = String.valueOf(tfthanhtoan.getText());
+			String noconlai = String.valueOf(tfnoconlai.getText());
+			String thoigian = tfdate.getText();
+			String sotienno = tfnoconlai.getText();
+			para.put("thanhtoan", thanhtoan);
+			para.put("noconlai", noconlai);
+			para.put("thoigian", thoigian);
+			para.put("sotienno", sotienno);
+			JasperPrint j = JasperFillManager.fillReport(jr, para, conn);
+
+			JasperViewer.viewReport(j, false);
+
+			OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
+			JasperExportManager.exportReportToPdfStream(j, os);
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Lỗi" + e);
+		}
 	}
-	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
-
-	
 
 }

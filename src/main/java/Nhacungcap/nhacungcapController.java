@@ -75,57 +75,56 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
-public class nhacungcapController implements Initializable{
 
-    @FXML
-    private TableView<Nhacungcap> tableNhacungcap;
+public class nhacungcapController implements Initializable {
 
-    @FXML
-    private TableColumn tenncc;
+	@FXML
+	private TableView<Nhacungcap> tableNhacungcap;
 
-    @FXML
-    private TableColumn diachi1;
+	@FXML
+	private TableColumn tenncc;
 
-    @FXML
-    private TableColumn sotienno;
+	@FXML
+	private TableColumn diachi1;
 
-    @FXML
-    private TableColumn email;
+	@FXML
+	private TableColumn sotienno;
 
-    @FXML
-    private TableColumn sodienthoai;
+	@FXML
+	private TableColumn email;
 
-    @FXML
-    private TableColumn deleteNCC;
+	@FXML
+	private TableColumn sodienthoai;
 
-    @FXML
-    private Button idreloadncc;
+	@FXML
+	private TableColumn deleteNCC;
 
-    @FXML
-    private Button idluuncc;
+	@FXML
+	private Button idreloadncc;
 
-    @FXML
-    private Button taonhacungcap;
+	@FXML
+	private Button idluuncc;
 
-    @FXML
-    private Button thanhtoancongno;
+	@FXML
+	private Button taonhacungcap;
 
-    @FXML
-    private TextField timkiem;
-    
-    @FXML
+	@FXML
+	private Button thanhtoancongno;
+
+	@FXML
+	private TextField timkiem;
+
+	@FXML
 	private ComboBox<String> cbb;
-    
-    @FXML
-    private AnchorPane ncc;
-   
-    @FXML
-    private Label thongbao;
 
-    
-    
+	@FXML
+	private AnchorPane ncc;
+
+	@FXML
+	private Label thongbao;
+
 	private ObservableList<Nhacungcap> nhacungcapdata;
-	
+
 	public static nhacungcapController instance;
 
 	public nhacungcapController() {
@@ -135,62 +134,57 @@ public class nhacungcapController implements Initializable{
 	public static nhacungcapController getInstance() {
 		return instance;
 	}
-	 private void showAlertSodienthoai() {
-	        Alert alert = new Alert(AlertType.INFORMATION);
-	        alert.setTitle("Error");
-	       
-	        alert.setContentText("Số điện thoại không hợp lệ!! Mời nhập lại");
-	 
-	        alert.showAndWait();
-	        ReloadNHACUNGCAP();
-	    }
-	 private void showAlertDiachi() {
-	        Alert alert = new Alert(AlertType.INFORMATION);
-	        alert.setTitle("Error");
-	       
-	        alert.setContentText("Địa chỉ không hợp lệ!! Mời nhập lại");
-	 
-	        alert.showAndWait();
-	        ReloadNHACUNGCAP();
-	    }
-	 private void showAlertTenncc() {
-	        Alert alert = new Alert(AlertType.INFORMATION);
-	        alert.setTitle("Error");
-	       
-	        alert.setContentText("Tên nhà cung cấp không hợp lệ!! Mời nhập lại");
-	 
-	        alert.showAndWait();
-	        ReloadNHACUNGCAP();
-	    }
-	 private void showAlertCongno() {
-	        Alert alert = new Alert(AlertType.INFORMATION);
-	        alert.setTitle("Error");
-	       
-	        alert.setContentText("Số tiền không hợp lệ!! Mời nhập lại");
-	 
-	        alert.showAndWait();
-	        ReloadNHACUNGCAP();
-	    }
-	 private void showAlertEmail() {
-	        Alert alert = new Alert(AlertType.INFORMATION);
-	        alert.setTitle("Error");
-	       
-	        alert.setContentText("Email không hợp lệ!! Mời nhập lại");
-	 
-	        alert.showAndWait();
-	        ReloadNHACUNGCAP();
-	    }
-	
-	
+
+	private void showAlertSodienthoai() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Error");
+
+		alert.setContentText("Số điện thoại không hợp lệ!! Mời nhập lại");
+
+		alert.showAndWait();
+		ReloadNHACUNGCAP();
+	}
+
+	private void showAlertDiachi() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Error");
+
+		alert.setContentText("Địa chỉ không hợp lệ!! Mời nhập lại");
+
+		alert.showAndWait();
+		ReloadNHACUNGCAP();
+	}
+
+	private void showAlertTenncc() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Error");
+		alert.setContentText("Tên nhà cung cấp không hợp lệ!! Mời nhập lại");
+		alert.showAndWait();
+		ReloadNHACUNGCAP();
+	}
+
+	private void showAlertCongno() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Error");
+		alert.setContentText("Số tiền không hợp lệ!! Mời nhập lại");
+		alert.showAndWait();
+		ReloadNHACUNGCAP();
+	}
+
+	private void showAlertEmail() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Error");
+		alert.setContentText("Email không hợp lệ!! Mời nhập lại");
+		alert.showAndWait();
+		ReloadNHACUNGCAP();
+	}
+
 	public ObservableList<Nhacungcap> getNhacungcap() {
 		ObservableList<Nhacungcap> TableNhacungcap = FXCollections.observableArrayList();
-		 Session session = HibernateUtils.getSessionFactory().openSession();
-
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		CriteriaQuery<Nhacungcap> NCC = session.getCriteriaBuilder().createQuery(Nhacungcap.class);
 		NCC.from(Nhacungcap.class);
 		List<Nhacungcap> eList = session.createQuery(NCC).getResultList();
-		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
 		for (Nhacungcap ent : eList) {
 			TableNhacungcap.add(ent);
 		}
@@ -199,21 +193,17 @@ public class nhacungcapController implements Initializable{
 
 	public void ReloadNHACUNGCAP() {
 		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
-
 		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
-
 		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
-
 		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sotienno"));
-
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("email"));
 		tableNhacungcap.setItems(getNhacungcap());
 		search();
 
 	}
 
-	private static double xoffset =0; 
-	private static double yoffset =0; 
+	private static double xoffset = 0;
+	private static double yoffset = 0;
 
 	@FXML
 	void Taonhacungcap(ActionEvent event) {
@@ -223,19 +213,19 @@ public class nhacungcapController implements Initializable{
 			Stage stage = new Stage();
 			Scene scene = new Scene(root1);
 			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-				  @Override public void handle(MouseEvent mouseEvent) {
-				    // record a delta distance for the drag and drop operation.
-				    xoffset = stage.getX() - mouseEvent.getScreenX();
-				    yoffset = stage.getY() - mouseEvent.getScreenY();
-				  }
-				});
-				scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-				  @Override public void handle(MouseEvent mouseEvent) {
-				    stage.setX(mouseEvent.getScreenX() + xoffset);
-				    stage.setY(mouseEvent.getScreenY() + yoffset);
-				  }
-				});
-		//	root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					xoffset = stage.getX() - mouseEvent.getScreenX();
+					yoffset = stage.getY() - mouseEvent.getScreenY();
+				}
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					stage.setX(mouseEvent.getScreenX() + xoffset);
+					stage.setY(mouseEvent.getScreenY() + yoffset);
+				}
+			});
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.getIcons().add(new Image(nhacungcapController.class.getResourceAsStream("backgroundSGU.png")));
 			stage.setResizable(false);
@@ -243,20 +233,20 @@ public class nhacungcapController implements Initializable{
 			stage.setTitle("Tạo nhà cung cấp");
 			stage.show();
 			GiaoDienQLController.getInstance().truedisable();
-			
 		} catch (Exception e) {
-			// TODO: handle exception
-
 		}
 	}
+
 	public void falsedisable() {
 		ncc.setDisable(false);
 	}
+
 	public void truedisable() {
 		ncc.setDisable(true);
 	}
+
 	@FXML
-	void Thanhtoancongno(ActionEvent event)  {
+	void Thanhtoancongno(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/Nhacungcap/thanhtoancongno.fxml"));
@@ -264,44 +254,36 @@ public class nhacungcapController implements Initializable{
 			Scene scene = new Scene(root1);
 			Stage stage = new Stage();
 			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-				  @Override public void handle(MouseEvent mouseEvent) {
-				    // record a delta distance for the drag and drop operation.
-				    xoffset = stage.getX() - mouseEvent.getScreenX();
-				    yoffset = stage.getY() - mouseEvent.getScreenY();
-				  }
-				});
-				scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-				  @Override public void handle(MouseEvent mouseEvent) {
-				    stage.setX(mouseEvent.getScreenX() + xoffset);
-				    stage.setY(mouseEvent.getScreenY() + yoffset);
-				  }
-				});
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					xoffset = stage.getX() - mouseEvent.getScreenX();
+					yoffset = stage.getY() - mouseEvent.getScreenY();
+				}
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					stage.setX(mouseEvent.getScreenX() + xoffset);
+					stage.setY(mouseEvent.getScreenY() + yoffset);
+				}
+			});
 			ThanhtoanCNcontroller controller = loader.getController();
 			Nhacungcap selected = tableNhacungcap.getSelectionModel().getSelectedItem();
-		//	root1.getStylesheets().add(getClass().getResource("nhacungcap.css").toExternalForm());
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.getIcons().add(new Image(nhacungcapController.class.getResourceAsStream("backgroundSGU.png")));
-			//controller.setThanhtoan(selected);
-			if(selected == null) {
-				 thongbao.setVisible(true);
-				 thongbao.setText("Không có nhà cung cấp được chọn!!!");
-				// thongbaoTH.setText("Không có phiếu trả hàng được chọn!!!");
-				// System.out.print("Không có phiếu trả hàng được chọn!!!");
-				 return;
-			 }
-			 else if(selected != null){
-				 controller.setThanhtoan(selected);
+			if (selected == null) {
+				thongbao.setVisible(true);
+				thongbao.setText("Không có nhà cung cấp được chọn!!!");
+				return;
+			} else if (selected != null) {
+				controller.setThanhtoan(selected);
 				thongbao.setVisible(false);
-				 
-			 }
+			}
 			stage.setScene(scene);
 			stage.setTitle("thanh toán công nợ");
 			stage.show();
 			GiaoDienQLController.getInstance().truedisable();
-			//
-
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
 	}
@@ -310,7 +292,7 @@ public class nhacungcapController implements Initializable{
 	void Reloadncc(ActionEvent event) {
 		ReloadNHACUNGCAP();
 	}
-	
+
 	void search() {
 		ObservableList<Nhacungcap> table = FXCollections.observableArrayList(getNhacungcap());
 		FilteredList<Nhacungcap> filterData = new FilteredList<>(table, p -> true);
@@ -327,36 +309,23 @@ public class nhacungcapController implements Initializable{
 					return true;
 				}
 				return false;
-
 			});
 			SortedList<Nhacungcap> sortedList = new SortedList<>(filterData);
 			sortedList.comparatorProperty().bind(tableNhacungcap.comparatorProperty());
 			tableNhacungcap.setItems(sortedList);
 		});
 	}
-	
-	
-	
-    
-    private void ButtonXoaNCC() {
+
+	private void ButtonXoaNCC() {
 		Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>> cellFactory = new Callback<TableColumn<Nhacungcap, Void>, TableCell<Nhacungcap, Void>>() {
 			@Override
 			public TableCell<Nhacungcap, Void> call(final TableColumn<Nhacungcap, Void> param) {
-				
 				final TableCell<Nhacungcap, Void> cell = new TableCell<Nhacungcap, Void>() {
-					
 					Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
-					//	private ImageView imageView = new ImageView(img);
-					private  Button btncc = new Button("Xóa Nhà Cung Cấp",new ImageView(imageOk));
-					
-					
+					private Button btncc = new Button("Xóa Nhà Cung Cấp", new ImageView(imageOk));
 
 					{
-						
-						///////////////////////////
-						
 						btncc.setOnAction((ActionEvent event) -> {
-							
 							Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 							Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
 							alert.setTitle("Xóa Nhà Cung Cấp");
@@ -372,71 +341,53 @@ public class nhacungcapController implements Initializable{
 									try {
 										session.beginTransaction();
 										if (ncc != null) {
-											
+
 											Set<Phieudathang> phieudathangs = ncc.getPhieudathang();
-											for(Phieudathang phieudathang : phieudathangs) {
+											for (Phieudathang phieudathang : phieudathangs) {
 												phieudathang.setNhacungcap(null);
 											}
 											Set<Phieunhaphang> phieunhaphangs = ncc.getPhieunhaphang();
-											for(Phieunhaphang phieunhaphang : phieunhaphangs) {
+											for (Phieunhaphang phieunhaphang : phieunhaphangs) {
 												phieunhaphang.setNhacungcap(null);
 											}
 											Set<Phieutrahang> phieutrahangs = ncc.getPhieutrahang();
-											for(Phieutrahang phieutrahang : phieutrahangs) {
+											for (Phieutrahang phieutrahang : phieutrahangs) {
 												phieutrahang.setNhacungcap(null);
-											}	
+											}
 											session.delete(ncc);
-
 										}
 										session.getTransaction().commit();
 										ReloadNHACUNGCAP();
-
 										alert1.setContentText("Xóa nhà cung cấp thành công");
 										alert1.showAndWait();
-
 									} catch (RuntimeException error) {
 										session.getTransaction().rollback();
 									}
-
 								} else if (type == ButtonType.NO) {
 									alert.close();
 								}
-
 							});
 						});
 					}
-					//Image img = new Image(getClass().getResourceAsStream("icondelete.png"));
-				//	private ImageView imageView = new ImageView(img);
-					//	Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
-		                
+
 					@Override
 					public void updateItem(Void item, boolean empty) {
 						super.updateItem(item, empty);
-						if ( empty) {
+						if (empty) {
 							setGraphic(null);
 						} else {
-							//setGraphic(btncc);
-						//	Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
-							//imageView.setImage(getImageFromBytes(item));
-							//imageView.setFitWidth(50);
-							//imageView.setFitWidth(50);
 							setGraphic(btncc);
-							 
 						}
 					}
-					 
 				};
-				
 				return cell;
 			}
 		};
 		deleteNCC.setCellFactory(cellFactory);
-		
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		tenncc.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("tenncc"));
 		tenncc.setCellFactory(TextFieldTableCell.forTableColumn());
 		tenncc.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
@@ -448,21 +399,18 @@ public class nhacungcapController implements Initializable{
 				String s = event.getNewValue();
 				Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
 				Matcher m = p.matcher(s);
-				if(m.find() && m.group().equals(s)){
+				if (m.find() && m.group().equals(s)) {
 					person = event.getRowValue();
 					person = session.get(Nhacungcap.class, person.getMancc());
 					person.setTenncc(s);
 					session.save(person);
 					session.getTransaction().commit();
 					ReloadNHACUNGCAP();
-				}
-				else {
+				} else {
 					showAlertTenncc();
 				}
-				
 			}
 		});
-
 		diachi1.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("diachi"));
 		diachi1.setCellFactory(TextFieldTableCell.forTableColumn());
 		diachi1.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
@@ -474,27 +422,22 @@ public class nhacungcapController implements Initializable{
 				String s = event.getNewValue();
 				Pattern p = Pattern.compile("[0-9]+");
 				Matcher m = p.matcher(s);
-				if(s.isEmpty()){
+				if (s.isEmpty()) {
 					showAlertDiachi();
-					
-				}
-				else {
+				} else {
 					person = event.getRowValue();
 					person = session.get(Nhacungcap.class, person.getMancc());
 					person.setDiachi(s);
 					session.save(person);
 					session.getTransaction().commit();
 					ReloadNHACUNGCAP();
-				
 				}
-				
+
 			}
 		});
-
 		sodienthoai.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("sodienthoai"));
-
 		sodienthoai.setCellFactory(TextFieldTableCell.forTableColumn());
-		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {		   
+		sodienthoai.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
 			public void handle(CellEditEvent<Nhacungcap, String> event) {
 				Session session = HibernateUtils.getSessionFactory().openSession();
@@ -503,28 +446,21 @@ public class nhacungcapController implements Initializable{
 				String s = event.getNewValue();
 				Pattern p = Pattern.compile("[0-9]+");
 				Matcher m = p.matcher(s);
-				 if(m.find() && m.group().equals(s)){
-					 person = event.getRowValue();
-						person = session.get(Nhacungcap.class, person.getMancc());				
-						person.setSodienthoai(s);								
-						session.save(person);
-						session.getTransaction().commit();
-						ReloadNHACUNGCAP();
-		        }
-				 else {
+				if (m.find() && m.group().equals(s)) {
+					person = event.getRowValue();
+					person = session.get(Nhacungcap.class, person.getMancc());
+					person.setSodienthoai(s);
+					session.save(person);
+					session.getTransaction().commit();
+					ReloadNHACUNGCAP();
+				} else {
 					showAlertSodienthoai();
-					
-				     
-				 }
-				
+				}
+
 			}
 		});
-
 		sotienno.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("sotienno"));
-		
-
 		email.setCellValueFactory(new PropertyValueFactory<Nhacungcap, String>("email"));
-
 		email.setCellFactory(TextFieldTableCell.forTableColumn());
 		email.setOnEditCommit(new EventHandler<CellEditEvent<Nhacungcap, String>>() {
 			@Override
@@ -534,29 +470,23 @@ public class nhacungcapController implements Initializable{
 				String s = event.getNewValue();
 				Nhacungcap person = new Nhacungcap();
 				Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-		                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-		    	Matcher m = p.matcher(s);
-		    	if(m.find() && m.group().equals(s)){
-		    		person = event.getRowValue();
+						+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+				Matcher m = p.matcher(s);
+				if (m.find() && m.group().equals(s)) {
+					person = event.getRowValue();
 					person = session.get(Nhacungcap.class, person.getMancc());
 					person.setEmail(s);
 					session.save(person);
 					session.getTransaction().commit();
 					ReloadNHACUNGCAP();
-				}
-		    	else {
+				} else {
 					showAlertEmail();
 				}
-				
 			}
 		});
-
-		// deleteNCC.setCellValueFactory(new PropertyValueFactory<Nhacungcap,
-		// Button>("xoa"));
 		ButtonXoaNCC();
 		tableNhacungcap.setItems(getNhacungcap());
 		tableNhacungcap.setEditable(true);
 		search();
 	}
-
 }
