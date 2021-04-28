@@ -30,9 +30,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import QLBH.Phieutrahang;
 import QLBH.Chitietphieutra;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Sanpham;
 public class TrahangDetailController implements Initializable{
@@ -69,11 +72,21 @@ public class TrahangDetailController implements Initializable{
 
     @FXML
     private TableColumn tongtien;
+    
+    @FXML
+    private ImageView exit;
+    
+    @FXML public void exit(MouseEvent event) {
+    	Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+    }	
 
     @FXML
     void backPT(ActionEvent event) throws IOException {
     	Stage stage = (Stage) backPT.getScene().getWindow();
         stage.close();
+        GiaoDienQLController.getInstance().falsedisable();
     }
     
     public void setPhieutrahang(Phieutrahang phieutrahang) {

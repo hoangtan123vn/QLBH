@@ -59,10 +59,12 @@ import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 import QLBH.Chitietdathang;
 import QLBH.Chitiethoadon;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Sanpham;
 import QLBH.Phieudathang;
+import javafx.scene.input.MouseEvent;
 
 public class DathangDetailController implements Initializable{
 
@@ -101,11 +103,22 @@ public class DathangDetailController implements Initializable{
     
     @FXML
     private Label lbManv;
+    
+    
+    @FXML
+    private ImageView exit;
+    
+    @FXML public void exit(MouseEvent event) {
+    	Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+    }	
 
     
     @FXML
     void trolai(ActionEvent e) throws IOException {
     	Stage stage = (Stage) back1.getScene().getWindow();
+    	GiaoDienQLController.getInstance().falsedisable();
         stage.close();
     }
     public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
@@ -188,5 +201,6 @@ public class DathangDetailController implements Initializable{
 	    		lbManv.setText(phieudathang.getNhanvien().getHovaten());
 	    	}
 	    	IntitlizeChitietdathang(phieudathang);
-	    }	
+	    }
+	
 }

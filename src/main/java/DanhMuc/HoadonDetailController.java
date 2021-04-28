@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -57,6 +58,7 @@ import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
 import QLBH.Nhanvien;
 import QLBH.Chitiethoadon;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.Sanpham;
@@ -96,6 +98,14 @@ public class HoadonDetailController implements Initializable {
     @FXML
     private TableColumn thanhtien;
     
+    @FXML
+    private ImageView exit;
+    
+    @FXML public void exit(MouseEvent event) {
+    	Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+    }	
   
     
     public void setHoadon (Hoadon hoadon) {
@@ -143,6 +153,7 @@ void read() {
   */
     	Stage stage = (Stage) back.getScene().getWindow();
         stage.close();
+        GiaoDienQLController.getInstance().falsedisable();
     }
     public ObservableList<Chitiethoadon> getChitietHoadon(Hoadon hoadon) {
     	int mahoadon = hoadon.getMahoadon();

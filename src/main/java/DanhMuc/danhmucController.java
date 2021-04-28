@@ -14,6 +14,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
 import QLBH.KhachHang;
@@ -27,6 +28,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,8 +45,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class danhmucController implements Initializable {
 
@@ -165,6 +169,20 @@ public class danhmucController implements Initializable {
 		Parent hoadonViewParent = loader.load();
 		Stage stage = new Stage();
 		Scene scene = new Scene(hoadonViewParent);
+		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				xoffset = stage.getX() - mouseEvent.getScreenX();
+				yoffset = stage.getY() - mouseEvent.getScreenY();
+			}
+		});
+		scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				stage.setX(mouseEvent.getScreenX() + xoffset);
+				stage.setY(mouseEvent.getScreenY() + yoffset);
+			}
+		});
 		Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
 		HoadonDetailController DSNVController = loader.getController();
 	//	DSNVController.setHoadon(selected);
@@ -180,8 +198,10 @@ public class danhmucController implements Initializable {
 			 
 		 }
 		stage.setTitle("Chi tiet hoa don");
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.show();
+		GiaoDienQLController.getInstance().truedisable();
 
 
 	}
@@ -268,13 +288,28 @@ public class danhmucController implements Initializable {
 		}
 		return tablePhieuDatHang;
 	}
-
+	private static double xoffset = 0;
+	private static double yoffset = 0;
 	@FXML
 	void changeSceneDathangDetail(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/DathangDetail.fxml"));
 		Parent dathangViewParent = loader.load();
 		Stage stage1 = new Stage();
 		Scene scene1 = new Scene(dathangViewParent);
+		scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				xoffset = stage1.getX() - mouseEvent.getScreenX();
+				yoffset = stage1.getY() - mouseEvent.getScreenY();
+			}
+		});
+		scene1.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				stage1.setX(mouseEvent.getScreenX() + xoffset);
+				stage1.setY(mouseEvent.getScreenY() + yoffset);
+			}
+		});
 		Phieudathang selected = tablePhieuDatHang.getSelectionModel().getSelectedItem();
 		DathangDetailController Dathang = loader.getController();
 	//	Dathang.setPhieudathang(selected);
@@ -291,7 +326,9 @@ public class danhmucController implements Initializable {
 		 }
 		stage1.setTitle("Chi tiet dat hang");
 		stage1.setScene(scene1);
+		stage1.initStyle(StageStyle.UNDECORATED);
 		stage1.show();
+		GiaoDienQLController.getInstance().truedisable();
 	}
 
 	/*
@@ -389,6 +426,20 @@ public class danhmucController implements Initializable {
 		Parent nhaphangViewParent = loader.load();
 		Stage stage1 = new Stage();
 		Scene scene1 = new Scene(nhaphangViewParent);
+		scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				xoffset = stage1.getX() - mouseEvent.getScreenX();
+				yoffset = stage1.getY() - mouseEvent.getScreenY();
+			}
+		});
+		scene1.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				stage1.setX(mouseEvent.getScreenX() + xoffset);
+				stage1.setY(mouseEvent.getScreenY() + yoffset);
+			}
+		});
 		Phieunhaphang selected = tablePhieuNhapHang.getSelectionModel().getSelectedItem();
 		NhaphangDetailController Nhaphang = loader.getController();
 //		Nhaphang.setPhieunhaphang(selected);
@@ -404,8 +455,10 @@ public class danhmucController implements Initializable {
 			 
 		 }
 		stage1.setTitle("Chi tiet nhap hang");
+		stage1.initStyle(StageStyle.UNDECORATED);
 		stage1.setScene(scene1);
 		stage1.show();
+		GiaoDienQLController.getInstance().truedisable();
 	}
 
 	/*
@@ -481,6 +534,20 @@ public class danhmucController implements Initializable {
 		Parent trahangViewParent = loader.load();
 		Stage stage1 = new Stage();
 		Scene scene1 = new Scene(trahangViewParent);
+		scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				xoffset = stage1.getX() - mouseEvent.getScreenX();
+				yoffset = stage1.getY() - mouseEvent.getScreenY();
+			}
+		});
+		scene1.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				stage1.setX(mouseEvent.getScreenX() + xoffset);
+				stage1.setY(mouseEvent.getScreenY() + yoffset);
+			}
+		});
 		Phieutrahang selected = tablePhieuTraHang.getSelectionModel().getSelectedItem();
 		TrahangDetailController Trahang = loader.getController();
 	//	Trahang.setPhieutrahang(selected);
@@ -496,8 +563,10 @@ public class danhmucController implements Initializable {
 			 
 		 }
 		stage1.setTitle("Chi tiet phieu tra");
+		stage1.initStyle(StageStyle.UNDECORATED);
 		stage1.setScene(scene1);
 		stage1.show();
+		GiaoDienQLController.getInstance().truedisable();
 	}
 
 	@FXML
