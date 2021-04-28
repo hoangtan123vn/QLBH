@@ -377,7 +377,7 @@ public class danhmucController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		mahoadon.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("mahoadon"));
 		thoigianmua.setCellValueFactory(new PropertyValueFactory<Hoadon, String>("thoigianmua"));
-		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Integer>("tonggia"));
+		tonggia.setCellValueFactory(new PropertyValueFactory<Hoadon, Float>("tonggia"));
 		makhHD.setCellFactory(tableHoaDon -> new TableCell<Hoadon, KhachHang>() {
 			@Override
 			protected void updateItem(KhachHang item, boolean empty) {

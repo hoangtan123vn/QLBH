@@ -165,6 +165,7 @@ public class KiemTraHangController implements Initializable {
 					 
 					// truedisable();
 				 }
+				 Dathang1.setKiemtrahang(selected);
 				//thongbaoKT.setText(null);
 				Dathang1.loadData(taikhoan);
 				stage1.setTitle("Kiem tra hang");
