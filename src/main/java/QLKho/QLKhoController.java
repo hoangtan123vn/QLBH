@@ -46,6 +46,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -71,6 +72,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
@@ -152,13 +154,30 @@ public class QLKhoController implements Initializable {
 
 
 	ObservableList<Sanpham> table1 = FXCollections.observableArrayList(getSanpham());
- 
+	private static double xoffset =0; 
+	private static double yoffset =0; 
     
     @FXML
 	void ThemSP(ActionEvent event) throws IOException {
+    	
 		Parent root = FXMLLoader.load(getClass().getResource("/QLKho/themsanpham.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
+		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    // record a delta distance for the drag and drop operation.
+			    xoffset = stage.getX() - mouseEvent.getScreenX();
+			    yoffset = stage.getY() - mouseEvent.getScreenY();
+			  }
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    stage.setX(mouseEvent.getScreenX() + xoffset);
+			    stage.setY(mouseEvent.getScreenY() + yoffset);
+			  }
+			});
+		
+		
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.show();
@@ -408,6 +427,19 @@ public class QLKhoController implements Initializable {
 		Parent kiemtraViewParent = loader.load();
 		Stage stage1 = new Stage();
 		Scene scene1 = new Scene(kiemtraViewParent);
+		scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    // record a delta distance for the drag and drop operation.
+			    xoffset = stage1.getX() - mouseEvent.getScreenX();
+			    yoffset = stage1.getY() - mouseEvent.getScreenY();
+			  }
+			});
+			scene1.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    stage1.setX(mouseEvent.getScreenX() + xoffset);
+			    stage1.setY(mouseEvent.getScreenY() + yoffset);
+			  }
+			});
 		//Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
 		LapPhieuDatHangController lapPhieuDatHangController = loader.getController();
 		lapPhieuDatHangController.loadData(taikhoan);
