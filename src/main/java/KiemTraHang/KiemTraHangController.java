@@ -1,40 +1,18 @@
 package KiemTraHang;
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.Query;
-
-import Nhacungcap.nhacungcapController;
-import QLBH.Chitiethoadon;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Hoadon;
-import QLBH.KhachHang;
 import QLBH.Nhacungcap;
 import QLBH.Phieudathang;
-import QLBH.Sanpham;
 import QLBH.Taikhoannv;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,19 +24,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
-import javafx.util.converter.IntegerStringConverter;
 
 public class KiemTraHangController implements Initializable {
 
@@ -71,41 +42,39 @@ public class KiemTraHangController implements Initializable {
 	public static KiemTraHangController getInstance() {
 		return instance;
 	}
-	
 
-	
 	@FXML
 	private TableView<Phieudathang> phieudathangkt;
 	@FXML
-	private TableColumn madathangkt;
+	private TableColumn<Phieudathang,Integer> madathangkt;
 
 	@FXML
-	private TableColumn thoigiandatkt;
-	
-	 @FXML
-	 private Label thongbaoKT;
+	private TableColumn<Phieudathang,String> thoigiandatkt;
 
 	@FXML
-	private TableColumn tongtienkt;
-	
-    @FXML
-	 private TableColumn<Phieudathang,Boolean> select;
+	private Label thongbaoKT;
+
+	@FXML
+	private TableColumn<Phieudathang,Integer> tongtienkt;
+
+	@FXML
+	private TableColumn<Phieudathang, Boolean> select;
 
 	@FXML
 	private TableColumn<Phieudathang, Nhacungcap> mancckt;
-	
-	 @FXML
+
+	@FXML
 	private Button chitiet;
 
-
 	ObservableList<Phieudathang> listPDHkt;
-	
+
 	@FXML
-    private AnchorPane ap;
-	
+	private AnchorPane ap;
+
 	public void falsedisable() {
 		ap.setDisable(false);
 	}
+
 	public void truedisable() {
 		ap.setDisable(true);
 	}
@@ -123,92 +92,85 @@ public class KiemTraHangController implements Initializable {
 		}
 		return phieudathangkt;
 	}
-	private static double xoffset =0; 
-	private static double yoffset =0; 
+
+	private static double xoffset = 0;
+	private static double yoffset = 0;
 
 	public void loadData(Taikhoannv taikhoan) {
-		chitiet.setOnMouseClicked(event ->  {
+		chitiet.setOnMouseClicked(event -> {
 			try {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("NhapHangvaTraHang.fxml"));
 				Parent kiemtraViewParent = loader.load();
 				Stage stage1 = new Stage();
 				Scene scene1 = new Scene(kiemtraViewParent);
 				scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
-					  @Override public void handle(MouseEvent mouseEvent) {
-					    // record a delta distance for the drag and drop operation.
-					    xoffset = stage1.getX() - mouseEvent.getScreenX();
-					    yoffset = stage1.getY() - mouseEvent.getScreenY();
-					  }
-					});
-					scene1.setOnMouseDragged(new EventHandler<MouseEvent>() {
-					  @Override public void handle(MouseEvent mouseEvent) {
-					    stage1.setX(mouseEvent.getScreenX() + xoffset);
-					    stage1.setY(mouseEvent.getScreenY() + yoffset);
-					  }
-					});
-				
+					@Override
+					public void handle(MouseEvent mouseEvent) {
+						// record a delta distance for the drag and drop operation.
+						xoffset = stage1.getX() - mouseEvent.getScreenX();
+						yoffset = stage1.getY() - mouseEvent.getScreenY();
+					}
+				});
+				scene1.setOnMouseDragged(new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(MouseEvent mouseEvent) {
+						stage1.setX(mouseEvent.getScreenX() + xoffset);
+						stage1.setY(mouseEvent.getScreenY() + yoffset);
+					}
+				});
+
 				stage1.initStyle(StageStyle.UNDECORATED);
 				Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
 				NhapHangvaTraHang Dathang1 = loader.getController();
-		//		Dathang1.setKiemtrahang(selected);
-				if(selected == null) {
-					 thongbaoKT.setText("Không có phiếu đặt hàng được chọn!!!");
-					 return;
-				 }
-				 else if(selected != null){
-					 
-					 if(selected.getKiemtrahang()==true) {
+				// Dathang1.setKiemtrahang(selected);
+				if (selected == null) {
+					thongbaoKT.setText("Không có phiếu đặt hàng được chọn!!!");
+					return;
+				} else if (selected != null) {
+
+					if (selected.getKiemtrahang() == true) {
 						// thongbaoKT.setVisible(true);
-						 thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra ! ! ! ");
-						 return;
-					 }
-					 
+						thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra ! ! ! ");
+						return;
+					}
+
 					// truedisable();
-				 }
-				 Dathang1.setKiemtrahang(selected);
-				//thongbaoKT.setText(null);
+				}
+				Dathang1.setKiemtrahang(selected);
+				// thongbaoKT.setText(null);
 				Dathang1.loadData(taikhoan);
 				stage1.setTitle("Kiem tra hang");
 				stage1.setScene(scene1);
 				stage1.show();
 				GiaoDienQLController.getInstance().truedisable();
-			}catch (Exception e) {
+			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.print(e);
 			}
 		});
-		
-	}
-	
-	public void khoitao() {
-		// TODO Auto-generated method stub
-				//phieudathangkt.setEditable(true);
-				madathangkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("madathang"));
-				thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
-				tongtienkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
-				mancckt.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
-				mancckt.setCellFactory(phieudathangkt -> new TableCell<Phieudathang, Nhacungcap>() {
-					@Override
-					protected void updateItem(Nhacungcap item, boolean empty) {
-						super.updateItem(item, empty);
-						if (empty || item == null) {
-							setText(null);
-						} else {
-							setText(String.valueOf(item.getMancc()));
-						}
-					}
 
-				});
-				
-				 
-				  
-				//final TableColumn<Os, Boolean> loadedColumn = new TableColumn<>( "Delete" );
-				select.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().getKiemtrahang()));
-				select.setCellFactory(tc -> new CheckBoxTableCell<>());
-			    //  select.setCellFactory( column -> new CheckBoxTableCell<>());
-			     // bookMarks.addValueChangeListener(event -> contact.setBookMarks(bookMarks.getValue()));
-				phieudathangkt.setItems(getPhieudathangkt());
-				//phieudathangkt.setEditable(true);
+	}
+
+	public void khoitao() {
+		madathangkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("madathang"));
+		thoigiandatkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, String>("thoigian"));
+		tongtienkt.setCellValueFactory(new PropertyValueFactory<Phieudathang, Integer>("tongtien"));
+		mancckt.setCellValueFactory(new PropertyValueFactory<>("nhacungcap"));
+		mancckt.setCellFactory(phieudathangkt -> new TableCell<Phieudathang, Nhacungcap>() {
+			@Override
+			protected void updateItem(Nhacungcap item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(String.valueOf(item.getMancc()));
+				}
+			}
+
+		});
+		select.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().getKiemtrahang()));
+		select.setCellFactory(tc -> new CheckBoxTableCell<>());
+		phieudathangkt.setItems(getPhieudathangkt());
 	}
 
 	@Override
@@ -217,4 +179,3 @@ public class KiemTraHangController implements Initializable {
 	}
 
 }
-

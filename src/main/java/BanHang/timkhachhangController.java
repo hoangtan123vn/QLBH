@@ -6,21 +6,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.persistence.criteria.CriteriaQuery;
-
-import org.apache.derby.iapi.store.access.ConglomerateController;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-//import QLBH.HoadonDetailController;
-import QLBH.Hoadon;
 import QLBH.KhachHang;
-import QLBH.Sanpham;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -30,12 +18,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -101,8 +86,6 @@ public class timkhachhangController implements Initializable{
     
     
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		//masanpham1.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("masanpham"));
 		idKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("makh"));
 		hvtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, String>("tenkh"));
 		sdtKH.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("sodienthoai"));
@@ -137,7 +120,7 @@ public class timkhachhangController implements Initializable{
 	            thisStage.setScene(scene);
 
 	            // Setup the window/stage
-	            thisStage.setTitle("Chon khach hang");
+	            thisStage.setTitle("Chọn khách hàng");
 	            GiaoDienQLController.getInstance().truedisable();
 	            
 	            // xóa viền window
@@ -145,7 +128,6 @@ public class timkhachhangController implements Initializable{
 	            
 	            scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 	  			  @Override public void handle(MouseEvent mouseEvent) {
-	  			    // record a delta distance for the drag and drop operation.
 	  			    xoffset = thisStage.getX() - mouseEvent.getScreenX();
 	  			    yoffset = thisStage.getY() - mouseEvent.getScreenY();
 	  			  }
@@ -176,8 +158,6 @@ public class timkhachhangController implements Initializable{
 		CriteriaQuery<KhachHang> kh = session.getCriteriaBuilder().createQuery(KhachHang.class);
 		kh.from(KhachHang.class);
 		List<KhachHang> eList = session.createQuery(kh).getResultList();
-		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
 		for (KhachHang ent : eList) {
 			tableKH.add(ent);
 		}
@@ -195,9 +175,6 @@ public class timkhachhangController implements Initializable{
 				if (kh.getTenkh().toLowerCase().indexOf(typetext) != -1) {
 					return true;
 				}
-				// if(kh.getSodienthoai().toLowerCase().indexOf(typetext) !=-1) {
-				// return true;
-				// }
 				return false;
 
 			});
