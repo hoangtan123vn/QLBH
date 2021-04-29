@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
+
+import com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Label;
+
 import QLBH.HibernateUtils;
 import QLBH.Nhacungcap;
 import javafx.collections.FXCollections;
@@ -48,6 +51,8 @@ public class ListNhaCungCapController implements Initializable {
 	@FXML
 	private TableColumn tienno_NCC;
 
+	@FXML
+	private Label thongbao;
 	@FXML
 	private Button bt_NCC;
 	@FXML
