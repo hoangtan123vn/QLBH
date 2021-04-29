@@ -223,11 +223,7 @@ public class LapPhieuDatHangController implements Initializable {
 
 	public ObservableList<Sanpham> getSanpham() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Sanpham> sp = session.getCriteriaBuilder().createQuery(Sanpham.class);
 		sp.from(Sanpham.class);
@@ -415,6 +411,7 @@ public class LapPhieuDatHangController implements Initializable {
 					}
 					alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
 					alert.showAndWait();
+					
 					InPhieudathang(phieudathang);
 				} else {
 					alert.setContentText("bạn phải chọn phương thức thanh toán  !");
@@ -422,6 +419,7 @@ public class LapPhieuDatHangController implements Initializable {
 				}
 				GiaoDienQLController.getInstance().falsedisable();
 				QLKhoController.getInstance().ReloadSANPHAM();
+				tableSP1.getItems().clear();
 			}
 
 		});
