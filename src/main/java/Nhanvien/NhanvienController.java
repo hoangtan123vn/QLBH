@@ -345,7 +345,7 @@ public class NhanvienController implements Initializable {
 	void XoaNhanvien(ActionEvent event) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("Current project is modified");
-		alert.setContentText("Save?");
+		alert.setContentText("Bạn có muốn xóa nhân viên?");
 		ButtonType okButton = new ButtonType("Yes");
 		ButtonType noButton = new ButtonType("NO");
 		alert.getButtonTypes().setAll(okButton, noButton);
@@ -375,6 +375,8 @@ public class NhanvienController implements Initializable {
 							phieutrahang.setNhanvien(null);
 						}
 						session.delete(nv);
+						alert.setContentText("Xóa nhân viên thành công");
+						alert.showAndWait();
 					}
 					session.getTransaction().commit();
 				} catch (HibernateException error) {
