@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.time.LocalDateTime;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
 import QLBH.*;
 import java.util.HashMap;
 import java.util.List;
@@ -60,11 +62,6 @@ import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import QLBH.Chitiethoadon;
-import QLBH.Hoadon;
-import QLBH.KhachHang;
-import QLBH.Nhanvien;
-import QLBH.Sanpham;
 public class BanHangController implements Initializable {
 	public static BanHangController instance;
 
@@ -472,12 +469,26 @@ public class BanHangController implements Initializable {
 		}
 		return null;
 	}
+	
+	public ObservableList<String> getLoaiSanpham() {
+		ObservableList<String> TableSP = FXCollections.observableArrayList();
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		String hql = "SELECT SP.loaisanpham FROM Sanpham SP GROUP BY SP.loaisanpham";
+		Query query = session.createQuery(hql);
+		List<String> loaisanpham = query.list();
+		for (String list : loaisanpham) {
+			TableSP.add(list);
+		}
+		return TableSP;
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// set value for combobox
-		ObservableList<String> list = FXCollections.observableArrayList("snack", "drink", "food", "kem", "ALL");
-		timkiemloaisp.setItems(list);
+		//ObservableList<String> list = FXCollections.observableArrayList("snack", "drink", "food", "kem", "ALL");
+		timkiemloaisp.setItems(getLoaiSanpham());
+		timkiemloaisp.getItems().add("ALL");
 		//
 
 		tongtien.setText("0.0");
