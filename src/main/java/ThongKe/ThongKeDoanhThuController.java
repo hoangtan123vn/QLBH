@@ -165,7 +165,7 @@ public class ThongKeDoanhThuController implements Initializable {
 			for (Object[] hoadon : hd) {
 				ngay.setLabel("Tháng");
 				tienbanduoctrongmotngay.setLabel("Số tiền trong một tháng");
-				long tonggia = (long) hoadon[0];
+				Double tonggia = (Double) hoadon[0];
 				String month = String.valueOf((LocalDateTime) hoadon[1]);
 				String d = String.valueOf(month.substring(5, 7));
 				series.getData().add(new XYChart.Data(d, tonggia));

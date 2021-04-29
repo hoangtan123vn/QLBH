@@ -65,14 +65,14 @@ public class ThongKeLoiNhuanController implements Initializable {
 			loinhuan.getData().clear();
 			for (Object[] loinhuan : hd) {
 				for (Object[] dathang : chi) {
-					long tonggiathu = (long) loinhuan[0];
+					Double tonggiathu = (Double) loinhuan[0];
 					String monththu = String.valueOf((LocalDateTime) loinhuan[1]);
 					String dthu = String.valueOf(monththu.substring(5, 7));
-					long tonggiachi = (long) dathang[0];
+					Long tonggiachi = (long) dathang[0];
 					String monthchi = String.valueOf((LocalDateTime) dathang[1]);
 					String dchi = String.valueOf(monthchi.substring(5, 7));
 					if (dthu.equals(dchi)) {
-						long loinhuan2 = tonggiathu - tonggiachi;
+						Double loinhuan2 = tonggiathu - tonggiachi;
 						series.getData().add(new XYChart.Data(dthu, loinhuan2));
 					}
 				}
