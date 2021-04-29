@@ -209,7 +209,7 @@ public class ThemNVController implements Initializable {
 
 	private boolean KiemTraNgaySinh() {
 		if (tfns.getValue() == null) {
-			check_ngaysinh.setText("Vui lòng điền số ngày ở hợp lệ");
+			check_ngaysinh.setText("Vui lòng điền số ngày sinh hợp lệ");
 			return false;
 		}
 		check_ngaysinh.setText(null);

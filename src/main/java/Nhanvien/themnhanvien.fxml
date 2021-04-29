@@ -86,7 +86,7 @@
 		</Label>
 		<ComboBox fx:id="tfgt" layoutX="371.0" layoutY="309.0"
 			prefHeight="25.0" prefWidth="232.0" />
-		<DatePicker fx:id="tfns" layoutX="371.0" layoutY="197.0"
+		<DatePicker fx:id="tfns" editable="false" layoutX="371.0" layoutY="197.0"
 			prefHeight="27.0" prefWidth="232.0" />
 		<Button fx:id="add" layoutX="422.0" layoutY="594.0"
 			mnemonicParsing="false" onAction="#ThemNVButton" prefHeight="27.0"
@@ -108,7 +108,7 @@
 				<Font size="18.0" />
 			</font>
 		</Label>
-		<DatePicker fx:id="tfngayvaolam" layoutX="371.0"
+		<DatePicker fx:id="tfngayvaolam" editable="false" layoutX="371.0"
 			layoutY="522.0" prefHeight="27.0" prefWidth="250.0" />
 		<TextField fx:id="user" layoutX="886.0" layoutY="199.0"
 			prefHeight="27.0" prefWidth="176.0" />
