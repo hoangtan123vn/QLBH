@@ -664,13 +664,13 @@ public class BanHangController implements Initializable {
 		float sum = 0;
 		for (Chitiethoadon chitiethoadon : hoadon.getItems()) {
 			sum = sum + (chitiethoadon.getSanpham().getGiatien() * chitiethoadon.getSoluong());
-		}
-		if(khachhangg.getText() != null) {
-			khachhangg.setText(null);
-			diemtichluy.setText(null);
-			giamgia.setText(String.valueOf(0));
-		}
+		}			
 		tongtien.setText(String.valueOf(sum));
+		float tiengiam = Float.parseFloat(giamgia.getText()) / 100;
+		float tongtiengiam = Float.parseFloat(tongtien.getText()) * (1 - tiengiam);
+		tongtien.setText(String.valueOf(tongtiengiam));
+		float tientrakhach = Float.parseFloat(khachtra.getText()) - Float.parseFloat(tongtien.getText());
+		tienthua.setText(String.valueOf(tientrakhach));
 		kiemtratftongtien();
 		// TableSP.refresh();
 		// entry.s
