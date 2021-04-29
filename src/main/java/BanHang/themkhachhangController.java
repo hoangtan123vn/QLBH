@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.hibernate.Session;
+
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import entities.*;
 import javafx.collections.FXCollections;
@@ -20,177 +22,189 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class themkhachhangController  implements Initializable{
+public class themkhachhangController implements Initializable {
 
-    @FXML
-    private TextField numberphone;
+	@FXML
+	private TextField numberphone;
 
-    @FXML
-    private TextField address;
+	@FXML
+	private TextField address;
 
-    @FXML
-    private TextField mail;
+	@FXML
+	private TextField mail;
 
-    @FXML
-    private ComboBox <String> sex;
+	@FXML
+	private ComboBox<String> sex;
 
-    @FXML
-    private TextField name;
+	@FXML
+	private TextField name;
 
-    @FXML
-    private DatePicker birth;
+	@FXML
+	private DatePicker birth;
 
-    @FXML
-    private Button them;
+	@FXML
+	private Button them;
 
-    @FXML
-    private Button quaylai;
-    @FXML
-    private Label checkname;
-    @FXML
-    private Label checkaddress;
-    @FXML
-    private Label checkbirth;
-    @FXML
-    private Label checknumber;
-    @FXML
-    private Label checkgender;
-    @FXML
-    private Label checkmail;
-  
+	@FXML
+	private Button quaylai;
+	
+	@FXML
+	private Label checkname;
+	
+	@FXML
+	private Label checkaddress;
+	
+	@FXML
+	private Label checkbirth;
+	
+	@FXML
+	private Label checknumber;
+	
+	@FXML
+	private Label checkgender;
+	
+	@FXML
+	private Label checkmail;
+	
+	@FXML
+	private ImageView exit;
 
-    @FXML
-    void themkhachhang(ActionEvent event) {
-    	if(kiemtrahoten() & kiemtradiachi() & KiemTraSDT() & KiemTraNgaySinh() & KiemTraGioiTinh() & kiemtramail()) { 
-    	
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	String hoten = name.getText();
-    	String diachi = address.getText();
-    	String sdt= numberphone.getText();
-    	LocalDate ngaysinh = birth.getValue();
-    	String gioitinh = sex.getValue();
-    	String email = mail.getText();
-    	Session session = HibernateUtils.getSessionFactory().openSession();
-		KhachHang khachhang = new KhachHang(hoten,diachi,sdt,ngaysinh,gioitinh,email);
+	@FXML
+	void exit(MouseEvent event) {
+		Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+	}
+
+	@FXML
+	void themkhachhang(ActionEvent event) {
+		if (kiemtrahoten() & kiemtradiachi() & KiemTraSDT() & KiemTraNgaySinh() & KiemTraGioiTinh() & kiemtramail()) {
+
+			Alert alert = new Alert(AlertType.INFORMATION);
+			String hoten = name.getText();
+			String diachi = address.getText();
+			String sdt = numberphone.getText();
+			LocalDate ngaysinh = birth.getValue();
+			String gioitinh = sex.getValue();
+			String email = mail.getText();
+			Session session = HibernateUtils.getSessionFactory().openSession();
+			KhachHang khachhang = new KhachHang(hoten, diachi, sdt, ngaysinh, gioitinh, email);
+
+			try {
+				session.beginTransaction();
+				session.save(khachhang);
+				session.getTransaction().commit();
+				alert.setContentText("Thêm khách hàng thành công !");
+				alert.showAndWait();
+
+			} catch (RuntimeException error) {
+
+				alert.setContentText("Them khach hang that bai  !");
+				alert.showAndWait();
+				session.getTransaction().rollback();
+
+			}
+			// reset
+			name.setText(null);
+			address.setText(null);
+			numberphone.setText(null);
+			birth.setValue(null);
+			sex.setValue(null);
+			mail.setText(null);
+			GiaoDienQLController.getInstance().falsedisable();
+		}
 		
-		try {
-    		 session.beginTransaction();
-    		 session.save(khachhang);
-    		 session.getTransaction().commit();		
-        	 alert.setContentText("Thêm khách hàng thành công !");
-        	 alert.showAndWait();    
-        	 
-        	
-    	}
-    	catch (RuntimeException error){
-    		
-    		 alert.setContentText("Them khach hang that bai  !");
-    		 alert.showAndWait();
-    		session.getTransaction().rollback();
-    	
-    	}
-		// reset 
-		name.setText(null);
-		address.setText(null);
-		numberphone.setText(null);
-		birth.setValue(null);
-		sex.setValue(null);
-		mail.setText(null);
-    	}
-    }
-    private boolean kiemtrahoten() {
+	}
+
+	private boolean kiemtrahoten() {
 		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
 		Matcher m = p.matcher(name.getText());
-		if(m.find() && m.group().equals(name.getText())){
+		if (m.find() && m.group().equals(name.getText())) {
 			checkname.setText(null);
 			return true;
-		}
-		else {
+		} else {
 			checkname.setText("Vui lòng điền tên hợp lệ");
 			return false;
 		}
 	}
-    private boolean kiemtradiachi() {
-		if(address.getText().isEmpty()) {
+
+	private boolean kiemtradiachi() {
+		if (address.getText().isEmpty()) {
 			checkaddress.setText("Vui lòng điền tên hợp lệ");
 			return false;
-		}
-		else {
+		} else {
 			checkaddress.setText(null);
 			return true;
 		}
 	}
-    private boolean KiemTraSDT() {
+
+	private boolean KiemTraSDT() {
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(numberphone.getText());
-		if(m.find() && m.group().equals(numberphone.getText())){
+		if (m.find() && m.group().equals(numberphone.getText())) {
 			checknumber.setText(null);
 			return true;
-		}
-		else {
+		} else {
 			checknumber.setText("Vui lòng điền số điện thoại hợp lệ");
 			return false;
 		}
 	}
-    private boolean KiemTraNgaySinh() {
-		if(birth.getValue() == null){
+
+	private boolean KiemTraNgaySinh() {
+		if (birth.getValue() == null) {
 			checkbirth.setText("Vui lòng điền số ngày ở hợp lệ");
 			return false;
 		}
 		checkbirth.setText(null);
 		return true;
 	}
-    private boolean KiemTraGioiTinh() {
-		if(sex.getValue() == null){
+
+	private boolean KiemTraGioiTinh() {
+		if (sex.getValue() == null) {
 			checkgender.setText("Vui lòng chọn giới tính nhân viên");
 			return false;
 		}
 		checkgender.setText(null);
 		return true;
 	}
-    
- 
 
-    public static final Pattern VALIDEMAIL = 
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+	public static final Pattern VALIDEMAIL = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+			Pattern.CASE_INSENSITIVE);
 
-        private  boolean kiemtramail() {
-        		
-                Matcher  matcher = VALIDEMAIL.matcher(mail.getText());
-        		if(matcher.find() && matcher.group().equals(mail.getText())){
-        			
-        					
-        				
-        				checkmail.setText(null);
-        				return true;
-        				
-  
-        		}
-        		if(mail.getText().isEmpty()) {
-        			checkmail.setText("mail chua duoc nhap");
-        		}
-        		else
-                checkmail.setText("mail ko hop le");
-                return false;
-        
-        }
+	private boolean kiemtramail() {
 
-    @FXML
-    void quaylai(ActionEvent event) {
-    	Stage stage = (Stage) quaylai.getScene().getWindow();
-    	stage.close();
-    }
-    
-    @Override
+		Matcher matcher = VALIDEMAIL.matcher(mail.getText());
+		if (matcher.find() && matcher.group().equals(mail.getText())) {
+
+			checkmail.setText(null);
+			return true;
+
+		}
+		if (mail.getText().isEmpty()) {
+			checkmail.setText("mail chua duoc nhap");
+		} else
+			checkmail.setText("mail ko hop le");
+		return false;
+
+	}
+
+	@FXML
+	void quaylai(ActionEvent event) {
+		Stage stage = (Stage) quaylai.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+	}
+
+	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		ObservableList<String> list=FXCollections.observableArrayList("Nam","Nữ");
+		ObservableList<String> list = FXCollections.observableArrayList("Nam", "Nữ");
 		sex.setItems(list);
-		
-		
+
 	}
 
 }
-
