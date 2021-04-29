@@ -82,12 +82,12 @@ public class ThemNCCController extends Application implements Initializable {
 				session.getTransaction().commit();
 				Stage stage = (Stage) idsave.getScene().getWindow();
 				stage.close();
-				alert.setContentText("Them nha cung cap thanh cong !");
+				alert.setContentText("Thêm nhà cung cấp thành công !");
 				alert.showAndWait();
 				nhacungcapController.getInstance().ReloadNHACUNGCAP();
 				GiaoDienQLController.getInstance().falsedisable();
 			} catch (RuntimeException error) {
-				alert.setContentText("Them nha cung cap that bai  !");
+				alert.setContentText("Thêm nhà cung cấp thất bại  !");
 				alert.showAndWait();
 				session.getTransaction().rollback();
 			}
