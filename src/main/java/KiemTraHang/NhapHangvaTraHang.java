@@ -181,7 +181,6 @@ public class NhapHangvaTraHang implements Initializable {
 		} catch (Exception e) {
 			kiemtra.setText("Bạn phải chọn vào sản phẩm");
 		}
-
 	}
 
 	@FXML
@@ -266,7 +265,6 @@ public class NhapHangvaTraHang implements Initializable {
 			System.out.println(b);
 		}
 		return tableChitietkiemtra;
-
 	}
 
 	public void setKiemtrahang(Phieudathang phieudathang) {
@@ -278,7 +276,6 @@ public class NhapHangvaTraHang implements Initializable {
 	}
 
 	public void loadData(Taikhoannv taikhoan) {
-
 		btphieunhap.setOnMouseClicked(event -> {
 			if (Kiemtra() & KiemTraNhapHang()) {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -290,8 +287,6 @@ public class NhapHangvaTraHang implements Initializable {
 				for (Chitietnhaphang ct : tbnhaphang.getItems()) {
 					tongtien = (int) (tongtien + ct.getThanhtien());
 				}
-
-				// int tongtienn =Integer.parseInt(tongtien.getText());
 				LocalDateTime dateTime = LocalDateTime.now();
 				Nhanvien nhanvien = new Nhanvien();
 				nhanvien = session.get(Nhanvien.class, taikhoan.getNhanvien().getManv());
@@ -302,13 +297,11 @@ public class NhapHangvaTraHang implements Initializable {
 					session.getTransaction().commit();
 					alert.setContentText("Thêm phiếu nhập hàng thành công!");
 					alert.showAndWait();
-
 				} catch (RuntimeException error) {
 					alert.setContentText("Lỗi " + error);
 					alert.showAndWait();
 					session.getTransaction().rollback();
 				}
-
 				for (Chitietnhaphang ct : tbnhaphang.getItems()) {
 					int soluongnhap = ct.getSoluong();
 					double thanhtien = ct.getThanhtien();
@@ -316,9 +309,7 @@ public class NhapHangvaTraHang implements Initializable {
 					sanpham = session.get(Sanpham.class, ct.getSanpham().getMasanpham());
 					Chitietnhaphang chitietnhaphang = new Chitietnhaphang(phieunhaphang, sanpham, soluongnhap,
 							thanhtien);
-					// them so luong sp
 					int soluong = ct.getSanpham().getDonvitinh() + sanpham.getDonvitinh();
-
 					try {
 						session.beginTransaction();
 						sanpham.setDonvitinh(soluong);
@@ -327,23 +318,19 @@ public class NhapHangvaTraHang implements Initializable {
 						session.getTransaction().commit();
 						alert.setContentText("Cập nhật số lượng thành công!");
 						alert.showAndWait();
-
 					} catch (RuntimeException error) {
 						System.out.println(error);
 						alert.setContentText("Thêm  thất bại!");
 						alert.showAndWait();
 						session.getTransaction().rollback();
 					}
-
 				}
 				tbnhaphang.getItems().clear();
 				tbnhaphang.refresh();
-				GiaoDienQLController.getInstance().falsedisable();
+			//	GiaoDienQLController.getInstance().falsedisable();
 				InPhieuNhapHang(phieunhaphang);
-
 			}
 		});
-
 		btphieutra.setOnMouseClicked(event -> {
 			if (Kiemtra() & KiemTraTraHang()) {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -357,7 +344,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 				Nhanvien nhanvien = new Nhanvien();
 				nhanvien = session.get(Nhanvien.class, taikhoan.getNhanvien().getManv());
-				// int tongtienn =Integer.parseInt(tongtien.getText());
 				LocalDateTime dateTime = LocalDateTime.now();
 				Phieutrahang phieutrahang = new Phieutrahang(dateTime, tongtien, nhacungcap, nhanvien);
 				try {
@@ -369,25 +355,20 @@ public class NhapHangvaTraHang implements Initializable {
 					alert.showAndWait();
 					session.getTransaction().rollback();
 				}
-
 				for (Chitietphieutra ct : tbtrahang.getItems()) {
 					String lydo1 = lydo.getText();
 					int soluongnhap = ct.getSoluong();
 					double thanhtien = ct.getThanhtien();
 					Sanpham sanpham = new Sanpham();
 					sanpham = session.get(Sanpham.class, ct.getSanpham().getMasanpham());
-
 					Chitietphieutra chitietphieutra = new Chitietphieutra(phieutrahang, sanpham, soluongnhap, lydo1,
 							thanhtien);
-
 					try {
 						session.beginTransaction();
-
 						session.save(chitietphieutra);
 						session.getTransaction().commit();
 						alert.setContentText("Thêm phiếu trả hàng thành công!");
 						alert.showAndWait();
-
 					} catch (RuntimeException error) {
 						System.out.println(error);
 						alert.setContentText("Thêm  thất bại   !");
@@ -397,9 +378,8 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 				tbtrahang.getItems().clear();
 				tbtrahang.refresh();
-				GiaoDienQLController.getInstance().falsedisable();
+			//	GiaoDienQLController.getInstance().falsedisable();
 				InPhieutrahang(phieutrahang);
-
 			}
 
 		});
