@@ -62,7 +62,6 @@ import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import qlbhh.qlbhh.Chitiethoadon;
 
 public class BanHangController implements Initializable {
 	public static BanHangController instance;
@@ -336,6 +335,7 @@ public class BanHangController implements Initializable {
 						tienthua.setText(null);
 						khachhangg.setText(null);
 						diemtichluy.setText(null);
+						refeshTable();
 						// thongbaokhachtra.setText(null);
 
 					}
@@ -362,7 +362,9 @@ public class BanHangController implements Initializable {
 						tienthua.setText(null);
 						khachhangg.setText(null);
 						diemtichluy.setText(null);
+						refeshTable();
 						// thongbaokhachtra.setText(null);
+						
 					}
 
 				} catch (Exception e) {
@@ -485,6 +487,37 @@ public class BanHangController implements Initializable {
 			TableSP.add(list);
 		}
 		return TableSP;
+	}
+	
+	public void refeshTable() {
+		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
+		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
+		donvitnh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
+		// String>("donvitinh"));
+		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
+		// donvi.setCellValueFactory(new PropertyValueFactory<Sanpham,
+		// String>("donvi"));
+		hinhanhsanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
+		hinhanhsanpham.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
+
+			private ImageView imageView = new ImageView();
+
+			@Override
+			protected void updateItem(byte[] item, boolean empty) {
+				super.updateItem(item, empty);
+				if (item == null || empty) {
+					setText(null);
+					setGraphic(null);
+				} else {
+					imageView.setImage(getImageFromBytes(item));
+					imageView.setFitHeight(150);
+					imageView.setFitWidth(250);
+					setGraphic(imageView);
+				}
+				this.setItem(item);
+			}
+		});
+		TableSP.setItems(getSanpham());
 	}
 
 	@Override

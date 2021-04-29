@@ -97,18 +97,8 @@ public class DathangDetailController implements Initializable {
 		});
 		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang, Integer>("soluong"));
-		dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-		dongia.setCellFactory(tbChitietDatHang -> new TableCell<Chitietdathang, Sanpham>() {
-			@Override
-			protected void updateItem(Sanpham item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getGiatien()));
-				}
-			}
-		});
+		dongia.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Double>("dongia"));
+		
 
 		tbChitietDatHang.setItems(getChitietdathang(phieudathang));
 	}

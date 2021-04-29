@@ -26,6 +26,7 @@ public class Chitietphieutra implements Serializable {
 	private int soluong;
 	private String lydo;
 	private double thanhtien;
+	private int dongia;
 	
 	
 	
@@ -82,11 +83,19 @@ public class Chitietphieutra implements Serializable {
 	public Chitietphieutra() {
 		super();
 	}
-	public Chitietphieutra(Sanpham sanpham2, int soluong2, double thanhtien) {
+	
+	public int getDongia() {
+		return dongia;
+	}
+	public void setDongia(int dongia) {
+		this.dongia = dongia;
+	}
+	public Chitietphieutra(Sanpham sanpham, int soluong, double thanhtien,int dongia) {
 		// TODO Auto-generated constructor stub
-		this.sanpham= sanpham2;
-		this.soluong= soluong2;
+		this.sanpham= sanpham;
+		this.soluong= soluong;
 		this.thanhtien= thanhtien;
+		this.dongia = dongia;
 		//this.lydo = lydo;
 	}
 	
