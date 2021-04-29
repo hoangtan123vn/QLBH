@@ -133,6 +133,8 @@ public class BanHangController implements Initializable {
 	private TableColumn donvitnh1;
 
 	@FXML
+	private TableColumn donvitnh;
+	@FXML
 	private TableColumn thanhtien;
 
 	@FXML
@@ -481,7 +483,7 @@ public class BanHangController implements Initializable {
 		// Integer>("masanpham"));
 		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
 		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
-		// donvitnh.setCellValueFactory(new PropertyValueFactory<Sanpham,
+		donvitnh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
 		// String>("donvitinh"));
 		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
 		// donvi.setCellValueFactory(new PropertyValueFactory<Sanpham,
