@@ -19,14 +19,20 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.persistence.criteria.CriteriaQuery;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import org.hibernate.*;
+import org.hibernate.query.Query;
+
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Sanpham;
@@ -208,12 +214,27 @@ public class ThemSanPhamController extends Application implements Initializable 
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();	
 	}
+	public ObservableList<String> getSanpham() {
+		ObservableList<String> TableSP = FXCollections.observableArrayList();
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		String hql = "SELECT SP.loaisanpham FROM Sanpham SP GROUP BY SP.loaisanpham";
+		Query query = session.createQuery(hql);
+		List<String> loaisanpham = query.list();
+		for (String list : loaisanpham) {
+			TableSP.add(list);
+		}
+		return TableSP;
+	}
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ObservableList<String> list = FXCollections.observableArrayList("Cái ", "Chai ", "Bình ", "Bịch", "Hộp", "Ly",
 				"Nắm", "123");
-		loaisanpham.getItems().addAll("nước giải khát", "snack", "thức ăn nhanh", "");
+		loaisanpham.setItems(getSanpham());
+		loaisanpham.getItems().add("");
+		//loaisanpham.getItems().addAll("nước giải khát", "snack", "thức ăn nhanh", "");
 		loaisanpham.setCellFactory(lv -> {
 			ListCell<String> cell = new ListCell<String>() {
 				@Override
@@ -245,6 +266,7 @@ public class ThemSanPhamController extends Application implements Initializable 
 			});
 
 			return cell;
+			
 		});
 		donvi.setItems(list);
 
