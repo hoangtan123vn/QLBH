@@ -52,8 +52,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
-import QLBH.Taikhoannv;
-import QLBH.Nhanvien;
+import entities.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 

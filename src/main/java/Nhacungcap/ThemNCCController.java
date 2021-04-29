@@ -20,7 +20,7 @@ import javafx.event.*;
 import org.hibernate.*;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Nhacungcap;
+import entities.*;
 
 public class ThemNCCController extends Application implements Initializable {
 	@FXML

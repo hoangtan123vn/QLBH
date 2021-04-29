@@ -10,9 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 
 import QLBH.HibernateUtils;
-import QLBH.Hoadon;
-import QLBH.KhachHang;
-import QLBH.Nhanvien;
+import entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

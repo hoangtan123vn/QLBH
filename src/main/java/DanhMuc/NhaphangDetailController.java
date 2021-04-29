@@ -59,14 +59,9 @@ import com.google.protobuf.StringValue;
 
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
-import QLBH.Nhanvien;
-import QLBH.Chitiethoadon;
-import QLBH.Chitietnhaphang;
+import entities.*;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Hoadon;
-import QLBH.Phieunhaphang;
-import QLBH.Sanpham;
 public class NhaphangDetailController implements Initializable {
 
 	 @FXML

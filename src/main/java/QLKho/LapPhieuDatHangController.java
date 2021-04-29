@@ -49,14 +49,10 @@ import javafx.event.*;
 import org.hibernate.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
-import QLBH.Chitietdathang;
+import entities.*;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Nhacungcap;
-import QLBH.Nhanvien;
-import QLBH.Phieudathang;
-import QLBH.Sanpham;
-import QLBH.Taikhoannv;
+
 
 public class LapPhieuDatHangController implements Initializable {
 

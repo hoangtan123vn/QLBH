@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
-import QLBH.KhachHang;
+import entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

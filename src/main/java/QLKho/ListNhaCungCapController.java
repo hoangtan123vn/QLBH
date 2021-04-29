@@ -9,7 +9,7 @@ import org.hibernate.Session;
 
 import javafx.scene.control.Label;
 import QLBH.HibernateUtils;
-import QLBH.Nhacungcap;
+import entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

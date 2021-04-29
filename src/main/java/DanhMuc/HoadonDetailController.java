@@ -27,6 +27,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.bytebuddy.implementation.bytecode.Addition;
 import javafx.stage.FileChooser;
+import entities.*;
 
 import java.util.List;
 import java.awt.Desktop;
@@ -56,12 +57,9 @@ import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
-import QLBH.Nhanvien;
-import QLBH.Chitiethoadon;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Hoadon;
-import QLBH.Sanpham;
+
 
 public class HoadonDetailController implements Initializable {
 	

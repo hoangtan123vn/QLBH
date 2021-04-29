@@ -3,7 +3,7 @@ package QLBH;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import entities.*;
 import BanHang.BanHangController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

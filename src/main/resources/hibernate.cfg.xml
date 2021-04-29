@@ -26,19 +26,19 @@
   <!-- Drop and re-create the database schema on startup -->
   <property name="hbm2ddl.auto">update</property>
   <!-- Names of the annotated entity class -->
-  <mapping class="QLBH.Chitiethoadon"/>
-  <mapping class="QLBH.Nhanvien"/>
-  <mapping class="QLBH.Sanpham"/>
-  <mapping class="QLBH.Hoadon"/>
-  <mapping class="QLBH.Phieudathang"/>
-  <mapping class="QLBH.Phieunhaphang"/>
-  <mapping class="QLBH.Phieutrahang"/>
-  <mapping class="QLBH.Nhacungcap"/>
-  <mapping class="QLBH.KhachHang"/>
-  <mapping class="QLBH.Taikhoannv"/>
-  <mapping class="QLBH.Chitietdathang"/>
-  <mapping class="QLBH.Chitietnhaphang"/>
-  <mapping class="QLBH.Chitietphieutra"/>
+  <mapping class="entities.Chitiethoadon"/>
+  <mapping class="entities.Nhanvien"/>
+  <mapping class="entities.Sanpham"/>
+  <mapping class="entities.Hoadon"/>
+  <mapping class="entities.Phieudathang"/>
+  <mapping class="entities.Phieunhaphang"/>
+  <mapping class="entities.Phieutrahang"/>
+  <mapping class="entities.Nhacungcap"/>
+  <mapping class="entities.KhachHang"/>
+  <mapping class="entities.Taikhoannv"/>
+  <mapping class="entities.Chitietdathang"/>
+  <mapping class="entities.Chitietnhaphang"/>
+  <mapping class="entities.Chitietphieutra"/>
   
    
  </session-factory>

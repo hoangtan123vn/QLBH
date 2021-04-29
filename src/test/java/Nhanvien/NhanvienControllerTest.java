@@ -6,12 +6,15 @@ import java.util.ResourceBundle;
 
 import org.junit.Test;
 
-import QLBH.Nhanvien;
+import entities.*;
+import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Parent;
+import javafx.stage.Stage;
 
 @javax.annotation.processing.Generated(value = "org.junit-tools-1.1.0")
-public class NhanvienControllerTest {
+public class NhanvienControllerTest extends Main{
 
 	private NhanvienController createTestSubject() {
 		return new NhanvienController();
@@ -177,4 +180,18 @@ public class NhanvienControllerTest {
 		testSubject = createTestSubject();
 		testSubject.truedisable();
 	}
+
+
+
+	@Override
+    protected Parent Main {
+        Parent parent = null;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("sample.fxml"));
+            return parent;
+        } catch (IOException ex) {
+            // TODO ...
+        }
+        return parent;
+    }
 }

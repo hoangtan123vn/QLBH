@@ -30,7 +30,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.*;
 import org.hibernate.*;
 import QLBH.HibernateUtils;
-import QLBH.Sanpham;
+import entities.*;
 
 public class detailsanphamcontroller implements Initializable {
 

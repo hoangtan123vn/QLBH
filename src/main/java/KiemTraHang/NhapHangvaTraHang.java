@@ -29,8 +29,6 @@ import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import QLBH.Sanpham;
-import QLBH.Taikhoannv;
 import java.util.HashMap;
 import java.util.List;
 import java.io.File;
@@ -52,16 +50,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import org.hibernate.*;
-import QLBH.Nhanvien;
-import QLBH.Phieudathang;
-import QLBH.Chitietnhaphang;
-import QLBH.Chitietphieutra;
+import entities.*;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Phieutrahang;
-import QLBH.Chitietdathang;
-import QLBH.Nhacungcap;
-import QLBH.Phieunhaphang;
 
 public class NhapHangvaTraHang implements Initializable {
 	@FXML

@@ -8,6 +8,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import entities.*;
 
 public class ProfilesNhanvienController {
 

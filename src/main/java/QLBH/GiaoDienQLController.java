@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import org.hibernate.query.Query;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
-import QLBH.Nhanvien;
+import entities.*;
 import BanHang.BanHangController;
 import DanhMuc.HoadonDetailController;
 import KhachHang.khachhangController;

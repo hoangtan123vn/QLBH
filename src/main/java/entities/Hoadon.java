@@ -1,4 +1,4 @@
-package QLBH;
+package entities;
 
 
 import java.io.Serializable;
@@ -6,8 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.*;
-import QLBH.KhachHang;
-import QLBH.Nhanvien;
+import entities.*;
 @Entity
 @Table(name="hoadon")
 //@Access(AccessType.FIELD)

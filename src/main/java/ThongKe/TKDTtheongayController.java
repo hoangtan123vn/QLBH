@@ -22,14 +22,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
-import QLBH.Chitiethoadon;
+import entities.*;
 import QLBH.HibernateUtils;
-import QLBH.Hoadon;
-import QLBH.Nhacungcap;
-import QLBH.Phieunhaphang;
-import QLBH.Phieutrahang;
-import QLBH.Sanpham;
-import QLBH.Taikhoannv;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

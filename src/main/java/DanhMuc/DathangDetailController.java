@@ -23,11 +23,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import org.hibernate.*;
-import QLBH.Chitietdathang;
+import entities.*;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Sanpham;
-import QLBH.Phieudathang;
+
 import javafx.scene.input.MouseEvent;
 
 public class DathangDetailController implements Initializable {

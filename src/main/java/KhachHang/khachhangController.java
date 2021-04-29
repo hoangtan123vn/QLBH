@@ -18,12 +18,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 
-import QLBH.Chitiethoadon;
+import entities.*;
 import QLBH.HibernateUtils;
-import QLBH.Hoadon;
-import QLBH.KhachHang;
-import QLBH.Nhacungcap;
-import QLBH.Sanpham;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -103,11 +100,7 @@ public class khachhangController implements Initializable {
 		diemtichluy.setOnEditCommit(new EventHandler<CellEditEvent<KhachHang,Integer>>() {
 			@Override
 			public void handle(CellEditEvent<KhachHang, Integer> event) {
-				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-						.configure("hibernate.cfg.xml").build();
-				Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-				SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-				Session session = sessionFactory.openSession();
+				Session session = HibernateUtils.getSessionFactory().openSession();
 				session.beginTransaction();
 				KhachHang khachHang = new KhachHang();
 			//	Nhacungcap person = new Nhacungcap();
@@ -189,11 +182,7 @@ public class khachhangController implements Initializable {
 	
 	public ObservableList<KhachHang> getKhachHang() {
 		ObservableList<KhachHang> TableKH = FXCollections.observableArrayList();
-		StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml")
-				.build();
-		Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-		SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-		Session session = sessionFactory.openSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<KhachHang> kh = session.getCriteriaBuilder().createQuery(KhachHang.class);
 		kh.from(KhachHang.class);

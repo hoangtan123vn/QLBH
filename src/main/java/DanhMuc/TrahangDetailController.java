@@ -33,11 +33,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import QLBH.Phieutrahang;
-import QLBH.Chitietphieutra;
+import entities.*;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Sanpham;
+
 public class TrahangDetailController implements Initializable{
 
     @FXML

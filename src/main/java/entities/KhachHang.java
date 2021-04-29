@@ -1,4 +1,4 @@
-package QLBH;
+package entities;
 
 
 

@@ -31,8 +31,7 @@ import org.hibernate.*;
 import org.hibernate.query.Query;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Nhanvien;
-import QLBH.Taikhoannv;
+import entities.*;
 
 public class ThemNVController implements Initializable {
 	private Image image;

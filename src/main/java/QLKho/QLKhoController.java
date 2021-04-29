@@ -1,6 +1,6 @@
 package QLKho;
 
-import QLBH.Sanpham;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Taikhoannv;
 import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
@@ -47,6 +46,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import entities.*;
 
 public class QLKhoController implements Initializable {
 

@@ -35,7 +35,7 @@ import org.hibernate.query.Query;
 
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Sanpham;
+import entities.*;
 
 public class ThemSanPhamController extends Application implements Initializable {
 	private FileChooser filechooser;

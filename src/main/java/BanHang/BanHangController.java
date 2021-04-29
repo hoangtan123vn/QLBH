@@ -14,7 +14,7 @@ import java.sql.DriverManager;
 import java.time.LocalDateTime;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
+import entities.*;
 import QLBH.*;
 import java.util.HashMap;
 import java.util.List;
