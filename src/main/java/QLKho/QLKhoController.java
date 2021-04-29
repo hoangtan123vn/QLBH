@@ -365,7 +365,6 @@ public class QLKhoController implements Initializable {
 
 	void ReloadSANPHAM() {
 		initialize1();
-		System.out.println("Thanh cong");
 	}
 
 	public void loadData(Taikhoannv taikhoan) {
