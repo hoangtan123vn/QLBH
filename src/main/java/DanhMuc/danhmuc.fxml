@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1305.0" styleClass="bg" stylesheets="@danhmuc.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DanhMuc.danhmucController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1305.0" styleClass="bg" stylesheets="@danhmuc.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DanhMuc.danhmucController">
    <children>
       <TabPane fx:id="tabPaneQLDM" prefHeight="850.0" prefWidth="1305.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
@@ -33,7 +33,7 @@
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font></Label>
-                        <Button layoutX="688.0" layoutY="723.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" prefHeight="40.0" prefWidth="120.0" text="Chi tiết hóa đơn" />
+                        <Button layoutX="688.0" layoutY="723.0" mnemonicParsing="false" onAction="#changeSceneHoadonDetail" prefHeight="40.0" prefWidth="120.0" text="Chi tiết " />
                         <Label fx:id="thongbaoHD" layoutX="362.0" layoutY="181.0" text="Label" textFill="RED" visible="false">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -65,7 +65,7 @@
                               <TableColumn fx:id="tongtien1" prefWidth="160.0" text="Tổng tiền " />
                            </columns>
                         </TableView>
-                        <Button layoutX="678.0" layoutY="730.0" mnemonicParsing="false" onAction="#changeSceneDathangDetail" prefHeight="40.0" prefWidth="120.0" text="Chi tiết đặt hàng" />
+                        <Button layoutX="678.0" layoutY="730.0" mnemonicParsing="false" onAction="#changeSceneDathangDetail" prefHeight="40.0" prefWidth="120.0" text="Chi tiết " />
                         <Label fx:id="thongbaoDH" layoutX="360.0" layoutY="177.0" prefHeight="29.0" prefWidth="280.0" text="Label" textFill="#ee0202" visible="false">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -97,7 +97,7 @@
                               <TableColumn fx:id="manv2" prefWidth="187.0" text="Nhân viên " />
                            </columns>
                         </TableView>
-                        <Button layoutX="689.0" layoutY="736.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" prefHeight="40.0" prefWidth="151.0" text="Chi tiết phiếu nhập hàng" />
+                        <Button layoutX="689.0" layoutY="736.0" mnemonicParsing="false" onAction="#changeSceneNhaphangDetail" prefHeight="40.0" prefWidth="151.0" text="Chi tiết " />
                         <Label fx:id="thongbaoNH" layoutX="360.0" layoutY="179.0" text="Label" textFill="#e80303" visible="false">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -128,7 +128,7 @@
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font></Label>
-                        <Button layoutX="678.0" layoutY="732.0" mnemonicParsing="false" onAction="#changeSceneTrahangDetail" prefHeight="40.0" prefWidth="120.0" text="Chi tiết trả hàng" />
+                        <Button layoutX="678.0" layoutY="732.0" mnemonicParsing="false" onAction="#changeSceneTrahangDetail" prefHeight="40.0" prefWidth="120.0" text="Chi tiết " />
                         <Label fx:id="thongbaoTH" layoutX="360.0" layoutY="183.0" text="Label" textFill="#ee0404" visible="false">
                            <font>
                               <Font name="System Bold" size="15.0" />

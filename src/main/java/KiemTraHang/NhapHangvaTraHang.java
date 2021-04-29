@@ -244,7 +244,6 @@ public class NhapHangvaTraHang implements Initializable {
 			stage.setTitle("Thanh Toán Công Nợ");
 			stage.show();
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 	}
@@ -327,7 +326,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 				tbnhaphang.getItems().clear();
 				tbnhaphang.refresh();
-			//	GiaoDienQLController.getInstance().falsedisable();
 				InPhieuNhapHang(phieunhaphang);
 			}
 		});
@@ -378,7 +376,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 				tbtrahang.getItems().clear();
 				tbtrahang.refresh();
-			//	GiaoDienQLController.getInstance().falsedisable();
 				InPhieutrahang(phieutrahang);
 			}
 
@@ -398,19 +395,15 @@ public class NhapHangvaTraHang implements Initializable {
 			newQuery1.setText(sql);
 			jd.setQuery(newQuery1);
 			JasperReport jr = JasperCompileManager.compileReport(jd);
-
 			HashMap<String, Object> para = new HashMap<>();
 			String maphieutra = String.valueOf(phieutrahang.getMaphieutra());
 			String tongtien = String.valueOf(phieutrahang.getTongtien());
 			para.put("maphieutra", maphieutra);
 			para.put("tongtien", tongtien);
 			JasperPrint j = JasperFillManager.fillReport(jr, para, conn);
-
 			JasperViewer.viewReport(j, false);
-
 			OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
 			JasperExportManager.exportReportToPdfStream(j, os);
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Lỗi" + e);
 		}
@@ -429,19 +422,15 @@ public class NhapHangvaTraHang implements Initializable {
 			newQuery1.setText(sql);
 			jd.setQuery(newQuery1);
 			JasperReport jr = JasperCompileManager.compileReport(jd);
-
 			HashMap<String, Object> para = new HashMap<>();
 			String manhaphang = String.valueOf(phieunhaphang.getManhaphang());
 			String tongtien = String.valueOf(phieunhaphang.getTongtien());
 			para.put("manhaphang", manhaphang);
 			para.put("tongtien", tongtien);
 			JasperPrint j = JasperFillManager.fillReport(jr, para, conn);
-
 			JasperViewer.viewReport(j, false);
-
 			OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
 			JasperExportManager.exportReportToPdfStream(j, os);
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Lỗi" + e);
 		}
@@ -451,10 +440,8 @@ public class NhapHangvaTraHang implements Initializable {
 		Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>> cellFactory = new Callback<TableColumn<Chitietnhaphang, Void>, TableCell<Chitietnhaphang, Void>>() {
 			@Override
 			public TableCell<Chitietnhaphang, Void> call(final TableColumn<Chitietnhaphang, Void> param) {
-				final TableCell<Chitietnhaphang, Void> cell = new TableCell<Chitietnhaphang, Void>() {
-
-					private final Button btn = new Button("Xóa");
-
+			final TableCell<Chitietnhaphang, Void> cell = new TableCell<Chitietnhaphang, Void>() {
+				private final Button btn = new Button("Xóa");
 					{
 						btn.setOnAction((ActionEvent event) -> {
 							Chitietnhaphang chitietnhaphang = getTableView().getItems().get(getIndex());
@@ -464,7 +451,6 @@ public class NhapHangvaTraHang implements Initializable {
 								int dongia = chitietnhaphang.getSanpham().getGiatien();
 								Chitietdathang ctdh = new Chitietdathang(soluongsp, chitietnhaphang.getSanpham(),
 										dongia);
-
 								tableChitietKiemtra.getItems().addAll(ctdh);
 								tableChitietKiemtra.refresh();
 								tbnhaphang.refresh();
@@ -492,15 +478,12 @@ public class NhapHangvaTraHang implements Initializable {
 		xoasp1.setCellFactory(cellFactory);
 	}
 
-	//
 	private void ButtonXoaSP2() {
 		Callback<TableColumn<Chitietphieutra, Void>, TableCell<Chitietphieutra, Void>> cellFactory = new Callback<TableColumn<Chitietphieutra, Void>, TableCell<Chitietphieutra, Void>>() {
 			@Override
 			public TableCell<Chitietphieutra, Void> call(final TableColumn<Chitietphieutra, Void> param) {
 				final TableCell<Chitietphieutra, Void> cell = new TableCell<Chitietphieutra, Void>() {
-
-					private final Button btn = new Button("Xóa");
-
+				private final Button btn = new Button("Xóa");
 					{
 						btn.setOnAction((ActionEvent event) -> {
 							Chitietphieutra chitietphieutra = getTableView().getItems().get(getIndex());
@@ -510,17 +493,11 @@ public class NhapHangvaTraHang implements Initializable {
 								int dongia = chitietphieutra.getSanpham().getGiatien();
 								Chitietdathang ctdh = new Chitietdathang(soluongsp, chitietphieutra.getSanpham(),
 										dongia);
-
 								tableChitietKiemtra.getItems().addAll(ctdh);
 								tableChitietKiemtra.refresh();
 								tbnhaphang.refresh();
 								if (chitietphieutra.getSoluong() == 0) {
 									tbtrahang.getItems().remove(chitietphieutra);
-									/*
-									 * String tensp= chitietphieutra.getSanpham().getTensanpham(); int masp =
-									 * chitietphieutra.getSanpham().getMasanpham();
-									 */
-
 									tbtrahang.refresh();
 								}
 							}
@@ -543,17 +520,9 @@ public class NhapHangvaTraHang implements Initializable {
 		xoasp2.setCellFactory(cellFactory);
 	}
 
-	//
-//	private void setCellValue()  {
-//        tableChitietKiemtra.setOnMouseClicked(event -> {
-//            event();
-//            event2();
-//        });
-//    }
 	private void event() {
 		Chitietdathang sp = tableChitietKiemtra.getItems()
 				.get(tableChitietKiemtra.getSelectionModel().getSelectedIndex());
-
 		int masanpham = sp.getSanpham().getMasanpham();
 		String tensanpham = sp.getSanpham().getTensanpham();
 		String loaisanpham = sp.getSanpham().getLoaisanpham();
@@ -577,7 +546,7 @@ public class NhapHangvaTraHang implements Initializable {
 
 	}
 
-	////
+	
 	private void event2() {
 		Chitietdathang sp = tableChitietKiemtra.getItems()
 				.get(tableChitietKiemtra.getSelectionModel().getSelectedIndex());
@@ -605,9 +574,7 @@ public class NhapHangvaTraHang implements Initializable {
 
 	}
 
-	////
 	public void IntitlizeChitietnhaphang() {
-
 		idtensp1.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
 			@Override
 			protected void updateItem(Sanpham item, boolean empty) {
@@ -619,7 +586,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		idtensp1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp1.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
@@ -648,11 +614,9 @@ public class NhapHangvaTraHang implements Initializable {
 		});
 		idthanhtien1.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
 		ButtonXoaSP();
-
 	}
 
 	public void IntitlizeChitiettrahang() {
-
 		idtensp2.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
 			@Override
 			protected void updateItem(Sanpham item, boolean empty) {
@@ -664,7 +628,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		idtensp2.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp2.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp2.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
@@ -693,7 +656,6 @@ public class NhapHangvaTraHang implements Initializable {
 		});
 		idthanhtien2.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
 		ButtonXoaSP2();
-
 	}
 
 	public void IntitlizeChitietdathang(Phieudathang phieudathang) {
@@ -709,7 +671,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang, Integer>("soluong"));
 		dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
@@ -724,7 +685,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		TableColumn<Chitietdathang, Boolean> choice = new TableColumn<Chitietdathang, Boolean>("Membership");
 		mahang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		mahang.setCellFactory(tableChitietKiemtra -> new TableCell<Chitietdathang, Sanpham>() {
@@ -738,17 +698,13 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		tableChitietKiemtra.setEditable(true);
 		tableChitietKiemtra.getColumns().add(choice);
 		tableChitietKiemtra.setItems(getChitietdathang(phieudathang));
 	}
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		IntitlizeChitietnhaphang();
 		IntitlizeChitiettrahang();
-		// TODO Auto-generated method stub
-
 	}
 }
