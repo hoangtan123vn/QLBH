@@ -130,7 +130,7 @@ public class TKDTtheongayController implements Initializable {
 			for (Object[] hoadon : hd) {
 				ngay.setLabel("Ngày");
 				doanhthu.setLabel("Doanh thu bán được trong một ngày");
-				long tonggia = (long) hoadon[0];
+				Double tonggia = (Double) hoadon[0];
 				String date = String.valueOf((LocalDateTime) hoadon[1]);
 				String d = String.valueOf(date.substring(6, 10));
 				series.getData().add(new XYChart.Data(d, tonggia));
@@ -179,12 +179,9 @@ public class TKDTtheongayController implements Initializable {
 		Sanpham.setLabel("Sản phẩm bán ra");
 		Soluongbanra.setLabel("Số lượng bán ra ");
 		bar_chart.setTitle("Thống kê số lượng sản phẩm bán ra trong một ngày");
-		System.out.println(t1);
 		String getDatenow = String.valueOf(t1);
 		int day = Integer.parseInt(getDatenow.substring(8, 10));
 		int thang = Integer.parseInt(getDatenow.substring(5, 7));
-		System.out.println(day);
-		System.out.println(thang);
 		ThongKeSanPham(day, thang);
 	}
 
