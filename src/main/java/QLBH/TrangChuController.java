@@ -1,13 +1,15 @@
 package QLBH;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
+import entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +21,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 public class TrangChuController  implements Initializable{
@@ -48,46 +53,83 @@ public class TrangChuController  implements Initializable{
     @FXML
     private AnchorPane mainpane;
     
+    @FXML
+    private TableView<DT_1ngay> tbdoanhthu;
+
+    @FXML
+    private TableColumn<DT_1ngay, String> thangdoanhthu;
     
     @FXML
-    void ThongKeThang(ActionEvent event) {
-    	if (cbb_thang.getValue() == "1") {
+    private TableColumn<DT_1ngay, Double> doanhthu1ngay;
+    
+    
+    @FXML
+    void ThongKeThang(ActionEvent event) throws Exception {
+    	if (cbb_thang.getValue() == "01") {
     		thongketheongay(1);
+    		tbdoanhthu.setItems(chitietthongketheongay(1));
     	}
-    	else if(cbb_thang.getValue() == "2") {
+    	else if(cbb_thang.getValue() == "02") {
     		thongketheongay(2);
+    		tbdoanhthu.setItems(chitietthongketheongay(2));
     	}
-    	else if(cbb_thang.getValue() == "3") {
+    	else if(cbb_thang.getValue() == "03") {
     		thongketheongay(3);
+    		tbdoanhthu.setItems(chitietthongketheongay(3));
     	}
-    	else if(cbb_thang.getValue() == "4") {
+    	else if(cbb_thang.getValue() == "04") {
     		thongketheongay(4);
+    		tbdoanhthu.setItems(chitietthongketheongay(4));
     	}
-    	else if(cbb_thang.getValue() == "5") {
+    	else if(cbb_thang.getValue() == "05") {
     		thongketheongay(5);
+    		tbdoanhthu.setItems(chitietthongketheongay(5));
     	}
-    	else if(cbb_thang.getValue() == "6") {
+    	else if(cbb_thang.getValue() == "06") {
     		thongketheongay(6);
+    		tbdoanhthu.setItems(chitietthongketheongay(6));
     	}
-    	else if(cbb_thang.getValue() == "7") {
+    	else if(cbb_thang.getValue() == "07") {
     		thongketheongay(7);
+    		tbdoanhthu.setItems(chitietthongketheongay(7));
     	}
-    	else if(cbb_thang.getValue() == "8") {
+    	else if(cbb_thang.getValue() == "08") {
     		thongketheongay(8);
+    		tbdoanhthu.setItems(chitietthongketheongay(8));
     	}
-    	else if(cbb_thang.getValue() == "9") {
+    	else if(cbb_thang.getValue() == "09") {
     		thongketheongay(9);
+    		tbdoanhthu.setItems(chitietthongketheongay(9));
     	}
     	else if(cbb_thang.getValue() == "10") {
     		thongketheongay(10);
+    		tbdoanhthu.setItems(chitietthongketheongay(10));
     	}
     	else if(cbb_thang.getValue() == "11") {
     		thongketheongay(11);
+    		tbdoanhthu.setItems(chitietthongketheongay(11));
     	}
     	else if(cbb_thang.getValue() == "12") {
     		thongketheongay(12);
+    		tbdoanhthu.setItems(chitietthongketheongay(12));
     	}
     }
+    public ObservableList<DT_1ngay> chitietthongketheongay(int thang) throws IOException{
+    	ObservableList<DT_1ngay> tbdoanhthu1 = FXCollections.observableArrayList();
+    	Session session = HibernateUtils.getSessionFactory().openSession();
+    	String hql = "SELECT SUM(tonggia),thoigianmua as date FROM Hoadon WHERE month(thoigianmua)=:thoigianmua GROUP BY DATE(thoigianmua) ORDER BY DATE(thoigianmua)";
+    	Query query = session.createQuery(hql);
+    	query.setParameter("thoigianmua", thang);
+    	List<Object[]> hd = query.list(); 
+    	for(Object[] doanhthu : hd) {
+    		Double tong = (Double) doanhthu[0];
+    		LocalDateTime ngay = (LocalDateTime) doanhthu[1];
+    		DT_1ngay dt_1ngay = new DT_1ngay(ngay,tong);
+    		tbdoanhthu1.add(dt_1ngay);
+    	}
+    	return tbdoanhthu1;
+    }
+    
     public void thongketheongay(int thang) {
     	Session session = HibernateUtils.getSessionFactory().openSession();
     	XYChart.Series series = new XYChart.Series();
@@ -100,11 +142,10 @@ public class TrangChuController  implements Initializable{
     		line_chart.getData().clear();
     		 for(Object[] hoadon : hd) {
     			 ngay.setLabel("Ngày");
-    			doanhthu.setLabel("Doanh thu bán được trong một ngày");
+    			 doanhthu.setLabel("Doanh thu bán được trong một ngày");
     			 Double tonggia = (Double) hoadon[0];
     			 String date = String.valueOf((LocalDateTime) hoadon[1]);
     			 String d = String.valueOf(date.substring(6, 10));
-    			
     			 series.getData().add(new XYChart.Data(d,tonggia));
 
     		 }
@@ -146,21 +187,32 @@ public class TrangChuController  implements Initializable{
     }
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources){
 		// TODO Auto-generated method stub
-		ObservableList<String> combobox = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12");
+		ObservableList<String> combobox = FXCollections.observableArrayList("01","02","03","04","05","06","07","08","09","10","11","12");
 		cbb_thang.setItems(combobox);
 		//thongketheongay();
 		Sanpham.setLabel("Sản phẩm bán ra");
 		Soluongbanra.setLabel("Số lượng bán ra ");
 		bar_chart.setTitle("Thống kê số lượng sản phẩm bán ra trong một ngày");
-		System.out.println(t1);
 		String getDatenow = String.valueOf(t1);
 		int day = Integer.parseInt(getDatenow.substring(8, 10));
 		int thang = Integer.parseInt(getDatenow.substring(5, 7));
-		System.out.println(day);
-		System.out.println(thang);
+		String thang1 = getDatenow.substring(5, 7);
 		ThongKeSanPham(day, thang);
+		thangdoanhthu.setCellValueFactory(new PropertyValueFactory<DT_1ngay, String>("thang"));
+		doanhthu1ngay.setCellValueFactory(new PropertyValueFactory<DT_1ngay, Double>("doanhthu"));
+		cbb_thang.getSelectionModel().select(thang1);
+		thongketheongay(thang);
+		
+		try {
+			tbdoanhthu.setItems(chitietthongketheongay(thang));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+			
 	}
     
     
