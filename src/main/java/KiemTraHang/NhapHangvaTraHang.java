@@ -171,17 +171,14 @@ public class NhapHangvaTraHang implements Initializable {
 		Stage stage = (Stage) exit.getScene().getWindow();
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();
+		GiaoDienQLController.getInstance().SceneKiemTraHang(null);
 	}
 
 	@FXML
 	void nhap(ActionEvent event) {
 		try {
 			event();
-			// kiemtra.setVisible(false);
-			// GiaoDienQLController.getInstance().falsedisable();
 		} catch (Exception e) {
-			// TODO: handle exception
-			// kiemtra.setVisible(true);
 			kiemtra.setText("Bạn phải chọn vào sản phẩm");
 		}
 
@@ -191,11 +188,7 @@ public class NhapHangvaTraHang implements Initializable {
 	void tra(ActionEvent event) {
 		try {
 			event2();
-			// kiemtra.setVisible(false);
-			// GiaoDienQLController.getInstance().falsedisable();
 		} catch (Exception e) {
-			// TODO: handle exception
-			// kiemtra.setVisible(true);
 			kiemtra.setText("Bạn phải chọn vào sản phẩm");
 
 		}
@@ -222,8 +215,6 @@ public class NhapHangvaTraHang implements Initializable {
 		}
 		kiemtra.setText("Kiểm tra sản phẩm vẫn chưa xong");
 		return false;
-
-		// return true;
 	}
 
 	public boolean KiemTraTraHang() {
@@ -233,7 +224,6 @@ public class NhapHangvaTraHang implements Initializable {
 		}
 		kiemtratrahang.setText(null);
 		return true;
-
 	}
 
 	public boolean KiemTraNhapHang() {
