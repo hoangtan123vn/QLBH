@@ -12,12 +12,12 @@
    <children>
       <AnchorPane layoutX="3.0" layoutY="2.0" prefHeight="892.0" prefWidth="246.0" style="-fx-background-color: #d5f4e6;">
          <children>
-            <Button fx:id="banhang" layoutX="5.0" layoutY="209.0" mnemonicParsing="false" onAction="#changeBanHang" prefHeight="49.0" prefWidth="296.0" style="-fx-background-color: #d5f4e6;" text="BÁN HÀNG">
+            <Button fx:id="banhang" layoutX="5.0" layoutY="209.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="296.0" style="-fx-background-color: #d5f4e6;" text="BÁN HÀNG">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="danhmuc" layoutX="35.0" layoutY="274.0" mnemonicParsing="false" onAction="#changeDanhmuc" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="LỊCH SỬ BÁN HÀNG">
+            <Button fx:id="danhmuc" layoutX="35.0" layoutY="274.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="LỊCH SỬ BÁN HÀNG">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

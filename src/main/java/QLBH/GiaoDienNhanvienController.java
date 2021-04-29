@@ -57,27 +57,19 @@ public class GiaoDienNhanvienController{
 		Parent tmp;
 		tmp = loader.load();
 		Scene scene = new Scene(tmp);
-		// Stage stage = new Stage();
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.hide();
 		stage.setScene(scene);
 		stage.show();
 	}
 
-    @FXML
-    void changeBanHang(ActionEvent event) {
-
-    }
-
-    @FXML
-    void changeDanhmuc(ActionEvent event) {
-
-    }
     
-    public void LoadData(Taikhoannv taikhoan) {
+    public void LoadData(Taikhoannv taikhoan) throws Exception {
     	username.setText("Xin chào " + taikhoan.getusername());
 		username.setUnderline(true);
-		// tennhanvien.setText("Xin chao" + taikhoan.getNhanvien().getHovaten());
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/lichsubanhang.fxml"));
+		AnchorPane pane = loader.load();
+		mainpane.getChildren().setAll(pane);
 		byte[] getImageInBytes = taikhoan.getNhanvien().getImage();
 		try {
 			FileOutputStream fos = new FileOutputStream(new File("photo1.jpg"));
@@ -111,17 +103,10 @@ public class GiaoDienNhanvienController{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/BanHang/banhang.fxml"));
 			AnchorPane pane = loader.load();
 			mainpane.getChildren().setAll(pane);
-			/*
-			 * if(mainpane.getChildren().setAll(pane)) { //nhanvien.setClickable(false); }
-			 */
 			BanHangController banHangController = loader.getController();
 			banHangController.loadData(taikhoan);
 			System.out.println(taikhoan);
-			/*
-			 * stage.hide(); stage.setScene(scene); stage.show();
-			 */
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println(e);
 		}
@@ -131,23 +116,7 @@ public class GiaoDienNhanvienController{
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/KhachHang/khachhang.fxml"));
 			AnchorPane pane = loader.load();
-
 			mainpane.getChildren().setAll(pane);
-			/*
-			 * if(mainpane.getChildren().setAll(pane)) { //nhanvien.setClickable(false); }
-			 */
-			// Parent tmp;
-			// tmp = loader.load();
-			// Scene scene = new Scene(tmp);
-			// Stage stage = new Stage();
-			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-			/*
-			 * khachhangController khachhangController = loader.getController();
-			 * khachhangController.loadData(taikhoan); System.out.println(taikhoan);
-			 */
-			/*
-			 * stage.hide(); stage.setScene(scene); stage.show();
-			 */
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
@@ -162,7 +131,6 @@ public class GiaoDienNhanvienController{
 			tmp = loader.load();
 			Scene scene = new Scene(tmp);
 			Stage stage = new Stage();
-			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
 			ProfilesNhanvienController profiles = loader.getController();
 			profiles.loadData(taikhoan);
 			stage.hide();
@@ -179,9 +147,8 @@ public class GiaoDienNhanvienController{
 			AnchorPane pane = loader.load();
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e);
-			// e.printStackTrace();
+			
 		}
     }
 
