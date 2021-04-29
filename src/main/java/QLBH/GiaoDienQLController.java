@@ -381,6 +381,7 @@ public class GiaoDienQLController implements Initializable {
 	private static double yoffset =0; 
 	@FXML
 	void DangXuat(ActionEvent event) throws IOException {
+	try {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("loginform.fxml"));
 		Parent tmp;
 		tmp = loader.load();
@@ -401,7 +402,6 @@ public class GiaoDienQLController implements Initializable {
 			    stage.setY(mouseEvent.getScreenY() + yoffset);
 			  }
 			});
-		// Stage stage = new Stage();
 			stage.getIcons().add(new Image(QLBH.class.getResourceAsStream("backgroundSGU.png")));
 			stage.setScene(scene);
 			stage.setResizable(false);
@@ -409,6 +409,10 @@ public class GiaoDienQLController implements Initializable {
 		
 		stage.setScene(scene);
 		stage.show();
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+	
 	}
 
 	@FXML
