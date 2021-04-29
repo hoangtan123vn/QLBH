@@ -62,6 +62,7 @@ import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import qlbhh.qlbhh.Chitiethoadon;
 public class BanHangController implements Initializable {
 	public static BanHangController instance;
 
@@ -759,6 +760,13 @@ public class BanHangController implements Initializable {
 		khachhangg.setText(String.valueOf(khachhang.getMakh()));
 		if (Integer.parseInt(diemtichluy.getText()) > 1000) {
 			giamgia.setText("20");
+			int sum = 0;
+			for (Chitiethoadon chitiethoadon1 : hoadon.getItems()) {
+				sum = sum
+						+ (chitiethoadon1.getSanpham().getGiatien() * chitiethoadon1.getSoluong());
+
+			}		
+			tongtien.setText(String.valueOf(sum));
 			float tiengiam = Float.parseFloat(giamgia.getText()) / 100;
 			float tongtiengiam = Float.parseFloat(tongtien.getText()) * (1 - tiengiam);
 			tongtien.setText(String.valueOf(tongtiengiam));
@@ -767,20 +775,34 @@ public class BanHangController implements Initializable {
 			
 		} else if (Integer.parseInt(diemtichluy.getText()) < 1000 && Integer.parseInt(diemtichluy.getText()) >= 500) {
 			giamgia.setText("10");
+			int sum = 0;
+			for (Chitiethoadon chitiethoadon1 : hoadon.getItems()) {
+				sum = sum
+						+ (chitiethoadon1.getSanpham().getGiatien() * chitiethoadon1.getSoluong());
+
+			}		
+			tongtien.setText(String.valueOf(sum));
 			float tiengiam = Float.parseFloat(giamgia.getText()) / 100;
 			float tongtiengiam = Float.parseFloat(tongtien.getText()) * (1 - tiengiam);
 			tongtien.setText(String.valueOf(tongtiengiam));
 			float tientrakhach = Float.parseFloat(khachtra.getText()) - Float.parseFloat(tongtien.getText());
 			tienthua.setText(String.valueOf(tientrakhach));
-		} else if (Integer.parseInt(diemtichluy.getText()) < 500 && Integer.parseInt(diemtichluy.getText()) > 100) {
+		} else if (Integer.parseInt(diemtichluy.getText()) < 500 && Integer.parseInt(diemtichluy.getText()) >= 100) {
 			giamgia.setText("5");
+			int sum = 0;
+			for (Chitiethoadon chitiethoadon1 : hoadon.getItems()) {
+				sum = sum
+						+ (chitiethoadon1.getSanpham().getGiatien() * chitiethoadon1.getSoluong());
+
+			}		
+			tongtien.setText(String.valueOf(sum));
 			float tiengiam = Float.parseFloat(giamgia.getText()) / 100;
 			float tongtiengiam = Float.parseFloat(tongtien.getText()) * (1 - tiengiam);
 			tongtien.setText(String.valueOf(tongtiengiam));
 			float tientrakhach = Float.parseFloat(khachtra.getText()) - Float.parseFloat(tongtien.getText());
 			tienthua.setText(String.valueOf(tientrakhach));
 		} else
-			giamgia.setText("0");
+			giamgia.setText("0");;
 	}
 
 	@FXML
