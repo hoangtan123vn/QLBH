@@ -52,12 +52,9 @@ public class ListNhaCungCapController implements Initializable {
 	private TableColumn tienno_NCC;
 
 	@FXML
-	private Label thongbao;
-	@FXML
 	private Button bt_NCC;
 	@FXML
 	private AnchorPane ap;
-
 	@FXML
 	private TextField tf_ncc;
 
@@ -73,7 +70,6 @@ public class ListNhaCungCapController implements Initializable {
 			loader.setController(this);
 			thisStage.setScene(new Scene(loader.load()));
 			thisStage.setTitle("Chọn nhà cung cấp");
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -85,10 +81,12 @@ public class ListNhaCungCapController implements Initializable {
 
 	@FXML
 	void ChonNCC(ActionEvent event) {
+			
 		Nhacungcap selected = tb_NCC.getSelectionModel().getSelectedItem();
 		lapPhieuDatHangController.setNhaCungCap(selected);
 		Stage stage1 = (Stage) ap.getScene().getWindow();
 		stage1.close();
+
 	}
 
 	@Override
