@@ -172,7 +172,6 @@ public class NhapHangvaTraHang implements Initializable {
 		Stage stage = (Stage) exit.getScene().getWindow();
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();
-		GiaoDienQLController.getInstance().SceneKiemTraHang(null);
 	}
 
 	@FXML
@@ -307,9 +306,10 @@ public class NhapHangvaTraHang implements Initializable {
 					int soluongnhap = ct.getSoluong();
 					double thanhtien = ct.getThanhtien();
 					Sanpham sanpham = new Sanpham();
+					int dongia = ct.getDongia();
 					sanpham = session.get(Sanpham.class, ct.getSanpham().getMasanpham());
 					Chitietnhaphang chitietnhaphang = new Chitietnhaphang(phieunhaphang, sanpham, soluongnhap,
-							thanhtien);
+							thanhtien,dongia);
 					int soluong = ct.getSanpham().getDonvitinh() + sanpham.getDonvitinh();
 					try {
 						session.beginTransaction();
@@ -329,6 +329,7 @@ public class NhapHangvaTraHang implements Initializable {
 				tbnhaphang.getItems().clear();
 				tbnhaphang.refresh();
 			//	GiaoDienQLController.getInstance().falsedisable();
+				KiemTraHangController.getInstance().khoitao();
 				InPhieuNhapHang(phieunhaphang);
 			}
 		});
@@ -360,10 +361,11 @@ public class NhapHangvaTraHang implements Initializable {
 					String lydo1 = lydo.getText();
 					int soluongnhap = ct.getSoluong();
 					double thanhtien = ct.getThanhtien();
+					int dongia = ct.getDongia();
 					Sanpham sanpham = new Sanpham();
 					sanpham = session.get(Sanpham.class, ct.getSanpham().getMasanpham());
 					Chitietphieutra chitietphieutra = new Chitietphieutra(phieutrahang, sanpham, soluongnhap, lydo1,
-							thanhtien);
+							thanhtien,dongia);
 					try {
 						session.beginTransaction();
 						session.save(chitietphieutra);
@@ -380,6 +382,7 @@ public class NhapHangvaTraHang implements Initializable {
 				tbtrahang.getItems().clear();
 				tbtrahang.refresh();
 			//	GiaoDienQLController.getInstance().falsedisable();
+				KiemTraHangController.getInstance().khoitao();
 				InPhieutrahang(phieutrahang);
 			}
 
@@ -424,7 +427,7 @@ public class NhapHangvaTraHang implements Initializable {
 			InputStream in = new FileInputStream(new File(
 					"C:\\Users\\Admin\\eclipse-workspace\\QLBH\\src\\main\\java\\KiemTraHang\\PhieuNhapHang.jrxml"));
 			JasperDesign jd = JRXmlLoader.load(in);
-			String sql = "SELECT PNH.manhaphang,NCC.tenncc,PNH.tongtien,PNH.thoigian,SP.tensanpham,SP.loaisanpham,SP.giatien,CTNH.thanhtien,CTNH.soluong FROM nhaphang PNH,Chitietnhaphang CTNH,Sanpham SP,Nhacungcap NCC WHERE PNH.manhaphang = CTNH.manhaphang and CTNH.masanpham = SP.masanpham and PNH.mancc = NCC.mancc and PNH.manhaphang ='"
+			String sql = "SELECT PNH.manhaphang,NCC.tenncc,PNH.tongtien,PNH.thoigian,SP.tensanpham,SP.loaisanpham,CTNH.dongia,CTNH.thanhtien,CTNH.soluong FROM nhaphang PNH,Chitietnhaphang CTNH,Sanpham SP,Nhacungcap NCC WHERE PNH.manhaphang = CTNH.manhaphang and CTNH.masanpham = SP.masanpham and PNH.mancc = NCC.mancc and PNH.manhaphang ='"
 					+ phieunhaphang.getManhaphang() + "'";
 			JRDesignQuery newQuery1 = new JRDesignQuery();
 			newQuery1.setText(sql);

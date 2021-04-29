@@ -145,18 +145,7 @@ public class TrahangDetailController implements Initializable{
     	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
     	soluong.setCellValueFactory(new PropertyValueFactory<Chitietphieutra,Integer>("soluong"));
     	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Double>("thanhtien"));
-    	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-    	dongia.setCellFactory(tbChitietPhieuTra ->new TableCell<Chitietphieutra, Sanpham>(){
-    		@Override
- 		    protected void updateItem(Sanpham item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(String.valueOf(item.getGiatien()));
- 		        }
- 		    }
-    	});
+    	dongia.setCellValueFactory(new PropertyValueFactory<Chitietphieutra,Integer>("dongia"));
     	tbChitietPhieuTra.setItems(getChitietphieutra(phieutrahang));
 	}
 	public void initialize(URL arg0, ResourceBundle arg1) {

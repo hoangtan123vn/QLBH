@@ -24,18 +24,12 @@ public class QLBH extends Application {
 	private static double yoffset =0; 
 	@Override
 	public void start(Stage stage) throws Exception {
-	//	Parent root = FXMLLoader.load(getClass().getResource("/Nhanvien/nhanvien.fxml"));
-		//Parent root = FXMLLoader.load(getClass().getResource("chucnangquanly.fxml"));
 		Parent root = FXMLLoader.load(getClass().getResource("loginform.fxml"));
 		Scene scene = new Scene(root);
 		scene.setFill(null);
 		scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
-		//scene.getStylesheets().add(getClass().getResource("thongke.css").toExternalForm());
-	//	scene.addEventHandler(null, null);
-	//	Scene scene = new Scene(root,337,408);
 		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 			  @Override public void handle(MouseEvent mouseEvent) {
-			    // record a delta distance for the drag and drop operation.
 			    xoffset = stage.getX() - mouseEvent.getScreenX();
 			    yoffset = stage.getY() - mouseEvent.getScreenY();
 			  }
@@ -51,8 +45,6 @@ public class QLBH extends Application {
 		stage.setScene(scene);
 		stage.setResizable(false);
 		stage.initStyle(StageStyle.TRANSPARENT);
-	//	stage.initModality(Modality.APPLICATION_MODAL);
-		//stage.resizableProperty().setValue(Boolean.FALSE);
 		stage.setTitle("Phần mềm quản lý cửa hàng tiện lợi");
 		stage.show();	
 		

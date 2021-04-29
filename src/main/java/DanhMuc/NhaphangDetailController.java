@@ -136,6 +136,7 @@ public class NhaphangDetailController implements Initializable {
     	lbTongtien.setText(String.valueOf(phieunhaphang.getTongtien()));
   //  	IntitlizeChitietnhaphang(phieunhaphang);
     	IntitlizeChitietnhaphang(phieunhaphang);
+    	getChitietnhaphang(phieunhaphang);
     }
     
    public ObservableList<Chitietnhaphang> getChitietnhaphang(Phieunhaphang phieunhaphang) {
@@ -170,21 +171,10 @@ public class NhaphangDetailController implements Initializable {
 		        }
 		    }
 	});
+	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 	soluong.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("soluong"));
 	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
-	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-	dongia.setCellFactory(tbChitietNhapHang ->new TableCell<Chitietnhaphang, Sanpham>(){
-		@Override
-		    protected void updateItem(Sanpham item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(String.valueOf(item.getGiatien()));
-		        }
-		    }
-	});
+	dongia.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("dongia"));
 	tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
 
 }

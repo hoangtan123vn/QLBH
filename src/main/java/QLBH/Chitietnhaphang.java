@@ -31,12 +31,13 @@ public class Chitietnhaphang implements Serializable{
 		super();
 		}
 	
-	public Chitietnhaphang(Phieunhaphang phieunhaphang, Sanpham sanpham, int soluong, double thanhtien) {
+	public Chitietnhaphang(Phieunhaphang phieunhaphang, Sanpham sanpham, int soluong, double thanhtien,Integer dongia) {
 		super();
 		this.phieunhaphang = phieunhaphang;
 		this.sanpham = sanpham;
 		this.soluong = soluong;
 		this.thanhtien = thanhtien;
+		this.dongia = dongia;
 	}
 	
 	

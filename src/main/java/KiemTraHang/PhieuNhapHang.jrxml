@@ -11,8 +11,8 @@
 	<field name="tenncc" class="java.lang.String"/>
 	<field name="loaisanpham" class="java.lang.String"/>
 	<field name="soluong" class="java.lang.String"/>
-	<field name="giatien" class="java.lang.String"/>
 	<field name="thanhtien" class="java.lang.String"/>
+	<field name="dongia" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -120,7 +120,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="43" splitType="Stretch">
 			<textField>
 				<reportElement x="-10" y="0" width="100" height="30" uuid="c2781dc0-a1bd-4bcd-a434-89186baf611e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="31e02d5b-213f-4663-a741-bfa360c0da7f"/>
@@ -149,15 +149,6 @@
 				<textFieldExpression><![CDATA[$F{soluong}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="330" y="0" width="100" height="30" uuid="4c214223-56c5-4472-a978-cccff2f942f9">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c6404002-eae3-44d0-b4c9-067a0a3ae0cb"/>
-				</reportElement>
-				<textElement>
-					<font size="18"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{giatien}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="455" y="0" width="100" height="30" uuid="4fd2a1ea-72c6-4d8b-b2ed-e1cb9d9549f5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e2e2872d-51fa-4492-80e3-e7446b19436b"/>
 				</reportElement>
@@ -165,6 +156,15 @@
 					<font size="18"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{thanhtien}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="30" uuid="0dd4e03a-74db-4acb-aca4-b19ca657f60b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1ed93904-f064-4803-b5da-185bb087fd0d"/>
+				</reportElement>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dongia}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
