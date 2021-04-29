@@ -30,6 +30,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,6 +53,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -853,13 +855,32 @@ public class BanHangController implements Initializable {
 			tienthua.setText(String.valueOf(tientrakhach));
 	}
 
+	private static double xoffset = 0;
+	private static double yoffset = 0;
 	@FXML
 	public void imageClicked(MouseEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("themkhachhang.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
+		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				xoffset = stage.getX() - mouseEvent.getScreenX();
+				yoffset = stage.getY() - mouseEvent.getScreenY();
+			}
+		});
+		scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+				stage.setX(mouseEvent.getScreenX() + xoffset);
+				stage.setY(mouseEvent.getScreenY() + yoffset);
+			}
+		});
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
+		stage.setResizable(false);
 		stage.show();
+		GiaoDienQLController.getInstance().truedisable();
 	}
 
 	@FXML
