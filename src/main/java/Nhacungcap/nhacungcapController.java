@@ -6,31 +6,14 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.Query;
-import QLBH.Chitiethoadon;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
-import QLBH.Hoadon;
-import QLBH.KhachHang;
 import QLBH.Nhacungcap;
-import QLBH.Nhanvien;
 import QLBH.Phieudathang;
 import QLBH.Phieunhaphang;
 import QLBH.Phieutrahang;
-import QLBH.Sanpham;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -40,17 +23,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -64,40 +42,31 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import javafx.util.converter.IntegerStringConverter;
-
 public class nhacungcapController implements Initializable {
 
 	@FXML
 	private TableView<Nhacungcap> tableNhacungcap;
 
 	@FXML
-	private TableColumn tenncc;
+	private TableColumn<Nhacungcap, String> tenncc;
 
 	@FXML
-	private TableColumn diachi1;
+	private TableColumn<Nhacungcap, String> diachi1;
 
 	@FXML
-	private TableColumn sotienno;
+	private TableColumn<Nhacungcap, Integer> sotienno;
 
 	@FXML
-	private TableColumn email;
+	private TableColumn<Nhacungcap, String> email;
 
 	@FXML
-	private TableColumn sodienthoai;
+	private TableColumn<Nhacungcap, String> sodienthoai;
 
 	@FXML
-	private TableColumn deleteNCC;
+	private TableColumn<Nhacungcap, Void> deleteNCC;
 
 	@FXML
 	private Button idreloadncc;
@@ -123,7 +92,6 @@ public class nhacungcapController implements Initializable {
 	@FXML
 	private Label thongbao;
 
-	private ObservableList<Nhacungcap> nhacungcapdata;
 
 	public static nhacungcapController instance;
 
@@ -159,14 +127,6 @@ public class nhacungcapController implements Initializable {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Error");
 		alert.setContentText("Tên nhà cung cấp không hợp lệ!! Mời nhập lại");
-		alert.showAndWait();
-		ReloadNHACUNGCAP();
-	}
-
-	private void showAlertCongno() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Error");
-		alert.setContentText("Số tiền không hợp lệ!! Mời nhập lại");
 		alert.showAndWait();
 		ReloadNHACUNGCAP();
 	}
@@ -420,8 +380,6 @@ public class nhacungcapController implements Initializable {
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
 				String s = event.getNewValue();
-				Pattern p = Pattern.compile("[0-9]+");
-				Matcher m = p.matcher(s);
 				if (s.isEmpty()) {
 					showAlertDiachi();
 				} else {

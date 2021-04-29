@@ -1,28 +1,16 @@
 package Nhacungcap;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -33,40 +21,19 @@ import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import javafx.stage.FileChooser;
-
 import java.util.HashMap;
-import java.util.List;
-import java.awt.Desktop;
-import java.awt.Desktop.Action;
-import java.awt.Dialog;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.swing.JOptionPane;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.*;
 import org.hibernate.*;
-import org.hibernate.cfg.*;
-import org.hibernate.service.ServiceRegistry;
-
-import com.google.protobuf.StringValue;
-
-import org.hibernate.boot.*;
-import org.hibernate.boot.registry.*;
-import QLBH.Nhanvien;
-import QLBH.Phieunhaphang;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Nhacungcap;
@@ -111,13 +78,6 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 			return false;
 		}
 		return true;
-	}
-
-	private void showAlertSodienthoai() {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Error");
-		alert.setContentText("Mời nhập vào ô thanh toán!!");
-		alert.showAndWait();
 	}
 
 	@FXML
