@@ -790,8 +790,18 @@ public class BanHangController implements Initializable {
 			
 		} else if (Integer.parseInt(diemtichluy.getText()) < 1000 && Integer.parseInt(diemtichluy.getText()) >= 500) {
 			giamgia.setText("10");
+			float tiengiam = Float.parseFloat(giamgia.getText()) / 100;
+			float tongtiengiam = Float.parseFloat(tongtien.getText()) * (1 - tiengiam);
+			tongtien.setText(String.valueOf(tongtiengiam));
+			float tientrakhach = Float.parseFloat(khachtra.getText()) - Float.parseFloat(tongtien.getText());
+			tienthua.setText(String.valueOf(tientrakhach));
 		} else if (Integer.parseInt(diemtichluy.getText()) < 500 && Integer.parseInt(diemtichluy.getText()) > 100) {
 			giamgia.setText("5");
+			float tiengiam = Float.parseFloat(giamgia.getText()) / 100;
+			float tongtiengiam = Float.parseFloat(tongtien.getText()) * (1 - tiengiam);
+			tongtien.setText(String.valueOf(tongtiengiam));
+			float tientrakhach = Float.parseFloat(khachtra.getText()) - Float.parseFloat(tongtien.getText());
+			tienthua.setText(String.valueOf(tientrakhach));
 		} else
 			giamgia.setText("0");
 	}

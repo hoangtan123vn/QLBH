@@ -125,15 +125,13 @@ public class themkhachhangController  implements Initializable{
 		}
 	}
     private boolean kiemtradiachi() {
-		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
-		Matcher m = p.matcher(address.getText());
-		if(m.find() && m.group().equals(address.getText())){
-			checkaddress.setText(null);
-			return true;
-		}
-		else {
+		if(address.getText().isEmpty()) {
 			checkaddress.setText("Vui lòng điền tên hợp lệ");
 			return false;
+		}
+		else {
+			checkaddress.setText(null);
+			return true;
 		}
 	}
     private boolean KiemTraSDT() {
