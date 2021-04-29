@@ -296,27 +296,27 @@ public class LapPhieuDatHangController implements Initializable {
 			String loaisanpham = tf6.getText();
 			int donvitinh = Integer.parseInt(tf4.getText());
 			int giatien = Integer.parseInt(tf5.getText());
-			addItem(donvitinh, sp, 0.0);
+			addItem(donvitinh, sp, 0.0,giatien);
 			tableSP1.refresh();
 			tf4.setText(null);
 			tf5.setText(null);
 		}
 	}
 
-	public void addItem(int soluong, Sanpham sanpham, double thanhtien) {
+	public void addItem(int soluong, Sanpham sanpham, double thanhtien,int dongia) {
 		Chitietdathang entry = tableSP1.getItems().stream().filter(item -> item.getSanpham().equals(sanpham)).findAny()
 				.orElseGet(() -> {
-					Chitietdathang newItem = new Chitietdathang(0, sanpham, thanhtien);
+					Chitietdathang newItem = new Chitietdathang(0, sanpham, thanhtien,dongia);
 					tableSP1.getItems().add(newItem);
 					return newItem;
 				});
 		int giatien = Integer.parseInt(tf5.getText());
 		entry.setSoluong(soluong + entry.getSoluong());
-		entry.getSanpham().setGiatien(giatien);
-		entry.setThanhtien(entry.getSanpham().getGiatien() * entry.getSoluong());
+		entry.setDongia(dongia);
+		entry.setThanhtien(entry.getDongia() * entry.getSoluong());
 		int sum = 0;
 		for (Chitietdathang chitietdathang : tableSP1.getItems()) {
-			sum = sum + (chitietdathang.getSanpham().getGiatien() * chitietdathang.getSoluong());
+			sum = (int) (sum + (chitietdathang.getDongia() * chitietdathang.getSoluong()));
 		}
 		tongtien.setText(String.valueOf(sum));
 		QLKhoController.getInstance().ReloadSANPHAM();
@@ -353,8 +353,9 @@ public class LapPhieuDatHangController implements Initializable {
 						spp = session.get(Sanpham.class, masp);
 						int soluong = chitietdathang.getSoluong();
 						double thanhtien = chitietdathang.getThanhtien();
+						int dongia = chitietdathang.getDongia();
 						phieudathang = session.get(Phieudathang.class, phieudathang.getMadathang());
-						Chitietdathang chitietdathang1 = new Chitietdathang(phieudathang, spp, soluong, thanhtien);
+						Chitietdathang chitietdathang1 = new Chitietdathang(phieudathang, spp, soluong, thanhtien,dongia);
 						try {
 							session.beginTransaction();
 							session.save(chitietdathang1);
@@ -394,8 +395,9 @@ public class LapPhieuDatHangController implements Initializable {
 						spp = session.get(Sanpham.class, masp);
 						int soluong = chitietdathang.getSoluong();
 						double thanhtien = chitietdathang.getThanhtien();
+						int dongia = chitietdathang.getDongia();
 						phieudathang = session.get(Phieudathang.class, phieudathang.getMadathang());
-						Chitietdathang chitietdathang1 = new Chitietdathang(phieudathang, spp, soluong, thanhtien);
+						Chitietdathang chitietdathang1 = new Chitietdathang(phieudathang, spp, soluong, thanhtien,dongia);
 						try {
 							session.beginTransaction();
 							session.save(chitietdathang1);
@@ -569,18 +571,7 @@ public class LapPhieuDatHangController implements Initializable {
 			}
 		});
 
-		giatien1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-		giatien1.setCellFactory(tableSP1 -> new TableCell<Chitietdathang, Sanpham>() {
-			@Override
-			protected void updateItem(Sanpham item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getGiatien()));
-				}
-			}
-		});
+		giatien1.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Integer>("dongia"));
 		donvitinh1.setCellValueFactory(new PropertyValueFactory<Chitietdathang, Integer>("soluong"));
 		Tongtien.setCellValueFactory(new PropertyValueFactory<Chitietdathang, Double>("thanhtien"));
 		tableSP.setItems(getSanpham());

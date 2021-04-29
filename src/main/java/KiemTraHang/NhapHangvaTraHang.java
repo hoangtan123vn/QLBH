@@ -115,18 +115,19 @@ public class NhapHangvaTraHang implements Initializable {
 	private TableView<Chitietnhaphang> tbnhaphang;
 
 	@FXML
-	private TableColumn idtensp2;
+	private TableColumn<Chitietphieutra,Sanpham> idtensp2;
 
 	@FXML
-	private TableColumn idmasp2;
+	private TableColumn<Chitietphieutra,Sanpham> idmasp2;
 
 	@FXML
-	private TableColumn idsoluong2;
-
+	private TableColumn<Chitietphieutra,Integer> idsoluong2;
+///
 	@FXML
-	private TableColumn iddongia2;
+	private TableColumn<Chitietphieutra,Integer> iddongia2;
+///	
 	@FXML
-	private TableColumn idthanhtien2;
+	private TableColumn<Chitietphieutra,Double> idthanhtien2;
 
 	@FXML
 	private TableColumn xoasp2;
@@ -135,19 +136,19 @@ public class NhapHangvaTraHang implements Initializable {
 	private TableColumn<Chitietnhaphang, Sanpham> idtensp1;
 
 	@FXML
-	private TableColumn idmasp1;
+	private TableColumn<Chitietnhaphang,Sanpham> idmasp1;
 
 	@FXML
-	private TableColumn idthanhtien1;
+	private TableColumn<Chitietnhaphang,Double> idthanhtien1;
 
 	@FXML
 	private TableColumn xoasp1;
 
 	@FXML
-	private TableColumn idsoluong1;
-
+	private TableColumn<Chitietnhaphang,Integer> idsoluong1;
+///
 	@FXML
-	private TableColumn iddongia1;
+	private TableColumn<Chitietnhaphang,Integer> iddongia1;
 	@FXML
 	private Button btntra;
 
@@ -461,7 +462,8 @@ public class NhapHangvaTraHang implements Initializable {
 							if (tbnhaphang.getItems().contains(chitietnhaphang)) {
 								tbnhaphang.getItems().remove(chitietnhaphang);
 								int soluongsp = chitietnhaphang.getSoluong();
-								int dongia = chitietnhaphang.getSanpham().getGiatien();
+								int dongia = chitietnhaphang.getDongia();
+								//double 
 								Chitietdathang ctdh = new Chitietdathang(soluongsp, chitietnhaphang.getSanpham(),
 										dongia);
 
@@ -507,10 +509,8 @@ public class NhapHangvaTraHang implements Initializable {
 							if (tbtrahang.getItems().contains(chitietphieutra)) {
 								tbtrahang.getItems().remove(chitietphieutra);
 								int soluongsp = chitietphieutra.getSoluong();
-								int dongia = chitietphieutra.getSanpham().getGiatien();
-								Chitietdathang ctdh = new Chitietdathang(soluongsp, chitietphieutra.getSanpham(),
-										dongia);
-
+								int dongia = chitietphieutra.getDongia();
+								Chitietdathang ctdh = new Chitietdathang(soluongsp, chitietphieutra.getSanpham(),dongia);
 								tableChitietKiemtra.getItems().addAll(ctdh);
 								tableChitietKiemtra.refresh();
 								tbnhaphang.refresh();
@@ -559,21 +559,21 @@ public class NhapHangvaTraHang implements Initializable {
 		String loaisanpham = sp.getSanpham().getLoaisanpham();
 		int soluong = sp.getSoluong();
 		String donvi = sp.getSanpham().getDonvi();
-		int giatien = sp.getSanpham().getGiatien();
-		Sanpham sp1 = new Sanpham(masanpham, tensanpham, loaisanpham, donvi, giatien, soluong);
-		addItem(soluong, sp1, 0.0);
+		int giatien = sp.getDongia();
+		Sanpham sp1 = new Sanpham(masanpham, tensanpham, loaisanpham, donvi, soluong);
+		addItem(soluong, sp1, 0.0,giatien);
 		tableChitietKiemtra.getItems().remove(sp);
 		tableChitietKiemtra.refresh();
 	}
 
-	public void addItem(int soluong, Sanpham sanpham, double thanhtien) {
+	public void addItem(int soluong, Sanpham sanpham, double thanhtien,int dongia) {
 		Chitietnhaphang entry = tbnhaphang.getItems().stream().filter(item -> item.getSanpham().equals(sanpham))
 				.findAny().orElseGet(() -> {
-					Chitietnhaphang newItem = new Chitietnhaphang(sanpham, soluong, thanhtien);
+					Chitietnhaphang newItem = new Chitietnhaphang(sanpham, soluong, thanhtien,dongia);
 					tbnhaphang.getItems().add(newItem);
 					return newItem;
 				});
-		entry.setThanhtien(entry.getSanpham().getGiatien() * entry.getSoluong());
+		entry.setThanhtien(entry.getDongia() * entry.getSoluong());
 
 	}
 
@@ -586,22 +586,22 @@ public class NhapHangvaTraHang implements Initializable {
 		String loaisanpham = sp.getSanpham().getLoaisanpham();
 		int soluong = sp.getSoluong();
 		String donvi = sp.getSanpham().getDonvi();
-		int giatien = sp.getSanpham().getGiatien();
-		Sanpham sp1 = new Sanpham(masanpham, tensanpham, loaisanpham, donvi, giatien, soluong);
-		addItem2(soluong, sp1, 0.0);
+		int giatien = sp.getDongia();
+		Sanpham sp1 = new Sanpham(masanpham, tensanpham, loaisanpham, donvi, soluong);
+		addItem2(soluong, sp1, 0.0,giatien);
 		tableChitietKiemtra.getItems().remove(sp);
 		tableChitietKiemtra.refresh();
 	}
 
-	public void addItem2(int soluong, Sanpham sanpham, double thanhtien) {
+	public void addItem2(int soluong, Sanpham sanpham, double thanhtien,int dongia) {
 		Chitietphieutra entry = tbtrahang.getItems().stream().filter(item -> item.getSanpham().equals(sanpham))
 				.findAny().orElseGet(() -> {
-
-					Chitietphieutra newItem = new Chitietphieutra(sanpham, soluong, thanhtien);
+					System.out.print(dongia);
+					Chitietphieutra newItem = new Chitietphieutra(sanpham, soluong, thanhtien,dongia);
 					tbtrahang.getItems().add(newItem);
 					return newItem;
 				});
-		entry.setThanhtien(entry.getSanpham().getGiatien() * entry.getSoluong());
+		entry.setThanhtien(entry.getDongia() * entry.getSoluong());
 
 	}
 
@@ -634,18 +634,7 @@ public class NhapHangvaTraHang implements Initializable {
 			}
 		});
 		idsoluong1.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Integer>("soluong"));
-		iddongia1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-		iddongia1.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
-			@Override
-			protected void updateItem(Sanpham item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getGiatien()));
-				}
-			}
-		});
+		iddongia1.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("dongia"));
 		idthanhtien1.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
 		ButtonXoaSP();
 
@@ -653,7 +642,7 @@ public class NhapHangvaTraHang implements Initializable {
 
 	public void IntitlizeChitiettrahang() {
 
-		idtensp2.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
+		idtensp2.setCellFactory(tbnhaphang -> new TableCell<Chitietphieutra, Sanpham>() {
 			@Override
 			protected void updateItem(Sanpham item, boolean empty) {
 				super.updateItem(item, empty);
@@ -667,7 +656,7 @@ public class NhapHangvaTraHang implements Initializable {
 
 		idtensp2.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp2.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-		idmasp2.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
+		idmasp2.setCellFactory(tbnhaphang -> new TableCell<Chitietphieutra, Sanpham>() {
 			@Override
 			protected void updateItem(Sanpham item, boolean empty) {
 				super.updateItem(item, empty);
@@ -678,20 +667,9 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-		idsoluong2.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Integer>("soluong"));
-		iddongia2.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-		iddongia2.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
-			@Override
-			protected void updateItem(Sanpham item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getGiatien()));
-				}
-			}
-		});
-		idthanhtien2.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
+		idsoluong2.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Integer>("soluong"));
+		iddongia2.setCellValueFactory(new PropertyValueFactory<Chitietphieutra,Integer>("dongia"));
+		idthanhtien2.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Double>("thanhtien"));
 		ButtonXoaSP2();
 
 	}
@@ -712,18 +690,8 @@ public class NhapHangvaTraHang implements Initializable {
 
 		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang, Integer>("soluong"));
-		dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-		dongia.setCellFactory(tbChitietDatHang -> new TableCell<Chitietdathang, Sanpham>() {
-			@Override
-			protected void updateItem(Sanpham item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty || item == null) {
-					setText(null);
-				} else {
-					setText(String.valueOf(item.getGiatien()));
-				}
-			}
-		});
+		dongia.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Integer>("dongia"));
+		
 
 		TableColumn<Chitietdathang, Boolean> choice = new TableColumn<Chitietdathang, Boolean>("Membership");
 		mahang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));

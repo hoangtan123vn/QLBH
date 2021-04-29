@@ -17,6 +17,7 @@ public class Chitietdathang implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "masanpham")
 	private Sanpham sanpham;
+	private int dongia;
 
 	private int soluong;
 
@@ -58,12 +59,21 @@ public class Chitietdathang implements Serializable {
 		this.soluong = soluong;
 	}
 
-	public Chitietdathang(int soluong, Sanpham sanpham, double thanhtien) {
+	public Chitietdathang(int soluong, Sanpham sanpham, double thanhtien,int dongia) {
 		super();
 		this.thanhtien = thanhtien;
 		this.sanpham = sanpham;
 		this.soluong = soluong;
+		this.dongia = dongia;
 	}
+	
+	public Chitietdathang(int soluong, Sanpham sanpham,int dongia) {
+		super();
+		this.sanpham = sanpham;
+		this.soluong = soluong;
+		this.dongia = dongia;
+	}
+	
 
 	public Phieudathang getPhieudathang() {
 		return phieudathang;
@@ -73,13 +83,23 @@ public class Chitietdathang implements Serializable {
 		this.phieudathang = phieudathang;
 	}
 
-	public Chitietdathang(Phieudathang phieudathang, Sanpham sanpham, int soluong, double thanhtien) {
+	public Chitietdathang(Phieudathang phieudathang, Sanpham sanpham, int soluong, double thanhtien,int dongia) {
 		super();
 
 		this.phieudathang = phieudathang;
 		this.sanpham = sanpham;
 		this.soluong = soluong;
 		this.thanhtien = thanhtien;
+		this.dongia = dongia;
 	}
+
+	public int getDongia() {
+		return dongia;
+	}
+
+	public void setDongia(int dongia) {
+		this.dongia = dongia;
+	}
+	
 
 }

@@ -23,6 +23,7 @@ public class Chitietnhaphang implements Serializable{
 	
 	private int soluong;
 	private double thanhtien;
+	private int dongia;
 	
 
 	
@@ -39,12 +40,13 @@ public class Chitietnhaphang implements Serializable{
 	}
 	
 	
-	public Chitietnhaphang( Sanpham sanpham, int soluong, double thanhtien) {
+	public Chitietnhaphang( Sanpham sanpham, int soluong, double thanhtien,int dongia) {
 		super();
 		
 		this.sanpham = sanpham;
 		this.soluong = soluong;
 		this.thanhtien = thanhtien;
+		this.dongia = dongia;
 	}
 	
 	public double getThanhtien() {
@@ -70,6 +72,15 @@ public class Chitietnhaphang implements Serializable{
 
 	public Phieunhaphang getPhieunhaphang() {
 		return phieunhaphang;
+	}
+	
+
+	public int getDongia() {
+		return dongia;
+	}
+
+	public void setDongia(int dongia) {
+		this.dongia = dongia;
 	}
 
 	public void setPhieunhaphang(Phieunhaphang phieunhaphang) {
