@@ -276,7 +276,7 @@ public class BanHangController implements Initializable {
 	public void loadData(Taikhoannv taikhoan) throws IOException {
 		
 		thanhtoan.setOnMouseClicked(event -> {
-			if (KiemTraSanPhamHoaDon() & KiemTraTienKhachTra() & KiemTraKt1()) {
+			if (KiemTraSanPhamHoaDon() & KiemTraTienKhachTra() & KiemTraKt1() &KiemTraKt()) {
 				if (Float.parseFloat(khachtra.getText()) < Float.parseFloat(tongtien.getText())) {
 					khachtra.setText("");
 					thongbaokhachtra.setText("Không đủ tiền , nhập lại");
