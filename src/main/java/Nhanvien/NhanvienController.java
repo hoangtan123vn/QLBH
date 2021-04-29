@@ -177,6 +177,18 @@ public class NhanvienController implements Initializable {
 			return false;
 		}
 	}
+	
+/*	private boolean KiemtraSDT1() {
+		Pattern p = Pattern.compile("[0-9]+");
+		Matcher m = p.matcher(sdt_nv.getText());
+		if (m.find() && m.group().equals(sdt_nv.getText())) {
+			check_sdt.setText(null);
+			return true;
+		}
+		check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
+		return false;
+	}*/
+	
 
 	private boolean KiemTraCMND() {
 		Pattern p = Pattern.compile("[0-9]+");
