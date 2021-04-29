@@ -106,7 +106,7 @@ public class danhmucController implements Initializable {
 	private TableView<Hoadon> tableHoaDon;
 
 	ObservableList<Hoadon> listPHD;
-	
+
 	@FXML
 	private Tab sTab_PhieuDatHang;
 
@@ -124,7 +124,7 @@ public class danhmucController implements Initializable {
 
 	@FXML
 	private TableColumn madathang;
-	
+
 	@FXML
 	private Label thongbaoDH;
 
@@ -139,7 +139,7 @@ public class danhmucController implements Initializable {
 
 	@FXML
 	private ScrollBar verticalPDH;
-	
+
 	@FXML
 	private Tab sTab_PhieuNhapHang;
 
@@ -166,7 +166,7 @@ public class danhmucController implements Initializable {
 
 	@FXML
 	private TableColumn tongtien;
-	
+
 	@FXML
 	private Label thongbaoNH;
 
@@ -177,7 +177,6 @@ public class danhmucController implements Initializable {
 	private ScrollBar verticalPNH;
 
 	ObservableList<Phieunhaphang> listPNH;
-
 
 	// HÓA ĐƠN
 	public ObservableList<Hoadon> getHoadon() {
@@ -203,7 +202,7 @@ public class danhmucController implements Initializable {
 				String lowerCaseFilter = newValue.toLowerCase();
 
 				if (String.valueOf(hoadon.getMahoadon()).indexOf(lowerCaseFilter) != -1) {
-					return true; 
+					return true;
 				} else
 					return false;
 			});
@@ -235,24 +234,21 @@ public class danhmucController implements Initializable {
 		});
 		Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
 		HoadonDetailController DSNVController = loader.getController();
-		if(selected == null) {
-			 thongbaoHD.setVisible(true);
-			 thongbaoHD.setText("Không có phiếu hóa đơn được chọn!!!");
-			 System.out.print("Không có phiếu hóa đơn được chọn!!!");
-			 return;
-		 }
-		 else if(selected != null){
-			 DSNVController.setHoadon(selected);
-			 thongbaoHD.setVisible(false);	 
-		 }
+		if (selected == null) {
+			thongbaoHD.setVisible(true);
+			thongbaoHD.setText("Không có phiếu hóa đơn được chọn!!!");
+			System.out.print("Không có phiếu hóa đơn được chọn!!!");
+			return;
+		} else if (selected != null) {
+			DSNVController.setHoadon(selected);
+			thongbaoHD.setVisible(false);
+		}
 		stage.setTitle("Chi tiet hoa don");
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.show();
 		GiaoDienQLController.getInstance().truedisable();
 	}
-	
-	
 
 	ObservableList<Phieudathang> listPDH;
 
@@ -268,9 +264,9 @@ public class danhmucController implements Initializable {
 				}
 				String lowerCaseFilter = newValue.toLowerCase();
 				if (String.valueOf(phieudathang.getMadathang()).indexOf(lowerCaseFilter) != -1) {
-					return true; 
+					return true;
 				} else
-					return false; 
+					return false;
 
 			});
 			SortedList<Phieudathang> sortedData = new SortedList<>(filteredData);
@@ -281,7 +277,7 @@ public class danhmucController implements Initializable {
 
 	public ObservableList<Phieudathang> getPhieudathang() {
 		ObservableList<Phieudathang> tablePhieuDatHang = FXCollections.observableArrayList();
-		 Session session = HibernateUtils.getSessionFactory().openSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		CriteriaQuery<Phieudathang> pdh = session.getCriteriaBuilder().createQuery(Phieudathang.class);
 		pdh.from(Phieudathang.class);
 		List<Phieudathang> eList = session.createQuery(pdh).getResultList();
@@ -290,9 +286,10 @@ public class danhmucController implements Initializable {
 		}
 		return tablePhieuDatHang;
 	}
+
 	private static double xoffset = 0;
 	private static double yoffset = 0;
-	
+
 	@FXML
 	void changeSceneDathangDetail(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/DathangDetail.fxml"));
@@ -315,17 +312,16 @@ public class danhmucController implements Initializable {
 		});
 		Phieudathang selected = tablePhieuDatHang.getSelectionModel().getSelectedItem();
 		DathangDetailController Dathang = loader.getController();
-		if(selected == null) {
-			 thongbaoDH.setVisible(true);
-			 thongbaoDH.setText("Không có phiếu đặt hàng được chọn!!!");
-			 System.out.print("Không có phiếu đặt hàng được chọn!!!");
-			 return;
-		 }
-		 else if(selected != null){
-			 Dathang.setPhieudathang(selected);
-			 thongbaoDH.setVisible(false);
-			 
-		 }
+		if (selected == null) {
+			thongbaoDH.setVisible(true);
+			thongbaoDH.setText("Không có phiếu đặt hàng được chọn!!!");
+			System.out.print("Không có phiếu đặt hàng được chọn!!!");
+			return;
+		} else if (selected != null) {
+			Dathang.setPhieudathang(selected);
+			thongbaoDH.setVisible(false);
+
+		}
 		stage1.setTitle("Chi tiet dat hang");
 		stage1.setScene(scene1);
 		stage1.initStyle(StageStyle.UNDECORATED);
@@ -333,11 +329,9 @@ public class danhmucController implements Initializable {
 		GiaoDienQLController.getInstance().truedisable();
 	}
 
-
-	
 	@FXML
-	
-	  void searchPNH() { 
+
+	void searchPNH() {
 		ObservableList<Phieunhaphang> tbPhieuNhapHang = FXCollections.observableArrayList(getPhieunhaphang());
 
 		FilteredList<Phieunhaphang> filteredData = new FilteredList<>(tbPhieuNhapHang, b -> true);
@@ -348,9 +342,9 @@ public class danhmucController implements Initializable {
 				}
 				String lowerCaseFilter = newValue.toLowerCase();
 				if (String.valueOf(phieudathang.getManhaphang()).indexOf(lowerCaseFilter) != -1) {
-					return true; 
+					return true;
 				} else
-					return false; 
+					return false;
 			});
 
 			SortedList<Phieunhaphang> sortedData = new SortedList<>(filteredData);
@@ -358,10 +352,10 @@ public class danhmucController implements Initializable {
 			tablePhieuNhapHang.setItems(sortedData);
 		});
 	}
-	 
+
 	public ObservableList<Phieunhaphang> getPhieunhaphang() {
 		ObservableList<Phieunhaphang> tablePhieuNhapHang = FXCollections.observableArrayList();
-		 Session session = HibernateUtils.getSessionFactory().openSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
 
 		CriteriaQuery<Phieunhaphang> pnh = session.getCriteriaBuilder().createQuery(Phieunhaphang.class);
 		pnh.from(Phieunhaphang.class);
@@ -394,23 +388,21 @@ public class danhmucController implements Initializable {
 		});
 		Phieunhaphang selected = tablePhieuNhapHang.getSelectionModel().getSelectedItem();
 		NhaphangDetailController Nhaphang = loader.getController();
-		if(selected == null) {
-			 thongbaoNH.setVisible(true);
-			 thongbaoNH.setText("Không có phiếu nhập hàng được chọn!!!");
-			 System.out.print("Không có phiếu nhập hàng được chọn!!!");
-			 return;
-		 }
-		 else if(selected != null){
-			 Nhaphang.setPhieunhaphang(selected);
-			 thongbaoNH.setVisible(false); 
-		 }
+		if (selected == null) {
+			thongbaoNH.setVisible(true);
+			thongbaoNH.setText("Không có phiếu nhập hàng được chọn!!!");
+			System.out.print("Không có phiếu nhập hàng được chọn!!!");
+			return;
+		} else if (selected != null) {
+			Nhaphang.setPhieunhaphang(selected);
+			thongbaoNH.setVisible(false);
+		}
 		stage1.setTitle("Chi tiet nhap hang");
 		stage1.initStyle(StageStyle.UNDECORATED);
 		stage1.setScene(scene1);
 		stage1.show();
 		GiaoDienQLController.getInstance().truedisable();
 	}
-
 
 	@FXML
 	private Tab sTab_PhieuTraHang;
@@ -424,7 +416,6 @@ public class danhmucController implements Initializable {
 	@FXML
 	private TableColumn maphieutra;
 
-	
 	@FXML
 	private TableColumn thoigiantra;
 
@@ -436,7 +427,7 @@ public class danhmucController implements Initializable {
 
 	@FXML
 	private Label lbDanhMucPTH;
-	
+
 	@FXML
 	private Label thongbaoTH;
 
@@ -460,7 +451,7 @@ public class danhmucController implements Initializable {
 				if (String.valueOf(phieutrahang.getMaphieutra()).toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true;
 				} else
-					return false; 
+					return false;
 			});
 		});
 
@@ -492,16 +483,15 @@ public class danhmucController implements Initializable {
 		});
 		Phieutrahang selected = tablePhieuTraHang.getSelectionModel().getSelectedItem();
 		TrahangDetailController Trahang = loader.getController();
-		if(selected == null) {
-			 thongbaoTH.setVisible(true);
-			 thongbaoTH.setText("Không có phiếu trả hàng được chọn!!!");
-			 System.out.print("Không có phiếu trả hàng được chọn!!!");
-			 return;
-		 }
-		 else if(selected != null){
-			 Trahang.setPhieutrahang(selected);
-			 thongbaoTH.setVisible(false);	 
-		 }
+		if (selected == null) {
+			thongbaoTH.setVisible(true);
+			thongbaoTH.setText("Không có phiếu trả hàng được chọn!!!");
+			System.out.print("Không có phiếu trả hàng được chọn!!!");
+			return;
+		} else if (selected != null) {
+			Trahang.setPhieutrahang(selected);
+			thongbaoTH.setVisible(false);
+		}
 		stage1.setTitle("Chi tiet phieu tra");
 		stage1.initStyle(StageStyle.UNDECORATED);
 		stage1.setScene(scene1);
@@ -512,11 +502,9 @@ public class danhmucController implements Initializable {
 	@FXML
 	private Text txtTitle_store;
 
-
 	public ObservableList<Phieutrahang> getPhieutrahang() {
 		ObservableList<Phieutrahang> tablePhieuTraHang = FXCollections.observableArrayList();
-		 Session session = HibernateUtils.getSessionFactory().openSession();
-
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		CriteriaQuery<Phieutrahang> pth = session.getCriteriaBuilder().createQuery(Phieutrahang.class);
 		pth.from(Phieutrahang.class);
 		List<Phieutrahang> eList = session.createQuery(pth).getResultList();
@@ -554,7 +542,6 @@ public class danhmucController implements Initializable {
 			}
 
 		});
-
 		makh.setCellValueFactory(new PropertyValueFactory<>("khachhang"));
 		manv1.setCellValueFactory(new PropertyValueFactory<>("nhanvien"));
 		tableHoaDon.setItems(getHoadon());
@@ -573,7 +560,6 @@ public class danhmucController implements Initializable {
 					setText(String.valueOf(item.getMancc()));
 				}
 			}
-
 		});
 		tablePhieuDatHang.setItems(getPhieudathang());
 		searchPDH();
@@ -604,9 +590,7 @@ public class danhmucController implements Initializable {
 					setText(String.valueOf(item.getManv()));
 				}
 			}
-
 		});
-
 		tablePhieuNhapHang.setItems(getPhieunhaphang());
 		maphieutra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("maphieutra"));
 		thoigiantra.setCellValueFactory(new PropertyValueFactory<Phieutrahang, String>("thoigian"));
