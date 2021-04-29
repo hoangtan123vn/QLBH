@@ -101,7 +101,7 @@ public class TrangChuController  implements Initializable{
     		 for(Object[] hoadon : hd) {
     			 ngay.setLabel("Ngày");
     			doanhthu.setLabel("Doanh thu bán được trong một ngày");
-    			 long tonggia = (long) hoadon[0];
+    			 Double tonggia = (Double) hoadon[0];
     			 String date = String.valueOf((LocalDateTime) hoadon[1]);
     			 String d = String.valueOf(date.substring(6, 10));
     			
