@@ -793,8 +793,9 @@ public class BanHangController implements Initializable {
 
 		}		
 		tongtien.setText(String.valueOf(sum));
-		float tientrakhach = Float.parseFloat(khachtra.getText()) - Float.parseFloat(tongtien.getText());
-		tienthua.setText(String.valueOf(tientrakhach));
+		khachtra.setText(String.valueOf(0));
+		giamgia.setText(String.valueOf(0));
+		tienthua.setText(String.valueOf(0));
 		thongbaokhachtra.setText(null);
 
 		
