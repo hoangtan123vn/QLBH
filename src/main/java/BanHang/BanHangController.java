@@ -216,16 +216,18 @@ public class BanHangController implements Initializable {
 		});
 	}
 	private boolean KiemTraKt() {
-		Pattern p = Pattern.compile("[0-9]+");
+		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
 		Matcher m = p.matcher(khachtra.getText());
 		if (m.find() && m.group().equals(khachtra.getText())) {
+			
+			thongbaokhachtra.setText("Vui lòng điền số tiền hợp lệ");
+			return false;
+		} else {
 			thongbaokhachtra.setText(null);
 			return true;
-		} else {
-			thongbaokhachtra.setText("Vui lòng điền số tiền phù hợp");
-			return false;
 		}
-	}
+		}
+	
 	private boolean KiemTraKt1() {
 		Pattern p = Pattern.compile("[0]+");
 		Matcher m = p.matcher(khachtra.getText());
@@ -246,6 +248,7 @@ public class BanHangController implements Initializable {
 				if (Float.parseFloat(khachtra.getText()) < Float.parseFloat(tongtien.getText())) {
 					khachtra.setText("");
 					thongbaokhachtra.setText("Không đủ tiền , nhập lại");
+					
 					return;
 
 				} else {

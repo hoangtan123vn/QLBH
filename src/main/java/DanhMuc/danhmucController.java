@@ -4,16 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.persistence.criteria.CriteriaQuery;
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Hoadon;
