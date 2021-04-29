@@ -12,40 +12,17 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.time.LocalDateTime;
-
-import org.hibernate.query.Query;
-
-import com.sun.xml.bind.v2.util.QNameMap.Entry;
-
-import Nhacungcap.nhacungcapController;
+import org.hibernate.Session;
 import QLBH.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.imageio.ImageIO;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.swing.JOptionPane;
-import javax.swing.event.ChangeListener;
-
-import org.apache.derby.iapi.store.access.SpaceInfo;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
-
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -58,15 +35,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -77,7 +49,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -85,7 +56,6 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -95,12 +65,6 @@ import QLBH.Hoadon;
 import QLBH.KhachHang;
 import QLBH.Nhanvien;
 import QLBH.Sanpham;
-import javafx.scene.control.cell.PropertyValueFactory;
-
-import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-
 public class BanHangController implements Initializable {
 	public static BanHangController instance;
 
@@ -760,16 +724,10 @@ public class BanHangController implements Initializable {
 
 	}
 
-	/// thanh toan
-
-	// tim khach hang
 	@FXML
 	void timkhachhang(ActionEvent event) {
 		timkhachhangController controller2 = new timkhachhangController(this);
-		// Show the new stage/window
 		controller2.showStage();
-		
-
 	}
 
 	@FXML
