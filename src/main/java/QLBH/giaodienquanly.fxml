@@ -8,41 +8,41 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainto" prefHeight="860.0" prefWidth="1612.0" style="-fx-background-color: #d5f4e6; -fx-border-color: black; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.GiaoDienQLController">
+<AnchorPane fx:id="mainto" prefHeight="860.0" prefWidth="1612.0" style="-fx-background-color: #d5f4e6; -fx-border-color: black; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLBH.GiaoDienQLController">
 	<children>
 		<AnchorPane layoutX="3.0" layoutY="2.0" prefHeight="892.0" prefWidth="246.0" style="-fx-background-color: #d5f4e6;">
 			<children>
-				<Button fx:id="banhang" layoutX="28.0" layoutY="530.0" mnemonicParsing="false" onAction="#changeBanHang" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="BÁN HÀNG">
+				<Button fx:id="banhang" layoutX="28.0" layoutY="530.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="BÁN HÀNG">
 					<font>
 						<Font name="System Bold" size="16.0" />
 					</font>
 				</Button>
-				<Button fx:id="nhanvien" layoutX="28.0" layoutY="280.0" mnemonicParsing="false" onAction="#ChangeNhanvien" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="NHÂN VIÊN">
+				<Button fx:id="nhanvien" layoutX="28.0" layoutY="280.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="NHÂN VIÊN">
 					<font>
 						<Font name="System Bold" size="16.0" />
 					</font>
 				</Button>
-				<Button fx:id="thongke" layoutX="28.0" layoutY="330.0" mnemonicParsing="false" onAction="#ChangeThongKe" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="THỐNG KÊ">
+				<Button fx:id="thongke" layoutX="28.0" layoutY="330.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="THỐNG KÊ">
 					<font>
 						<Font name="System Bold" size="16.0" />
 					</font>
 				</Button>
-				<Button fx:id="kho" layoutX="28.0" layoutY="380.0" mnemonicParsing="false" onAction="#changekho" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="KHO">
+				<Button fx:id="kho" layoutX="28.0" layoutY="380.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="KHO">
 					<font>
 						<Font name="System Bold" size="16.0" />
 					</font>
 				</Button>
-				<Button fx:id="kiemtrahang" layoutX="28.0" layoutY="430.0" mnemonicParsing="false" onAction="#changeKTH" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="KIỂM TRA HÀNG">
+				<Button fx:id="kiemtrahang" layoutX="28.0" layoutY="430.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="KIỂM TRA HÀNG">
 					<font>
 						<Font name="System Bold" size="16.0" />
 					</font>
 				</Button>
-				<Button fx:id="danhmuc" layoutX="28.0" layoutY="480.0" mnemonicParsing="false" onAction="#changeDanhmuc" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="DANH MỤC">
+				<Button fx:id="danhmuc" layoutX="28.0" layoutY="480.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="DANH MỤC">
 					<font>
 						<Font name="System Bold" size="16.0" />
 					</font>
 				</Button>
-				<Button fx:id="nhacungcap" layoutX="28.0" layoutY="220.0" mnemonicParsing="false" onAction="#ChangeNhacungcap" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="NHÀ CUNG CẤP">
+				<Button fx:id="nhacungcap" layoutX="28.0" layoutY="220.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="272.0" style="-fx-background-color: #d5f4e6;" text="NHÀ CUNG CẤP">
 					<font>
 						<Font name="System Bold" size="16.0" />
 					</font>

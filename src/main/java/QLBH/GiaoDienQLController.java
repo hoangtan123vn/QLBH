@@ -79,9 +79,6 @@ public class GiaoDienQLController implements Initializable {
 	
 	@FXML
     private ImageView load;
-	
-	
-
 	@FXML
 	private Button nhanvien;
 
@@ -121,13 +118,11 @@ public class GiaoDienQLController implements Initializable {
 	@FXML
 	private ImageView imgtrangchu;
 
-	
-	
+
 	@FXML
 	void close(MouseEvent event) {
 		Stage stage = (Stage) close.getScene().getWindow();
 		stage.close();
-	
 		
 	}
 
@@ -136,23 +131,9 @@ public class GiaoDienQLController implements Initializable {
 		Stage stage = (Stage) minimize.getScene().getWindow();
 		stage.setIconified(true);
 	}
-	@FXML
-	void ChangeNhacungcap(ActionEvent event) {
-
-	}
 
 	@FXML
 	private Button dangxuat;
-
-	@FXML
-	void ChangeNhanvien(ActionEvent event) throws IOException {
-		// Scene scene = new Scene(login);
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("/Nhanvien/nhanvien.fxml"));
-		mainpane.getChildren().setAll(pane);
-		if (mainpane.getChildren().setAll(pane)) {
-			// nhanvien.setClickable(false);
-		}
-	}
 
 	public void LoadData(Taikhoannv taikhoan) {
 		PauseTransition visiblePause = new PauseTransition(
@@ -165,7 +146,6 @@ public class GiaoDienQLController implements Initializable {
 
 		username.setText("Xin chào " + taikhoan.getusername());
 		username.setUnderline(true);
-		// tennhanvien.setText("Xin chao" + taikhoan.getNhanvien().getHovaten());
 		byte[] getImageInBytes = taikhoan.getNhanvien().getImage();
 		try {
 			FileOutputStream fos = new FileOutputStream(new File("photo1.jpg"));
@@ -208,8 +188,21 @@ public class GiaoDienQLController implements Initializable {
 		imgtrangchu.setOnMouseClicked(event -> {
 			SceneTrangChu();
 		});
+		nhanvien.setOnMouseClicked(event -> {
+			SceneNhanvien();
+		});
 	}
-			
+	
+	public void SceneNhanvien() {
+		try {
+			AnchorPane pane = FXMLLoader.load(getClass().getResource("/Nhanvien/nhanvien.fxml"));
+			mainpane.getChildren().setAll(pane);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 	public void profileNhanvien(Taikhoannv taikhoan) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("profilenhanvien.fxml"));
@@ -217,31 +210,10 @@ public class GiaoDienQLController implements Initializable {
 			tmp = loader.load();
 			Scene scene = new Scene(tmp);
 			Stage stage = new Stage();
-			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent mouseEvent) {
-					xoffset = stage.getX() - mouseEvent.getScreenX();
-					yoffset = stage.getY() - mouseEvent.getScreenY();
-				}
-			});
-			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent mouseEvent) {
-					stage.setX(mouseEvent.getScreenX() + xoffset);
-					stage.setY(mouseEvent.getScreenY() + yoffset);
-				}
-			});
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(scene);
-			stage.setResizable(false);
-			stage.show();
-			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
 			ProfilesNhanvienController profiles = loader.getController();
 			profiles.loadData(taikhoan);
-			
+			stage.hide();
 			stage.setScene(scene);
-			
-			GiaoDienQLController.getInstance().truedisable();
 			stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -261,15 +233,8 @@ public class GiaoDienQLController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/BanHang/banhang.fxml"));
 			AnchorPane pane = loader.load();
 			mainpane.getChildren().setAll(pane);
-			/*
-			 * if(mainpane.getChildren().setAll(pane)) { //nhanvien.setClickable(false); }
-			 */
 			BanHangController banHangController = loader.getController();
 			banHangController.loadData(taikhoan);
-			System.out.println(taikhoan);
-			/*
-			 * stage.hide(); stage.setScene(scene); stage.show();
-			 */
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -282,12 +247,8 @@ public class GiaoDienQLController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/QLBH/TrangChu.fxml"));
 			AnchorPane pane = loader.load();
 			mainpane.getChildren().setAll(pane);
-			//mainpane.getStylesheets().add(getClass().getResource("thongke.css").toExternalForm());
-			//mainpane.getStylesheets().add();
-			//mainpane.setStyle(" -fx-background-image: url(\"bg1.jpg\");");
 		} catch (IOException e) {
 			System.out.println(e);
-			
 		}
 	}
 
@@ -295,26 +256,11 @@ public class GiaoDienQLController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/QLKho/QLKho.fxml"));
 			AnchorPane pane = loader.load();
-
 			mainpane.getChildren().setAll(pane);
-			/*
-			 * if(mainpane.getChildren().setAll(pane)) { //nhanvien.setClickable(false); }
-			 */
-			// Parent tmp;
-			// tmp = loader.load();
-			// Scene scene = new Scene(tmp);
-			// Stage stage = new Stage();
-			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
 			QLKhoController qlKhoController = loader.getController();
 			qlKhoController.loadData(taikhoan);
-			System.out.println(taikhoan);
-			/*
-			 * stage.hide(); stage.setScene(scene); stage.show();
-			 */
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e);
-			// e.printStackTrace();
 		}
 	}
 
@@ -324,25 +270,8 @@ public class GiaoDienQLController implements Initializable {
 			AnchorPane pane = loader.load();
 
 			mainpane.getChildren().setAll(pane);
-			/*
-			 * if(mainpane.getChildren().setAll(pane)) { //nhanvien.setClickable(false); }
-			 */
-			// Parent tmp;
-			// tmp = loader.load();
-			// Scene scene = new Scene(tmp);
-			// Stage stage = new Stage();
-			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
-			/*
-			 * khachhangController khachhangController = loader.getController();
-			 * khachhangController.loadData(taikhoan); System.out.println(taikhoan);
-			 */
-			/*
-			 * stage.hide(); stage.setScene(scene); stage.show();
-			 */
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e);
-			// e.printStackTrace();
 		}
 	}
 
@@ -353,9 +282,8 @@ public class GiaoDienQLController implements Initializable {
 
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e);
-			// e.printStackTrace();
+			
 		}
 	}
 
@@ -366,9 +294,8 @@ public class GiaoDienQLController implements Initializable {
 
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e);
-			// e.printStackTrace();
+			
 		}
 	}
 
@@ -379,9 +306,8 @@ public class GiaoDienQLController implements Initializable {
 
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(e);
-			// e.printStackTrace();
+			
 		}
 	}
 
@@ -389,13 +315,10 @@ public class GiaoDienQLController implements Initializable {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/KiemTraHang/Kiemtrahang.fxml"));
 			AnchorPane pane = loader.load();
-			// KiemtrahangController ktController =
-			// Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
 			KiemTraHangController KTHang = loader.getController();
 			KTHang.loadData(taikhoan);
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -428,36 +351,13 @@ public class GiaoDienQLController implements Initializable {
 			stage.setScene(scene);
 			stage.setResizable(false);
 			stage.initStyle(StageStyle.TRANSPARENT);
-			stage.show();
+		
+		stage.setScene(scene);
+		stage.show();
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
 	
-	}
-
-	@FXML
-	void ChangeThongKe(ActionEvent event) throws IOException {
-
-	}
-
-	@FXML
-	void changeBanHang(ActionEvent event) throws Exception {
-
-	}
-
-	@FXML
-	void changeDanhmuc(ActionEvent event) {
-
-	}
-
-	@FXML
-	void changeKTH(ActionEvent event) {
-
-	}
-
-	@FXML
-	void changekho(ActionEvent event) {
-
 	}
 
 	@Override

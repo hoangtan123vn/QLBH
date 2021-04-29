@@ -100,9 +100,12 @@ public class ThemNCCController extends Application implements Initializable {
 	private boolean KiemTraSDT() {
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(tfsdt.getText());
-		if (m.find() && m.group().equals(tfsdt.getText())) {
+		if (m.find() && m.group().equals(tfsdt.getText()) && tfsdt.getText().matches("\\d{10}|\\d{11}")) {
 			check_sdt.setText(null);
 			return true;
+		} else if (tfsdt.getText().length() < 10) {
+			check_sdt.setText("Số điện thoại không đủ 10 số");
+			return false;
 		} else {
 			check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
 			return false;

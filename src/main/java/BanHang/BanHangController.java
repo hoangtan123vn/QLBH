@@ -557,8 +557,8 @@ public class BanHangController implements Initializable {
 					setGraphic(null);
 				} else {
 					imageView.setImage(getImageFromBytes(item));
-					imageView.setFitHeight(150);
-					imageView.setFitWidth(250);
+					imageView.setFitHeight(100);
+					imageView.setFitWidth(100);
 					setGraphic(imageView);
 				}
 				this.setItem(item);
