@@ -340,6 +340,7 @@ public class NhanvienController implements Initializable {
 	@FXML
 	void XoaNhanvien(ActionEvent event) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Current project is modified");
 		alert.setContentText("Bạn có muốn xóa nhân viên?");
 		ButtonType okButton = new ButtonType("Yes");
@@ -371,8 +372,8 @@ public class NhanvienController implements Initializable {
 							phieutrahang.setNhanvien(null);
 						}
 						session.delete(nv);
-						alert.setContentText("Xóa nhân viên thành công");
-						alert.showAndWait();
+						alert1.setContentText("Xóa nhân viên thành công");
+						alert1.showAndWait();
 					}
 					session.getTransaction().commit();
 				} catch (HibernateException error) {
