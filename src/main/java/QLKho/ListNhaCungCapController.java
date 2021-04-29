@@ -7,8 +7,7 @@ import java.util.ResourceBundle;
 import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Session;
 
-import com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Label;
-
+import javafx.scene.control.Label;
 import QLBH.HibernateUtils;
 import QLBH.Nhacungcap;
 import javafx.collections.FXCollections;
@@ -52,6 +51,8 @@ public class ListNhaCungCapController implements Initializable {
 	private TableColumn tienno_NCC;
 
 	@FXML
+	private Label thongbao;
+	@FXML
 	private Button bt_NCC;
 	@FXML
 	private AnchorPane ap;
@@ -81,14 +82,20 @@ public class ListNhaCungCapController implements Initializable {
 
 	@FXML
 	void ChonNCC(ActionEvent event) {
-			
-		Nhacungcap selected = tb_NCC.getSelectionModel().getSelectedItem();
-		lapPhieuDatHangController.setNhaCungCap(selected);
-		Stage stage1 = (Stage) ap.getScene().getWindow();
-		stage1.close();
-
-	}
-
+			Nhacungcap selected = tb_NCC.getSelectionModel().getSelectedItem();
+			Stage stage1 = (Stage) ap.getScene().getWindow();
+			if (selected == null) {
+				thongbao.setVisible(true);
+				thongbao.setText("Chưa chọn nhà cung cấp!!!");
+				System.out.print("Chưa chọn nhà cung cấp!!!");
+				return;
+			} else if (selected != null) {
+				lapPhieuDatHangController.setNhaCungCap(selected);
+				thongbao.setVisible(false);
+			}
+			stage1.close();	
+		}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		id_NCC.setCellValueFactory(new PropertyValueFactory<Nhacungcap, Integer>("mancc"));
