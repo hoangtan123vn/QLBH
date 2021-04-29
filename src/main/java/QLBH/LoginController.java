@@ -195,10 +195,25 @@ public class LoginController implements Initializable {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodiennhanvien.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);
+							
 							String tk = checktk1.getusername();
 							taikhoan = session.get(Taikhoannv.class, tk);
 
 							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+							scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+								@Override
+								public void handle(MouseEvent mouseEvent) {
+									xoffset = stage.getX() - mouseEvent.getScreenX();
+									yoffset = stage.getY() - mouseEvent.getScreenY();
+								}
+							});
+							scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+								@Override
+								public void handle(MouseEvent mouseEvent) {
+									stage.setX(mouseEvent.getScreenX() + xoffset);
+									stage.setY(mouseEvent.getScreenY() + yoffset);
+								}
+							});
 							GiaoDienNhanvienController quanly1 = loader.getController();
 							quanly1.LoadData(taikhoan);
 							stage.hide();

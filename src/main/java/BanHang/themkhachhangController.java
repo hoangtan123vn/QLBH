@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.hibernate.Session;
 
+import QLBH.GiaoDienNhanvienController;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import entities.*;
@@ -75,14 +76,21 @@ public class themkhachhangController implements Initializable {
 
 	@FXML
 	void exit(MouseEvent event) {
-		Stage stage = (Stage) exit.getScene().getWindow();
+		if(GiaoDienQLController.getInstance() == null) {
+    		Stage stage = (Stage) exit.getScene().getWindow();
+    		stage.close();
+    		GiaoDienNhanvienController.getInstance().falsedisable();
+    	}
+    	else {
+    	Stage stage = (Stage) exit.getScene().getWindow();
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();
+		}
 	}
 
 	@FXML
 	void themkhachhang(ActionEvent event) {
-		if (kiemtrahoten() & kiemtradiachi() & KiemTraSDT() & KiemTraNgaySinh() & KiemTraGioiTinh() & kiemtramail()) {
+		if (kiemtrahoten() & kiemtradiachi() & KiemTraSDT() & KiemTraNgaySinh() & KiemTraGioiTinh() & kiemtramail() & GiaoDienNhanvienController.getInstance() == null) {
 
 			Alert alert = new Alert(AlertType.INFORMATION);
 			String hoten = name.getText();
@@ -116,6 +124,41 @@ public class themkhachhangController implements Initializable {
 			sex.setValue(null);
 			mail.setText(null);
 			GiaoDienQLController.getInstance().falsedisable();
+		}
+		else if(kiemtrahoten() & kiemtradiachi() & KiemTraSDT() & KiemTraNgaySinh() & KiemTraGioiTinh() & kiemtramail() & GiaoDienQLController.getInstance() == null) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			String hoten = name.getText();
+			String diachi = address.getText();
+			String sdt = numberphone.getText();
+			LocalDate ngaysinh = birth.getValue();
+			String gioitinh = sex.getValue();
+			String email = mail.getText();
+			Session session = HibernateUtils.getSessionFactory().openSession();
+			KhachHang khachhang = new KhachHang(hoten, diachi, sdt, ngaysinh, gioitinh, email);
+
+			try {
+				session.beginTransaction();
+				session.save(khachhang);
+				session.getTransaction().commit();
+				alert.setContentText("Thêm khách hàng thành công !");
+				alert.showAndWait();
+
+			} catch (RuntimeException error) {
+
+				alert.setContentText("Them khach hang that bai  !");
+				alert.showAndWait();
+				session.getTransaction().rollback();
+
+			}
+			// reset
+			name.setText(null);
+			address.setText(null);
+			numberphone.setText(null);
+			birth.setValue(null);
+			sex.setValue(null);
+			mail.setText(null);
+			GiaoDienNhanvienController.getInstance().falsedisable();
+			
 		}
 		
 	}
@@ -194,9 +237,16 @@ public class themkhachhangController implements Initializable {
 
 	@FXML
 	void quaylai(ActionEvent event) {
-		Stage stage = (Stage) quaylai.getScene().getWindow();
+		if(GiaoDienQLController.getInstance() == null) {
+    		Stage stage = (Stage) exit.getScene().getWindow();
+    		stage.close();
+    		GiaoDienNhanvienController.getInstance().falsedisable();
+    	}
+    	else {
+    	Stage stage = (Stage) exit.getScene().getWindow();
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();
+		}
 	}
 
 	@Override

@@ -159,7 +159,7 @@ public class ThemNCCController extends Application implements Initializable {
 			check_email.setText(null);
 			return true;
 		} else {
-			check_email.setText("Vui lòng điền email hợp lệ");
+			check_email.setText("Vui lòng điền email hợp lệ theo quy ước ...@chữ.chữ");
 			return false;
 		}
 	}

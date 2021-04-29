@@ -131,7 +131,7 @@ public class nhacungcapController implements Initializable {
 	private void showAlertEmail() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Error");
-		alert.setContentText("Email không hợp lệ!! Mời nhập lại");
+		alert.setContentText("Vui lòng điền email hợp lệ theo quy ước ...@chữ.chữ");
 		alert.showAndWait();
 		ReloadNHACUNGCAP();
 	}

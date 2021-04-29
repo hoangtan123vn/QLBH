@@ -57,6 +57,8 @@ import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
+
+import QLBH.GiaoDienNhanvienController;
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 
@@ -100,9 +102,16 @@ public class HoadonDetailController implements Initializable {
     private ImageView exit;
     
     @FXML public void exit(MouseEvent event) {
+    	if(GiaoDienQLController.getInstance() == null) {
+    		Stage stage = (Stage) exit.getScene().getWindow();
+    		stage.close();
+    		GiaoDienNhanvienController.getInstance().falsedisable();
+    	}
+    	else {
     	Stage stage = (Stage) exit.getScene().getWindow();
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();
+		}
     }	
   
     
@@ -142,16 +151,16 @@ void read() {
     
     @FXML
     void goBack(ActionEvent e) throws IOException {
-      /* Stage stage = (Stage)((Node) e.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("danhsachnhanvien.fxml"));
-        Parent QLBHhdParent = loader.load();
-        Scene scene = new Scene(QLBHhdParent);
-        stage.setScene(scene);
-  */
-    	Stage stage = (Stage) back.getScene().getWindow();
-        stage.close();
-        GiaoDienQLController.getInstance().falsedisable();
+    	if(GiaoDienQLController.getInstance() == null) {
+    		Stage stage = (Stage) exit.getScene().getWindow();
+    		stage.close();
+    		GiaoDienNhanvienController.getInstance().falsedisable();
+    	}
+    	else {
+    	Stage stage = (Stage) exit.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+		}
     }
     public ObservableList<Chitiethoadon> getChitietHoadon(Hoadon hoadon) {
     	int mahoadon = hoadon.getMahoadon();

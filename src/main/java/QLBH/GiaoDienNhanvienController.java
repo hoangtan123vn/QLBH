@@ -1,11 +1,13 @@
 package QLBH;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import entities.*;
 import BanHang.BanHangController;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,10 +19,32 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class GiaoDienNhanvienController{
+	public static GiaoDienNhanvienController instance;
 
+	public GiaoDienNhanvienController() {
+		instance = this;
+	}
+
+	public static GiaoDienNhanvienController getInstance() {
+		return instance;
+	}
+
+	public void falsedisable() {
+		maintonv.setDisable(false);
+	}
+	public void truedisable() {
+		maintonv.setDisable(true);
+	}
+	
     @FXML
     private Button banhang;
 
@@ -41,6 +65,9 @@ public class GiaoDienNhanvienController{
 
     @FXML
     private AnchorPane mainpane;
+    
+    @FXML
+    private AnchorPane maintonv;
 
     @FXML
     private ImageView load;
@@ -51,16 +78,35 @@ public class GiaoDienNhanvienController{
     @FXML
     private ImageView minimize;
 
+    private static double xoffset =0; 
+	private static double yoffset =0; 
+    
     @FXML
 	void DangXuat(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("loginform.fxml"));
 		Parent tmp;
 		tmp = loader.load();
 		Scene scene = new Scene(tmp);
-		// Stage stage = new Stage();
+		scene.setFill(null);
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		stage.hide();
+		//scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
+		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    // record a delta distance for the drag and drop operation.
+			    xoffset = stage.getX() - mouseEvent.getScreenX();
+			    yoffset = stage.getY() - mouseEvent.getScreenY();
+			  }
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    stage.setX(mouseEvent.getScreenX() + xoffset);
+			    stage.setY(mouseEvent.getScreenY() + yoffset);
+			  }
+			});
+			stage.getIcons().add(new Image(QLBH.class.getResourceAsStream("backgroundSGU.png")));
 		stage.setScene(scene);
+		stage.setResizable(false);
+		//stage.initStyle(StageStyle.TRANSPARENT);
 		stage.show();
 	}
 
@@ -162,12 +208,28 @@ public class GiaoDienNhanvienController{
 			tmp = loader.load();
 			Scene scene = new Scene(tmp);
 			Stage stage = new Stage();
+			scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
+			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+				  @Override public void handle(MouseEvent mouseEvent) {
+				    // record a delta distance for the drag and drop operation.
+				    xoffset = stage.getX() - mouseEvent.getScreenX();
+				    yoffset = stage.getY() - mouseEvent.getScreenY();
+				  }
+				});
+				scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				  @Override public void handle(MouseEvent mouseEvent) {
+				    stage.setX(mouseEvent.getScreenX() + xoffset);
+				    stage.setY(mouseEvent.getScreenY() + yoffset);
+				  }
+				});
 			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
 			ProfilesNhanvienController profiles = loader.getController();
 			profiles.loadData(taikhoan);
 			stage.hide();
+			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(scene);
 			stage.show();
+			GiaoDienNhanvienController.getInstance().truedisable();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,8 +237,10 @@ public class GiaoDienNhanvienController{
 	}
     public void SceneLichSuBanHang() {
     	try {
+    		
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/lichsubanhang.fxml"));
 			AnchorPane pane = loader.load();
+			
 			mainpane.getChildren().setAll(pane);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

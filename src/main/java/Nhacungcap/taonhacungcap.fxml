@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="473.0" prefWidth="646.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: #00CCFF;" styleClass="backgroundncc" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.ThemNCCController">
+<AnchorPane prefHeight="478.0" prefWidth="749.0" style="-fx-border-color: black; -fx-border-width: 2px; -fx-background-color: #00CCFF;" styleClass="backgroundncc" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Nhacungcap.ThemNCCController">
    <children>
       <Label layoutX="232.0" layoutY="198.0" text="Email" AnchorPane.bottomAnchor="260.0">
          <font>
@@ -65,19 +65,19 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="268.0" layoutY="47.0" text="TẠO NHÀ CUNG CẤP">
+      <Label layoutX="319.0" layoutY="47.0" text="TẠO NHÀ CUNG CẤP">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Line endX="550.0" endY="26.100006103515625" layoutX="101.0" layoutY="91.0" opacity="0.43" startX="-101.00000762939453" startY="26.100006103515625" strokeWidth="2.0" />
+      <Line endX="648.0" endY="26.100006103515625" layoutX="101.0" layoutY="91.0" opacity="0.43" startX="-101.00000762939453" startY="26.100006103515625" strokeWidth="2.0" />
       <Line endX="16.60003662109375" endY="424.0" layoutX="113.0" layoutY="49.0" opacity="0.36" startX="16.60003662109375" startY="-49.0" strokeWidth="2.0" />
       <ImageView fitHeight="64.0" fitWidth="89.0" layoutX="42.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@backgroundSGU.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="exit" fitHeight="30.0" fitWidth="36.0" layoutX="607.0" layoutY="14.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="exit" fitHeight="30.0" fitWidth="36.0" layoutX="710.0" layoutY="15.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../QLBH/close.png" />
          </image>

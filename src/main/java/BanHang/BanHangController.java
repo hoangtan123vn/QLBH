@@ -859,6 +859,9 @@ public class BanHangController implements Initializable {
 	private static double yoffset = 0;
 	@FXML
 	public void imageClicked(MouseEvent event) throws IOException {
+		if(GiaoDienNhanvienController.getInstance() == null) {
+			
+		
 		Parent root = FXMLLoader.load(getClass().getResource("themkhachhang.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
@@ -881,6 +884,32 @@ public class BanHangController implements Initializable {
 		stage.setResizable(false);
 		stage.show();
 		GiaoDienQLController.getInstance().truedisable();
+		}
+		else {
+			Parent root = FXMLLoader.load(getClass().getResource("themkhachhang.fxml"));
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					xoffset = stage.getX() - mouseEvent.getScreenX();
+					yoffset = stage.getY() - mouseEvent.getScreenY();
+				}
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					stage.setX(mouseEvent.getScreenX() + xoffset);
+					stage.setY(mouseEvent.getScreenY() + yoffset);
+				}
+			});
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.show();
+			
+			GiaoDienNhanvienController.getInstance().truedisable();
+		}
 	}
 
 	@FXML

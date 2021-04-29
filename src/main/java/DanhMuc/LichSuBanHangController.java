@@ -9,6 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import org.hibernate.Session;
 
+import QLBH.GiaoDienNhanvienController;
+import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import entities.*;
 import javafx.collections.FXCollections;
@@ -16,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,8 +30,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LichSuBanHangController implements Initializable{
 
@@ -64,29 +69,90 @@ public class LichSuBanHangController implements Initializable{
     @FXML
     private Label lbDanhMucPHD;
 
+
+	private static double xoffset = 0;
+	private static double yoffset = 0;
+    
     @FXML
     void changeSceneHoadonDetail(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/HoadonDetail.fxml"));
-		Parent hoadonViewParent = loader.load();
-		Stage stage = new Stage();
-		Scene scene = new Scene(hoadonViewParent);
-		Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
-		HoadonDetailController DSNVController = loader.getController();
-	//	DSNVController.setHoadon(selected);
-		if(selected == null) {
-			 thongbaoHD.setVisible(true);
-			 thongbaoHD.setText("Không có phiếu hóa đơn được chọn!!!");
-			 System.out.print("Không có phiếu hóa đơn được chọn!!!");
-			 return;
-		 }
-		 else if(selected != null){
-			 DSNVController.setHoadon(selected);
-			 thongbaoHD.setVisible(false);
-			 
-		 }
-		stage.setTitle("Chi tiet hoa don");
-		stage.setScene(scene);
-		stage.show();
+    	if(GiaoDienNhanvienController.getInstance() == null) {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/HoadonDetail.fxml"));
+    		Parent hoadonViewParent = loader.load();
+    		Stage stage = new Stage();
+    		Scene scene = new Scene(hoadonViewParent);
+    		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+    			@Override
+    			public void handle(MouseEvent mouseEvent) {
+    				xoffset = stage.getX() - mouseEvent.getScreenX();
+    				yoffset = stage.getY() - mouseEvent.getScreenY();
+    			}
+    		});
+    		scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+    			@Override
+    			public void handle(MouseEvent mouseEvent) {
+    				stage.setX(mouseEvent.getScreenX() + xoffset);
+    				stage.setY(mouseEvent.getScreenY() + yoffset);
+    			}
+    		});
+    		stage.initStyle(StageStyle.UNDECORATED);
+    		Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+    		HoadonDetailController DSNVController = loader.getController();
+    	//	DSNVController.setHoadon(selected);
+    		if(selected == null) {
+    			 thongbaoHD.setVisible(true);
+    			 thongbaoHD.setText("Không có phiếu hóa đơn được chọn!!!");
+    			 System.out.print("Không có phiếu hóa đơn được chọn!!!");
+    			 return;
+    		 }
+    		 else if(selected != null){
+    			 DSNVController.setHoadon(selected);
+    			 thongbaoHD.setVisible(false);
+    			 
+    		 }
+    		stage.setTitle("Chi tiet hoa don");
+    		stage.setScene(scene);
+    		stage.show();
+    		GiaoDienQLController.getInstance().truedisable();
+    	}else {
+    		FXMLLoader loader = new FXMLLoader(getClass().getResource("/DanhMuc/HoadonDetail.fxml"));
+    		Parent hoadonViewParent = loader.load();
+    		Stage stage = new Stage();
+    		Scene scene = new Scene(hoadonViewParent);
+    		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+    			@Override
+    			public void handle(MouseEvent mouseEvent) {
+    				xoffset = stage.getX() - mouseEvent.getScreenX();
+    				yoffset = stage.getY() - mouseEvent.getScreenY();
+    			}
+    		});
+    		scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+    			@Override
+    			public void handle(MouseEvent mouseEvent) {
+    				stage.setX(mouseEvent.getScreenX() + xoffset);
+    				stage.setY(mouseEvent.getScreenY() + yoffset);
+    			}
+    		});
+    		stage.initStyle(StageStyle.UNDECORATED);
+    		Hoadon selected = tableHoaDon.getSelectionModel().getSelectedItem();
+    		HoadonDetailController DSNVController = loader.getController();
+    	//	DSNVController.setHoadon(selected);
+    		if(selected == null) {
+    			 thongbaoHD.setVisible(true);
+    			 thongbaoHD.setText("Không có phiếu hóa đơn được chọn!!!");
+    			 System.out.print("Không có phiếu hóa đơn được chọn!!!");
+    			 return;
+    		 }
+    		 else if(selected != null){
+    			 DSNVController.setHoadon(selected);
+    			 thongbaoHD.setVisible(false);
+    			 
+    		 }
+    		stage.setTitle("Chi tiet hoa don");
+    		stage.setScene(scene);
+    		stage.show();
+    		GiaoDienNhanvienController.getInstance().truedisable();
+    	}
+    	
 
     }
     public ObservableList<Hoadon> getHoadon() {

@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import entities.*;
 
 public class ProfilesNhanvienController {
@@ -34,22 +36,40 @@ public class ProfilesNhanvienController {
 	    private ImageView imagenhanvien;
 
 	    @FXML
-	    private DatePicker ngaysinhnhanvien;
+	    private Text ngaysinhnhanvien;
 
 	    @FXML
-	    private DatePicker ngayvaolam;
+	    private Text ngayvaolam;
+	    
+	    @FXML
+		private ImageView exit;
+
+		@FXML
+		void exit(MouseEvent event) {	
+			if(GiaoDienQLController.getInstance() == null) {
+				Stage stage = (Stage) exit.getScene().getWindow();
+				stage.close();
+				GiaoDienNhanvienController.getInstance().falsedisable();
+				}
+			else {
+				Stage stage = (Stage) exit.getScene().getWindow();
+				stage.close();
+				GiaoDienQLController.getInstance().falsedisable();
+			}
+		}
+
 
     
     
     public void loadData(Taikhoannv taikhoannv) {
     	hovatennv.setText(taikhoannv.getNhanvien().getHovaten());
-    	ngaysinhnhanvien.setValue(taikhoannv.getNhanvien().getNgaysinh());
+    	ngaysinhnhanvien.setText(String.valueOf(taikhoannv.getNhanvien().getNgaysinh()));
     	gioitinhnhanvien.setText(taikhoannv.getNhanvien().getGioitinh());
     	sdtnhanvien.setText(String.valueOf(taikhoannv.getNhanvien().getSdt()));
     	chucvunhanvien.setText(taikhoannv.getNhanvien().getChucvu());
     	cmndnhanvien.setText(String.valueOf(taikhoannv.getNhanvien().getCmnd()));
     	diachinhanvien.setText(taikhoannv.getNhanvien().getDiachi());
-    	ngayvaolam.setValue(taikhoannv.getNhanvien().getNgayvaolam());
+    	ngayvaolam.setText(String.valueOf(taikhoannv.getNhanvien().getNgayvaolam()));
     	byte[] getImageInBytes = taikhoannv.getNhanvien().getImage();
 
 		try {

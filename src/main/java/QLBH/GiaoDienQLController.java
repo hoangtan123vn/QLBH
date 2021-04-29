@@ -121,11 +121,13 @@ public class GiaoDienQLController implements Initializable {
 	@FXML
 	private ImageView imgtrangchu;
 
-
+	
+	
 	@FXML
 	void close(MouseEvent event) {
 		Stage stage = (Stage) close.getScene().getWindow();
 		stage.close();
+	
 		
 	}
 
@@ -207,7 +209,7 @@ public class GiaoDienQLController implements Initializable {
 			SceneTrangChu();
 		});
 	}
-
+			
 	public void profileNhanvien(Taikhoannv taikhoan) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("profilenhanvien.fxml"));
@@ -215,11 +217,31 @@ public class GiaoDienQLController implements Initializable {
 			tmp = loader.load();
 			Scene scene = new Scene(tmp);
 			Stage stage = new Stage();
+			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					xoffset = stage.getX() - mouseEvent.getScreenX();
+					yoffset = stage.getY() - mouseEvent.getScreenY();
+				}
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					stage.setX(mouseEvent.getScreenX() + xoffset);
+					stage.setY(mouseEvent.getScreenY() + yoffset);
+				}
+			});
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.show();
 			// Stage stage =(Stage)((Node) event.getSource()).getScene().getWindow();
 			ProfilesNhanvienController profiles = loader.getController();
 			profiles.loadData(taikhoan);
-			stage.hide();
+			
 			stage.setScene(scene);
+			
+			GiaoDienQLController.getInstance().truedisable();
 			stage.show();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -406,9 +428,7 @@ public class GiaoDienQLController implements Initializable {
 			stage.setScene(scene);
 			stage.setResizable(false);
 			stage.initStyle(StageStyle.TRANSPARENT);
-		
-		stage.setScene(scene);
-		stage.show();
+			stage.show();
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
