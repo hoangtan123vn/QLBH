@@ -62,7 +62,7 @@ import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
-import qlbhh.qlbhh.Chitiethoadon;
+
 public class BanHangController implements Initializable {
 	public static BanHangController instance;
 
@@ -835,7 +835,6 @@ public class BanHangController implements Initializable {
 	}
 
 	void kiemtratftongtien() {
-
 		if (Float.parseFloat(khachtra.getText()) >= Float.parseFloat(tongtien.getText())) {
 			// float tiengiam = Float.parseFloat(giamgia.getText())/100;
 			// float tongtiengiam = Float.parseFloat(tongtien.getText())*(1-tiengiam);
