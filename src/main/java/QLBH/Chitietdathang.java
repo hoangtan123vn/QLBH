@@ -1,8 +1,6 @@
 package QLBH;
 
-import java.awt.Checkbox;
 import java.io.Serializable;
-
 import javax.persistence.*;
 
 @Entity

@@ -1,62 +1,32 @@
 package QLKho;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
-
-import java.util.List;
-import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.persistence.criteria.CriteriaQuery;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import org.hibernate.*;
-import org.hibernate.cfg.*;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
-
-import Nhacungcap.nhacungcapController;
-
-import org.hibernate.boot.*;
-import org.hibernate.boot.registry.*;
-
 import QLBH.GiaoDienQLController;
 import QLBH.HibernateUtils;
 import QLBH.Sanpham;
@@ -134,9 +104,7 @@ public class ThemSanPhamController extends Application implements Initializable 
 			String tensp = tensanpham.getText();
 			String donvisp = donvi.getValue();
 			String loaisp = loaisanpham.getValue();
-
 			Session session = HibernateUtils.getSessionFactory().openSession();
-
 			FileInputStream fis = new FileInputStream(file);
 			byte[] bFile = new byte[(int) (file.length())];
 			fis.read(bFile);
@@ -170,7 +138,7 @@ public class ThemSanPhamController extends Application implements Initializable 
 
 	private boolean KiemTraTen() {
 		if (tensanpham.getText().isEmpty()) {
-			thongbao.setText("Vui lòng điền địa chỉ phù hợp");
+			thongbao.setText("Vui lòng điền tên sản phẩm");
 			return false;
 		}
 		thongbao.setText(null);
@@ -238,8 +206,7 @@ public class ThemSanPhamController extends Application implements Initializable 
 	void huySP(ActionEvent event) {
 		Stage stage = (Stage) huySP.getScene().getWindow();
 		stage.close();
-		GiaoDienQLController.getInstance().falsedisable();
-
+		GiaoDienQLController.getInstance().falsedisable();	
 	}
 
 	@Override
