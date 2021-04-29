@@ -72,22 +72,22 @@ public class NhanvienController implements Initializable {
 	private TableView<Nhanvien> tableNV;
 
 	@FXML
-	private TableColumn hovaten;
+	private TableColumn<Nhanvien,String> hovaten;
 
 	@FXML
-	private TableColumn ngaysinh;
+	private TableColumn<Nhanvien,Date> ngaysinh;
 
 	@FXML
-	private TableColumn chucvu;
+	private TableColumn<Nhanvien,String> chucvu;
 
 	@FXML
-	private TableColumn sdt;
+	private TableColumn<Nhanvien,String> sdt;
 
 	@FXML
-	private TableColumn cmnd;
+	private TableColumn<Nhanvien,Integer> cmnd;
 
 	@FXML
-	private TableColumn diachi;
+	private TableColumn<Nhanvien,String> diachi;
 
 	@FXML
 	private Button idreload;
@@ -404,9 +404,9 @@ public class NhanvienController implements Initializable {
 		hovaten.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("hovaten"));
 		ngaysinh.setCellValueFactory(new PropertyValueFactory<Nhanvien, Date>("ngaysinh"));
 		chucvu.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("chucvu"));
-		sdt.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("sdt"));
+		sdt.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("sdt"));
 		cmnd.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("cmnd"));
-		diachi.setCellValueFactory(new PropertyValueFactory<Nhanvien, Integer>("diachi"));
+		diachi.setCellValueFactory(new PropertyValueFactory<Nhanvien, String>("diachi"));
 		tableNV.setItems(getNhanvien());
 		search();
 	}
