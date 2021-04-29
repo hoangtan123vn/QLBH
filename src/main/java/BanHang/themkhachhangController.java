@@ -186,7 +186,7 @@ public class themkhachhangController  implements Initializable{
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		ObservableList<String> list=FXCollections.observableArrayList("male","Pemale");
+		ObservableList<String> list=FXCollections.observableArrayList("Nam","Nữ");
 		sex.setItems(list);
 		
 		
