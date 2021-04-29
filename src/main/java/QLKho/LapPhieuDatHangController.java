@@ -131,6 +131,9 @@ public class LapPhieuDatHangController implements Initializable {
 
 	@FXML
 	private Label thongbaoo;
+	
+	@FXML
+	private Label kiemtranhap;
 
 	@FXML
 	private Button idDatHang;
@@ -326,7 +329,7 @@ public class LapPhieuDatHangController implements Initializable {
 	public void loadData(Taikhoannv taikhoan) {
 		int manhanvien = taikhoan.getNhanvien().getManv();
 		lapphieu.setOnMouseClicked(event -> {
-			if (KiemTraPT() & KiemTraNCC()) {
+			if (KiemTraPT() & KiemTraNCC()&KiemTraNhap()) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				Session session = HibernateUtils.getSessionFactory().openSession();
 				int manv = taikhoan.getNhanvien().getManv();
@@ -466,6 +469,16 @@ public class LapPhieuDatHangController implements Initializable {
 		}
 	}
 
+	private boolean KiemTraNhap() {
+		if (tableSP1.getItems().isEmpty()) {
+			kiemtranhap.setText("Vui lòng chọn sản phẩm bên trái và nhập đủ thông tin đặt");
+			return false;
+		} else {
+			kiemtranhap.setText(null);
+			return true;
+		}
+	}
+	
 	private boolean KiemTraPT() {
 		if (cbbthanhtoan.getValue() == null) {
 			thongbao6.setText("Chưa chọn phương thức thanh toán");
