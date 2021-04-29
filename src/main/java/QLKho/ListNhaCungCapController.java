@@ -4,22 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.persistence.criteria.CriteriaQuery;
-
-import org.apache.derby.iapi.store.access.ConglomerateController;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-import BanHang.BanHangController;
 import QLBH.HibernateUtils;
-import QLBH.Hoadon;
-import QLBH.KhachHang;
-import QLBH.Sanpham;
 import QLBH.Nhacungcap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,11 +16,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
