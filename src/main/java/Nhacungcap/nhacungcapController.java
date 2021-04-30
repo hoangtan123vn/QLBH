@@ -103,9 +103,7 @@ public class nhacungcapController implements Initializable {
 	private void showAlertSodienthoai() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Error");
-
 		alert.setContentText("Số điện thoại không hợp lệ!! Mời nhập lại");
-
 		alert.showAndWait();
 		ReloadNHACUNGCAP();
 	}
@@ -113,9 +111,7 @@ public class nhacungcapController implements Initializable {
 	private void showAlertDiachi() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Error");
-
 		alert.setContentText("Địa chỉ không hợp lệ!! Mời nhập lại");
-
 		alert.showAndWait();
 		ReloadNHACUNGCAP();
 	}
@@ -255,10 +251,11 @@ public class nhacungcapController implements Initializable {
 		FilteredList<Nhacungcap> filterData = new FilteredList<>(table, p -> true);
 		timkiem.textProperty().addListener((observable, oldvalue, newvalue) -> {
 			filterData.setPredicate(ncc -> {
+				String typetext = newvalue.toLowerCase();
 				if (newvalue == null || newvalue.isEmpty()) {
 					return true;
 				}
-				String typetext = newvalue.toLowerCase();
+				
 				if (ncc.getTenncc().toLowerCase().indexOf(typetext) != -1) {
 					return true;
 				}
@@ -280,7 +277,6 @@ public class nhacungcapController implements Initializable {
 				final TableCell<Nhacungcap, Void> cell = new TableCell<Nhacungcap, Void>() {
 					Image imageOk = new Image(getClass().getResourceAsStream("icondelete.png"));
 					private Button btncc = new Button("Xóa Nhà Cung Cấp", new ImageView(imageOk));
-
 					{
 						btncc.setOnAction((ActionEvent event) -> {
 							Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -298,16 +294,15 @@ public class nhacungcapController implements Initializable {
 									try {
 										session.beginTransaction();
 										if (ncc != null) {
-
+											Set<Phieunhaphang> phieunhaphangs = ncc.getPhieunhaphang();
+											Set<Phieutrahang> phieutrahangs = ncc.getPhieutrahang();
 											Set<Phieudathang> phieudathangs = ncc.getPhieudathang();
 											for (Phieudathang phieudathang : phieudathangs) {
 												phieudathang.setNhacungcap(null);
 											}
-											Set<Phieunhaphang> phieunhaphangs = ncc.getPhieunhaphang();
 											for (Phieunhaphang phieunhaphang : phieunhaphangs) {
 												phieunhaphang.setNhacungcap(null);
 											}
-											Set<Phieutrahang> phieutrahangs = ncc.getPhieutrahang();
 											for (Phieutrahang phieutrahang : phieutrahangs) {
 												phieutrahang.setNhacungcap(null);
 											}
@@ -409,12 +404,10 @@ public class nhacungcapController implements Initializable {
 						session.save(person);
 						session.getTransaction().commit();
 						ReloadNHACUNGCAP();
-					} 
-					else {
+					} else {
 						showAlertSodienthoai();
 					}
 				} catch (Exception e) {
-					// TODO: handle exception
 					showAlertSodienthoai();
 				}
 				

@@ -172,9 +172,7 @@ public class ThanhtoanCNcontroller extends Application implements Initializable 
 			para.put("thoigian", thoigian);
 			para.put("sotienno", sotienno);
 			JasperPrint j = JasperFillManager.fillReport(jr, para, conn);
-
 			JasperViewer.viewReport(j, false);
-
 			OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
 			JasperExportManager.exportReportToPdfStream(j, os);
 
