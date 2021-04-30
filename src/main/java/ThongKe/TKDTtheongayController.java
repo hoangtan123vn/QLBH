@@ -86,23 +86,23 @@ public class TKDTtheongayController implements Initializable {
 
 	@FXML
 	void ThongKeThang(ActionEvent event) {
-		if (cbb_thang.getValue() == "1") {
+		if (cbb_thang.getValue() == "01") {
 			thongketheongay(1);
-		} else if (cbb_thang.getValue() == "2") {
+		} else if (cbb_thang.getValue() == "02") {
 			thongketheongay(2);
-		} else if (cbb_thang.getValue() == "3") {
+		} else if (cbb_thang.getValue() == "03") {
 			thongketheongay(3);
-		} else if (cbb_thang.getValue() == "4") {
+		} else if (cbb_thang.getValue() == "04") {
 			thongketheongay(4);
-		} else if (cbb_thang.getValue() == "5") {
+		} else if (cbb_thang.getValue() == "05") {
 			thongketheongay(5);
-		} else if (cbb_thang.getValue() == "6") {
+		} else if (cbb_thang.getValue() == "06") {
 			thongketheongay(6);
-		} else if (cbb_thang.getValue() == "7") {
+		} else if (cbb_thang.getValue() == "07") {
 			thongketheongay(7);
-		} else if (cbb_thang.getValue() == "8") {
+		} else if (cbb_thang.getValue() == "08") {
 			thongketheongay(8);
-		} else if (cbb_thang.getValue() == "9") {
+		} else if (cbb_thang.getValue() == "09") {
 			thongketheongay(9);
 		} else if (cbb_thang.getValue() == "10") {
 			thongketheongay(10);
@@ -164,7 +164,7 @@ public class TKDTtheongayController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<String> combobox = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9",
+		ObservableList<String> combobox = FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07", "08", "09",
 				"10", "11", "12");
 		ObservableList<String> combobox1 = FXCollections.observableArrayList("Thống kê theo ngày", "Thống kê khác",
 				"Thống kê lợi nhuận");
@@ -177,7 +177,10 @@ public class TKDTtheongayController implements Initializable {
 		String getDatenow = String.valueOf(t1);
 		int day = Integer.parseInt(getDatenow.substring(8, 10));
 		int thang = Integer.parseInt(getDatenow.substring(5, 7));
+		String thang1 = getDatenow.substring(5, 7);
+		thongketheongay(thang);
 		ThongKeSanPham(day, thang);
+		cbb_thang.getSelectionModel().select(thang1);;
 	}
 
 }
