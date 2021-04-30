@@ -188,8 +188,6 @@ public class TrangChuController  implements Initializable{
     		
     }
     
-    LocalDateTime t1 = LocalDateTime.now();
-    
     
     public void ThongKeSanPham(int ngay,int thang) {
     	Session session = HibernateUtils.getSessionFactory().openSession();
@@ -223,12 +221,12 @@ public class TrangChuController  implements Initializable{
 		Sanpham.setLabel("Sản phẩm bán ra");
 		Soluongbanra.setLabel("Số lượng bán ra ");
 		bar_chart.setTitle("Thống kê số lượng sản phẩm bán ra trong một ngày");
+		LocalDateTime t1 = LocalDateTime.now();
 		String getDatenow = String.valueOf(t1);
 		int day = Integer.parseInt(getDatenow.substring(8, 10));
 		int thang = Integer.parseInt(getDatenow.substring(5, 7));
 		String thang1 = getDatenow.substring(5, 7);
 		ThongKeSanPham(day, thang);
-		
 		soluongbanra.setCellValueFactory(new PropertyValueFactory<ThongKe_SP, Integer>("soluong"));
 		sanpham.setCellValueFactory(new PropertyValueFactory<ThongKe_SP, String>("tensanpham"));
 		thangdoanhthu.setCellValueFactory(new PropertyValueFactory<DT_1ngay, String>("thang"));

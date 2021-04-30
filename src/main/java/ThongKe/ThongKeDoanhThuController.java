@@ -117,23 +117,23 @@ public class ThongKeDoanhThuController implements Initializable {
 
 	@FXML
 	void ThangThongKe(ActionEvent event) {
-		if (cbb_thang.getValue() == "1") {
+		if (cbb_thang.getValue() == "01") {
 			loadStackedBarChart(1);
-		} else if (cbb_thang.getValue() == "2") {
+		} else if (cbb_thang.getValue() == "02") {
 			loadStackedBarChart(2);
-		} else if (cbb_thang.getValue() == "3") {
+		} else if (cbb_thang.getValue() == "03") {
 			loadStackedBarChart(3);
-		} else if (cbb_thang.getValue() == "4") {
+		} else if (cbb_thang.getValue() == "04") {
 			loadStackedBarChart(4);
-		} else if (cbb_thang.getValue() == "5") {
+		} else if (cbb_thang.getValue() == "05") {
 			loadStackedBarChart(5);
-		} else if (cbb_thang.getValue() == "6") {
+		} else if (cbb_thang.getValue() == "06") {
 			loadStackedBarChart(6);
-		} else if (cbb_thang.getValue() == "7") {
+		} else if (cbb_thang.getValue() == "07") {
 			loadStackedBarChart(7);
-		} else if (cbb_thang.getValue() == "8") {
+		} else if (cbb_thang.getValue() == "08") {
 			loadStackedBarChart(8);
-		} else if (cbb_thang.getValue() == "9") {
+		} else if (cbb_thang.getValue() == "09") {
 			loadStackedBarChart(9);
 		} else if (cbb_thang.getValue() == "10") {
 			loadStackedBarChart(10);
@@ -253,7 +253,7 @@ public class ThongKeDoanhThuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ObservableList<String> combobox = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9",
+		ObservableList<String> combobox = FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07", "08", "09",
 				"10", "11", "12");
 		cbb_thang.setItems(combobox);
 		ObservableList<String> combobox2 = FXCollections.observableArrayList("Thống kê theo ngày", "Thống kê khác",
@@ -262,6 +262,12 @@ public class ThongKeDoanhThuController implements Initializable {
 		listthongke.getSelectionModel().select("Thống kê khác");
 		thongkesptrongkho();
 		loadCongNoNhaCungCap();
+		LocalDateTime t1 = LocalDateTime.now();
+		String getDatenow = String.valueOf(t1);
+		int thang = Integer.parseInt(getDatenow.substring(5, 7));
+		loadStackedBarChart(thang);
+		String thang1 = getDatenow.substring(5, 7);
+		cbb_thang.getSelectionModel().select(thang1);
 		doanhthumotthangtheodothi();
 	}
 

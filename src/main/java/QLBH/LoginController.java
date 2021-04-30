@@ -63,7 +63,6 @@ public class LoginController implements Initializable {
 	@FXML
 	void load(ActionEvent event) {
 		try {
-
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("load.fxml"));
@@ -160,16 +159,13 @@ public class LoginController implements Initializable {
 						String tentaikhoan = (String) singleRowValues[0];
 						String matkhau = (String) singleRowValues[1];
 						String cvString = (String) singleRowValues[2];
-
 						if (tentaikhoan.equals(checktk1.getusername().trim())
 								&& matkhau.equals(checktk1.getpassword().trim()) && cvString.equals("Quản lý")) {
 							String tk = checktk1.getusername();
-							String mk = checktk1.getpassword();
 							taikhoan = session.get(Taikhoannv.class, tk);
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);
-
 							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 							scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 								@Override
@@ -195,10 +191,8 @@ public class LoginController implements Initializable {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodiennhanvien.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);
-							
 							String tk = checktk1.getusername();
 							taikhoan = session.get(Taikhoannv.class, tk);
-
 							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 							scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 								@Override

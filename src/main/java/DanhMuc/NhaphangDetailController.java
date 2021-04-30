@@ -154,25 +154,24 @@ public class NhaphangDetailController implements Initializable {
 		 return tablePhieuNhapHang;	 
     }
    
-   public void  IntitlizeChitietnhaphang(Phieunhaphang phieunhaphang ) {
-	tenhang.setCellFactory(tbChitietNhapHang-> new TableCell<Chitietnhaphang, Sanpham>(){
-		@Override
-		    protected void updateItem(Sanpham item, boolean empty) {
-		        super.updateItem(item, empty);
-		        if (empty || item == null) {
-		            setText(null);
-		        } else {
-		            setText(item.getTensanpham());
-		        }
-		    }
-	});
-	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-	soluong.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("soluong"));
-	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
-	dongia.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("dongia"));
-	tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
-
-}
+	public void IntitlizeChitietnhaphang(Phieunhaphang phieunhaphang) {
+		tenhang.setCellFactory(tbChitietNhapHang -> new TableCell<Chitietnhaphang, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item.getTensanpham());
+				}
+			}
+		});
+		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		soluong.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Integer>("soluong"));
+		tongtien.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
+		dongia.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Integer>("dongia"));
+		tbChitietNhapHang.setItems(getChitietnhaphang(phieunhaphang));
+	}
    
 
 	@Override

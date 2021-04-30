@@ -95,80 +95,46 @@ public class themkhachhangController implements Initializable {
 	@FXML
 	void themkhachhang(ActionEvent event) {
 		if (kiemtrahoten() & kiemtradiachi() & KiemTraSDT() & KiemTraNgaySinh() & KiemTraGioiTinh() & kiemtramail() & GiaoDienNhanvienController.getInstance() == null) {
-
-			Alert alert = new Alert(AlertType.INFORMATION);
-			String hoten = name.getText();
-			String diachi = address.getText();
-			String sdt = numberphone.getText();
-			LocalDate ngaysinh = birth.getValue();
-			String gioitinh = sex.getValue();
-			String email = mail.getText();
-			Session session = HibernateUtils.getSessionFactory().openSession();
-			KhachHang khachhang = new KhachHang(hoten, diachi, sdt, ngaysinh, gioitinh, email);
-
-			try {
-				session.beginTransaction();
-				session.save(khachhang);
-				session.getTransaction().commit();
-				Stage stage = (Stage) ap.getScene().getWindow();
-				stage.close();
-				alert.setContentText("Thêm khách hàng thành công !");
-				alert.showAndWait();
-				
-
-			} catch (RuntimeException error) {
-				alert.setContentText("Thêm khách hàng thất bại  !");
-				alert.showAndWait();
-				session.getTransaction().rollback();
-
-			}
-			// reset
-			name.setText(null);
-			address.setText(null);
-			numberphone.setText(null);
-			birth.setValue(null);
-			sex.setValue(null);
-			mail.setText(null);
+			AddKH();
 			GiaoDienQLController.getInstance().falsedisable();
 		}
 		else if(kiemtrahoten() & kiemtradiachi() & KiemTraSDT() & KiemTraNgaySinh() & KiemTraGioiTinh() & kiemtramail() & GiaoDienQLController.getInstance() == null) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			String hoten = name.getText();
-			String diachi = address.getText();
-			String sdt = numberphone.getText();
-			LocalDate ngaysinh = birth.getValue();
-			String gioitinh = sex.getValue();
-			String email = mail.getText();
-			Session session = HibernateUtils.getSessionFactory().openSession();
-			KhachHang khachhang = new KhachHang(hoten, diachi, sdt, ngaysinh, gioitinh, email);
-
-			try {
-				session.beginTransaction();
-				session.save(khachhang);
-				session.getTransaction().commit();
-				alert.setContentText("Thêm khách hàng thành công !");
-				alert.showAndWait();
-				Stage stage = (Stage) ap.getScene().getWindow();
-				stage.close();
-
-			} catch (RuntimeException error) {
-
-				alert.setContentText("Thêm khách hàng thất bại  !");
-				alert.showAndWait();
-				session.getTransaction().rollback();
-
-			}
-			// reset
-			name.setText(null);
-			address.setText(null);
-			numberphone.setText(null);
-			birth.setValue(null);
-			sex.setValue(null);
-			mail.setText(null);
+			AddKH();
 			GiaoDienNhanvienController.getInstance().falsedisable();
 			
 		}
 		
+	}
+	
+	public void AddKH() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		String hoten = name.getText();
+		String diachi = address.getText();
+		String sdt = numberphone.getText();
+		LocalDate ngaysinh = birth.getValue();
+		String gioitinh = sex.getValue();
+		String email = mail.getText();
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		KhachHang khachhang = new KhachHang(hoten, diachi, sdt, ngaysinh, gioitinh, email);
+		try {
+			session.beginTransaction();
+			session.save(khachhang);
+			session.getTransaction().commit();
+			Stage stage = (Stage) ap.getScene().getWindow();
+			stage.close();
+			alert.setContentText("Thêm khách hàng thành công !");
+			alert.showAndWait();
+		} catch (RuntimeException error) {
+			alert.setContentText("Thêm khách hàng thất bại  !");
+			alert.showAndWait();
+			session.getTransaction().rollback();
+		}
+		name.setText(null);
+		address.setText(null);
+		numberphone.setText(null);
+		birth.setValue(null);
+		sex.setValue(null);
+		mail.setText(null);
 	}
 
 	private boolean kiemtrahoten() {
@@ -262,7 +228,6 @@ public class themkhachhangController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		ObservableList<String> list = FXCollections.observableArrayList("Nam", "Nữ");
 		sex.setItems(list);
 

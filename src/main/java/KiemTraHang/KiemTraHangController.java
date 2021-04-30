@@ -83,14 +83,11 @@ public class KiemTraHangController implements Initializable {
 		CriteriaQuery<Phieudathang> pdhkt = session.getCriteriaBuilder().createQuery(Phieudathang.class);
 		pdhkt.from(Phieudathang.class);
 		List<Phieudathang> eList = session.createQuery(pdhkt).getResultList();
-		// List<Nhanvien> eList = session.createQuery(criteriaQuery).getResultList();
-		// List<Nhanvien> eList = session.createQuery(Nhanvien.class).list();
 		for (Phieudathang ent : eList) {
 			phieudathangkt.add(ent);
 		}
 		return phieudathangkt;
 	}
-
 	private static double xoffset = 0;
 	private static double yoffset = 0;
 
@@ -104,7 +101,6 @@ public class KiemTraHangController implements Initializable {
 				scene1.setOnMousePressed(new EventHandler<MouseEvent>() {
 					@Override
 					public void handle(MouseEvent mouseEvent) {
-						// record a delta distance for the drag and drop operation.
 						xoffset = stage1.getX() - mouseEvent.getScreenX();
 						yoffset = stage1.getY() - mouseEvent.getScreenY();
 					}
@@ -116,37 +112,26 @@ public class KiemTraHangController implements Initializable {
 						stage1.setY(mouseEvent.getScreenY() + yoffset);
 					}
 				});
-
 				stage1.initStyle(StageStyle.UNDECORATED);
 				Phieudathang selected = phieudathangkt.getSelectionModel().getSelectedItem();
 				NhapHangvaTraHang Dathang1 = loader.getController();
-				// Dathang1.setKiemtrahang(selected);
 				if (selected == null) {
 					thongbaoKT.setText("Không có phiếu đặt hàng được chọn!!!");
 					return;
-				} else if (selected != null) {
-
-					if (selected.getKiemtrahang() == true) {
-						// thongbaoKT.setVisible(true);
-						thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra ! ! ! ");
+				} else if (selected != null && selected.getKiemtrahang() == true) {
+						thongbaoKT.setText("Phiếu đặt hàng đã được kiểm tra!!!");
 						return;
 					}
-
-					// truedisable();
-				}
 				Dathang1.setKiemtrahang(selected);
-				// thongbaoKT.setText(null);
 				Dathang1.loadData(taikhoan);
 				stage1.setTitle("Kiem tra hang");
 				stage1.setScene(scene1);
 				stage1.show();
 				GiaoDienQLController.getInstance().truedisable();
 			} catch (Exception e) {
-				// TODO: handle exception
 				System.out.print(e);
 			}
 		});
-
 	}
 
 	public void khoitao() {
@@ -164,7 +149,6 @@ public class KiemTraHangController implements Initializable {
 					setText(String.valueOf(item.getMancc()));
 				}
 			}
-
 		});
 		select.setCellValueFactory(c -> new SimpleBooleanProperty(c.getValue().getKiemtrahang()));
 		select.setCellFactory(tc -> new CheckBoxTableCell<>());

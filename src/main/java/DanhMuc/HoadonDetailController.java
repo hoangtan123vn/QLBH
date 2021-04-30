@@ -166,7 +166,6 @@ void read() {
     	int mahoadon = hoadon.getMahoadon();
     	ObservableList<Chitiethoadon> TableHD = FXCollections.observableArrayList();
     	 Session session = HibernateUtils.getSessionFactory().openSession();
-			
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Chitiethoadon> query = builder.createQuery(Chitiethoadon.class);
 			Root<Chitiethoadon> root = query.from(Chitiethoadon.class); // FROM

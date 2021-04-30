@@ -130,22 +130,22 @@ public class TrahangDetailController implements Initializable{
     }
 
 	private void IntitlizeChitietphieutra(Phieutrahang phieutrahang) {
-		tenhang.setCellFactory(tbChitietPhieuTra ->new TableCell<Chitietphieutra, Sanpham>(){
-    		@Override
- 		    protected void updateItem(Sanpham item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(item.getTensanpham());
- 		        }
- 		    }
-    	});
-    	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-    	soluong.setCellValueFactory(new PropertyValueFactory<Chitietphieutra,Integer>("soluong"));
-    	tongtien.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Double>("thanhtien"));
-    	dongia.setCellValueFactory(new PropertyValueFactory<Chitietphieutra,Integer>("dongia"));
-    	tbChitietPhieuTra.setItems(getChitietphieutra(phieutrahang));
+		tenhang.setCellFactory(tbChitietPhieuTra -> new TableCell<Chitietphieutra, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item.getTensanpham());
+				}
+			}
+		});
+		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		soluong.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Integer>("soluong"));
+		tongtien.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Double>("thanhtien"));
+		dongia.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Integer>("dongia"));
+		tbChitietPhieuTra.setItems(getChitietphieutra(phieutrahang));
 	}
 	public void initialize(URL arg0, ResourceBundle arg1) {
 	}

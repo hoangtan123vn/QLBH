@@ -371,8 +371,7 @@ public class LapPhieuDatHangController implements Initializable {
 
 						session.beginTransaction();
 						session.save(phieudathang);
-						nhacungcap.setSotienno(
-								nhacungcap.getSotienno() + Integer.parseInt(String.valueOf(tongtienphieudathang)));
+						nhacungcap.setSotienno(nhacungcap.getSotienno() + Integer.parseInt(String.valueOf(tongtienphieudathang)));
 						session.save(nhacungcap);
 						session.getTransaction().commit();
 						alert.setContentText("Cập nhật công nợ thành công  ");
@@ -406,7 +405,6 @@ public class LapPhieuDatHangController implements Initializable {
 					}
 					alert.setContentText("Lập phiếu đặt hàng thành công ! ! ! ");
 					alert.showAndWait();
-					
 					InPhieudathang(phieudathang);
 				} else {
 					alert.setContentText("bạn phải chọn phương thức thanh toán  !");
