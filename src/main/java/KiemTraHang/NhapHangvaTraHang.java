@@ -198,7 +198,6 @@ public class NhapHangvaTraHang implements Initializable {
 				session.getTransaction().commit();
 				kiemtra.setText(null);
 			} catch (Exception e) {
-				// TODO: handle exception
 				System.out.println(e);
 			}
 			return true;
@@ -601,7 +600,6 @@ public class NhapHangvaTraHang implements Initializable {
 
 	////
 	public void IntitlizeChitietnhaphang() {
-
 		idtensp1.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
 			@Override
 			protected void updateItem(Sanpham item, boolean empty) {
@@ -613,7 +611,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		idtensp1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp1.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp1.setCellFactory(tbnhaphang -> new TableCell<Chitietnhaphang, Sanpham>() {
@@ -631,11 +628,9 @@ public class NhapHangvaTraHang implements Initializable {
 		iddongia1.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang,Integer>("dongia"));
 		idthanhtien1.setCellValueFactory(new PropertyValueFactory<Chitietnhaphang, Double>("thanhtien"));
 		ButtonXoaSP();
-
 	}
 
 	public void IntitlizeChitiettrahang() {
-
 		idtensp2.setCellFactory(tbnhaphang -> new TableCell<Chitietphieutra, Sanpham>() {
 			@Override
 			protected void updateItem(Sanpham item, boolean empty) {
@@ -647,7 +642,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		idtensp2.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp2.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		idmasp2.setCellFactory(tbnhaphang -> new TableCell<Chitietphieutra, Sanpham>() {
@@ -665,11 +659,9 @@ public class NhapHangvaTraHang implements Initializable {
 		iddongia2.setCellValueFactory(new PropertyValueFactory<Chitietphieutra,Integer>("dongia"));
 		idthanhtien2.setCellValueFactory(new PropertyValueFactory<Chitietphieutra, Double>("thanhtien"));
 		ButtonXoaSP2();
-
 	}
 
 	public void IntitlizeChitietdathang(Phieudathang phieudathang) {
-		// setCellValue();
 		tenhang.setCellFactory(tableChitietKiemtra -> new TableCell<Chitietdathang, Sanpham>() {
 			@Override
 			protected void updateItem(Sanpham item, boolean empty) {
@@ -681,12 +673,9 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		soluong.setCellValueFactory(new PropertyValueFactory<Chitietdathang, Integer>("soluong"));
 		dongia.setCellValueFactory(new PropertyValueFactory<Chitietdathang,Integer>("dongia"));
-		
-
 		TableColumn<Chitietdathang, Boolean> choice = new TableColumn<Chitietdathang, Boolean>("Membership");
 		mahang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
 		mahang.setCellFactory(tableChitietKiemtra -> new TableCell<Chitietdathang, Sanpham>() {
@@ -700,7 +689,6 @@ public class NhapHangvaTraHang implements Initializable {
 				}
 			}
 		});
-
 		tableChitietKiemtra.setEditable(true);
 		tableChitietKiemtra.getColumns().add(choice);
 		tableChitietKiemtra.setItems(getChitietdathang(phieudathang));
