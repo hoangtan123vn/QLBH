@@ -171,7 +171,7 @@ public class TKDTtheongayController implements Initializable {
 		cbb_thang.setItems(combobox);
 		listthongke.setItems(combobox1);
 		listthongke.getSelectionModel().select("Thống kê theo ngày");
-		Sanpham.setLabel("Sản phẩm bán ra");
+		//Sanpham.setLabel("Sản phẩm bán ra");
 		Soluongbanra.setLabel("Số lượng bán ra ");
 		bar_chart.setTitle("Thống kê số lượng sản phẩm bán ra trong một ngày");
 		String getDatenow = String.valueOf(t1);
