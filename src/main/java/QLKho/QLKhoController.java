@@ -1,6 +1,5 @@
 package QLKho;
 
-
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -158,16 +157,12 @@ public class QLKhoController implements Initializable {
 	}
 
 	private void ButtonXoaSP() {
-
 		Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>> cellFactory = new Callback<TableColumn<Sanpham, Void>, TableCell<Sanpham, Void>>() {
 			@Override
 			public TableCell<Sanpham, Void> call(final TableColumn<Sanpham, Void> param) {
 				final TableCell<Sanpham, Void> cell = new TableCell<Sanpham, Void>() {
-
 					private final Button btn = new Button("Xóa Sản Phẩm");
-
 					{
-
 						btn.setOnAction((ActionEvent event) -> {
 							Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 							Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
@@ -179,33 +174,21 @@ public class QLKhoController implements Initializable {
 							alert.showAndWait().ifPresent(type -> {
 								if (type == okButton) {
 									Sanpham sp = getTableView().getItems().get(getIndex());
-									StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-											.configure("hibernate.cfg.xml").build();
-									Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder()
-											.build();
-									SessionFactory sessionFactory = metaData.getSessionFactoryBuilder().build();
-									Session session = sessionFactory.openSession();
+									Session session = HibernateUtils.getSessionFactory().openSession();
 									sp = session.get(Sanpham.class, sp.getMasanpham());
 									try {
 										session.beginTransaction();
-										if (sp != null) {
-											session.delete(sp);
-
-										}
+										session.delete(sp);
 										session.getTransaction().commit();
 										ReloadSANPHAM();
-
 										alert1.setContentText("Xóa sản phẩm thành công");
 										alert1.showAndWait();
-
 									} catch (RuntimeException error) {
 										session.getTransaction().rollback();
 									}
-
-								} else if (type == ButtonType.NO) {
+								} else {
 									alert.close();
 								}
-
 							});
 						});
 					}
@@ -324,15 +307,13 @@ public class QLKhoController implements Initializable {
 
 	void Timkiem() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList(getSanpham());
-
 		FilteredList<Sanpham> filteredData = new FilteredList<>(TableSP, b -> true);
 		Timkiem.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(sanpham -> {
+				String lowerCaseFilter = newValue.toLowerCase();
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
 				}
-				String lowerCaseFilter = newValue.toLowerCase();
-
 				if (sanpham.getTensanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true;
 				} else if (sanpham.getDonvi().toLowerCase().indexOf(lowerCaseFilter) != -1) {
