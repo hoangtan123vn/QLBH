@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class themkhachhangController implements Initializable {
@@ -73,6 +74,9 @@ public class themkhachhangController implements Initializable {
 	
 	@FXML
 	private ImageView exit;
+	
+	@FXML
+	private AnchorPane ap;
 
 	@FXML
 	void exit(MouseEvent event) {
@@ -106,12 +110,14 @@ public class themkhachhangController implements Initializable {
 				session.beginTransaction();
 				session.save(khachhang);
 				session.getTransaction().commit();
+				Stage stage = (Stage) ap.getScene().getWindow();
+				stage.close();
 				alert.setContentText("Thêm khách hàng thành công !");
 				alert.showAndWait();
+				
 
 			} catch (RuntimeException error) {
-
-				alert.setContentText("Them khach hang that bai  !");
+				alert.setContentText("Thêm khách hàng thất bại  !");
 				alert.showAndWait();
 				session.getTransaction().rollback();
 
@@ -142,10 +148,12 @@ public class themkhachhangController implements Initializable {
 				session.getTransaction().commit();
 				alert.setContentText("Thêm khách hàng thành công !");
 				alert.showAndWait();
+				Stage stage = (Stage) ap.getScene().getWindow();
+				stage.close();
 
 			} catch (RuntimeException error) {
 
-				alert.setContentText("Them khach hang that bai  !");
+				alert.setContentText("Thêm khách hàng thất bại  !");
 				alert.showAndWait();
 				session.getTransaction().rollback();
 
@@ -188,9 +196,12 @@ public class themkhachhangController implements Initializable {
 	private boolean KiemTraSDT() {
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(numberphone.getText());
-		if (m.find() && m.group().equals(numberphone.getText())) {
+		if (m.find() && m.group().equals(numberphone.getText()) && numberphone.getText().matches("\\d{10}|\\d{11}")) {
 			checknumber.setText(null);
 			return true;
+		} else if (numberphone.getText().length() < 10) {
+			checknumber.setText("Số điện thoại không đủ 10 số");
+			return false;
 		} else {
 			checknumber.setText("Vui lòng điền số điện thoại hợp lệ");
 			return false;
