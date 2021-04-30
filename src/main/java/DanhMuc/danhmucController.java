@@ -185,15 +185,14 @@ public class danhmucController implements Initializable {
 				String lowerCaseFilter = newValue.toLowerCase();
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
-				}
-				 else if (String.valueOf(hoadon.getMahoadon()).indexOf(lowerCaseFilter) != -1) {
+				} else if (String.valueOf(hoadon.getMahoadon()).indexOf(lowerCaseFilter) != -1) {
 					return true;
 				}
-					return false;
-		});
-		SortedList<Hoadon> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
-		tableHoaDon.setItems(sortedData);
+				return false;
+			});
+			SortedList<Hoadon> sortedData = new SortedList<>(filteredData);
+			sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
+			tableHoaDon.setItems(sortedData);
 		});
 	}
 
@@ -228,7 +227,7 @@ public class danhmucController implements Initializable {
 			DSNVController.setHoadon(selected);
 			thongbaoHD.setVisible(false);
 		}
-		stage.setTitle("Chi tiet hoa don");
+		stage.setTitle("Chi tiết hóa đơn");
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
 		stage.show();
@@ -250,7 +249,7 @@ public class danhmucController implements Initializable {
 				if (String.valueOf(phieudathang.getMadathang()).indexOf(lowerCaseFilter) != -1) {
 					return true;
 				}
-					return false;
+				return false;
 			});
 			SortedList<Phieudathang> sortedData = new SortedList<>(filteredData);
 			sortedData.comparatorProperty().bind(tablePhieuDatHang.comparatorProperty());
@@ -326,7 +325,7 @@ public class danhmucController implements Initializable {
 				if (String.valueOf(phieudathang.getManhaphang()).indexOf(lowerCaseFilter) != -1) {
 					return true;
 				}
-					return false;
+				return false;
 			});
 			SortedList<Phieunhaphang> sortedData = new SortedList<>(filteredData);
 			sortedData.comparatorProperty().bind(tablePhieuNhapHang.comparatorProperty());
@@ -423,20 +422,20 @@ public class danhmucController implements Initializable {
 		FilteredList<Phieutrahang> filteredData = new FilteredList<>(tbPhieuTraHang, b -> true);
 		searchPhieuTra.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(phieutrahang -> {
+				String lowerCaseFilter = newValue.toLowerCase();
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
 				}
-				String lowerCaseFilter = newValue.toLowerCase();
-
 				if (String.valueOf(phieutrahang.getMaphieutra()).toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true;
-				} else
-					return false;
+				}
+				return false;
 			});
+
+			SortedList<Phieutrahang> sortedData = new SortedList<>(filteredData);
+			sortedData.comparatorProperty().bind(tablePhieuTraHang.comparatorProperty());
+			tablePhieuTraHang.setItems(sortedData);
 		});
-		SortedList<Phieutrahang> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(tablePhieuTraHang.comparatorProperty());
-		tablePhieuTraHang.setItems(sortedData);
 	}
 
 	@FXML
