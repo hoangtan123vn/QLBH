@@ -62,6 +62,17 @@ public class TrangChuController  implements Initializable{
     @FXML
     private TableColumn<DT_1ngay, Double> doanhthu1ngay;
     
+    @FXML
+    private TableView<ThongKe_SP> tbthongkesp;
+
+    @FXML
+    private TableColumn<ThongKe_SP, String> sanpham;
+
+    @FXML
+    private TableColumn<ThongKe_SP, Integer> soluongbanra;
+
+    
+    
     
     @FXML
     void ThongKeThang(ActionEvent event) throws Exception {
@@ -128,6 +139,23 @@ public class TrangChuController  implements Initializable{
     		tbdoanhthu1.add(dt_1ngay);
     	}
     	return tbdoanhthu1;
+    }
+    
+    public ObservableList<ThongKe_SP> getThongKe_SPs(int ngay,int thang){
+    	ObservableList<ThongKe_SP> tbdoanhthu1 = FXCollections.observableArrayList();
+    	Session session = HibernateUtils.getSessionFactory().openSession();
+    	String hql = "SELECT SP.tensanpham,SUM(CT.soluong) FROM Chitiethoadon CT INNER JOIN CT.sanpham SP INNER JOIN CT.hoadon H WHERE dayofmonth(H.thoigianmua)=:date and month(H.thoigianmua)=:month GROUP BY SP.tensanpham ORDER BY CT.soluong";
+    	Query query = session.createQuery(hql);
+		query.setParameter("date", ngay);
+		query.setParameter("month", thang);
+		List<Object[]> hd = query.list(); 
+		for(Object[] TKSanpham : hd) {
+    		String tensanpham = (String) TKSanpham[0];
+    		Long soluong = (Long) TKSanpham[1];
+    		ThongKe_SP tkesanpham = new ThongKe_SP(tensanpham,soluong);
+    		tbdoanhthu1.add(tkesanpham);
+    	}
+		return tbdoanhthu1;
     }
     
     public void thongketheongay(int thang) {
@@ -200,6 +228,9 @@ public class TrangChuController  implements Initializable{
 		int thang = Integer.parseInt(getDatenow.substring(5, 7));
 		String thang1 = getDatenow.substring(5, 7);
 		ThongKeSanPham(day, thang);
+		
+		soluongbanra.setCellValueFactory(new PropertyValueFactory<ThongKe_SP, Integer>("soluong"));
+		sanpham.setCellValueFactory(new PropertyValueFactory<ThongKe_SP, String>("tensanpham"));
 		thangdoanhthu.setCellValueFactory(new PropertyValueFactory<DT_1ngay, String>("thang"));
 		doanhthu1ngay.setCellValueFactory(new PropertyValueFactory<DT_1ngay, Double>("doanhthu"));
 		cbb_thang.getSelectionModel().select(thang1);
@@ -207,7 +238,8 @@ public class TrangChuController  implements Initializable{
 		
 		try {
 			tbdoanhthu.setItems(chitietthongketheongay(thang));
-		} catch (IOException e) {
+			tbthongkesp.setItems(getThongKe_SPs(day, thang));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	

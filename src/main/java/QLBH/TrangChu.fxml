@@ -59,7 +59,18 @@
       </TableView>
       <Label layoutX="699.0" layoutY="553.0" prefHeight="27.0" prefWidth="417.0" text="Chi tiết doanh thu">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tbthongkesp" layoutX="53.0" layoutY="565.0" prefHeight="239.0" prefWidth="565.0">
+        <columns>
+          <TableColumn fx:id="sanpham" prefWidth="307.0" text="Sản phẩm" />
+          <TableColumn fx:id="soluongbanra" prefWidth="257.0" text="Số lượng sản phẩm bán ra" />
+        </columns>
+      </TableView>
+      <Label layoutX="53.0" layoutY="528.0" prefHeight="27.0" prefWidth="432.0" text="Chi tiết thống kê sản phẩm bán được trong 1 ngày">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Label>
    </children>
