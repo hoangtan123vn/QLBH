@@ -6,6 +6,7 @@ import java.io.IOException;
 import entities.*;
 import BanHang.BanHangController;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class GiaoDienNhanvienController{
 	
@@ -71,15 +73,37 @@ public class GiaoDienNhanvienController{
     @FXML
     private ImageView minimize;
 
+    private static double xoffset =0; 
+	private static double yoffset =0; 
+    
     @FXML
 	void DangXuat(ActionEvent event) throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("loginform.fxml"));
 		Parent tmp;
 		tmp = loader.load();
 		Scene scene = new Scene(tmp);
+		scene.setFill(null);
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		stage.hide();
-		stage.setScene(scene);
+		scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
+		scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    // record a delta distance for the drag and drop operation.
+			    xoffset = stage.getX() - mouseEvent.getScreenX();
+			    yoffset = stage.getY() - mouseEvent.getScreenY();
+			  }
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    stage.setX(mouseEvent.getScreenX() + xoffset);
+			    stage.setY(mouseEvent.getScreenY() + yoffset);
+			  }
+			});
+			stage.getIcons().add(new Image(QLBH.class.getResourceAsStream("backgroundSGU.png")));
+			stage.setScene(scene);
+			stage.setResizable(false);
+			
+		
+	
 		stage.show();
 	}
 
@@ -151,9 +175,25 @@ public class GiaoDienNhanvienController{
 			tmp = loader.load();
 			Scene scene = new Scene(tmp);
 			Stage stage = new Stage();
+			scene.getStylesheets().add(getClass().getResource("QLBH.css").toExternalForm());
+			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+				  @Override public void handle(MouseEvent mouseEvent) {
+				    // record a delta distance for the drag and drop operation.
+				    xoffset = stage.getX() - mouseEvent.getScreenX();
+				    yoffset = stage.getY() - mouseEvent.getScreenY();
+				  }
+				});
+				scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				  @Override public void handle(MouseEvent mouseEvent) {
+				    stage.setX(mouseEvent.getScreenX() + xoffset);
+				    stage.setY(mouseEvent.getScreenY() + yoffset);
+				  }
+				});
 			ProfilesNhanvienController profiles = loader.getController();
 			profiles.loadData(taikhoan);
 			stage.hide();
+			stage.initStyle(StageStyle.UNDECORATED);
+			GiaoDienNhanvienController.getInstance().truedisable();
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {

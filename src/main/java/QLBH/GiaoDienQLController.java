@@ -210,14 +210,33 @@ public class GiaoDienQLController implements Initializable {
 			tmp = loader.load();
 			Scene scene = new Scene(tmp);
 			Stage stage = new Stage();
+			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					xoffset = stage.getX() - mouseEvent.getScreenX();
+					yoffset = stage.getY() - mouseEvent.getScreenY();
+				}
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent mouseEvent) {
+					stage.setX(mouseEvent.getScreenX() + xoffset);
+					stage.setY(mouseEvent.getScreenY() + yoffset);
+				}
+			});
+			stage.initStyle(StageStyle.UNDECORATED);
+		
+			stage.setResizable(false);
+			
 			ProfilesNhanvienController profiles = loader.getController();
 			profiles.loadData(taikhoan);
 			stage.hide();
 			stage.setScene(scene);
 			stage.show();
+			GiaoDienQLController.getInstance().truedisable();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 	}
 	
