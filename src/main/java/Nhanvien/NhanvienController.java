@@ -368,27 +368,25 @@ public class NhanvienController implements Initializable {
 				nv = session.get(Nhanvien.class, t1);
 				try {
 					session.beginTransaction();
-					if (nv != null) {
-						Set<Hoadon> hoadons = nv.getHoadon();
-						for (Hoadon hoadon : hoadons) {
-							hoadon.setNhanvien(null);
-						}
-						Set<Phieudathang> phieudathangs = nv.getPhieudathang();
-						for (Phieudathang phieudathang : phieudathangs) {
-							phieudathang.setNhanvien(null);
-						}
-						Set<Phieunhaphang> phieunhaphangs = nv.getPhieunhaphang();
-						for (Phieunhaphang phieunhaphang : phieunhaphangs) {
-							phieunhaphang.setNhanvien(null);
-						}
-						Set<Phieutrahang> phieutrahangs = nv.getPhieutrahang();
-						for (Phieutrahang phieutrahang : phieutrahangs) {
-							phieutrahang.setNhanvien(null);
-						}
-						session.delete(nv);
-						alert1.setContentText("Xóa nhân viên thành công");
-						alert1.showAndWait();
+					List<Hoadon> hoadons = nv.getHoadon();
+					List<Phieudathang> phieudathangs = nv.getPhieudathang();
+					List<Phieunhaphang> phieunhaphangs = nv.getPhieunhaphang();
+					List<Phieutrahang> phieutrahangs = nv.getPhieutrahang();
+					for (Hoadon hoadon : hoadons) {
+						hoadon.setNhanvien(null);
 					}
+					for (Phieudathang phieudathang : phieudathangs) {
+						phieudathang.setNhanvien(null);
+					}
+					for (Phieunhaphang phieunhaphang : phieunhaphangs) {
+						phieunhaphang.setNhanvien(null);
+					}
+					for (Phieutrahang phieutrahang : phieutrahangs) {
+						phieutrahang.setNhanvien(null);
+					}
+					session.delete(nv);
+					alert1.setContentText("Xóa nhân viên thành công");
+					alert1.showAndWait();		
 					session.getTransaction().commit();
 				} catch (HibernateException error) {
 					System.out.println(error);
