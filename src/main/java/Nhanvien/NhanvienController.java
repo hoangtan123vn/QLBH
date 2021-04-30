@@ -271,38 +271,39 @@ public class NhanvienController implements Initializable {
 			Session session = HibernateUtils.getSessionFactory().openSession();
 			try {
 				session.beginTransaction();
-				Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,
-						nvl);
+				Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,nvl);
 				nv2 = session.get(Nhanvien.class, idnv);
-				if (nv2 != null) {
 					// nv2.setid(idnv);
-					nv2.setHovaten(hovatennv);
-					nv2.setChucvu(chucvunv);
-					nv2.setGioitinh(gioitinhnv);
-					nv2.setDiachi(diachinv);
-					nv2.setNgaysinh(ngaysinhnv);
-					nv2.setSdt(sdtnv);
-					nv2.setCmnd(cmndnv);
-					session.save(nv2);
-					alert.setContentText("Cập nhật nhân viên thành công !");
-					alert.showAndWait();
-					luucapnhat.setVisible(false);
-					reset.setVisible(false);
-					hovaten_nv.setEditable(false);
-					ns_nv.setEditable(false);
-					cb_chucvu.setEditable(false);
-					cb_gioitinh.setEditable(false);
-					cmnd_nv.setEditable(false);
-					sdt_nv.setEditable(false);
-					diachi_nv.setEditable(false);
-					ngayvaolam.setEditable(false);
-				}
+				nv2.setHovaten(hovatennv);
+				nv2.setChucvu(chucvunv);
+				nv2.setGioitinh(gioitinhnv);
+				nv2.setDiachi(diachinv);
+				nv2.setNgaysinh(ngaysinhnv);
+				nv2.setSdt(sdtnv);
+				nv2.setCmnd(cmndnv);
+				session.save(nv2);
+				alert.setContentText("Cập nhật nhân viên thành công !");
+				alert.showAndWait();
+				SetFalseEditable();
 				session.getTransaction().commit();
 				initializeNHANVIEN();
 			} catch (RuntimeException error) {
 				session.getTransaction().rollback();
 			}
 		}
+	}
+	
+	void SetFalseEditable() {
+		luucapnhat.setVisible(false);
+		reset.setVisible(false);
+		hovaten_nv.setEditable(false);
+		ns_nv.setEditable(false);
+		cb_chucvu.setEditable(false);
+		cb_gioitinh.setEditable(false);
+		cmnd_nv.setEditable(false);
+		sdt_nv.setEditable(false);
+		diachi_nv.setEditable(false);
+		ngayvaolam.setEditable(false);
 	}
 
 	@FXML
@@ -394,22 +395,27 @@ public class NhanvienController implements Initializable {
 					session.getTransaction().rollback();
 				}
 				initializeNHANVIEN();
-				id_nv.setText("");
-				hovaten_nv.setText("");
-				ns_nv.setValue(null);
-				cb_chucvu.setValue(null);
-				sdt_nv.setText("");
-				cmnd_nv.setText("");
-				diachi_nv.setText("");
-				cb_gioitinh.setValue(null);
-				imgnhanvien.setImage(null);
-				ngayvaolam.setValue(null);
-				capnhat_nv.setVisible(false);
-				xoa_nv.setVisible(false);
-			} else if (type == ButtonType.NO) {
+				SetTextNull();
+				
+			} else  {
 				alert.close();
 			}
 		});
+	}
+	
+	public void SetTextNull() {
+		id_nv.setText("");
+		hovaten_nv.setText("");
+		ns_nv.setValue(null);
+		cb_chucvu.setValue(null);
+		sdt_nv.setText("");
+		cmnd_nv.setText("");
+		diachi_nv.setText("");
+		cb_gioitinh.setValue(null);
+		imgnhanvien.setImage(null);
+		ngayvaolam.setValue(null);
+		capnhat_nv.setVisible(false);
+		xoa_nv.setVisible(false);
 	}
 
 	public void initializeNHANVIEN() {
