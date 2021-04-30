@@ -906,8 +906,7 @@ public class BanHangController implements Initializable {
 			stage.initStyle(StageStyle.UNDECORATED);
 			stage.setScene(scene);
 			stage.setResizable(false);
-			stage.show();
-			
+			stage.show();	
 			GiaoDienNhanvienController.getInstance().truedisable();
 		}
 	}

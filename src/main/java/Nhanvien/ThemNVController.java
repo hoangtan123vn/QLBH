@@ -302,8 +302,9 @@ public class ThemNVController implements Initializable {
 				String t3 = tfcv.getValue();
 				String t4 = tfgt.getValue();
 				String t1 = tfhovaten.getText();
-				int t5 = Integer.parseInt(tfsdt.getText());
-				String sodienthoai = String.format("%010d", t5);
+				//int t5 = Integer.parseInt(tfsdt.getText());
+				//String sodienthoai = String.format("%011d", t5);
+				String sodienthoai = tfsdt.getText();
 				int t6 = Integer.parseInt(tfcmnd.getText());
 				String t7 = tfdc.getText();
 				LocalDate t8 = tfngayvaolam.getValue();

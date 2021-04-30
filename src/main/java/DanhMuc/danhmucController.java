@@ -190,7 +190,6 @@ public class danhmucController implements Initializable {
 					return true;
 				}
 					return false;
-		
 		});
 		SortedList<Hoadon> sortedData = new SortedList<>(filteredData);
 		sortedData.comparatorProperty().bind(tableHoaDon.comparatorProperty());
@@ -244,13 +243,13 @@ public class danhmucController implements Initializable {
 		FilteredList<Phieudathang> filteredData = new FilteredList<>(tbPhieuDatHang, b -> true);
 		searchDatHang.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(phieudathang -> {
+				String lowerCaseFilter = newValue.toLowerCase();
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
 				}
-				String lowerCaseFilter = newValue.toLowerCase();
 				if (String.valueOf(phieudathang.getMadathang()).indexOf(lowerCaseFilter) != -1) {
 					return true;
-				} else
+				}
 					return false;
 			});
 			SortedList<Phieudathang> sortedData = new SortedList<>(filteredData);
@@ -320,13 +319,13 @@ public class danhmucController implements Initializable {
 		FilteredList<Phieunhaphang> filteredData = new FilteredList<>(tbPhieuNhapHang, b -> true);
 		searchNhapHang.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(phieudathang -> {
+				String lowerCaseFilter = newValue.toLowerCase();
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
 				}
-				String lowerCaseFilter = newValue.toLowerCase();
 				if (String.valueOf(phieudathang.getManhaphang()).indexOf(lowerCaseFilter) != -1) {
 					return true;
-				} else
+				}
 					return false;
 			});
 			SortedList<Phieunhaphang> sortedData = new SortedList<>(filteredData);
