@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -17,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="784.0" prefWidth="993.0" style="-fx-background-color: #66CCFF; -fx-border-color: black; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLKho.LapPhieuDatHangController">
+<AnchorPane prefHeight="784.0" prefWidth="993.0" style="-fx-background-color: #66CCFF; -fx-border-color: black; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="QLKho.LapPhieuDatHangController">
 	<children>
 		<TableView fx:id="tableSP" layoutX="14.0" layoutY="391.0" prefHeight="266.0" prefWidth="315.0">
 			<columns>
@@ -29,16 +24,25 @@
 			</columns>
 		</TableView>
 		<TextField editable="false" layoutX="159.0" layoutY="231.0" prefHeight="27.0" prefWidth="235.0" text="75 đường 14 phường Bình An Quận 2 " />
-		<Text layoutX="51.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhà cung cấp" wrappingWidth="80.341796875" />
-		<Text layoutX="54.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ" wrappingWidth="46.953125" />
-		<Label layoutX="216.0" layoutY="85.0" prefHeight="27.0" prefWidth="184.0" text="LẬP PHIẾU ĐẶT HÀNG">
+		<Text layoutX="11.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nhà cung cấp" wrappingWidth="132.341796875">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+		<Text layoutX="11.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ" wrappingWidth="80.341796875">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+		<Label layoutX="159.0" layoutY="48.0" prefHeight="32.0" prefWidth="235.0" text="LẬP PHIẾU ĐẶT HÀNG">
 			<font>
-				<Font size="18.0" />
+				<Font name="System Bold" size="22.0" />
 			</font>
 		</Label>
 		<Button fx:id="idDatHang" layoutX="678.0" layoutY="345.0" mnemonicParsing="false" onAction="#DatHang" prefHeight="27.0" prefWidth="58.0" text="Đặt " />
-		<Button fx:id="huy" layoutX="583.0" layoutY="716.0" mnemonicParsing="false" onAction="#CanCel" prefHeight="25.0" prefWidth="58.0" text="Trở về" />
-		<Text layoutX="51.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanh toán" wrappingWidth="86.953125" />
+		<Button fx:id="huy" layoutX="686.0" layoutY="732.0" mnemonicParsing="false" onAction="#CanCel" prefHeight="25.0" prefWidth="119.0" text="Trở về" />
+		<Text layoutX="11.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thanh toán" wrappingWidth="111.953125">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
 		<ComboBox fx:id="cbbthanhtoan" layoutX="159.0" layoutY="267.0" prefHeight="25.0" prefWidth="235.0" />
 		<TableView fx:id="tableSP1" layoutX="379.0" layoutY="403.0" prefHeight="278.0" prefWidth="562.0">
 			<columns>
@@ -67,19 +71,22 @@
 		<TextField fx:id="Timkiem" layoutX="14.0" layoutY="366.0" prefHeight="25.0" prefWidth="315.0" promptText="Tìm kiếm" />
 		<Text layoutX="707.0" layoutY="701.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tổng tiền : " wrappingWidth="80.3417898118496" />
 		<TextField fx:id="tongtien" editable="false" layoutX="792.0" layoutY="684.0" />
-		<Button fx:id="lapphieu" layoutX="400.0" layoutY="716.0" mnemonicParsing="false" text="Lập phiếu đặt hàng" />
-		<Text fx:id="name_ncc" fill="#030303" layoutX="159.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.0">
+		<Button fx:id="lapphieu" layoutX="503.0" layoutY="732.0" mnemonicParsing="false" text="Lập phiếu đặt hàng" />
+		<Text fx:id="name_ncc" fill="#030303" layoutX="159.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.0">
 			<font>
 				<Font size="18.0" />
 			</font>
 		</Text>
-		<Text layoutX="54.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="id_NCC" wrappingWidth="80.341796875" />
-		<Text fx:id="id_ncc" layoutX="169.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0">
+		<Text layoutX="11.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã Ncc" wrappingWidth="80.341796875">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+		<Text fx:id="id_ncc" layoutX="169.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="214.677734375">
 			<font>
 				<Font name="System Bold" size="18.0" />
 			</font>
 		</Text>
-		<Button fx:id="nhacungcap" layoutX="405.0" layoutY="184.0" mnemonicParsing="false" onAction="#ChonNCC" prefHeight="17.0" prefWidth="28.0" text="+" />
+		<Button fx:id="nhacungcap" layoutX="400.0" layoutY="182.0" mnemonicParsing="false" onAction="#ChonNCC" prefHeight="25.0" prefWidth="80.0" text="Chọn NCC" />
 		<Text layoutX="842.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VNĐ" />
 		<Label fx:id="thongbao6" layoutX="159.0" layoutY="293.0" prefHeight="17.0" prefWidth="235.0" textFill="RED" />
 		<Label fx:id="thongbao4" layoutX="678.0" layoutY="284.0" prefHeight="17.0" prefWidth="149.0" textFill="RED" />

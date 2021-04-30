@@ -195,37 +195,35 @@ void read() {
 		 
     }
 
-    public void IntilizeChitietHoadon(Hoadon hoadon) {
-    //	tenhang.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-  	    tenhang.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon,Sanpham>(){
-  	    	 @Override
- 		    protected void updateItem(Sanpham item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(item.getTensanpham());
- 		        }
- 		    }
-  	    });
-    	tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-    	soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Integer>("soluong"));
-    	thanhtien.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Double>("thanhtien"));
-    	dongia.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon,Sanpham>(){
-  	    	 @Override
- 		    protected void updateItem(Sanpham item, boolean empty) {
- 		        super.updateItem(item, empty);
- 		        if (empty || item == null) {
- 		            setText(null);
- 		        } else {
- 		            setText(Integer.toString(item.getGiatien()));
- 		        }
- 		    }
-  	    });
-    	dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
-     	//dongia.setCellValueFactory(new PropertyValueFactory<Chitiethoadon,Sanpham>("sanpham"));
-    	tbChitietHoaDon.setItems(getChitietHoadon(hoadon));
-    }
+	public void IntilizeChitietHoadon(Hoadon hoadon) {
+		tenhang.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(item.getTensanpham());
+				}
+			}
+		});
+		tenhang.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		soluong.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Integer>("soluong"));
+		thanhtien.setCellValueFactory(new PropertyValueFactory<Chitiethoadon, Double>("thanhtien"));
+		dongia.setCellFactory(tbChitietHoaDon -> new TableCell<Chitiethoadon, Sanpham>() {
+			@Override
+			protected void updateItem(Sanpham item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty || item == null) {
+					setText(null);
+				} else {
+					setText(Integer.toString(item.getGiatien()));
+				}
+			}
+		});
+		dongia.setCellValueFactory(new PropertyValueFactory<>("sanpham"));
+		tbChitietHoaDon.setItems(getChitietHoadon(hoadon));
+	}
     
 
 	@Override

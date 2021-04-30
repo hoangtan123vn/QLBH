@@ -398,19 +398,26 @@ public class nhacungcapController implements Initializable {
 				Session session = HibernateUtils.getSessionFactory().openSession();
 				session.beginTransaction();
 				Nhacungcap person = new Nhacungcap();
-				String s = event.getNewValue();
-				Pattern p = Pattern.compile("[0-9]+");
-				Matcher m = p.matcher(s);
-				if (m.find() && m.group().equals(s)) {
-					person = event.getRowValue();
-					person = session.get(Nhacungcap.class, person.getMancc());
-					person.setSodienthoai(s);
-					session.save(person);
-					session.getTransaction().commit();
-					ReloadNHACUNGCAP();
-				} else {
+				try {
+					String s = event.getNewValue();
+					Pattern p = Pattern.compile("[0-9]+");
+					Matcher m = p.matcher(s);
+					if (m.find() && m.group().equals(s) && s.matches("\\d{10}|\\d{11}")) {
+						person = event.getRowValue();
+						person = session.get(Nhacungcap.class, person.getMancc());
+						person.setSodienthoai(s);
+						session.save(person);
+						session.getTransaction().commit();
+						ReloadNHACUNGCAP();
+					} 
+					else {
+						showAlertSodienthoai();
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
 					showAlertSodienthoai();
 				}
+				
 
 			}
 		});
