@@ -20,6 +20,23 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class GiaoDienNhanvienController{
+	
+	public static GiaoDienNhanvienController instance;
+
+	public GiaoDienNhanvienController() {
+		instance = this;
+	}
+
+	public static GiaoDienNhanvienController getInstance() {
+		return instance;
+	}
+	
+	public void falsedisable() {
+		maintonv.setDisable(false);
+	}
+	public void truedisable() {
+		maintonv.setDisable(true);
+	}
 
     @FXML
     private Button banhang;
@@ -41,6 +58,9 @@ public class GiaoDienNhanvienController{
 
     @FXML
     private AnchorPane mainpane;
+    
+    @FXML
+    private AnchorPane maintonv;
 
     @FXML
     private ImageView load;
