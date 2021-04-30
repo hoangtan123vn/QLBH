@@ -126,10 +126,10 @@ public class ListNhaCungCapController implements Initializable {
 		FilteredList<Nhacungcap> filterData = new FilteredList<>(table, p -> true);
 		tf_ncc.textProperty().addListener((observable, oldvalue, newvalue) -> {
 			filterData.setPredicate(ncc -> {
+				String typetext = newvalue.toLowerCase();
 				if (newvalue == null || newvalue.isEmpty()) {
 					return true;
 				}
-				String typetext = newvalue.toLowerCase();
 				if (ncc.getTenncc().toLowerCase().indexOf(typetext) != -1) {
 					return true;
 				}
@@ -137,7 +137,6 @@ public class ListNhaCungCapController implements Initializable {
 					return true;
 				}
 				return false;
-
 			});
 			SortedList<Nhacungcap> sortedList = new SortedList<>(filterData);
 			sortedList.comparatorProperty().bind(tb_NCC.comparatorProperty());

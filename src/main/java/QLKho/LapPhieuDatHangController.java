@@ -194,15 +194,13 @@ public class LapPhieuDatHangController implements Initializable {
 
 	void Timkiem() {
 		ObservableList<Sanpham> TableSP = FXCollections.observableArrayList(getSanpham());
-
 		FilteredList<Sanpham> filteredData = new FilteredList<>(TableSP, b -> true);
 		Timkiem.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(sanpham -> {
+				String lowerCaseFilter = newValue.toLowerCase();
 				if (newValue == null || newValue.isEmpty()) {
 					return true;
 				}
-				String lowerCaseFilter = newValue.toLowerCase();
-
 				if (sanpham.getTensanpham().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true;
 				} else if (sanpham.getDonvi().toLowerCase().indexOf(lowerCaseFilter) != -1) {
@@ -245,42 +243,41 @@ public class LapPhieuDatHangController implements Initializable {
 		});
 	}
 
-	private void ButtonXoaSP() {
-		Callback<TableColumn<Chitietdathang, Void>, TableCell<Chitietdathang, Void>> cellFactory = new Callback<TableColumn<Chitietdathang, Void>, TableCell<Chitietdathang, Void>>() {
-			@Override
-			public TableCell<Chitietdathang, Void> call(final TableColumn<Chitietdathang, Void> param) {
-				final TableCell<Chitietdathang, Void> cell = new TableCell<Chitietdathang, Void>() {
-					private final Button btn = new Button("Xóa");
-
-					{
-						btn.setOnAction((ActionEvent event) -> {
-							Chitietdathang chitietdathang = getTableView().getItems().get(getIndex());
-							if (tableSP1.getItems().contains(chitietdathang)) {
-								chitietdathang.setSoluong(chitietdathang.getSoluong() - chitietdathang.getSoluong());
-								tableSP1.refresh();
-								if (chitietdathang.getSoluong() == 0) {
-									tableSP1.getItems().remove(chitietdathang);
+		private void ButtonXoaSP() {
+			Callback<TableColumn<Chitietdathang, Void>, TableCell<Chitietdathang, Void>> cellFactory = new Callback<TableColumn<Chitietdathang, Void>, TableCell<Chitietdathang, Void>>() {
+				@Override
+				public TableCell<Chitietdathang, Void> call(final TableColumn<Chitietdathang, Void> param) {
+					final TableCell<Chitietdathang, Void> cell = new TableCell<Chitietdathang, Void>() {
+						private final Button btn = new Button("Xóa");
+						{
+							btn.setOnAction((ActionEvent event) -> {
+								Chitietdathang chitietdathang = getTableView().getItems().get(getIndex());
+								if (tableSP1.getItems().contains(chitietdathang)) {
+									chitietdathang.setSoluong(chitietdathang.getSoluong() - chitietdathang.getSoluong());
 									tableSP1.refresh();
+									if (chitietdathang.getSoluong() == 0) {
+										tableSP1.getItems().remove(chitietdathang);
+										tableSP1.refresh();
+									}
 								}
-							}
-						});
-					}
-
-					@Override
-					public void updateItem(Void item, boolean empty) {
-						super.updateItem(item, empty);
-						if (empty) {
-							setGraphic(null);
-						} else {
-							setGraphic(btn);
+							});
 						}
-					}
-				};
-				return cell;
-			}
-		};
-		xoasp.setCellFactory(cellFactory);
-	}
+	
+						@Override
+						public void updateItem(Void item, boolean empty) {
+							super.updateItem(item, empty);
+							if (empty) {
+								setGraphic(null);
+							} else {
+								setGraphic(btn);
+							}
+						}
+					};
+					return cell;
+				}
+			};
+			xoasp.setCellFactory(cellFactory);
+		}
 
 	@FXML
 	void DatHang(ActionEvent event) {
@@ -442,12 +439,9 @@ public class LapPhieuDatHangController implements Initializable {
 			para.put("madathang", madathang);
 			para.put("tongtien", tongtien);
 			JasperPrint j = JasperFillManager.fillReport(jr, para, conn);
-
 			JasperViewer.viewReport(j, false);
-
 			OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
 			JasperExportManager.exportReportToPdfStream(j, os);
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Lỗi" + e);
 		}
