@@ -239,9 +239,9 @@ public class themkhachhangController implements Initializable {
 
 		}
 		if (mail.getText().isEmpty()) {
-			checkmail.setText("mail chua duoc nhap");
+			checkmail.setText("Mail chưa được nhập");
 		} else
-			checkmail.setText("mail ko hop le");
+			checkmail.setText("Mail không hợp lệ");
 		return false;
 
 	}

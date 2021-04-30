@@ -345,6 +345,7 @@ public class ThemNVController implements Initializable {
 			GiaoDienQLController.getInstance().falsedisable();
 		}
 	}
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

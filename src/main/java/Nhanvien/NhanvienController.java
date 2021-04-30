@@ -311,14 +311,15 @@ public class NhanvienController implements Initializable {
 		FilteredList<Nhanvien> filterData = new FilteredList<>(table, p -> true);
 		search.textProperty().addListener((observable, oldvalue, newvalue) -> {
 			filterData.setPredicate(nv -> {
+				String typetext = newvalue.toLowerCase();
 				if (newvalue == null || newvalue.isEmpty()) {
 					return true;
 				}
-				String typetext = newvalue.toLowerCase();
-				if (nv.getHovaten().toLowerCase().indexOf(typetext) != -1) {
+				
+				else if (nv.getHovaten().toLowerCase().indexOf(typetext) != -1) {
 					return true;
 				}
-				if (nv.getChucvu().toLowerCase().indexOf(typetext) != -1) {
+				else if (nv.getChucvu().toLowerCase().indexOf(typetext) != -1) {
 					return true;
 				}
 				return false;
