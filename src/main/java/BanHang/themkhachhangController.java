@@ -80,16 +80,22 @@ public class themkhachhangController implements Initializable {
 
 	@FXML
 	void exit(MouseEvent event) {
-		if(GiaoDienQLController.getInstance() == null) {
-    		Stage stage = (Stage) exit.getScene().getWindow();
+		if( GiaoDienQLController.getInstance() ==null) {
+    		Stage stage = (Stage) ap.getScene().getWindow();
     		stage.close();
     		GiaoDienNhanvienController.getInstance().falsedisable();
-    	}
-    	else {
-    	Stage stage = (Stage) exit.getScene().getWindow();
+      	}
+    	else if(GiaoDienNhanvienController.getInstance() ==null){
+    	Stage stage = (Stage) ap.getScene().getWindow();
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();
 		}
+    	else {
+    		Stage stage = (Stage) ap.getScene().getWindow();
+    		stage.close();
+    		GiaoDienQLController.getInstance().falsedisable();
+    		GiaoDienNhanvienController.getInstance().falsedisable();
+    	}
 	}
 
 	@FXML
@@ -102,6 +108,11 @@ public class themkhachhangController implements Initializable {
 			AddKH();
 			GiaoDienNhanvienController.getInstance().falsedisable();
 			
+		}
+		else if(kiemtrahoten() & kiemtradiachi() & KiemTraSDT() & KiemTraNgaySinh() & KiemTraGioiTinh() & kiemtramail()){
+			AddKH();
+			GiaoDienNhanvienController.getInstance().falsedisable();
+			GiaoDienQLController.getInstance().falsedisable();
 		}
 		
 	}
@@ -214,16 +225,22 @@ public class themkhachhangController implements Initializable {
 
 	@FXML
 	void quaylai(ActionEvent event) {
-		if(GiaoDienQLController.getInstance() == null) {
-    		Stage stage = (Stage) exit.getScene().getWindow();
+		if( GiaoDienQLController.getInstance() ==null) {
+    		Stage stage = (Stage) ap.getScene().getWindow();
     		stage.close();
     		GiaoDienNhanvienController.getInstance().falsedisable();
-    	}
-    	else {
-    	Stage stage = (Stage) exit.getScene().getWindow();
+      	}
+    	else if(GiaoDienNhanvienController.getInstance() ==null){
+    	Stage stage = (Stage) ap.getScene().getWindow();
 		stage.close();
 		GiaoDienQLController.getInstance().falsedisable();
 		}
+    	else {
+    		Stage stage = (Stage) ap.getScene().getWindow();
+    		stage.close();
+    		GiaoDienQLController.getInstance().falsedisable();
+    		GiaoDienNhanvienController.getInstance().falsedisable();
+    	}
 	}
 
 	@Override

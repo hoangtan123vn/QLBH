@@ -46,16 +46,22 @@ public class ProfilesNhanvienController {
 
 		@FXML
 		void exit(MouseEvent event) {	
-			if(GiaoDienQLController.getInstance() == null) {
-				Stage stage = (Stage) exit.getScene().getWindow();
-				stage.close();
-				GiaoDienNhanvienController.getInstance().falsedisable();
-				}
-			else {
-				Stage stage = (Stage) exit.getScene().getWindow();
-				stage.close();
-				GiaoDienQLController.getInstance().falsedisable();
-			}
+			if( GiaoDienQLController.getInstance() ==null) {
+        		Stage stage = (Stage) exit.getScene().getWindow();
+        		stage.close();
+        		GiaoDienNhanvienController.getInstance().falsedisable();
+          	}
+        	else if(GiaoDienNhanvienController.getInstance() ==null){
+        	Stage stage = (Stage) exit.getScene().getWindow();
+    		stage.close();
+    		GiaoDienQLController.getInstance().falsedisable();
+    		}
+        	else {
+        		Stage stage = (Stage) exit.getScene().getWindow();
+        		stage.close();
+        		GiaoDienQLController.getInstance().falsedisable();
+        		GiaoDienNhanvienController.getInstance().falsedisable();
+        	}
 		}
 
 

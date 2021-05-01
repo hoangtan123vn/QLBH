@@ -2,6 +2,8 @@ package BanHang;
 
 
 
+import static org.junit.Assume.assumeNoException;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -80,15 +82,21 @@ public class timkhachhangController implements Initializable{
     
     @FXML
     void exit(MouseEvent event) {
-    	if(GiaoDienQLController.getInstance() == null) {
-    		Stage stage = (Stage) exit.getScene().getWindow();
+    	if( GiaoDienQLController.getInstance() ==null) {
+    		Stage stage = (Stage) ap.getScene().getWindow();
     		stage.close();
     		GiaoDienNhanvienController.getInstance().falsedisable();
-    	}
+      	}
+    	else if(GiaoDienNhanvienController.getInstance() ==null){
+    	Stage stage = (Stage) ap.getScene().getWindow();
+		stage.close();
+		GiaoDienQLController.getInstance().falsedisable();
+		}
     	else {
-    		Stage stage = (Stage) exit.getScene().getWindow();
+    		Stage stage = (Stage) ap.getScene().getWindow();
     		stage.close();
     		GiaoDienQLController.getInstance().falsedisable();
+    		GiaoDienNhanvienController.getInstance().falsedisable();
     	}
     }
     
@@ -104,9 +112,40 @@ public class timkhachhangController implements Initializable{
 		diemtichluy.setCellValueFactory(new PropertyValueFactory<KhachHang, Integer>("diemtichluy"));
 		tableKH.setItems(getKhachHang());
 		searchKH();
-		
-		
-		
+			
+	}
+	
+	public void OpenScence() {
+		try {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("timkhachhang.fxml"));
+
+         // Set this class as the controller
+         loader.setController(this);
+
+         // Load the scene
+         Scene scene = new Scene(loader.load());
+         thisStage.setScene(scene);
+
+         // Setup the window/stage
+         thisStage.setTitle("Chọn khách hàng");      
+         // xóa viền window
+         thisStage.initStyle(StageStyle.UNDECORATED);
+         
+         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    xoffset = thisStage.getX() - mouseEvent.getScreenX();
+			    yoffset = thisStage.getY() - mouseEvent.getScreenY();
+			  }
+			});
+			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			  @Override public void handle(MouseEvent mouseEvent) {
+			    thisStage.setX(mouseEvent.getScreenX() + xoffset);
+			    thisStage.setY(mouseEvent.getScreenY() + yoffset);
+			  }
+			});
+		}catch (Exception e) {
+            e.printStackTrace();
+	}
 	}
 	private static double xoffset =0; 
 	private static double yoffset =0; 
@@ -120,69 +159,16 @@ public class timkhachhangController implements Initializable{
 	        // Load the FXML file
 	        try {
 	        	if(GiaoDienQLController.getInstance() == null) {
-	        		 FXMLLoader loader = new FXMLLoader(getClass().getResource("timkhachhang.fxml"));
-
-	 	            // Set this class as the controller
-	 	            loader.setController(this);
-
-	 	            // Load the scene
-	 	            Scene scene = new Scene(loader.load());
-	 	            thisStage.setScene(scene);
-
-	 	            // Setup the window/stage
-	 	            thisStage.setTitle("Chọn khách hàng");
-	 	            
-	 	           GiaoDienNhanvienController.getInstance().truedisable();
-	 	            
-	 	            // xóa viền window
-	 	            thisStage.initStyle(StageStyle.UNDECORATED);
-	 	            
-	 	            scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-	 	  			  @Override public void handle(MouseEvent mouseEvent) {
-	 	  			    xoffset = thisStage.getX() - mouseEvent.getScreenX();
-	 	  			    yoffset = thisStage.getY() - mouseEvent.getScreenY();
-	 	  			  }
-	 	  			});
-	 	  			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-	 	  			  @Override public void handle(MouseEvent mouseEvent) {
-	 	  			    thisStage.setX(mouseEvent.getScreenX() + xoffset);
-	 	  			    thisStage.setY(mouseEvent.getScreenY() + yoffset);
-	 	  			  }
-	 	  			});
+	        		 OpenScence();
 	        	}
-	        	else {
-	        		 FXMLLoader loader = new FXMLLoader(getClass().getResource("timkhachhang.fxml"));
-
-	 	            // Set this class as the controller
-	 	            loader.setController(this);
-
-	 	            // Load the scene
-	 	            Scene scene = new Scene(loader.load());
-	 	            thisStage.setScene(scene);
-
-	 	            // Setup the window/stage
-	 	            thisStage.setTitle("Chọn khách hàng");
-	 	           GiaoDienQLController.getInstance().truedisable();
-	 	            
-	 	            // xóa viền window
-	 	            thisStage.initStyle(StageStyle.UNDECORATED);
-	 	            
-	 	            scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-	 	  			  @Override public void handle(MouseEvent mouseEvent) {
-	 	  			    xoffset = thisStage.getX() - mouseEvent.getScreenX();
-	 	  			    yoffset = thisStage.getY() - mouseEvent.getScreenY();
-	 	  			  }
-	 	  			});
-	 	  			scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-	 	  			  @Override public void handle(MouseEvent mouseEvent) {
-	 	  			    thisStage.setX(mouseEvent.getScreenX() + xoffset);
-	 	  			    thisStage.setY(mouseEvent.getScreenY() + yoffset);
-	 	  			  }
-	 	  			});
+	        	else if(GiaoDienNhanvienController.getInstance() == null){
+	        		 OpenScence();
+	        	}else {
+	        		OpenScence();
 	        	}
 	           
 
-	        } catch (IOException e) {
+	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
 	}
@@ -245,7 +231,6 @@ public class timkhachhangController implements Initializable{
 		 }
 		 Stage stage1 = (Stage) ap.getScene().getWindow();
     	 stage1.close();
-    	 GiaoDienQLController.getInstance().falsedisable();
 
 	 }
 	
