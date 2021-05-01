@@ -391,19 +391,15 @@ public class NhapHangvaTraHang implements Initializable {
 			newQuery1.setText(sql);
 			jd.setQuery(newQuery1);
 			JasperReport jr = JasperCompileManager.compileReport(jd);
-
 			HashMap<String, Object> para = new HashMap<>();
 			String maphieutra = String.valueOf(phieutrahang.getMaphieutra());
 			String tongtien = String.valueOf(phieutrahang.getTongtien());
 			para.put("maphieutra", maphieutra);
 			para.put("tongtien", tongtien);
 			JasperPrint j = JasperFillManager.fillReport(jr, para, conn);
-
 			JasperViewer.viewReport(j, false);
-
 			OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
 			JasperExportManager.exportReportToPdfStream(j, os);
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Lỗi" + e);
 		}
@@ -422,19 +418,15 @@ public class NhapHangvaTraHang implements Initializable {
 			newQuery1.setText(sql);
 			jd.setQuery(newQuery1);
 			JasperReport jr = JasperCompileManager.compileReport(jd);
-
 			HashMap<String, Object> para = new HashMap<>();
 			String manhaphang = String.valueOf(phieunhaphang.getManhaphang());
 			String tongtien = String.valueOf(phieunhaphang.getTongtien());
 			para.put("manhaphang", manhaphang);
 			para.put("tongtien", tongtien);
 			JasperPrint j = JasperFillManager.fillReport(jr, para, conn);
-
 			JasperViewer.viewReport(j, false);
-
 			OutputStream os = new FileOutputStream(new File("C:\\Users\\Admin\\Desktop\\IN"));
 			JasperExportManager.exportReportToPdfStream(j, os);
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Lỗi" + e);
 		}
@@ -482,7 +474,7 @@ public class NhapHangvaTraHang implements Initializable {
 		xoasp1.setCellFactory(cellFactory);
 	}
 
-	private void ButtonXoaSP2() {
+private void ButtonXoaSP2() {
 		Callback<TableColumn<Chitietphieutra, Void>, TableCell<Chitietphieutra, Void>> cellFactory = new Callback<TableColumn<Chitietphieutra, Void>, TableCell<Chitietphieutra, Void>>() {
 			@Override
 			public TableCell<Chitietphieutra, Void> call(final TableColumn<Chitietphieutra, Void> param) {
@@ -534,7 +526,6 @@ public class NhapHangvaTraHang implements Initializable {
 	private void event() {
 		Chitietdathang sp = tableChitietKiemtra.getItems()
 				.get(tableChitietKiemtra.getSelectionModel().getSelectedIndex());
-
 		int masanpham = sp.getSanpham().getMasanpham();
 		String tensanpham = sp.getSanpham().getTensanpham();
 		String loaisanpham = sp.getSanpham().getLoaisanpham();
