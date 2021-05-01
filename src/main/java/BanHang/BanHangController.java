@@ -512,8 +512,8 @@ public class BanHangController implements Initializable {
 					setGraphic(null);
 				} else {
 					imageView.setImage(getImageFromBytes(item));
-					imageView.setFitHeight(150);
-					imageView.setFitWidth(250);
+					imageView.setFitHeight(100);
+					imageView.setFitWidth(100);
 					setGraphic(imageView);
 				}
 				this.setItem(item);
@@ -537,34 +537,7 @@ public class BanHangController implements Initializable {
 		setCellValueFromTabletoTexfFieldd();
 		// masanpham.setCellValueFactory(new PropertyValueFactory<Sanpham,
 		// Integer>("masanpham"));
-		tensanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("tensanpham"));
-		loaisanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("loaisanpham"));
-		donvitnh.setCellValueFactory(new PropertyValueFactory<Sanpham, String>("donvitinh"));
-		// String>("donvitinh"));
-		giatien.setCellValueFactory(new PropertyValueFactory<Sanpham, Integer>("giatien"));
-		// donvi.setCellValueFactory(new PropertyValueFactory<Sanpham,
-		// String>("donvi"));
-		hinhanhsanpham.setCellValueFactory(new PropertyValueFactory<Sanpham, Byte>("imagesp"));
-		hinhanhsanpham.setCellFactory(param -> new TableCell<Sanpham, byte[]>() {
-
-			private ImageView imageView = new ImageView();
-
-			@Override
-			protected void updateItem(byte[] item, boolean empty) {
-				super.updateItem(item, empty);
-				if (item == null || empty) {
-					setText(null);
-					setGraphic(null);
-				} else {
-					imageView.setImage(getImageFromBytes(item));
-					imageView.setFitHeight(100);
-					imageView.setFitWidth(100);
-					setGraphic(imageView);
-				}
-				this.setItem(item);
-			}
-		});
-		TableSP.setItems(getSanpham());
+		refeshTable();
 		Timkiem();
 
 		//
