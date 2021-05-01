@@ -30,13 +30,13 @@ public class Nhacungcap implements Serializable{
 	private String email;
 	private Integer sotienno;
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhacungcap")
-	private Set<Phieutrahang> phieutrahang = new HashSet<Phieutrahang>();
+	private List<Phieutrahang> phieutrahang;
 	
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhacungcap")
-	private Set<Phieunhaphang> phieunhaphang = new HashSet<Phieunhaphang>();
+	private List<Phieunhaphang> phieunhaphang;
 	
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch = FetchType.LAZY,mappedBy = "nhacungcap")
-	private Set<Phieudathang> phieudathang = new HashSet<Phieudathang>();
+	private List<Phieudathang> phieudathang;
 	//private Button xoa;
 	
 	public Nhacungcap() {
@@ -151,40 +151,40 @@ public class Nhacungcap implements Serializable{
 
 
 
-	public Set<Phieutrahang> getPhieutrahang() {
+	public List<Phieutrahang> getPhieutrahang() {
 		return phieutrahang;
 	}
 
 
 
-	public void setPhieutrahang(Set<Phieutrahang> phieutrahang) {
+	public void setPhieutrahang(List<Phieutrahang> phieutrahang) {
 		this.phieutrahang = phieutrahang;
 	}
 
 
 
-	public Set<Phieunhaphang> getPhieunhaphang() {
+	public List<Phieunhaphang> getPhieunhaphang() {
 		return phieunhaphang;
 	}
 
 
 
-	public void setPhieunhaphang(Set<Phieunhaphang> phieunhaphang) {
+	public void setPhieunhaphang(List<Phieunhaphang> phieunhaphang) {
 		this.phieunhaphang = phieunhaphang;
 	}
 
 
 
-	public Set<Phieudathang> getPhieudathang() {
+	public List<Phieudathang> getPhieudathang() {
 		return phieudathang;
 	}
-	
-	
 
 
 
-	public void setPhieudathang(Set<Phieudathang> phieudathang) {
+	public void setPhieudathang(List<Phieudathang> phieudathang) {
 		this.phieudathang = phieudathang;
 	}
+
+
 
 }

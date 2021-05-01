@@ -294,9 +294,9 @@ public class nhacungcapController implements Initializable {
 									try {
 										session.beginTransaction();
 										if (ncc != null) {
-											Set<Phieunhaphang> phieunhaphangs = ncc.getPhieunhaphang();
-											Set<Phieutrahang> phieutrahangs = ncc.getPhieutrahang();
-											Set<Phieudathang> phieudathangs = ncc.getPhieudathang();
+											List<Phieunhaphang> phieunhaphangs = ncc.getPhieunhaphang();
+											List<Phieutrahang> phieutrahangs = ncc.getPhieutrahang();
+											List<Phieudathang> phieudathangs = ncc.getPhieudathang();
 											for (Phieudathang phieudathang : phieudathangs) {
 												phieudathang.setNhacungcap(null);
 											}
@@ -315,7 +315,7 @@ public class nhacungcapController implements Initializable {
 									} catch (RuntimeException error) {
 										session.getTransaction().rollback();
 									}
-								} else if (type == ButtonType.NO) {
+								} else  {
 									alert.close();
 								}
 							});
