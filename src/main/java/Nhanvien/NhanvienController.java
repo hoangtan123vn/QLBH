@@ -177,18 +177,7 @@ public class NhanvienController implements Initializable {
 			return false;
 		}
 	}
-	
-/*	private boolean KiemtraSDT1() {
-		Pattern p = Pattern.compile("[0-9]+");
-		Matcher m = p.matcher(sdt_nv.getText());
-		if (m.find() && m.group().equals(sdt_nv.getText())) {
-			check_sdt.setText(null);
-			return true;
-		}
-		check_sdt.setText("Vui lòng điền số điện thoại hợp lệ");
-		return false;
-	}*/
-	
+
 
 	private boolean KiemTraCMND() {
 		Pattern p = Pattern.compile("[0-9]+");
@@ -273,7 +262,6 @@ public class NhanvienController implements Initializable {
 				session.beginTransaction();
 				Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,nvl);
 				nv2 = session.get(Nhanvien.class, idnv);
-					// nv2.setid(idnv);
 				nv2.setHovaten(hovatennv);
 				nv2.setChucvu(chucvunv);
 				nv2.setGioitinh(gioitinhnv);

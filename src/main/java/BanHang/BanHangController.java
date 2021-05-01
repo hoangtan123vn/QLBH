@@ -288,14 +288,13 @@ public class BanHangController implements Initializable {
 					alert.showAndWait();
 					session.getTransaction().rollback();
 				}
-
-				for (Sanpham spp1 : TableSP.getItems()) {
+				for (Sanpham spp2 : TableSP.getItems()) {
 					for (Chitiethoadon chitiethoadon123 : hoadon.getItems()) {
-						if (spp1.getMasanpham() == chitiethoadon123.getSanpham().getMasanpham()) {
-							if (chitiethoadon123.getSoluong() <= spp1.getDonvitinh()) {
+						if (spp2.getMasanpham() == chitiethoadon123.getSanpham().getMasanpham()) {
+							if (chitiethoadon123.getSoluong() <= spp2.getDonvitinh()) {
 								Sanpham capnhatSanpham = new Sanpham();
 
-								capnhatSanpham = session.get(Sanpham.class, spp1.getMasanpham());
+								capnhatSanpham = session.get(Sanpham.class, spp2.getMasanpham());
 								Sanpham spp = new Sanpham();
 								int masp = chitiethoadon123.getSanpham().getMasanpham();
 								spp = session.get(Sanpham.class, masp);

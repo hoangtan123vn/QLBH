@@ -101,17 +101,27 @@ public class HoadonDetailController implements Initializable {
     @FXML
     private ImageView exit;
     
+    @FXML
+    private AnchorPane ap;
+    
     @FXML public void exit(MouseEvent event) {
-    	if(GiaoDienQLController.getInstance() == null) {
-    		Stage stage = (Stage) exit.getScene().getWindow();
+    		if( GiaoDienQLController.getInstance() ==null) {
+        		Stage stage = (Stage) ap.getScene().getWindow();
+        		stage.close();
+        		GiaoDienNhanvienController.getInstance().falsedisable();
+          	}
+        	else if(GiaoDienNhanvienController.getInstance() ==null){
+        	Stage stage = (Stage) ap.getScene().getWindow();
     		stage.close();
-    		GiaoDienNhanvienController.getInstance().falsedisable();
-    	}
-    	else {
-    	Stage stage = (Stage) exit.getScene().getWindow();
-		stage.close();
-		GiaoDienQLController.getInstance().falsedisable();
-		}
+    		GiaoDienQLController.getInstance().falsedisable();
+    		}
+        	else {
+        		Stage stage = (Stage) ap.getScene().getWindow();
+        		stage.close();
+        		GiaoDienQLController.getInstance().falsedisable();
+        		GiaoDienNhanvienController.getInstance().falsedisable();
+        	}
+    	
     }	
   
     
@@ -119,8 +129,7 @@ public class HoadonDetailController implements Initializable {
     	
     	lbMahoadon.setText(String.valueOf((hoadon.getMahoadon())));
     	lbThoigianmua.setText(String.valueOf(hoadon.getThoigianmua()));
-    //	lbTonggia.setText(String.valueOf(hoadon.getMahoadon()));
-    	//System.out.println(hoadon.getKhachhang().toString());
+
     	if(hoadon.getKhachhang() == null) {
     		lbMakh.setText("[khách lẻ]");
     	}
@@ -134,32 +143,34 @@ public class HoadonDetailController implements Initializable {
     	else {
     		lbManv.setText((hoadon.getNhanvien()).getHovaten());
     	}
-    	//lbManv.setText((hoadon.getKhachhang().getTenkh()));
-   // 	int mahoadon = hoadon.getMahoadon();
     	lbTonggia.setText(String.valueOf(hoadon.getTonggia()));
     	IntilizeChitietHoadon(hoadon);
     	getChitietHoadon(hoadon);
     }
-   
-void read() {
-	 
-}
-    //add column
-    
-    
-    
-    
     @FXML
-    void goBack(ActionEvent e) throws IOException {
-    	if(GiaoDienQLController.getInstance() == null) {
-    		Stage stage = (Stage) exit.getScene().getWindow();
+    void goBack(ActionEvent e) {
+    	try {
+    		if( GiaoDienQLController.getInstance() ==null) {
+        		Stage stage = (Stage) ap.getScene().getWindow();
+        		stage.close();
+        		GiaoDienNhanvienController.getInstance().falsedisable();
+        		System.out.print(GiaoDienQLController.getInstance());
+        		System.out.print(GiaoDienNhanvienController.getInstance());
+        	}
+        	else if(GiaoDienNhanvienController.getInstance() ==null){
+        	Stage stage = (Stage) ap.getScene().getWindow();
     		stage.close();
-    		GiaoDienNhanvienController.getInstance().falsedisable();
-    	}
-    	else {
-    	Stage stage = (Stage) exit.getScene().getWindow();
-		stage.close();
-		GiaoDienQLController.getInstance().falsedisable();
+    		GiaoDienQLController.getInstance().falsedisable();
+    		}
+        	else {
+        		Stage stage = (Stage) ap.getScene().getWindow();
+        		stage.close();
+        		GiaoDienQLController.getInstance().falsedisable();
+        		GiaoDienNhanvienController.getInstance().falsedisable();
+        	}
+    	} catch (Exception error) {
+			// TODO: handle exception
+    		error.printStackTrace();
 		}
     }
     public ObservableList<Chitiethoadon> getChitietHoadon(Hoadon hoadon) {
@@ -172,19 +183,8 @@ void read() {
 			Join<Chitiethoadon, Sanpham> SanphamJoin = root.join("sanpham", JoinType.INNER);
 			Join<Chitiethoadon, Hoadon> HoadonJoin = root.join("hoadon",JoinType.INNER);
 			query.where(builder.equal(HoadonJoin.get("mahoadon"), mahoadon));
-			//WHERE HOADON.MAHOADON = 
+
 			List<Chitiethoadon> cthd = session.createQuery(query).getResultList();
-    	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C,Sanpham SP,Hoadon H WHERE H.mahoadon=C.hoadon.mahoadon and C.sanpham.masanpham=SP.masanpham and H.mahoadon = :hoadon";
-    	// String hql = "SELECT SP.tensanpham , C.soluong , SP.giatien FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
-    //	 String hql = " SELECT C.soluong FROM Chitiethoadon C INNER JOIN C.sanpham SP INNER JOIN C.hoadon H WHERE H.mahoadon = :hoadon";
-	/*		 String hql = " SELECT C.soluong FROM Chitiethoadon C,Hoadon H WHERE C.hoadon.mahoadon=H.mahoadon and C.hoadon.mahoadon = :hoadon";
-    	 Query query = session.createQuery(hql);
-	    query.setParameter("hoadon", mahoadon);
-		
-		// List<Object[]> tk1 = query.list();
-		// ObservableList<Object[]> list = FXCollections.observableArrayList(query.list());
-		// List<Object> eList = session.createQuery(query).getResultList();
-		 List<Chitiethoadon> tk1 = query.getResultList();*/
 		 for(Chitiethoadon b : cthd) {
 			 TableHD.add(b);
 			 System.out.println(b);
