@@ -292,11 +292,11 @@ public class ThemNVController implements Initializable {
 
 	@FXML
 	void ThemNVButton(ActionEvent event) throws Exception {
-		Session session = HibernateUtils.getSessionFactory().openSession();
 		if (KiemTraTenKH() & KiemTraNgaySinh() & KiemTraChucVu() & KiemTraCMND() & KiemTraDiaChi() & KiemTraGioiTinh()
 				& KiemTraSDT() & KiemTraNgayVaoLam() & KiemTraAnhDaiDien() & KiemTraTenTaiKhoan() & KiemTraMatKhau()
 				& SosanhMatKhau()) {
-			try {
+			Session session = HibernateUtils.getSessionFactory().openSession();
+			try {	
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Thêm nhân viên");
 				LocalDate t2 = tfns.getValue();
