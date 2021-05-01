@@ -111,11 +111,7 @@ public class LoginController implements Initializable {
 	}
 	@FXML
 	void login(ActionEvent event) {
-
 		try {
-			System.out.println(emailIdField.getText());
-			System.out.println(passwordField.getText());
-
 			if (emailIdField.getText().isEmpty()) {
 				thongbaologin.setVisible(false);
 				thongbao.setVisible(true);
@@ -151,7 +147,8 @@ public class LoginController implements Initializable {
 				String matkhau = (String) checktk1[1];
 				String chucvu = (String) checktk1[2];
 				if (tentaikhoan.equals(username.trim())
-						&& matkhau.equals(password.trim()) &&chucvu.equals("Quản lý")) {
+						&& matkhau.equals(password.trim()) 
+						&&chucvu.equals("Quản lý")) {
 							taikhoan = session.get(Taikhoannv.class, tentaikhoan);
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
 							Parent tmp = loader.load();
@@ -177,7 +174,8 @@ public class LoginController implements Initializable {
 							stage.setScene(scene);
 							stage.show();
 						} else if (tentaikhoan.equals(username.trim())
-								&& matkhau.equals(password.trim()) &&chucvu.equals("Nhân viên")) {
+								&& matkhau.equals(password.trim()) 
+								&&chucvu.equals("Nhân viên")) {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodiennhanvien.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);
@@ -203,10 +201,8 @@ public class LoginController implements Initializable {
 							stage.setScene(scene);
 							stage.show();
 						}
-
 					}
 		}
-
 		catch (Exception e) {
 			e.printStackTrace();
 
