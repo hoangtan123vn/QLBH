@@ -139,30 +139,20 @@ public class LoginController implements Initializable {
 			}
 			Session session = HibernateUtils.getSessionFactory().openSession();
 			String username = emailIdField.getText();
-			String password = passwordField.getText();
-			Taikhoannv taikhoannv = new Taikhoannv(username, password);
+			String password = passwordField.getText();			
 			session.getTransaction().begin();
-			String hql = "FROM Taikhoannv A WHERE A.username = :username and A.password = :password";
 			String hql1 = "SELECT A.username,A.password,B.chucvu FROM Taikhoannv A INNER JOIN A.nhanvien B WHERE A.username = :username and A.password = :password ";
-			Query query = session.createQuery(hql);
-			query.setParameter("username", username);
-			query.setParameter("password", password);
 			Query query1 = session.createQuery(hql1);
 			query1.setParameter("username", username);
 			query1.setParameter("password", password);
 			List<Object[]> tk1 = query1.list();
-			List<Taikhoannv> checktaikhoan = query.list();
-			for (Taikhoannv checktk1 : checktaikhoan) {
-				if (checktk1.getusername().equals(taikhoannv.getusername().trim())
-						&& checktk1.getpassword().equals(taikhoannv.getpassword().trim())) {
-					for (Object[] singleRowValues : tk1) {
-						String tentaikhoan = (String) singleRowValues[0];
-						String matkhau = (String) singleRowValues[1];
-						String cvString = (String) singleRowValues[2];
-						if (tentaikhoan.equals(checktk1.getusername().trim())
-								&& matkhau.equals(checktk1.getpassword().trim()) && cvString.equals("Quản lý")) {
-							String tk = checktk1.getusername();
-							taikhoan = session.get(Taikhoannv.class, tk);
+			for (Object[] checktk1 : tk1) {
+				String tentaikhoan = (String) checktk1[0];
+				String matkhau = (String) checktk1[1];
+				String chucvu = (String) checktk1[2];
+				if (tentaikhoan.equals(username.trim())
+						&& matkhau.equals(password.trim()) &&chucvu.equals("Quản lý")) {
+							taikhoan = session.get(Taikhoannv.class, tentaikhoan);
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodienquanly.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);
@@ -186,13 +176,12 @@ public class LoginController implements Initializable {
 							stage.hide();
 							stage.setScene(scene);
 							stage.show();
-						} else if (tentaikhoan.equals(checktk1.getusername().trim())
-								&& matkhau.equals(checktk1.getpassword().trim()) && cvString.equals("Nhân viên")) {
+						} else if (tentaikhoan.equals(username.trim())
+								&& matkhau.equals(password.trim()) &&chucvu.equals("Nhân viên")) {
 							FXMLLoader loader = new FXMLLoader(getClass().getResource("giaodiennhanvien.fxml"));
 							Parent tmp = loader.load();
 							Scene scene = new Scene(tmp);
-							String tk = checktk1.getusername();
-							taikhoan = session.get(Taikhoannv.class, tk);
+							taikhoan = session.get(Taikhoannv.class, tentaikhoan);
 							Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 							scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 								@Override
@@ -216,12 +205,9 @@ public class LoginController implements Initializable {
 						}
 
 					}
-				}
-			}
 		}
 
 		catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 
 		}
