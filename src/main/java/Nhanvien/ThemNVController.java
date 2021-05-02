@@ -158,13 +158,13 @@ public class ThemNVController implements Initializable {
 
 	}
 
-	private boolean KiemTraTenTaiKhoan() {
+	private boolean KiemTraTenTaiKhoan(String tentaikhoan) {
 		Pattern p = Pattern.compile("^[a-zA-Z0-9]*$");
-		Matcher m = p.matcher(user.getText());
-		if (user.getText().isEmpty()) {
+		Matcher m = p.matcher(tentaikhoan);
+		if (tentaikhoan.isEmpty()) {
 			check_taikhoan.setText("Vui lòng điền tài khoản hợp lệ");
 			return false;
-		} else if (m.find() && m.group().equals(user.getText())) {
+		} else if (m.find() && m.group().equals(tentaikhoan)) {
 			check_taikhoan.setText(null);
 			return true;
 		} else {
@@ -173,21 +173,21 @@ public class ThemNVController implements Initializable {
 		}
 	}
 
-	private boolean KiemTraMatKhau() {
+	private boolean KiemTraMatKhau(String matkhau) {
 		Pattern p = Pattern.compile("^[a-zA-Z0-9]*$");
-		Matcher m = p.matcher(pass.getText());
-		if (pass.getText().isEmpty()) {
+		Matcher m = p.matcher(matkhau);
+		if (matkhau.isEmpty()) {
 			check_matkhau.setText("Vui lòng điền mật khẩu hợp lệ");
 			return false;
-		} else if (m.find() && m.group().equals(pass.getText())) {
+		} else if (m.find() && m.group().equals(matkhau)) {
 			check_matkhau.setText(null);
 			return true;
 		}
 		return true;
 	}
 
-	private boolean SosanhMatKhau() {
-		if (xacnhanpass.getText().equals(pass.getText())) {
+	private boolean SosanhMatKhau(String matkhau,String matkhau2) {
+		if (matkhau2.equals(matkhau)) {
 			check_xacnhanmk.setText(null);
 			return true;
 		} else {
@@ -196,10 +196,10 @@ public class ThemNVController implements Initializable {
 		}
 	}
 
-	private boolean KiemTraTenKH() {
+	private boolean KiemTraTenKH(String tennhanvien) {
 		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
-		Matcher m = p.matcher(tfhovaten.getText());
-		if (m.find() && m.group().equals(tfhovaten.getText())) {
+		Matcher m = p.matcher(tennhanvien);
+		if (m.find() && m.group().equals(tennhanvien)) {
 			check_hoten.setText(null);
 			return true;
 		} else {
@@ -208,8 +208,8 @@ public class ThemNVController implements Initializable {
 		}
 	}
 
-	private boolean KiemTraNgaySinh() {
-		if (tfns.getValue() == null) {
+	private boolean KiemTraNgaySinh(LocalDate ngaysinh) {
+		if (ngaysinh == null) {
 			check_ngaysinh.setText("Vui lòng điền số ngày sinh hợp lệ");
 			return false;
 		}
@@ -217,8 +217,8 @@ public class ThemNVController implements Initializable {
 		return true;
 	}
 
-	private boolean KiemTraChucVu() {
-		if (tfcv.getValue() == null) {
+	private boolean KiemTraChucVu(String chucvu) {
+		if (chucvu == null) {
 			check_chucvu.setText("Vui lòng chọn chức vụ nhân viên");
 			return false;
 		}
@@ -226,8 +226,8 @@ public class ThemNVController implements Initializable {
 		return true;
 	}
 
-	private boolean KiemTraGioiTinh() {
-		if (tfgt.getValue() == null) {
+	private boolean KiemTraGioiTinh(String gioitinh) {
+		if (gioitinh == null) {
 			check_gioitinh.setText("Vui lòng chọn giới tính nhân viên");
 			return false;
 		}
@@ -236,13 +236,13 @@ public class ThemNVController implements Initializable {
 
 	}
 
-	private boolean KiemTraSDT() {
+	private boolean KiemTraSDT(String sdt) {
 		Pattern p = Pattern.compile("[0-9]+");
-		Matcher m = p.matcher(tfsdt.getText());
-		if (m.find() && m.group().equals(tfsdt.getText()) && tfsdt.getText().matches("\\d{10}|\\d{11}")) {
+		Matcher m = p.matcher(sdt);
+		if (m.find() && m.group().equals(sdt) && sdt.matches("\\d{10}|\\d{11}")) {
 			check_sdt.setText(null);
 			return true;
-		} else if (tfsdt.getText().length() < 10) {
+		} else if (sdt.length() < 10) {
 			check_sdt.setText("Số điện thoại không đủ 10 số");
 			return false;
 		} else {
@@ -251,10 +251,10 @@ public class ThemNVController implements Initializable {
 		}
 	}
 
-	private boolean KiemTraCMND() {
+	private boolean KiemTraCMND(String cmnd) {
 		Pattern p = Pattern.compile("[0-9]+");
-		Matcher m = p.matcher(tfcmnd.getText());
-		if (m.find() && m.group().equals(tfcmnd.getText())) {
+		Matcher m = p.matcher(cmnd);
+		if (m.find() && m.group().equals(cmnd)) {
 			check_cmnd.setText(null);
 			return true;
 		} else {
@@ -263,8 +263,8 @@ public class ThemNVController implements Initializable {
 		}
 	}
 
-	private boolean KiemTraDiaChi() {
-		if (tfdc.getText().isEmpty()) {
+	private boolean KiemTraDiaChi(String diachi) {
+		if (diachi.isEmpty()) {
 			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
 			return false;
 		}
@@ -272,8 +272,8 @@ public class ThemNVController implements Initializable {
 		return true;
 	}
 
-	private boolean KiemTraNgayVaoLam() {
-		if (tfngayvaolam.getValue() == null) {
+	private boolean KiemTraNgayVaoLam(LocalDate ngayvaolam) {
+		if (ngayvaolam == null) {
 			check_ngayvaolam.setText("Vui lòng điền số ngày ở hợp lệ");
 			return false;
 		}
@@ -292,27 +292,29 @@ public class ThemNVController implements Initializable {
 
 	@FXML
 	void ThemNVButton(ActionEvent event) throws Exception {
-		if (KiemTraTenKH() & KiemTraNgaySinh() & KiemTraChucVu() & KiemTraCMND() & KiemTraDiaChi() & KiemTraGioiTinh()
-				& KiemTraSDT() & KiemTraNgayVaoLam() & KiemTraAnhDaiDien() & KiemTraTenTaiKhoan() & KiemTraMatKhau()
-				& SosanhMatKhau()) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Thêm nhân viên");
+		LocalDate t2 = tfns.getValue();
+		String t3 = tfcv.getValue();
+		String t4 = tfgt.getValue();
+		String t1 = tfhovaten.getText();
+		String sodienthoai = tfsdt.getText();
+		String t6 =tfcmnd.getText();
+		String t7 = tfdc.getText();
+		LocalDate t8 = tfngayvaolam.getValue();
+		String taikhoan = user.getText();
+		String matkhau = pass.getText();
+		String xacnhanmatkhau = xacnhanpass.getText();
+		if (KiemTraTenKH(t1) & KiemTraNgaySinh(t2) & KiemTraChucVu(t3) & KiemTraCMND(t6) & KiemTraDiaChi(t7) & KiemTraGioiTinh(t4)
+				& KiemTraSDT(sodienthoai) & KiemTraNgayVaoLam(t8) & KiemTraAnhDaiDien() & KiemTraTenTaiKhoan(taikhoan) & KiemTraMatKhau(matkhau)
+				& SosanhMatKhau(matkhau,xacnhanmatkhau)) {
 			Session session = HibernateUtils.getSessionFactory().openSession();
-			try {	
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Thêm nhân viên");
-				LocalDate t2 = tfns.getValue();
-				String t3 = tfcv.getValue();
-				String t4 = tfgt.getValue();
-				String t1 = tfhovaten.getText();
-				String sodienthoai = tfsdt.getText();
-				int t6 = Integer.parseInt(tfcmnd.getText());
-				String t7 = tfdc.getText();
-				LocalDate t8 = tfngayvaolam.getValue();
-				String taikhoan = user.getText();
-				String matkhau = pass.getText();
+			try {
+				int cmnd = Integer.parseInt(t6);
 				FileInputStream fis = new FileInputStream(file);
 				byte[] bFile = new byte[(int) (file.length())];
 				fis.read(bFile);
-				Nhanvien nv = new Nhanvien(t1, t2, t3, t4, sodienthoai, t6, t7, bFile, t8);
+				Nhanvien nv = new Nhanvien(t1, t2, t3, t4, sodienthoai, cmnd, t7, bFile, t8);
 				Taikhoannv tk = new Taikhoannv(taikhoan, matkhau, nv);
 				session.beginTransaction();
 				String hql = "FROM Taikhoannv A WHERE A.username = :username";
@@ -334,8 +336,6 @@ public class ThemNVController implements Initializable {
 				alert.showAndWait();
 			} catch (RuntimeException error) {
 				error.printStackTrace();
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Thêm nhân viên");
 				alert.setContentText("Thêm nhân viên thất bại  !");
 				alert.showAndWait();
 				session.getTransaction().rollback();
