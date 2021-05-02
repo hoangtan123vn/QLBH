@@ -80,6 +80,7 @@ public class DathangDetailController implements Initializable {
 		GiaoDienQLController.getInstance().falsedisable();
 		stage.close();
 	}
+	
 
 	public ObservableList<Chitietdathang> getChitietdathang(Phieudathang phieudathang) {
 		int Phieudathang = phieudathang.getMadathang();

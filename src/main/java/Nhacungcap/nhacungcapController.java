@@ -315,7 +315,7 @@ public class nhacungcapController implements Initializable {
 									} catch (RuntimeException error) {
 										session.getTransaction().rollback();
 									}
-								} else  {
+								} else {
 									alert.close();
 								}
 							});
