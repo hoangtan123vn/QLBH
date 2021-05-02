@@ -151,10 +151,10 @@ public class NhanvienController implements Initializable {
 	@FXML
 	private ComboBox<String> cb_gioitinh;
 
-	private boolean KiemTraTenKH() {
+	private boolean KiemTraTenNV(String tennhanvien) {
 		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
-		Matcher m = p.matcher(hovaten_nv.getText());
-		if (m.find() && m.group().equals(hovaten_nv.getText())) {
+		Matcher m = p.matcher(tennhanvien);
+		if (m.find() && m.group().equals(tennhanvien)) {
 			check_hovaten.setText(null);
 			return true;
 		} else {
@@ -163,10 +163,10 @@ public class NhanvienController implements Initializable {
 		}
 	}
 
-	private boolean KiemTraSDT() {
+	private boolean KiemTraSDT(String sdt) {
 		Pattern p = Pattern.compile("[0-9]+");
-		Matcher m = p.matcher(sdt_nv.getText());
-		if (m.find() && m.group().equals(sdt_nv.getText()) && sdt_nv.getText().matches("\\d{10}|\\d{11}")) {
+		Matcher m = p.matcher(sdt);
+		if (m.find() && m.group().equals(sdt) && sdt.matches("\\d{10}|\\d{11}")) {
 			check_sdt.setText(null);
 			return true;
 		} else if (sdt_nv.getText().length() < 10) {
@@ -179,10 +179,10 @@ public class NhanvienController implements Initializable {
 	}
 
 
-	private boolean KiemTraCMND() {
+	private boolean KiemTraCMND(String cmnd) {
 		Pattern p = Pattern.compile("[0-9]+");
-		Matcher m = p.matcher(cmnd_nv.getText());
-		if (m.find() && m.group().equals(cmnd_nv.getText())) {
+		Matcher m = p.matcher(cmnd);
+		if (m.find() && m.group().equals(cmnd)) {
 			check_cmnd.setText(null);
 			return true;
 		} else {
@@ -190,9 +190,11 @@ public class NhanvienController implements Initializable {
 			return false;
 		}
 	}
+	
+	
 
-	private boolean KiemTraDiaChi() {
-		if (diachi_nv.getText().isEmpty()) {
+	private boolean KiemTraDiaChi(String diachi) {
+		if (diachi.isEmpty()) {
 			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
 			return false;
 		}
@@ -245,20 +247,21 @@ public class NhanvienController implements Initializable {
 
 	@FXML
 	void luucapnhat(ActionEvent event) {
-		if (KiemTraTenKH() & KiemTraSDT() & KiemTraCMND() & KiemTraDiaChi()) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Cập nhật ");
-			int idnv = (Integer.parseInt(id_nv.getText()));
-			String hovatennv = hovaten_nv.getText();
-			LocalDate ngaysinhnv = ns_nv.getValue();
-			String chucvunv = cb_chucvu.getValue();
-			String gioitinhnv = cb_gioitinh.getValue();
-			LocalDate nvl = ngayvaolam.getValue();
-			String sdtnv = (sdt_nv.getText());
-			int cmndnv = Integer.parseInt(cmnd_nv.getText());
-			String diachinv = diachi_nv.getText();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Cập nhật ");
+		int idnv = (Integer.parseInt(id_nv.getText()));
+		String hovatennv = hovaten_nv.getText();
+		LocalDate ngaysinhnv = ns_nv.getValue();
+		String chucvunv = cb_chucvu.getValue();
+		String gioitinhnv = cb_gioitinh.getValue();
+		LocalDate nvl = ngayvaolam.getValue();
+		String sdtnv = sdt_nv.getText();
+		String cmndnv = cmnd_nv.getText();
+		String diachinv = diachi_nv.getText();
+		if (KiemTraTenNV(hovatennv) & KiemTraSDT(sdtnv) & KiemTraCMND(cmndnv) &KiemTraDiaChi(diachinv)) {
 			Session session = HibernateUtils.getSessionFactory().openSession();
 			try {
+				int cmnd = Integer.parseInt(cmndnv);
 				session.beginTransaction();
 				Nhanvien nv2 = new Nhanvien();
 				nv2 = session.get(Nhanvien.class, idnv);
@@ -268,7 +271,7 @@ public class NhanvienController implements Initializable {
 				nv2.setDiachi(diachinv);
 				nv2.setNgaysinh(ngaysinhnv);
 				nv2.setSdt(sdtnv);
-				nv2.setCmnd(cmndnv);
+				nv2.setCmnd(cmnd);
 				nv2.setNgayvaolam(nvl);
 				session.save(nv2);
 				alert.setContentText("Cập nhật nhân viên thành công !");
