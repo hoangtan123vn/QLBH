@@ -1,11 +1,17 @@
 package Nhanvien;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+import org.hibernate.Session;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 
+import QLBH.HibernateUtils;
 import entities.*;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -19,82 +25,15 @@ public class NhanvienControllerTest extends Main{
 	private NhanvienController createTestSubject() {
 		return new NhanvienController();
 	}
-
-	
-/*	@Test
-	public void testCapNhatNhanvien() throws Exception {
-		NhanvienController testSubject;
-		ActionEvent event = null;
-
-		// default test
-		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "CapNhatNhanvien", new Object[] { ActionEvent.class });
-	}
-
-	
-	@Test
-	public void testListNhanvien() throws Exception {
-		NhanvienController testSubject;
-		ActionEvent event = null;
-
-		// default test
-		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "ListNhanvien", new Object[] { ActionEvent.class });
-	}
-
-	
-	@Test
-	public void testReset() throws Exception {
-		NhanvienController testSubject;
-		ActionEvent event = null;
-
-		// default test
-		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "Reset", new Object[] { ActionEvent.class });
-	}
-
-	
-	@Test
-	public void testThemNV() throws Exception {
-		NhanvienController testSubject;
-		ActionEvent event = null;
-
-		// default test
-		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "ThemNV", new Object[] { ActionEvent.class });
-	}
-
-	
-	@Test
-	public void testXoaNhanvien() throws Exception {
-		NhanvienController testSubject;
-		ActionEvent event = null;
-
-		// default test
-		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "XoaNhanvien", new Object[] { ActionEvent.class });
-	}*/
-
-	
-	@Test
-	public void testFalsedisable() throws Exception {
-		NhanvienController testSubject;
-		
-		// default test
-		testSubject =createTestSubject();
-		testSubject.falsedisable();
-	}
-
 	
 	@Test
 	public void testGetNhanvien() throws Exception {
 		NhanvienController testSubject;
 		ObservableList<Nhanvien> result;
-
-		// default test
 		testSubject = createTestSubject();
 		result = testSubject.getNhanvien();
-		System.out.print(result);
+		assertNotNull(result);
+		assertTrue("Hiển thị nhân viên thành công",result.size()>0);
 	}
 
 	
@@ -113,64 +52,37 @@ public class NhanvienControllerTest extends Main{
 	@Test
 	public void testInitializeNHANVIEN() throws Exception {
 		NhanvienController testSubject;
-
-		// default test
 		testSubject = createTestSubject();
 		testSubject.initializeNHANVIEN();
 	}
 
 	
-	/*@Test
-	public void testLuucapnhat() throws Exception {
-		NhanvienController testSubject;
-		ActionEvent event = null;
-
-		// default test
-		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "luucapnhat", new Object[] { ActionEvent.class });
-	}*/
-
-
-/*	@Test
-	public void testReload() throws Exception {
-		NhanvienController testSubject;
-		ActionEvent event = null;
-
-		// default test
-		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "reload", new Object[] { ActionEvent.class });
-	}
-
-	
 	@Test
-	public void testReloadNHANVIEN() throws Exception {
+	public void testLuucapnhat() throws Exception {
+		Session session = HibernateUtils.getSessionFactory().openSession();
 		NhanvienController testSubject;
-
-		// default test
+		
 		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "reloadNHANVIEN");
 	}
 
 	
 	@Test
 	public void testSearch() throws Exception {
 		NhanvienController testSubject;
-
-		// default test
 		testSubject = createTestSubject();
-		Whitebox.invokeMethod(testSubject, "search");
+		
 	}
 
 	
-	@Test
+/*	@Test
 	public void testSetCellValueFromTabletoTexfField() throws Exception {
 		NhanvienController testSubject;
 
 		// default test
 		testSubject = createTestSubject();
 		Whitebox.invokeMethod(testSubject, "setCellValueFromTabletoTexfField");
-	}*/
-
+	}
+*/
 	
 	@Test
 	public void testTruedisable() throws Exception {
@@ -182,16 +94,4 @@ public class NhanvienControllerTest extends Main{
 	}
 
 
-
-	@Override
-    protected Parent Main {
-        Parent parent = null;
-        try {
-            parent = FXMLLoader.load(getClass().getResource("sample.fxml"));
-            return parent;
-        } catch (IOException ex) {
-            // TODO ...
-        }
-        return parent;
-    }
 }
