@@ -247,7 +247,7 @@ public class NhanvienController implements Initializable {
 	void luucapnhat(ActionEvent event) {
 		if (KiemTraTenKH() & KiemTraSDT() & KiemTraCMND() & KiemTraDiaChi()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Cap nhat thanh cong ");
+			alert.setTitle("Cập nhật ");
 			int idnv = (Integer.parseInt(id_nv.getText()));
 			String hovatennv = hovaten_nv.getText();
 			LocalDate ngaysinhnv = ns_nv.getValue();
@@ -260,7 +260,7 @@ public class NhanvienController implements Initializable {
 			Session session = HibernateUtils.getSessionFactory().openSession();
 			try {
 				session.beginTransaction();
-				Nhanvien nv2 = new Nhanvien(idnv, hovatennv, ngaysinhnv, chucvunv, gioitinhnv, sdtnv, cmndnv, diachinv,nvl);
+				Nhanvien nv2 = new Nhanvien();
 				nv2 = session.get(Nhanvien.class, idnv);
 				nv2.setHovaten(hovatennv);
 				nv2.setChucvu(chucvunv);
@@ -269,6 +269,7 @@ public class NhanvienController implements Initializable {
 				nv2.setNgaysinh(ngaysinhnv);
 				nv2.setSdt(sdtnv);
 				nv2.setCmnd(cmndnv);
+				nv2.setNgayvaolam(nvl);
 				session.save(nv2);
 				alert.setContentText("Cập nhật nhân viên thành công !");
 				alert.showAndWait();
