@@ -34,7 +34,7 @@ public class BanHangControllerTest {
 		testSubject = createTestSubject();
 		result = testSubject.getSanpham();
 		assertNotNull(result);
-		assertTrue("Hiển thị danh sách sản phẩm thành công",result.size()>0);
+		assertTrue("Hiển thị danh sách sản phẩm thất bại",result.size()>0);
 	}
 	
 	@Test
@@ -49,20 +49,7 @@ public class BanHangControllerTest {
 		loaisanpham.add(combobox1);
 		loaisanpham.add(combobox2);
 		loaisanpham.toString();
-		assertEquals(loaisanpham, loaisanphamList,"Hiển thị combobox loại sản phẩm");
+		assertEquals(loaisanpham, loaisanphamList,"Thất bại");
 	}
 	
-	@Test
-	@DisplayName("Tìm kiếm sản phẩm với thông tin sai")
-	public void TimKiemThongTin() {
-		Session session = HibernateUtils.getSessionFactory().openSession();
-		BanHangController timkiemsp;
-		timkiemsp = createTestSubject();
-		ObservableList<Sanpham> DSSP = timkiemsp.getSanpham();
-		ArrayList<String> DSSPtimkiem = new ArrayList<>();
-		String tensanpham ="zzz";
-		assertEquals(tensanpham, DSSPtimkiem,"Hiển thị dữ liệu sai");
-		
-		
-	}
 }

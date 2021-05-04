@@ -50,6 +50,12 @@ public class Sanpham implements Serializable{
 		this.imagesp=imagesp;
 		
 	}
+	
+	public Sanpham(String tensanpham) {
+		super();
+		this.tensanpham=tensanpham;
+	}
+	
 	public Sanpham(String tensanpham,String loaisanpham,String donvi,int giatien,int donvitinh) {
 		super();
 		this.tensanpham=tensanpham;

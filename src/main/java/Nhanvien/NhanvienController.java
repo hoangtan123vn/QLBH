@@ -151,7 +151,7 @@ public class NhanvienController implements Initializable {
 	@FXML
 	private ComboBox<String> cb_gioitinh;
 
-	private boolean KiemTraTenNV(String tennhanvien) {
+	public boolean KiemTraTenNV(String tennhanvien) {
 		Pattern p = Pattern.compile("^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝàáâãèéêìíòóôõùúýĂăĐđĨĩŨũƠơƯưẠ-ỹ ]+$");
 		Matcher m = p.matcher(tennhanvien);
 		if (m.find() && m.group().equals(tennhanvien)) {
@@ -163,7 +163,7 @@ public class NhanvienController implements Initializable {
 		}
 	}
 
-	private boolean KiemTraSDT(String sdt) {
+	public boolean KiemTraSDT(String sdt) {
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(sdt);
 		if (m.find() && m.group().equals(sdt) && sdt.matches("\\d{10}|\\d{11}")) {
@@ -179,7 +179,7 @@ public class NhanvienController implements Initializable {
 	}
 
 
-	private boolean KiemTraCMND(String cmnd) {
+	public boolean KiemTraCMND(String cmnd) {
 		Pattern p = Pattern.compile("[0-9]+");
 		Matcher m = p.matcher(cmnd);
 		if (m.find() && m.group().equals(cmnd)) {
@@ -193,9 +193,8 @@ public class NhanvienController implements Initializable {
 	
 	
 
-	private boolean KiemTraDiaChi(String diachi) {
+	public boolean KiemTraDiaChi(String diachi) {
 		if (diachi.isEmpty()) {
-			check_diachi.setText("Vui lòng điền địa chỉ phù hợp");
 			return false;
 		}
 		check_diachi.setText(null);
